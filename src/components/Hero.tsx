@@ -30,7 +30,7 @@ const Greeting = React.memo((props: GreetingProps) => {
   useEffect(() => {
     const request = () => {
       return fetch(
-        '//ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=aabbccsmith&api_key=b6ad96319cd457234c3fc87a03bb0989&format=json&limit=5',
+        '//ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=aabbccsmith&api_key=b6ad96319cd457234c3fc87a03bb0989&format=json&limit=1',
       )
         .then((res) => res.json())
         .then((data) => ({ loading: false, data: data.recenttracks }));
