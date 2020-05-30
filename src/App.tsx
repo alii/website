@@ -9,7 +9,7 @@ const GetInTouchOuter = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px;
+  padding: 50px; 
   padding-top: 10px;
 
   h1 {
@@ -19,7 +19,7 @@ const GetInTouchOuter = styled.div`
 
 const ContactsWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column;  
   z-index: 10;
 
   padding: 20px;

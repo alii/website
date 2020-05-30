@@ -20,42 +20,74 @@ const Button = styled.button`
   outline-color: wheat;
 `;
 
-const Greeting = React.memo(() => {
-  return <p>Good {getTime()}.</p>;
+type GreetingProps = {
+  setBackground: (url: string) => void;
+};
+
+const Greeting = React.memo((props: GreetingProps) => {
+  const [data, setData] = useState<{ loading: boolean; data: any }>({ loading: true, data: {} });
+
+  useEffect(() => {
+    const request = () => {
+      return fetch(
+        'http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=aabbccsmith&api_key=b6ad96319cd457234c3fc87a03bb0989&format=json&limit=5',
+      )
+        .then((res) => res.json())
+        .then((data) => ({ loading: false, data: data.recenttracks }));
+    };
+
+    request().then(setData);
+  }, []);
+
+  if (data.loading) return <p>_____________</p>;
+
+  if (data.data.track[0]['@attr']?.nowplaying) {
+    const art = data.data.track[0].image.find((image: { size: string; '#text': string }) => image.size === 'extralarge')['#text'];
+    props.setBackground(art);
+
+    return (
+      <p>
+        Listening to <b>{data.data.track[0].name}</b> by <b>{data.data.track[0].artist['#text']}</b> on <b>Spotify</b>
+      </p>
+    );
+  }
+
+  return <p>Good {getTime()}</p>;
 });
 
 const getScale = (height: number): number => -(height / 1000) + 1;
 const getMaximum = (a: number, b: number) => (a > b ? b : a);
 
-const StyledIntro = styled.div<{ position: number }>`
+const StyledIntro = styled.div<{ position: number; background: string }>`
   min-height: 100%;
   box-sizing: border-box;
   flex: 1;
   padding: 30px;
-  display: flex; 
+  display: flex;
   flex-direction: column;
-  background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,1)) , url('//source.unsplash.com/ciO5L8pin8A/${window.innerWidth}x${window.innerHeight}') no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url(${(props) => props.background}) no-repeat center center;
   top: 0;
   position: sticky;
   transition: all 1s;
-  
+
   background-size: cover;
   overflow: hidden;
 
-  .top, .bottom {
+  .top,
+  .bottom {
     display: flex;
 
     .fill {
       flex: 1;
     }
-  } 
-   
+  }
+
   .center {
     flex: 1;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    
+
     h1 {
       font-size: 450%;
       letter-spacing: 3px;
@@ -67,6 +99,9 @@ const StyledIntro = styled.div<{ position: number }>`
 
 const Hero = () => {
   const [height, setHeight] = useState(window.scrollY);
+  const [background, setBackground] = useState<string>(
+    `//source.unsplash.com/ciO5L8pin8A/${window.innerWidth}x${window.innerHeight}`,
+  );
 
   useEffect(() => {
     const listener = () => {
@@ -79,6 +114,7 @@ const Hero = () => {
 
   return (
     <StyledIntro
+      background={background}
       position={height}
       style={{
         transform: `scale(${getScale(height)})`,
@@ -88,7 +124,16 @@ const Hero = () => {
     >
       <div className="top">
         <div className="fill">
-          <Greeting />
+          <Button
+            onClick={() => {
+              window.scrollBy({
+                top: document.body.scrollHeight,
+                behavior: 'smooth',
+              });
+            }}
+          >
+            Get in touch
+          </Button>
         </div>
         <p>TypeScript + React + Node.js</p>
       </div>
@@ -100,16 +145,7 @@ const Hero = () => {
         <div className="fill">
           Currently working at <a href={'https://edge.gg'}>Edge</a>
         </div>
-        <Button
-          onClick={() => {
-            window.scrollBy({
-              top: document.body.scrollHeight,
-              behavior: 'smooth',
-            });
-          }}
-        >
-          Get in touch
-        </Button>
+        <Greeting setBackground={setBackground} />
       </div>
     </StyledIntro>
   );
