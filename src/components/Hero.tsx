@@ -36,7 +36,12 @@ const Greeting = React.memo((props: GreetingProps) => {
         .then((data) => ({ loading: false, data: data.recenttracks }));
     };
 
-    request().then(setData);
+    const load = () => request().then(setData);
+
+    load();
+    const interval = setInterval(load, 1000 * 30);
+
+    return () => clearInterval(interval);
   }, []);
 
   if (data.loading) return <p>_____________</p>;
@@ -93,6 +98,13 @@ const StyledIntro = styled.div<{ position: number; background: string }>`
       letter-spacing: 3px;
       color: black;
       text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+
+      @supports (-webkit-text-stroke: 1px white) {
+        color: transparent;
+        text-shadow: none;
+        -webkit-text-stroke: 2px white;
+        text-stroke: 2px white;
+      }
     }
   }
 `;
