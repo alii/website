@@ -4,13 +4,18 @@ import Hero from './components/Hero';
 
 import discord from './assets/discord.png';
 import email from './assets/email.png';
+import Store from './core/store';
 
 const GetInTouchOuter = styled.div`
   display: flex;
+  position: fixed;
+  top: 50%;
+  left: 50%;
   flex-direction: column;
   align-items: center;
-  padding: 50px; 
-  padding-top: 10px;
+  padding: 50px;
+
+  transform: translateX(-50%) translateY(-50%);
 
   h1 {
     z-index: 10;
@@ -19,8 +24,9 @@ const GetInTouchOuter = styled.div`
 
 const ContactsWrapper = styled.div`
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   z-index: 10;
+  transition: all 1s;
 
   padding: 20px;
   background: black;
@@ -43,19 +49,45 @@ const ContactsWrapper = styled.div`
   }
 `;
 
-const App = () => (
-  <>
-    <Hero />
-    <div>
+const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+const App = () => {
+  const store = Store.useStore();
+  const showGetInTouch = store.get('showGetInTouch');
+
+  return (
+    <MainContainer>
+      <Hero />
       <GetInTouchOuter>
         <h1>Get in touch</h1>
-        <ContactsWrapper>
-          <h4
-            style={{ cursor: 'pointer' }}
-            onClick={() => window.scrollBy({ top: -document.body.scrollHeight, behavior: 'smooth' })}
+        <ContactsWrapper
+          style={{
+            transform: `scaleY(${!showGetInTouch ? '0' : '1'}) scaleX(${!showGetInTouch ? '0.2' : '1'})`,
+            opacity: !showGetInTouch ? '0' : '1',
+            clipPath: showGetInTouch
+              ? 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)'
+              : 'polygon(30% 100%, 70% 100%, 100% 100%, 0% 100%)',
+          }}
+        >
+          <button
+            style={{
+              cursor: 'pointer',
+              background: 'transparent',
+              padding: '10px 20px',
+              borderRadius: '5px',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              marginBottom: '10px',
+              color: 'white',
+              outlineColor: 'white',
+            }}
+            onClick={() => store.set('showGetInTouch')(false)}
           >
             Close
-          </h4>
+          </button>
           <p>
             <img src={email} alt="Email" /> alistairsmith01@gmail.com
           </p>
@@ -64,8 +96,8 @@ const App = () => (
           </p>
         </ContactsWrapper>
       </GetInTouchOuter>
-    </div>
-  </>
-);
+    </MainContainer>
+  );
+};
 
 export default App;

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import Store from '../core/store';
+import { useWindowSize } from '../core/hooks';
 
 const getTime = () => {
   const hour = new Date().getHours();
@@ -24,6 +26,36 @@ type GreetingProps = {
   setBackground: (url: string) => void;
 };
 
+const pulse = keyframes`
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  } 
+
+  70% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  } 
+`;
+
+const Song = styled.p`
+  &::after {
+    content: '';
+    height: 10px;
+    margin-left: 5px;
+    width: 10px;
+    background: #1db954;
+    display: inline-block;
+    border-radius: 50%;
+    animation: ${pulse} 2s infinite linear;
+  }
+`;
+
 const Greeting = React.memo((props: GreetingProps) => {
   const [data, setData] = useState<{ loading: boolean; data: any }>({ loading: true, data: {} });
 
@@ -44,36 +76,36 @@ const Greeting = React.memo((props: GreetingProps) => {
     return () => clearInterval(interval);
   }, []);
 
-  if (data.loading) return <p>_____________</p>;
+  if (data.loading) return <Song>Connecting</Song>;
 
   if (data.data.track[0]['@attr']?.nowplaying) {
     const art = data.data.track[0].image.find((image: { size: string; '#text': string }) => image.size === 'extralarge')['#text'];
     props.setBackground(art);
 
     return (
-      <p>
+      <Song>
         Listening to <b>{data.data.track[0].name}</b> by <b>{data.data.track[0].artist['#text']}</b> on <b>Spotify</b>
-      </p>
+      </Song>
     );
   }
 
   return <p>Good {getTime()}</p>;
 });
 
-const getScale = (height: number): number => -(height / 1000) + 1;
-const getMaximum = (a: number, b: number) => (a > b ? b : a);
-
-const StyledIntro = styled.div<{ position: number; background: string }>`
-  min-height: 100%;
+const StyledIntro = styled.div<{ background: string; height: number }>`
   box-sizing: border-box;
-  flex: 1;
   padding: 30px;
   display: flex;
   flex-direction: column;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url(${(props) => props.background}) no-repeat center center;
   top: 0;
   position: sticky;
+  width: 100%;
   transition: all 1s;
+  z-index: 10;
+  opacity: 1;
+
+  height: ${(props) => props.height}px;
 
   background-size: cover;
   overflow: hidden;
@@ -83,7 +115,12 @@ const StyledIntro = styled.div<{ position: number; background: string }>`
     display: flex;
 
     .fill {
+      padding-right: 40px;
       flex: 1;
+    }
+
+    > :not(.fill) {
+      text-align: right;
     }
   }
 
@@ -102,46 +139,42 @@ const StyledIntro = styled.div<{ position: number; background: string }>`
       @supports (-webkit-text-stroke: 1px white) {
         color: transparent;
         text-shadow: none;
-        -webkit-text-stroke: 2px white;
         text-stroke: 2px white;
+        -webkit-text-stroke: 2px white;
       }
     }
   }
 `;
 
 const Hero = () => {
-  const [height, setHeight] = useState(window.scrollY);
+  const [, height] = useWindowSize();
+
+  const store = Store.useStore();
   const [background, setBackground] = useState<string>(
     `//source.unsplash.com/ciO5L8pin8A/${window.innerWidth}x${window.innerHeight}`,
   );
 
-  useEffect(() => {
-    const listener = () => {
-      setHeight(window.scrollY);
-    };
-
-    window.addEventListener('scroll', listener);
-    return () => window.removeEventListener('scroll', listener);
-  });
+  const showGetInTouch = store.get('showGetInTouch');
 
   return (
     <StyledIntro
+      height={height}
       background={background}
-      position={height}
       style={{
-        transform: `scale(${getScale(height)})`,
-        borderRadius: height > 5 ? '20px' : '0',
-        padding: getMaximum(height * 2 + 30, window.innerWidth > 800 ? 150 : 30) + 'px',
+        transform: `scaleY(${showGetInTouch ? '0' : '1'}) scaleX(${showGetInTouch ? '0.5' : '1'})`,
+        borderRadius: showGetInTouch ? '20px' : '0',
+        padding: window.innerWidth > 800 ? 30 : 20 + 'px',
+        opacity: showGetInTouch ? '0' : '1',
+        clipPath: !showGetInTouch
+          ? 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)'
+          : 'polygon(30% 100%, 70% 100%, 100% 100%, 0% 100%)',
       }}
     >
       <div className="top">
         <div className="fill">
           <Button
             onClick={() => {
-              window.scrollBy({
-                top: document.body.scrollHeight,
-                behavior: 'smooth',
-              });
+              store.set('showGetInTouch')(true);
             }}
           >
             Get in touch
@@ -151,7 +184,12 @@ const Hero = () => {
       </div>
       <div className="center">
         <h1>Alistair Smith</h1>
-        <h3>Full-stack TypeScript engineer from the UK 🇬🇧</h3>
+        <h3>
+          Full-stack TypeScript engineer from the UK{' '}
+          <span role="img" aria-label="GB Flag">
+            🇬🇧
+          </span>
+        </h3>
       </div>
       <div className="bottom">
         <div className="fill">
