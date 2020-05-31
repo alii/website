@@ -16,7 +16,7 @@ const GetInTouchOuter = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: scale(0) translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
 
   h1 {
     z-index: 10;
@@ -64,7 +64,6 @@ const App = () => {
       <Hero />
       <GetInTouchOuter
         style={{
-          transform: `scale(${!showGetInTouch ? '0' : '1'}) translateX(-50%) translateY(-50%)`,
           opacity: !showGetInTouch ? '0' : '1',
           clipPath: showGetInTouch ? 'circle(100% at 50% 50%)' : 'circle(0% at 50% 50%)',
         }}
