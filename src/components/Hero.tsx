@@ -97,10 +97,12 @@ const StyledIntro = styled.div<{ background: string; height: number }>`
   padding: 30px;
   display: flex;
   flex-direction: column;
+  background: black;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url(${(props) => props.background}) no-repeat center center;
   top: 0;
   position: sticky;
   width: 100%;
+  //transition: all 1s cubic-bezier(0.86, 0.11, 0.11, 0.91);
   transition: all 1s;
   z-index: 10;
   opacity: 1;
@@ -161,13 +163,12 @@ const Hero = () => {
       height={height}
       background={background}
       style={{
-        transform: `scaleY(${showGetInTouch ? '0' : '1'}) scaleX(${showGetInTouch ? '0.5' : '1'})`,
+        transform: `scale(${showGetInTouch ? '1.5' : '1'}) translateY(${showGetInTouch ? 100 : 0}px)`,
         borderRadius: showGetInTouch ? '20px' : '0',
         padding: window.innerWidth > 800 ? 30 : 20 + 'px',
-        opacity: showGetInTouch ? '0' : '1',
         clipPath: !showGetInTouch
-          ? 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)'
-          : 'polygon(30% 100%, 70% 100%, 100% 100%, 0% 100%)',
+          ? 'polygon(20% 0, 80% 0%, 100% 0, 100% 100%, 80% 100%, 20% 100%, 0 100%, 0 0)'
+          : 'polygon(20% 0%, 80% 0%, 100% 0, 100% 100%, 80% 100%, 20% 100%, 100% 100%, 100% 0)',
       }}
     >
       <div className="top">

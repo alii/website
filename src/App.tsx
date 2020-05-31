@@ -8,14 +8,15 @@ import Store from './core/store';
 
 const GetInTouchOuter = styled.div`
   display: flex;
-  position: fixed;
-  top: 50%;
-  left: 50%;
   flex-direction: column;
   align-items: center;
   padding: 50px;
 
-  transform: translateX(-50%) translateY(-50%);
+  transition: all 1s;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: scale(0) translateX(-50%) translateY(-50%);
 
   h1 {
     z-index: 10;
@@ -26,7 +27,6 @@ const ContactsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 10;
-  transition: all 1s;
 
   padding: 20px;
   background: black;
@@ -52,7 +52,7 @@ const ContactsWrapper = styled.div`
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
 `;
 
 const App = () => {
@@ -62,17 +62,15 @@ const App = () => {
   return (
     <MainContainer>
       <Hero />
-      <GetInTouchOuter>
+      <GetInTouchOuter
+        style={{
+          transform: `scale(${!showGetInTouch ? '0' : '1'}) translateX(-50%) translateY(-50%)`,
+          opacity: !showGetInTouch ? '0' : '1',
+          clipPath: showGetInTouch ? 'circle(100% at 50% 50%)' : 'circle(0% at 50% 50%)',
+        }}
+      >
         <h1>Get in touch</h1>
-        <ContactsWrapper
-          style={{
-            transform: `scaleY(${!showGetInTouch ? '0' : '1'}) scaleX(${!showGetInTouch ? '0.2' : '1'})`,
-            opacity: !showGetInTouch ? '0' : '1',
-            clipPath: showGetInTouch
-              ? 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)'
-              : 'polygon(30% 100%, 70% 100%, 100% 100%, 0% 100%)',
-          }}
-        >
+        <ContactsWrapper>
           <button
             style={{
               cursor: 'pointer',
