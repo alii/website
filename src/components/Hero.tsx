@@ -102,7 +102,6 @@ const StyledIntro = styled.div<{ background: string; height: number }>`
   top: 0;
   position: sticky;
   width: 100%;
-  //transition: all 1s cubic-bezier(0.86, 0.11, 0.11, 0.91);
   transition: all 1s;
   z-index: 10;
   opacity: 1;
@@ -111,6 +110,15 @@ const StyledIntro = styled.div<{ background: string; height: number }>`
 
   background-size: cover;
   overflow: hidden;
+
+  > div {
+    height: 100%;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(4px);
+  }
 
   .top,
   .bottom {
@@ -171,32 +179,34 @@ const Hero = () => {
           : 'polygon(20% 0%, 80% 0%, 100% 0, 100% 100%, 80% 100%, 20% 100%, 100% 100%, 100% 0)',
       }}
     >
-      <div className="top">
-        <div className="fill">
-          <Button
-            onClick={() => {
-              store.set('showGetInTouch')(true);
-            }}
-          >
-            Get in touch
-          </Button>
+      <div>
+        <div className="top">
+          <div className="fill">
+            <Button
+              onClick={() => {
+                store.set('showGetInTouch')(true);
+              }}
+            >
+              Get in touch
+            </Button>
+          </div>
+          <p>TypeScript + React + Node.js</p>
         </div>
-        <p>TypeScript + React + Node.js</p>
-      </div>
-      <div className="center">
-        <h1>Alistair Smith</h1>
-        <h3>
-          Full-stack TypeScript engineer from the UK{' '}
-          <span role="img" aria-label="GB Flag">
-            🇬🇧
-          </span>
-        </h3>
-      </div>
-      <div className="bottom">
-        <div className="fill">
-          Currently working at <a href={'https://edge.gg'}>Edge</a>
+        <div className="center">
+          <h1>Alistair Smith</h1>
+          <h3>
+            Full-stack TypeScript engineer from the UK{' '}
+            <span role="img" aria-label="GB Flag">
+              🇬🇧
+            </span>
+          </h3>
         </div>
-        <Greeting setBackground={setBackground} />
+        <div className="bottom">
+          <div className="fill">
+            Currently working at <a href={'https://edge.gg'}>Edge</a>
+          </div>
+          <Greeting setBackground={setBackground} />
+        </div>
       </div>
     </StyledIntro>
   );
