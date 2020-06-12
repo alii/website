@@ -89,7 +89,7 @@ const App = () => {
             <img src={email} alt="Email" /> alistairsmith01@gmail.com
           </p>
           <p>
-            <img src={discord} alt="Discord" /> aabbccsmith#9999
+            <img src={discord} alt="Discord" /> alistair#9999
           </p>
         </ContactsWrapper>
       </GetInTouchOuter>
