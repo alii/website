@@ -203,8 +203,7 @@ const Hero = () => {
         </div>
         <div className="bottom">
           <div className="fill">
-            {/*Currently working at <a href={'https://edge.gg'}>Edge</a>*/}
-            <a href={'https://herb-sneaker.herokuapp.com/api'}>herb</a>
+            Currently working at <a href={'https://edge.gg'}>Edge</a>
           </div>
           <Greeting setBackground={setBackground} />
         </div>
