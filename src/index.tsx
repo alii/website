@@ -1,19 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import { App } from './App';
 
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import Store from './core/store';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Store.Container>
+if (window.location.href.includes('/evening')) {
+  document.write('yea');
+} else {
+  ReactDOM.render(
+    <React.StrictMode>
       <App />
-    </Store.Container>
-  </React.StrictMode>,
-  document.getElementById('root'),
-);
+    </React.StrictMode>,
+    document.getElementById('root'),
+  );
+}
 
 const appHeight = () => {
   const doc = document.documentElement;

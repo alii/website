@@ -1,100 +1,88 @@
-import React from 'react';
-import styled from 'styled-components';
-import Hero from './components/Hero';
+import React, { useEffect, useState } from 'react';
+import styled, { keyframes } from 'styled-components';
+import { TSong, updateBackground } from './util/update-background';
 
-import discord from './assets/discord.png';
-import email from './assets/email.png';
-import Store from './core/store';
+const defaultBackground: string = '#121212';
 
-const GetInTouchOuter = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 50px;
+export const App = () => {
+  const [song, setSong] = useState<TSong>('connecting');
 
-  transition: all 1s;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  useEffect(() => {
+    const interval = setInterval(updateBackground(setSong), 15 * 1000);
+    updateBackground(setSong)();
 
-  h1 {
-    z-index: 10;
-  }
-`;
+    return () => clearInterval(interval);
+  }, []);
 
-const ContactsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  z-index: 10;
-
-  padding: 20px;
-  background: black;
-  border-radius: 5px;
-  border: 1px solid #323232;
-  margin-top: 20px;
-
-  p {
-    display: flex;
-
-    align-items: center;
-
-    height: 20px;
-
-    img {
-      height: auto;
-      max-width: 20px;
-      margin-right: 5px;
+  useEffect(() => {
+    if (song === 'connecting' || song === 'idle') {
+      document.body.style.background = defaultBackground;
     }
+  }, [song]);
+
+  if (song !== 'connecting' && song !== 'idle') {
+    return (
+      <Styled.Container>
+        <Styled.Song>
+          Listening to <b>{song.name}</b> by <b>{song.artist}</b> on <b>Spotify</b>
+        </Styled.Song>
+      </Styled.Container>
+    );
   }
-`;
 
-const MainContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
+  if (song === 'idle') {
+    return (
+      <Styled.Container>
+        <p>alistair#9999</p>
+      </Styled.Container>
+    );
+  }
 
-const App = () => {
-  const store = Store.useStore();
-  const showGetInTouch = store.get('showGetInTouch');
+  if (song === 'connecting') {
+    return (
+      <Styled.Container>
+        <Styled.Song>Connecting</Styled.Song>
+      </Styled.Container>
+    );
+  }
 
-  return (
-    <MainContainer>
-      <Hero />
-      <GetInTouchOuter
-        style={{
-          opacity: !showGetInTouch ? '0' : '1',
-          clipPath: showGetInTouch ? 'circle(100% at 50% 50%)' : 'circle(0% at 50% 50%)',
-        }}
-      >
-        <h1>Get in touch</h1>
-        <ContactsWrapper>
-          <button
-            style={{
-              cursor: 'pointer',
-              background: 'transparent',
-              padding: '10px 20px',
-              borderRadius: '5px',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              marginBottom: '10px',
-              color: 'white',
-              outlineColor: 'white',
-            }}
-            onClick={() => store.set('showGetInTouch')(false)}
-          >
-            Close
-          </button>
-          <p>
-            <img src={email} alt="Email" /> alistairsmith01@gmail.com
-          </p>
-          <p>
-            <img src={discord} alt="Discord" /> alistair#9999
-          </p>
-        </ContactsWrapper>
-      </GetInTouchOuter>
-    </MainContainer>
-  );
+  return null;
 };
 
-export default App;
+const Animations = {
+  Pulse: keyframes`
+    0% {
+      transform: scale(1);
+      opacity: 1; 
+    } 
+    70% {
+      transform: scale(0.8);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    } 
+  `,
+};
+
+const Styled = {
+  Container: styled.div`
+    padding: 10px;
+    backdrop-filter: blur(5px);
+    background: rgba(0, 0, 0, 0.8);
+    height: var(--app-height);
+  `,
+  Song: styled.p`
+    &::after {
+      content: '';
+      height: 10px;
+      margin-left: 5px;
+      width: 10px;
+      background: #1db954;
+      display: inline-block;
+      border-radius: 50%;
+      animation: ${Animations.Pulse} 2s infinite linear;
+    }
+  `,
+};
