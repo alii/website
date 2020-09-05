@@ -6,6 +6,9 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 if (window.location.href.includes('/evening')) {
+  document.body.style.color = 'black';
+  document.body.style.background = 'black';
+
   document.write(
     'Donec dictum vitae nibh non aliquet. Praesent scelerisque lobortis congue. Fusce ac dui convallis, ultricies justo vitae, cursus mi. Pellentesque justo diam, euismod nec efficitur et, malesuada eget nunc. Phasellus sed ligula ac odio consectetur feugiat vel vitae lorem. Nam pretium a erat condimentum elementum. Aliquam sit amet nunc sollicitudin, fringilla lectus vitae, posuere nisi. Sed pharetra sem quis justo lobortis, id ultrices mauris scelerisque. Praesent varius orci sed elit accumsan varius. Curabitur id consectetur felis. Mauris pellentesque nisl sem, in tincidunt felis laoreet sit amet. Fusce dolor lorem, finibus et pulvinar ac, scelerisque vel lacus. Quisque dignissim hendrerit purus eget sagittis. Praesent erat est, bibendum quis turpis vitae, venenatis dignissim justo. Morbi vitae lacus cursus, sodales risus non, maximus metus. Sed gravida orci vel lacus placerat viverra.\n' +
       '\n' +
