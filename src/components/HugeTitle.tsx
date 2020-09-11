@@ -6,8 +6,9 @@ export const HugeTitle = styled.h1`
   -webkit-text-fill-color: black;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: white;
-  font-size: 10vw;
+  font-size: 11vw;
   word-spacing: 100px;
+  text-shadow: 5px 10px 0 rgba(0, 0, 0, 0.1);
 
   @supports (-webkit-text-stroke: 1px black) {
     -webkit-text-stroke: 1px white;
