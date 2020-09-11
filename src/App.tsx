@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Song } from './components/Song';
 import { HugeTitle } from './components/HugeTitle';
-import { TSong, useLastFM } from 'use-last-fm';
+import { TSong, useLastFM, TSongObject } from 'use-last-fm';
 import { config } from './util/app-config';
 
-const useIsPlaying = <T extends TSong>(song: T): boolean => {
+const useIsPlaying = (song: TSong): song is TSongObject => {
   switch (song) {
     case 'connecting':
     case 'idle':
@@ -19,8 +19,17 @@ export const App = () => {
   const song = useLastFM(config.username, config.token);
   const isPlaying = useIsPlaying(song);
 
+  useEffect(() => {
+    // @ts-ignore
+    if (song.art) {
+      // @ts-ignore
+      document.body.style.backgroundImage = `url(${song.art})`;
+    }
+  }, [song]);
+
   return (
-    <Styled.Container art={isPlaying ? (song as any).art : ''}>
+    // @ts-ignore
+    <Styled.Container art={isPlaying ? song.art : ''}>
       <Song song={song} />
       <HugeTitle>Alistair Smith.</HugeTitle>
       <p>
@@ -48,7 +57,7 @@ const Styled = {
     flex-direction: column;
     overflow: hidden;
 
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: ${config.standard_breakpoint}) {
       max-width: 80%;
     }
   `,
