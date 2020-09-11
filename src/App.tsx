@@ -43,11 +43,11 @@ const Styled = {
     flex-direction: column;
     overflow: hidden;
     margin-left: 10%;
-    transform: translateX(0);
+    //transform: translateX(0);
 
     &:hover {
-      margin-left: 50%;
-      transform: translateX(-50%);
+      margin-left: 20%;
+      //transform: translateX(-50%);
     }
 
     @media only screen and (max-width: ${config.standard_breakpoint}) {
