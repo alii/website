@@ -1,31 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Song } from './components/Song';
 import { HugeTitle } from './components/HugeTitle';
-import { TSong, useLastFM, TSongObject } from 'use-last-fm';
+import { TSong, useLastFM } from 'use-last-fm';
 import { config } from './util/app-config';
-
-const useIsPlaying = (song: TSong): song is TSongObject => {
-  switch (song) {
-    case 'connecting':
-    case 'idle':
-      return false;
-    default:
-      return true;
-  }
-};
 
 export const App = () => {
   const song = useLastFM(config.username, config.token);
-  const isPlaying = useIsPlaying(song);
-
-  // useEffect(() => {
-  //   // @ts-ignore
-  //   if (song.art) {
-  //     // @ts-ignore
-  //     // document.body.style.backgroundImage = `url(${song.art})`;
-  //   }
-  // }, [song]);
 
   return (
     // @ts-ignore
