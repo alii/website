@@ -3,7 +3,4 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="JSX" />
   </component>
-  <component name="ProjectResources">
-    <resource url="https://rsms.me/inter/inter.css" location="$PROJECT_DIR$" />
-  </component>
 </project>

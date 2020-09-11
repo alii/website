@@ -18,10 +18,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   background: #121212;
-
   color: #ededed;
   display: flex;
-  height: var(--app-height);
   overflow: hidden;
 }
 
@@ -43,5 +41,4 @@ a {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
