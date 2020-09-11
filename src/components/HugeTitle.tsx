@@ -15,7 +15,6 @@ export const HugeTitle = styled.h1`
   }
 
   @media only screen and (max-width: ${config.standard_breakpoint}) {
-    text-align: center;
     font-size: 20vw;
   }
 `;
