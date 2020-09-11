@@ -103,7 +103,6 @@ const StyledIntro = styled.div<{ background: string; height: number }>`
 
   > div {
     height: 100%;
-    width: 100%;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -119,11 +118,7 @@ const StyledIntro = styled.div<{ background: string; height: number }>`
     display: flex;
 
     .fill {
-      padding-right: 40px;
       flex: 1;
-    }
-
-    > :not(.fill) {
       text-align: right;
     }
   }
@@ -173,16 +168,16 @@ const Hero = () => {
     >
       <div className={'hero-container'}>
         <div className="top">
+          <Button
+            onClick={() => {
+              store.set('showGetInTouch')(true);
+            }}
+          >
+            Get in touch
+          </Button>
           <div className="fill">
-            <Button
-              onClick={() => {
-                store.set('showGetInTouch')(true);
-              }}
-            >
-              Get in touch
-            </Button>
+            <p>TypeScript + React + Node.js</p>
           </div>
-          <p>TypeScript + React + Node.js</p>
         </div>
         <div className="center">
           <h1>Alistair Smith</h1>
@@ -194,19 +189,19 @@ const Hero = () => {
           </h3>
         </div>
         <div className="bottom">
+          Currently working at <a href={'https://edge.gg'}>Edge</a>
           <div className="fill">
-            Currently working at <a href={'https://edge.gg'}>Edge</a>
-          </div>
-          <Greeting
-            setBackground={(newBackground) => {
-              if (!newBackground) {
-                setBackground(INITIAL_BACKGROUND);
-                return;
-              }
+            <Greeting
+              setBackground={(newBackground) => {
+                if (!newBackground) {
+                  setBackground(INITIAL_BACKGROUND);
+                  return;
+                }
 
-              setBackground(newBackground);
-            }}
-          />
+                setBackground(newBackground);
+              }}
+            />
+          </div>
         </div>
       </div>
     </StyledIntro>
