@@ -1,88 +1,62 @@
-import React, { useEffect, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
-import { TSong, updateBackground } from './util/update-background';
+import React from 'react';
+import styled from 'styled-components';
+import { Song } from './components/Song';
+import { HugeTitle } from './components/HugeTitle';
+import { TSong, useLastFM } from 'use-last-fm';
+import { config } from './util/app-config';
 
-const defaultBackground: string = '#121212';
-
-export const App = () => {
-  const [song, setSong] = useState<TSong>('connecting');
-
-  useEffect(() => {
-    const interval = setInterval(updateBackground(setSong), 15 * 1000);
-    updateBackground(setSong)();
-
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    if (song === 'connecting' || song === 'idle') {
-      document.body.style.background = defaultBackground;
-    }
-  }, [song]);
-
-  if (song !== 'connecting' && song !== 'idle') {
-    return (
-      <Styled.Container>
-        <Styled.Song>
-          Listening to <b>{song.name}</b> by <b>{song.artist}</b> on <b>Spotify</b>
-        </Styled.Song>
-      </Styled.Container>
-    );
+const useIsPlaying = <T extends TSong>(song: T): boolean => {
+  switch (song) {
+    case 'connecting':
+    case 'idle':
+      return false;
+    default:
+      return true;
   }
-
-  if (song === 'idle') {
-    return (
-      <Styled.Container>
-        <p>alistair#9999</p>
-      </Styled.Container>
-    );
-  }
-
-  if (song === 'connecting') {
-    return (
-      <Styled.Container>
-        <Styled.Song>Connecting</Styled.Song>
-      </Styled.Container>
-    );
-  }
-
-  return null;
 };
 
-const Animations = {
-  Pulse: keyframes`
-    0% {
-      transform: scale(1);
-      opacity: 1; 
-    } 
-    70% {
-      transform: scale(0.8);
-      opacity: 0.8;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    } 
-  `,
+export const App = () => {
+  const song = useLastFM(config.username, config.token);
+  const isPlaying = useIsPlaying(song);
+
+  return (
+    <Styled.Container art={isPlaying ? (song as any).art : ''}>
+      <Song song={song} />
+      <HugeTitle>Alistair Smith.</HugeTitle>
+      <p>
+        Full-Stack TypeScript engineer from the UK{' '}
+        <span role="img" aria-label="GB Flag">
+          🇬🇧
+        </span>
+      </p>
+    </Styled.Container>
+  );
 };
 
 const Styled = {
-  Container: styled.div`
-    padding: 10px;
+  Container: styled.div<{ art?: string }>`
+    padding: 20px;
+    border-radius: 30px;
     backdrop-filter: blur(5px);
     background: rgba(0, 0, 0, 0.8);
-    height: var(--app-height);
-  `,
-  Song: styled.p`
-    &::after {
-      content: '';
-      height: 10px;
-      margin-left: 5px;
-      width: 10px;
-      background: #1db954;
-      display: inline-block;
-      border-radius: 50%;
-      animation: ${Animations.Pulse} 2s infinite linear;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    max-width: 30%;
+    flex-direction: column;
+    overflow: hidden;
+
+    @media only screen and (max-width: 768px) {
+      max-width: 80%;
     }
+  `,
+  Row: styled.div`
+    display: flex;
+  `,
+  Column: styled.div`
+    display: flex;
+    flex-direction: column;
   `,
 };
