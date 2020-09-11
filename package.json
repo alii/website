@@ -15,7 +15,8 @@
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.0",
     "typescript": "~3.7.2",
-    "undux": "^5.2.0"
+    "undux": "^5.2.0",
+    "use-last-fm": "^0.1.7"
   },
   "scripts": {
     "start": "react-scripts start",

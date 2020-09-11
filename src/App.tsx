@@ -70,6 +70,12 @@ const App = () => {
       >
         <h1>Get in touch</h1>
         <ContactsWrapper>
+          <p>
+            <img src={email} alt="Email" /> alistairsmith01@gmail.com
+          </p>
+          <p>
+            <img src={discord} alt="Discord" /> alistair#9999
+          </p>
           <button
             style={{
               cursor: 'pointer',
@@ -77,7 +83,7 @@ const App = () => {
               padding: '10px 20px',
               borderRadius: '5px',
               border: '1px solid rgba(255, 255, 255, 0.2)',
-              marginBottom: '10px',
+              marginTop: '10px',
               color: 'white',
               outlineColor: 'white',
             }}
@@ -85,12 +91,6 @@ const App = () => {
           >
             Close
           </button>
-          <p>
-            <img src={email} alt="Email" /> alistairsmith01@gmail.com
-          </p>
-          <p>
-            <img src={discord} alt="Discord" /> alistair#9999
-          </p>
         </ContactsWrapper>
       </GetInTouchOuter>
     </MainContainer>

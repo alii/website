@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Store from '../core/store';
 import { useWindowSize } from '../core/hooks';
+import { useLastFM } from 'use-last-fm';
+
+const INITIAL_BACKGROUND = `//source.unsplash.com/ciO5L8pin8A/${window.innerWidth}x${window.innerHeight}`;
 
 const getTime = () => {
   const hour = new Date().getHours();
-  if (hour >= 4 && hour <= 11) return 'morning';
+  if (hour <= 11) return 'morning';
   if (hour >= 12 && hour <= 16) return 'afternoon';
-  if (hour >= 17) return 'evening';
+  if (hour >= 18) return 'evening';
 };
 
 const Button = styled.button`
@@ -23,7 +26,7 @@ const Button = styled.button`
 `;
 
 type GreetingProps = {
-  setBackground: (url: string) => void;
+  setBackground: (url: string | null) => void;
 };
 
 const pulse = keyframes`
@@ -57,36 +60,24 @@ const Song = styled.p`
 `;
 
 const Greeting = React.memo((props: GreetingProps) => {
-  const [data, setData] = useState<{ loading: boolean; data: any }>({ loading: true, data: {} });
+  const song = useLastFM('aabbccsmith', 'b6ad96319cd457234c3fc87a03bb0989');
 
-  useEffect(() => {
-    const request = () => {
-      return fetch(
-        '//ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=aabbccsmith&api_key=b6ad96319cd457234c3fc87a03bb0989&format=json&limit=1',
-      )
-        .then((res) => res.json())
-        .then((data) => ({ loading: false, data: data.recenttracks }));
-    };
+  if (song === 'connecting') {
+    return <Song>Connecting</Song>;
+  }
 
-    const load = () => request().then(setData);
-
-    load();
-    const interval = setInterval(load, 1000 * 30);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  if (data.loading) return <Song>Connecting</Song>;
-
-  if (data.data.track[0]['@attr']?.nowplaying) {
-    const art = data.data.track[0].image.find((image: { size: string; '#text': string }) => image.size === 'extralarge')['#text'];
-    props.setBackground(art);
+  if (typeof song === 'object' && song.art !== 'n/a') {
+    props.setBackground(song.art);
 
     return (
       <Song>
-        Listening to <b>{data.data.track[0].name}</b> by <b>{data.data.track[0].artist['#text']}</b> on <b>Spotify</b>
+        Listening to <b>{song.name}</b> by <b>{song.artist}</b> on <b>Spotify</b>
       </Song>
     );
+  }
+
+  if (song === 'idle') {
+    props.setBackground(null);
   }
 
   return <p>Good {getTime()}</p>;
@@ -94,7 +85,6 @@ const Greeting = React.memo((props: GreetingProps) => {
 
 const StyledIntro = styled.div<{ background: string; height: number }>`
   box-sizing: border-box;
-  padding: 30px;
   display: flex;
   flex-direction: column;
   background: black;
@@ -118,6 +108,10 @@ const StyledIntro = styled.div<{ background: string; height: number }>`
     display: flex;
     flex-direction: column;
     backdrop-filter: blur(4px);
+  }
+
+  .hero-container {
+    padding: 30px;
   }
 
   .top,
@@ -160,9 +154,8 @@ const Hero = () => {
   const [, height] = useWindowSize();
 
   const store = Store.useStore();
-  const [background, setBackground] = useState<string>(
-    `//source.unsplash.com/ciO5L8pin8A/${window.innerWidth}x${window.innerHeight}`,
-  );
+
+  const [background, setBackground] = useState<string>(INITIAL_BACKGROUND);
 
   const showGetInTouch = store.get('showGetInTouch');
 
@@ -173,13 +166,12 @@ const Hero = () => {
       style={{
         transform: `scale(${showGetInTouch ? '1.5' : '1'}) translateY(${showGetInTouch ? 100 : 0}px)`,
         borderRadius: showGetInTouch ? '20px' : '0',
-        padding: window.innerWidth > 800 ? 30 : 20 + 'px',
         clipPath: !showGetInTouch
           ? 'polygon(20% 0, 80% 0%, 100% 0, 100% 100%, 80% 100%, 20% 100%, 0 100%, 0 0)'
           : 'polygon(20% 0%, 80% 0%, 100% 0, 100% 100%, 80% 100%, 20% 100%, 100% 100%, 100% 0)',
       }}
     >
-      <div>
+      <div className={'hero-container'}>
         <div className="top">
           <div className="fill">
             <Button
@@ -205,7 +197,16 @@ const Hero = () => {
           <div className="fill">
             Currently working at <a href={'https://edge.gg'}>Edge</a>
           </div>
-          <Greeting setBackground={setBackground} />
+          <Greeting
+            setBackground={(newBackground) => {
+              if (!newBackground) {
+                setBackground(INITIAL_BACKGROUND);
+                return;
+              }
+
+              setBackground(newBackground);
+            }}
+          />
         </div>
       </div>
     </StyledIntro>
