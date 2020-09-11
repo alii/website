@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-import Store from '../core/store';
+import { Store } from '../core/store';
 import { useWindowSize } from '../core/hooks';
 import { useLastFM } from 'use-last-fm';
 
@@ -145,7 +145,7 @@ const StyledIntro = styled.div<{ background: string; height: number }>`
   }
 `;
 
-const Hero = () => {
+export const Hero = () => {
   const [, height] = useWindowSize();
 
   const store = Store.useStore();
@@ -207,5 +207,3 @@ const Hero = () => {
     </StyledIntro>
   );
 };
-
-export default Hero;

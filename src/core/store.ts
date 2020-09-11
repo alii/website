@@ -8,5 +8,4 @@ const initialState: State = {
   showGetInTouch: false,
 };
 
-const Store = createConnectedStore<State>(initialState);
-export default Store;
+export const Store = createConnectedStore<State>(initialState);

@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import Hero from './components/Hero';
 
 import discord from './assets/discord.png';
 import email from './assets/email.png';
-import Store from './core/store';
+import { Store } from './core/store';
+
+import { Hero } from './components/Hero';
 
 const GetInTouchOuter = styled.div`
   display: flex;
