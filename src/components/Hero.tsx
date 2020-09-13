@@ -189,7 +189,7 @@ export const Hero = () => {
           </h3>
         </div>
         <div className="bottom">
-          Currently working at <a href={'https://edge.gg'}>Edge</a>
+          Currently working at{" "}<a href={'https://edge.gg'}>Edge</a>
           <div className="fill">
             <Greeting
               setBackground={(newBackground) => {
