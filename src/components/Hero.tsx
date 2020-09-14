@@ -117,6 +117,10 @@ const StyledIntro = styled.div<{ background: string; height: number }>`
   .bottom {
     display: flex;
 
+    a {
+      margin-left: 0.3rem;
+    }
+
     .fill {
       flex: 1;
       text-align: right;
