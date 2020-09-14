@@ -117,10 +117,6 @@ const StyledIntro = styled.div<{ background: string; height: number }>`
   .bottom {
     display: flex;
 
-    a {
-      margin-left: 0.3rem;
-    }
-
     .fill {
       flex: 1;
       text-align: right;
@@ -193,7 +189,9 @@ export const Hero = () => {
           </h3>
         </div>
         <div className="bottom">
-          Currently working at {" "}<a href={'https://edge.gg'}>Edge</a>
+          <p>
+            Currently working at <a href={'https://edge.gg'}>Edge</a>
+          </p>
           <div className="fill">
             <Greeting
               setBackground={(newBackground) => {
