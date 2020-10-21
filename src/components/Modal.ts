@@ -9,9 +9,12 @@ export const Modal = styled.div`
   background: black;
   border-radius: 20px;
   padding: 35px 25px;
-  max-width: 350px;
 
   transition: all 1s;
+
+  @media only screen and (min-width: 830px) {
+    max-width: 350px;
+  }
 
   z-index: 10;
   color: rgba(255, 255, 255, 0.75);
@@ -28,6 +31,10 @@ export const Modal = styled.div`
 `;
 
 export const ModalTitle = styled.h2`
-  min-width: 150px;
+  width: 350px;
   color: white;
+
+  @media only screen and (max-width: 830px) {
+    width: 80vw;
+  }
 `;
