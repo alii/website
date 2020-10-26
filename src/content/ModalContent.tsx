@@ -4,7 +4,7 @@ import { useAtom } from 'jotai';
 import { modalOpen } from '../core/atoms';
 import { toWords } from 'number-to-words';
 import day from 'dayjs';
-import { Close, Discord, Email, Github } from '../assets/icons';
+import { Close, Email, Github } from '../assets/icons';
 import { ContactContainer, ContactRow } from '../components/ContactRow';
 import { DiscordContactRow } from '../components/DiscordContactRow';
 import styled from 'styled-components';
@@ -27,7 +27,7 @@ export const ModalContent = () => {
 
     document.addEventListener('keyup', listener);
     return () => document.removeEventListener('keyup', listener);
-  }, []);
+  }, [setOpen]);
 
   return (
     <Modal className={open ? 'open' : ''}>

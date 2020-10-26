@@ -7,22 +7,20 @@ import { background } from '../core/atoms';
 import { animations } from '../assets/animations';
 
 export const Song = () => {
-  const song = useLastFM(Consts.LastFMUsername, Consts.LastFMToken);
+  const lastFm = useLastFM(Consts.LastFMUsername, Consts.LastFMToken);
   const [, setBackground] = useAtom(background);
 
   useEffect(() => {
-    if (typeof song === 'object') {
-      setBackground(song.art);
-    }
-  }, [song, setBackground]);
+    lastFm.status === 'playing' && setBackground(lastFm.song.art);
+  }, [lastFm, setBackground]);
 
-  if (song === 'connecting' || song === 'idle') {
+  if (lastFm.status !== 'playing') {
     return <Styled>Not listening to anything</Styled>;
   }
 
   return (
     <Styled>
-      Listening to <span>{song.name}</span> by <span>{song.artist}</span> on <span>Spotify</span>
+      Listening to <span>{lastFm.song.name}</span> by <span>{lastFm.song.artist}</span> on <span>Spotify</span>
     </Styled>
   );
 };

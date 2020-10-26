@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Consts } from '../core/consts';
 import { ContactRow } from './ContactRow';
 import { Discord } from '../assets/icons';
-import { useAtom } from 'jotai';
-import { modalOpen } from '../core/atoms';
 
 export const DiscordContactRow = () => {
   const [message, setMessage] = useState(Consts.DiscordUsername);
