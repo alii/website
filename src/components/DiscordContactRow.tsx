@@ -8,7 +8,7 @@ export const DiscordContactRow = () => {
 
   const copy = async () => {
     await navigator.clipboard.writeText(Consts.DiscordUsername);
-    setMessage('Copied ✔️📋');
+    setMessage('Copied ✔');
     await new Promise((r) => setTimeout(r, 1500));
     setMessage(Consts.DiscordUsername);
   };
