@@ -6,6 +6,9 @@ export const Modal = styled.div`
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
 
+  max-height: 90vh;
+  overflow-y: auto;
+
   background: black;
 
   border-radius: 20px;
