@@ -3,7 +3,7 @@ import { useLastFM } from 'use-last-fm';
 import { Consts } from '../core/consts';
 import styled from 'styled-components';
 import { useAtom } from 'jotai';
-import { background } from '../core/atoms';
+import { background, initialBackground } from '../core/atoms';
 import { animations } from '../assets/animations';
 
 export const Song = () => {
@@ -11,11 +11,15 @@ export const Song = () => {
   const [, setBackground] = useAtom(background);
 
   useEffect(() => {
-    lastFm.status === 'playing' && setBackground(lastFm.song.art);
+    if (lastFm.status === 'playing') {
+      setBackground(lastFm.song.art);
+    } else {
+      setBackground(initialBackground);
+    }
   }, [lastFm, setBackground]);
 
   if (lastFm.status !== 'playing') {
-    return <Styled>Not listening to anything</Styled>;
+    return <p>Not listening to anything</p>;
   }
 
   return (

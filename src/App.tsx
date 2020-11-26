@@ -5,7 +5,7 @@ import { ContainerRow } from './components/ContainerRow';
 import { LargeTitle } from './components/LargeTitle';
 import { ContainerContent } from './components/ContainerContent';
 import { ModalContent } from './content/ModalContent';
-import { GetInTouchButton } from './components/GetInTouchButton';
+import { AboutMeButton } from './components/AboutMeButton';
 
 export const App = () => {
   return (
@@ -16,7 +16,7 @@ export const App = () => {
           <ContainerContent>
             <div>
               <p>
-                <GetInTouchButton />
+                <AboutMeButton />
               </p>
             </div>
             <div>

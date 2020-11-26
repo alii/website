@@ -7,6 +7,7 @@ export const Modal = styled.div`
   transform: translateX(-50%) translateY(-50%);
 
   background: black;
+
   border-radius: 20px;
   padding: 35px 25px;
 
@@ -33,8 +34,22 @@ export const Modal = styled.div`
 export const ModalTitle = styled.h2`
   width: 350px;
   color: white;
+  display: flex;
+  align-items: center;
+
+  span {
+    flex: 1;
+  }
 
   @media only screen and (max-width: 830px) {
     width: 80vw;
   }
+`;
+
+export const ModalProfile = styled.img`
+  height: 120px;
+  width: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 20px;
 `;

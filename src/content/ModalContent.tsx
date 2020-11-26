@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Modal, ModalTitle } from '../components/Modal';
+import { Modal, ModalProfile, ModalTitle } from '../components/Modal';
 import { useAtom } from 'jotai';
 import { modalOpen } from '../core/atoms';
 import { toWords } from 'number-to-words';
@@ -8,7 +8,8 @@ import { Close, Email, Github } from '../assets/icons';
 import { ContactContainer, ContactRow } from '../components/ContactRow';
 import { DiscordContactRow } from '../components/DiscordContactRow';
 import styled from 'styled-components';
-import { StyledGetInTouchButton } from '../components/GetInTouchButton';
+import { GhostButton } from '../components/AboutMeButton';
+import me from '../assets/me.png';
 
 const birthday = day('2 November 2004').toDate();
 const ageDifMs = Date.now() - birthday.getTime();
@@ -32,10 +33,13 @@ export const ModalContent = () => {
   return (
     <Modal className={open ? 'open' : ''}>
       <ModalTopLevel>
-        <ModalTitle>Alistair Smith</ModalTitle>
-        <StyledGetInTouchButton onClick={() => setOpen(false)}>
-          <Close />
-        </StyledGetInTouchButton>
+        <ModalProfile src={me} alt="Me" />
+        <ModalTitle>
+          <span>Alistair Smith</span>
+          <GhostButton onClick={() => setOpen(false)}>
+            <Close />
+          </GhostButton>
+        </ModalTitle>
       </ModalTopLevel>
       <p>
         Hey, I'm a {toWords(age)} year old full-stack TypeScript engineer from the United Kingdom. I have a huge passion for
@@ -59,7 +63,8 @@ export const ModalContent = () => {
 
 const ModalTopLevel = styled.div`
   display: flex;
-  align-items: center;
+  //align-items: center;
+  flex-direction: column;
 
   h2 {
     flex: 1;

@@ -3,12 +3,12 @@ import { modalOpen } from '../core/atoms';
 import React from 'react';
 import styled from 'styled-components';
 
-export const GetInTouchButton = () => {
+export const AboutMeButton = () => {
   const [, setOpen] = useAtom(modalOpen);
-  return <StyledGetInTouchButton onClick={() => setOpen(true)}>Get in touch</StyledGetInTouchButton>;
+  return <GhostButton onClick={() => setOpen(true)}>About me</GhostButton>;
 };
 
-export const StyledGetInTouchButton = styled.button`
+export const GhostButton = styled.button`
   background: transparent;
   font-size: inherit;
   font-family: inherit;
