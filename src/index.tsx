@@ -2,13 +2,14 @@ import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './App';
 
-import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'jotai';
+import { GlobalStyle } from './GlobalStyle';
 
 ReactDOM.render(
   <StrictMode>
     <Provider>
+      <GlobalStyle />
       <App />
     </Provider>
   </StrictMode>,

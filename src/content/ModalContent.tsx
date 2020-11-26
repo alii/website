@@ -12,9 +12,7 @@ import { GhostButton } from '../components/AboutMeButton';
 import me from '../assets/me.png';
 
 const birthday = day('2 November 2004').toDate();
-const ageDifMs = Date.now() - birthday.getTime();
-const ageDate = new Date(ageDifMs);
-const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+const age = Math.abs(new Date(Date.now() - birthday.getTime()).getUTCFullYear() - 1970);
 
 export const ModalContent = () => {
   const [open, setOpen] = useAtom(modalOpen);
