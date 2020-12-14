@@ -34,7 +34,7 @@ export const ModalContent = () => {
         <ModalProfile src={me} alt="Me" />
         <ModalTitle>
           <span>Alistair Smith</span>
-          <GhostButton onClick={() => setOpen(false)}>
+          <GhostButton aria-label="close" aria-roledescription={'Closes the modal'} onClick={() => setOpen(false)}>
             <Close />
           </GhostButton>
         </ModalTitle>
