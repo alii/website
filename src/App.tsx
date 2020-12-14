@@ -2,7 +2,7 @@ import React from 'react';
 import { Song } from './components/Song';
 import { Container } from './components/Container';
 import { ContainerRow } from './components/ContainerRow';
-import { LargeTitle } from './components/LargeTitle';
+import { LargeTitle, LargeTitleSubtitle } from './components/LargeTitle';
 import { ContainerContent } from './components/ContainerContent';
 import { ModalContent } from './content/ModalContent';
 import { AboutMeButton } from './components/AboutMeButton';
@@ -28,14 +28,14 @@ export const App = () => {
         </ContainerRow>
         <ContainerRow large>
           <LargeTitle>Alistair Smith</LargeTitle>
-          <h3>
+          <LargeTitleSubtitle>
             Full-stack TypeScript engineer from the UK{' '}
             {!isWin && (
               <span role="img" aria-label="GB Flag">
                 🇬🇧
               </span>
             )}
-          </h3>
+          </LargeTitleSubtitle>
         </ContainerRow>
         <ContainerRow>
           <ContainerContent>
