@@ -7,6 +7,8 @@ import { ContainerContent } from './components/ContainerContent';
 import { ModalContent } from './content/ModalContent';
 import { AboutMeButton } from './components/AboutMeButton';
 
+const isWin = /Win/i.test(navigator.userAgent);
+
 export const App = () => {
   return (
     <>
@@ -28,9 +30,11 @@ export const App = () => {
           <LargeTitle>Alistair Smith</LargeTitle>
           <h3>
             Full-stack TypeScript engineer from the UK{' '}
-            <span role="img" aria-label="GB Flag">
-              🇬🇧
-            </span>
+            {!isWin && (
+              <span role="img" aria-label="GB Flag">
+                🇬🇧
+              </span>
+            )}
           </h3>
         </ContainerRow>
         <ContainerRow>
