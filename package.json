@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "dayjs": "^1.9.6",
-    "jotai": "^0.11.2",
+    "dayjs": "^1.9.7",
+    "jotai": "^0.11.3",
     "number-to-words": "^1.2.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "styled-components": "^5.2.1",
-    "use-last-fm": "^0.2.10"
+    "use-last-fm": "^0.2.11"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -35,15 +35,15 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
-    "@testing-library/user-event": "^12.2.2",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^14.14.10",
+    "@testing-library/user-event": "^12.6.0",
+    "@types/jest": "^26.0.19",
+    "@types/node": "^14.14.13",
     "@types/number-to-words": "^1.2.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "@types/styled-components": "^5.1.4",
-    "prettier": "^2.2.0",
+    "@types/styled-components": "^5.1.5",
+    "prettier": "^2.2.1",
     "react-scripts": "^4.0.1",
-    "typescript": "^4.1.2"
+    "typescript": "^4.1.3"
   }
 }
