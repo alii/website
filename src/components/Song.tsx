@@ -19,7 +19,7 @@ export const Song = () => {
   }, [lastFm, setBackground]);
 
   if (lastFm.status !== 'playing') {
-    return <p>Not listening to anything</p>;
+    return <p><a href={"https://blog.alistair.cloud"}>Read my blog</a></p>;
   }
 
   return (
