@@ -1,15 +1,16 @@
 import React from 'react';
-import { Song } from './components/Song';
-import { Container } from './components/Container';
-import { ContainerRow } from './components/ContainerRow';
-import { LargeTitle, LargeTitleSubtitle } from './components/LargeTitle';
-import { ContainerContent } from './components/ContainerContent';
-import { ModalContent } from './content/ModalContent';
-import { AboutMeButton } from './components/AboutMeButton';
+import { Song } from '../components/Song';
+import { Container } from '../components/Container';
+import { ContainerRow } from '../components/ContainerRow';
+import { LargeTitle, LargeTitleSubtitle } from '../components/LargeTitle';
+import { ContainerContent } from '../components/ContainerContent';
+import { ModalContent } from '../content/ModalContent';
+import { AboutMeButton } from '../components/AboutMeButton';
+import { GetServerSideProps } from 'next';
 
-const isWin = /Win/i.test(navigator.userAgent);
+type IndexProps = { isWin: boolean };
 
-export const App = () => {
+export default function Index({ isWin }: IndexProps) {
   return (
     <>
       <ModalContent />
@@ -52,4 +53,12 @@ export const App = () => {
       </Container>
     </>
   );
+}
+
+export const getServerSideProps: GetServerSideProps<IndexProps> = (ctx) => {
+  return Promise.resolve({
+    props: {
+      isWin: /Win/i.test(ctx.req.headers['user-agent'] || ''),
+    },
+  });
 };

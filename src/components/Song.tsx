@@ -23,15 +23,23 @@ export const Song = () => {
   }
 
   return (
-    <Styled>
+    <Styled href={lastFm.song.url}>
       Listening to <span>{lastFm.song.name}</span> by <span>{lastFm.song.artist}</span> on <span>Spotify</span>
     </Styled>
   );
 };
 
-const Styled = styled.p`
+const Styled = styled.a`
+  text-decoration: none;
+
   span {
     font-weight: bold;
+  }
+
+  &:hover {
+    span {
+      text-decoration: underline;
+    }
   }
 
   &::after {

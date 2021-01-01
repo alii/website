@@ -6,6 +6,7 @@ import React, { ReactNode } from 'react';
 export const Container = ({ children }: { children: ReactNode }) => {
   const [url] = useAtom(background);
   const [open] = useAtom(modalOpen);
+
   return (
     <StyledContainer background={url} blurred={open}>
       <div>{children}</div>
@@ -14,7 +15,7 @@ export const Container = ({ children }: { children: ReactNode }) => {
 };
 
 const StyledContainer = styled.div<{ background: string; blurred: boolean }>`
-  height: var(--app-height);
+  height: 100%;
   width: 100%;
 
   background: black;

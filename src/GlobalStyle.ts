@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 export const GlobalStyle = createGlobalStyle`
   html {
     font-family: 'Inter', sans-serif;
+    height: 100%;
   }
 
   @supports (font-variation-settings: normal) {
@@ -12,6 +13,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    height: 100%;
     margin: 0;
     box-sizing: border-box;
 
@@ -38,7 +40,7 @@ export const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
-  #root {
+  #__next {
     flex: 1;
     display: flex;
     flex-direction: column;
