@@ -1,6 +1,4 @@
 import React from 'react';
-import discordImage from './discord.png';
-import githubImage from './github.png';
 
 export const Email = () => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -14,11 +12,11 @@ export const Email = () => (
 );
 
 export const Discord = () => {
-  return <img alt={'Discord Logo'} src={discordImage} />;
+  return <img alt={'Discord Logo'} src={'/discord.png'} />;
 };
 
 export const Github = () => {
-  return <img src={githubImage} alt="GitHub Logo" />;
+  return <img src={'/github.png'} alt="GitHub Logo" />;
 };
 
 export const Close = () => (

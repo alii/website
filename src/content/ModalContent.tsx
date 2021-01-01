@@ -9,7 +9,6 @@ import { ContactContainer, ContactRow } from '../components/ContactRow';
 import { DiscordContactRow } from '../components/DiscordContactRow';
 import styled from 'styled-components';
 import { GhostButton } from '../components/AboutMeButton';
-import me from '../assets/me.png';
 
 const birthday = day('2 November 2004').toDate();
 const age = Math.abs(new Date(Date.now() - birthday.getTime()).getUTCFullYear() - 1970);
@@ -18,6 +17,8 @@ export const ModalContent = () => {
   const [open, setOpen] = useAtom(modalOpen);
 
   useEffect(() => {
+    if (!document) return;
+
     const listener = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setOpen(false);
@@ -31,7 +32,7 @@ export const ModalContent = () => {
   return (
     <Modal className={open ? 'open' : ''}>
       <ModalTopLevel>
-        <ModalProfile src={me} alt="Me" />
+        <ModalProfile src={'/me.png'} alt="Me" />
         <ModalTitle>
           <span>Alistair Smith</span>
           <GhostButton aria-label="close" aria-roledescription={'Closes the modal'} onClick={() => setOpen(false)}>
