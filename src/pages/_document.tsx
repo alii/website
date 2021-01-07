@@ -22,7 +22,7 @@ export default class AlistairDocument extends Document {
         styles: (
           <>
             {initialProps.styles}
-            {sheet.getStyleElement()}
+            {sheet.getStyleElement().replace(/\/\*\!sc\*\//gmi, '')}
           </>
         ),
       };
