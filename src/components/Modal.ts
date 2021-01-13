@@ -11,8 +11,12 @@ export const Modal = styled.div`
 
   background: black;
 
-  border-radius: 20px;
-  padding: 35px 25px;
+  background: rgba(15, 17, 21, 0.35);
+  padding: 35px;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 
   transition: all 1s;
 
@@ -54,5 +58,5 @@ export const ModalProfile = styled.img`
   width: 120px;
   object-fit: cover;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-right: 15px;
 `;

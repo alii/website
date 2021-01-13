@@ -24,8 +24,7 @@ const StyledContainer = styled.div<{ background: string; blurred: boolean }>`
   transition: all 1s;
   display: flex;
 
-  filter: blur(${(props) => (props.blurred ? 10 : 0)}px) brightness(${(props) => (props.blurred ? 0.5 : 1)})
-    invert(${(props) => (props.blurred ? 0.1 : 0)});
+  filter: brightness(${(props) => (props.blurred ? 0.2 : 1)}) invert(${(props) => (props.blurred ? 0.1 : 0)});
 
   > div {
     flex: 1;
