@@ -62,7 +62,6 @@ export const ModalContent = () => {
 
 const ModalTopLevel = styled.div`
   display: flex;
-  //align-items: center;
   flex-direction: column;
 
   h2 {
