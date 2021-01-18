@@ -32,7 +32,6 @@ export const ModalContent = () => {
   return (
     <Modal className={open ? 'open' : ''}>
       <ModalTopLevel>
-        <ModalProfile src={'/me.png'} alt="Me" />
         <ModalTitle>
           <span>Alistair Smith</span>
           <GhostButton aria-label="close" aria-roledescription={'Closes the modal'} onClick={() => setOpen(false)}>
@@ -46,15 +45,18 @@ export const ModalContent = () => {
         since seven, I've learned a lot about programming principles, scaling, and systems architecture. I consider myself
         forward-thinking and I always love to have a joke around.
       </p>
-      <p>Get in touch</p>
       <ContactContainer>
-        <DiscordContactRow />
-        <ContactRow href={'mailto:inbox@alistair.cloud'}>
-          <Email /> inbox@alistair.cloud
-        </ContactRow>
-        <ContactRow href={'https://github.com/alii'}>
-          <Github /> alii
-        </ContactRow>
+        <ModalProfile src={'/me.png'} alt="Me" />
+        <div>
+          <p>Get in touch</p>
+          <DiscordContactRow />
+          <ContactRow href={'mailto:inbox@alistair.cloud'}>
+            <Email /> inbox@alistair.cloud
+          </ContactRow>
+          <ContactRow href={'https://github.com/alii'}>
+            <Github /> alii
+          </ContactRow>
+        </div>
       </ContactContainer>
     </Modal>
   );

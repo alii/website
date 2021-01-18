@@ -20,4 +20,14 @@ export const ContactRow = styled.a`
 
 export const ContactContainer = styled.div`
   margin-top: 15px;
+  display: flex;
+  align-items: center;
+
+  div {
+    flex: 1;
+
+    p {
+      margin-top: 0;
+    }
+  }
 `;
