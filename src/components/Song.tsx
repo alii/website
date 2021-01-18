@@ -16,10 +16,14 @@ export const Song = () => {
     } else {
       setBackground(initialBackground);
     }
-  }, [lastFm, setBackground]);
+  }, [lastFm.song, lastFm.status, setBackground]);
 
   if (lastFm.status !== 'playing') {
-    return <p><a href={"https://blog.alistair.cloud"}>Read my blog</a></p>;
+    return (
+      <p>
+        <a href={'https://blog.alistair.cloud'}>Read my blog</a>
+      </p>
+    );
   }
 
   return (

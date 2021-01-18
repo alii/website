@@ -57,8 +57,6 @@ export default function Index({ isWin }: IndexProps) {
 
 export const getServerSideProps: GetServerSideProps<IndexProps> = (ctx) => {
   return Promise.resolve({
-    props: {
-      isWin: /Win/i.test(ctx.req.headers['user-agent'] || ''),
-    },
+    props: { isWin: /Win/i.test(ctx.req.headers['user-agent'] || '') },
   });
 };
