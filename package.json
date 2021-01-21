@@ -9,6 +9,8 @@
     "number-to-words": "^1.2.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-spring": "^8.0.27",
+    "react-spring-modal": "^1.0.8",
     "styled-components": "^5.2.1",
     "use-last-fm": "^0.6.0"
   },

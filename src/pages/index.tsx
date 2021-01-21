@@ -1,31 +1,39 @@
-import React from 'react';
-import { Song } from '../components/Song';
-import { Container } from '../components/Container';
-import { ContainerRow } from '../components/ContainerRow';
-import { LargeTitle, LargeTitleSubtitle } from '../components/LargeTitle';
-import { ContainerContent } from '../components/ContainerContent';
-import { ModalContent } from '../content/ModalContent';
-import { AboutMeButton } from '../components/AboutMeButton';
-import { GetServerSideProps } from 'next';
+import React, {useState} from 'react';
+import {Song} from '../components/Song';
+import {Container, Content} from '../components/Container';
+import {ContainerRow} from '../components/ContainerRow';
+import {LargeTitle, LargeTitleSubtitle} from '../components/LargeTitle';
+import {AboutMeButton} from '../components/AboutMeButton';
+import {GetServerSideProps} from 'next';
+import {Email, Github} from '../assets/icons';
+import {toWords} from 'number-to-words';
+import {ContactContainer, ContactRow} from '../components/ContactRow';
+import {DiscordContactRow} from '../components/DiscordContactRow';
+import {BottomModal} from 'react-spring-modal';
+import day from 'dayjs';
+import styled from 'styled-components';
 
-type IndexProps = { isWin: boolean };
+const birthday = day('2 November 2004').toDate();
+const age = Math.abs(new Date(Date.now() - birthday.getTime()).getUTCFullYear() - 1970);
 
-export default function Index({ isWin }: IndexProps) {
+type IndexProps = {isWin: boolean};
+
+export default function Index({isWin}: IndexProps) {
+  const [open, setOpen] = useState(false);
   return (
     <>
-      <ModalContent />
       <Container>
         <ContainerRow>
-          <ContainerContent>
+          <Content>
             <div>
               <p>
-                <AboutMeButton />
+                <AboutMeButton setOpen={setOpen} />
               </p>
             </div>
             <div>
               <p>TypeScript + React + Node.js</p>
             </div>
-          </ContainerContent>
+          </Content>
         </ContainerRow>
         <ContainerRow large>
           <LargeTitle>Alistair Smith</LargeTitle>
@@ -39,7 +47,7 @@ export default function Index({ isWin }: IndexProps) {
           </LargeTitleSubtitle>
         </ContainerRow>
         <ContainerRow>
-          <ContainerContent>
+          <Content>
             <div>
               <p>
                 Currently working at <a href="https://edge.gg">Edge</a>
@@ -48,15 +56,45 @@ export default function Index({ isWin }: IndexProps) {
             <div>
               <Song />
             </div>
-          </ContainerContent>
+          </Content>
         </ContainerRow>
       </Container>
+
+      <BottomModal isOpen={open} onRequestClose={() => setOpen(false)}>
+        <ModalTitle>Alistair Smith</ModalTitle>
+        <ModalParagraph>
+          Hey, I'm a {toWords(age)} year old full-stack TypeScript engineer from the United Kingdom. I have a huge passion for
+          creating and supporting open-source software, desktop & mobile applications, and responsive, performant code.
+          Programming since seven, I've learned a lot about programming principles, scaling, and systems architecture. I consider
+          myself forward-thinking and I always love to have a joke around.
+        </ModalParagraph>
+        <ContactContainer>
+          <img src={'/me.png'} alt="Me" />
+          <div>
+            <DiscordContactRow />
+            <ContactRow href={'mailto:inbox@alistair.cloud'}>
+              <Email /> inbox@alistair.cloud
+            </ContactRow>
+            <ContactRow href={'https://github.com/alii'}>
+              <Github /> alii
+            </ContactRow>
+          </div>
+        </ContactContainer>
+      </BottomModal>
     </>
   );
 }
 
 export const getServerSideProps: GetServerSideProps<IndexProps> = (ctx) => {
   return Promise.resolve({
-    props: { isWin: /Win/i.test(ctx.req.headers['user-agent'] || '') },
+    props: {isWin: /Win/i.test(ctx.req.headers['user-agent'] || '')},
   });
 };
+
+const ModalTitle = styled.h1`
+  line-height: 18px;
+`;
+
+const ModalParagraph = styled.p`
+  margin: 15px 0;
+`;

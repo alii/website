@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Consts } from '../core/consts';
-import { ContactRow } from './ContactRow';
-import { Discord } from '../assets/icons';
+import React, {useState} from 'react';
+import {Consts} from '../core/consts';
+import {ContactRow} from './ContactRow';
+import {Discord} from '../assets/icons';
 
 export const DiscordContactRow = () => {
   const [message, setMessage] = useState(Consts.DiscordUsername);

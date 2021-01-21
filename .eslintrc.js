@@ -11,7 +11,7 @@ module.exports = {
     'plugin:react-hooks/recommended',
   ],
   settings: {
-    react: { version: 'detect' },
+    react: {version: 'detect'},
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {

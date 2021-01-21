@@ -1,10 +1,7 @@
-import { useAtom } from 'jotai';
-import { modalOpen } from '../core/atoms';
 import React from 'react';
 import styled from 'styled-components';
 
-export const AboutMeButton = () => {
-  const [, setOpen] = useAtom(modalOpen);
+export const AboutMeButton = ({setOpen}: {setOpen: React.Dispatch<React.SetStateAction<boolean>>}) => {
   return <GhostButton onClick={() => setOpen(true)}>About me</GhostButton>;
 };
 

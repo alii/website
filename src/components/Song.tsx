@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { useLastFM } from 'use-last-fm';
-import { Consts } from '../core/consts';
+import React, {useEffect} from 'react';
+import {useLastFM} from 'use-last-fm';
+import {Consts} from '../core/consts';
 import styled from 'styled-components';
-import { useAtom } from 'jotai';
-import { background, initialBackground } from '../core/atoms';
-import { animations } from '../assets/animations';
+import {useAtom} from 'jotai';
+import {background, initialBackground} from '../core/atoms';
+import {animations} from '../assets/animations';
 
 export const Song = () => {
   const lastFm = useLastFM(Consts.LastFMUsername, Consts.LastFMToken);
