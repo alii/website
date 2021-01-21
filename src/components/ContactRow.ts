@@ -19,12 +19,22 @@ export const ContactRow = styled.a`
 `;
 
 export const ContactContainer = styled.div`
-  margin-top: 15px;
   display: flex;
   align-items: center;
 
+  > img {
+    max-height: 80px;
+    border-radius: 10px;
+  }
+
   div {
     flex: 1;
+
+    img,
+    svg,
+    p {
+      margin-left: 15px;
+    }
 
     p {
       margin-top: 0;

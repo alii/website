@@ -1,5 +1,5 @@
-import Document, { DocumentContext, Html, Head, NextScript, Main } from 'next/document';
-import { ServerStyleSheet } from 'styled-components';
+import Document, {DocumentContext, Html, Head, NextScript, Main} from 'next/document';
+import {ServerStyleSheet} from 'styled-components';
 import React from 'react';
 
 export default class extends Document {
@@ -42,11 +42,8 @@ export default class extends Document {
           <link rel="stylesheet" href={'https://rsms.me/inter/inter.css'} />
         </Head>
         <body>
-          <noscript>
-            <p>You need to enable JavaScript to run this app.</p>
-            <img src="https://lab.alistair.cloud/noscript.gif" alt="" />
-          </noscript>
           <Main />
+          <div id="modal-root" />
           <NextScript />
           <script async defer src={'https://lab.alistair.cloud/latest.js'} />
         </body>

@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import {createGlobalStyle} from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   html {
@@ -11,7 +11,7 @@ export const GlobalStyle = createGlobalStyle`
       font-family: 'Inter var', sans-serif;
     }
   }
-
+  
   body {
     height: 100%;
     margin: 0;
@@ -20,12 +20,11 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
+    min-height: 100%;
     background: #121212;
     color: #ededed;
-    display: flex;
-    overflow: hidden;
   }
-
+  
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
   }
@@ -37,12 +36,19 @@ export const GlobalStyle = createGlobalStyle`
 
   a {
     color: white;
-    cursor: pointer;
+    cursor: pointer; 
+  }
+  
+  #__next {
+    height: 100%;
   }
 
-  #__next {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  .BottomModal {
+    background-color: #121212;
+    color: white;
+  }
+  
+  .ModalBackdrop { 
+    z-index: 50;
   }
 `;

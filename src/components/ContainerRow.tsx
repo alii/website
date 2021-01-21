@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react';
+import React, {ReactNode} from 'react';
 import styled from 'styled-components';
 
-export const ContainerRow = ({ children, large }: { children: ReactNode; large?: boolean }) => {
+export const ContainerRow = ({children, large = false}: {children: ReactNode; large?: boolean}) => {
   if (large) {
     return <LargeRow>{children}</LargeRow>;
   }

@@ -1,20 +1,27 @@
 import styled from 'styled-components';
-import { useAtom } from 'jotai';
-import { background, modalOpen } from '../core/atoms';
-import React, { ReactNode } from 'react';
+import {useAtom} from 'jotai';
+import {background} from '../core/atoms';
+import React, {ReactNode} from 'react';
 
-export const Container = ({ children }: { children: ReactNode }) => {
+export const Container = ({children}: {children: ReactNode}) => {
   const [url] = useAtom(background);
-  const [open] = useAtom(modalOpen);
 
   return (
-    <StyledContainer background={url} blurred={open}>
+    <StyledContainer background={url}>
       <div>{children}</div>
     </StyledContainer>
   );
 };
 
-const StyledContainer = styled.div<{ background: string; blurred: boolean }>`
+export const Content = styled.div`
+  display: flex;
+
+  div:first-child {
+    flex: 1;
+  }
+`;
+
+const StyledContainer = styled.div<{background: string}>`
   height: 100%;
   width: 100%;
 
@@ -23,8 +30,6 @@ const StyledContainer = styled.div<{ background: string; blurred: boolean }>`
   background-size: cover;
   transition: all 1s;
   display: flex;
-
-  filter: brightness(${(props) => (props.blurred ? 0.2 : 1)}) invert(${(props) => (props.blurred ? 0.1 : 0)});
 
   > div {
     flex: 1;

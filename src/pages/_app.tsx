@@ -1,11 +1,13 @@
-import React, { StrictMode } from 'react';
-import { AppProps } from 'next/app';
+import React, {StrictMode} from 'react';
+import {AppProps} from 'next/app';
 
-import { Provider } from 'jotai';
-import { GlobalStyle } from '../GlobalStyle';
+import {Provider} from 'jotai';
+import {GlobalStyle} from '../GlobalStyle';
 import Head from 'next/head';
 
-export default function App({ Component, pageProps }: AppProps) {
+import 'react-spring-modal/dist/index.css';
+
+export default function App({Component, pageProps}: AppProps) {
   return (
     <StrictMode>
       <Head>

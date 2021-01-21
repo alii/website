@@ -1,4 +1,4 @@
-import { keyframes } from 'styled-components';
+import {keyframes} from 'styled-components';
 
 export const animations = {
   Pulse: keyframes`
