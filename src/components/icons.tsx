@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const Email = () => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path
@@ -15,6 +13,6 @@ export const Discord = () => {
   return <img alt={'Discord Logo'} src={'/discord.png'} />;
 };
 
-export const Github = () => {
+export const GitHub = () => {
   return <img src={'/github.png'} alt="GitHub Logo" />;
 };

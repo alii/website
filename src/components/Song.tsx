@@ -1,59 +1,29 @@
-import React, {useEffect} from 'react';
 import {useLastFM} from 'use-last-fm';
 import {Consts} from '../core/consts';
-import styled from 'styled-components';
-import {useAtom} from 'jotai';
-import {background, initialBackground} from '../core/atoms';
-import {animations} from '../assets/animations';
+import Link from 'next/link';
+import {FC} from 'react';
 
 export const Song = () => {
-  const lastFm = useLastFM(Consts.LastFMUsername, Consts.LastFMToken);
-  const [, setBackground] = useAtom(background);
+  const lastFM = useLastFM(Consts.LastFMUsername, Consts.LastFMToken);
 
-  useEffect(() => {
-    if (lastFm.status === 'playing') {
-      setBackground(lastFm.song.art);
-    } else {
-      setBackground(initialBackground);
-    }
-  }, [lastFm.song, lastFm.status, setBackground]);
-
-  if (lastFm.status !== 'playing') {
+  if (lastFM.status !== 'playing') {
     return (
       <p>
-        <a href={'https://blog.alistair.cloud'}>Read my blog</a>
+        <Link href="/blog">Read my blog</Link>
       </p>
     );
   }
 
   return (
-    <Styled href={lastFm.song.url}>
-      Listening to <span>{lastFm.song.name}</span> by <span>{lastFm.song.artist}</span> on <span>Spotify</span>
-    </Styled>
+    <p>
+      <a href={lastFM.song.url} className="hover:underline">
+        Listening to <Segment>{lastFM.song.name}</Segment> by <Segment>{lastFM.song.artist}</Segment> on{' '}
+        <Segment>Spotify</Segment>
+        <Pulse />
+      </a>
+    </p>
   );
 };
 
-const Styled = styled.a`
-  text-decoration: none;
-
-  span {
-    font-weight: bold;
-  }
-
-  &:hover {
-    span {
-      text-decoration: underline;
-    }
-  }
-
-  &::after {
-    content: '';
-    height: 10px;
-    margin-left: 5px;
-    width: 10px;
-    background: #1db954;
-    display: inline-block;
-    border-radius: 50%;
-    animation: 2s linear 0s infinite normal none running ${animations.Pulse};
-  }
-`;
+const Segment: FC = (props) => <span className="font-bold">{props.children}</span>;
+const Pulse = () => <span className="bg-green-500 h-2 w-2 animate-pulse rounded-full inline-block" />;
