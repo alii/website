@@ -3,17 +3,7 @@ import Link from 'next/link';
 import {GetServerSideProps} from 'next';
 import {Activity} from '../components/activity';
 
-interface IndexProps {
-  isWin: boolean;
-}
-
-export default function Index({isWin}: IndexProps) {
-  const emoji = !isWin && (
-    <span role="img" aria-label="GB Flag">
-      🇬🇧
-    </span>
-  );
-
+export default function Index() {
   return (
     <div className="flex h-full flex-col p-14">
       <div className="flex">
@@ -25,7 +15,6 @@ export default function Index({isWin}: IndexProps) {
       <div className="flex flex-1">
         <div className="flex justify-center flex-col space-y-4">
           <LargeTitle>Alistair Smith</LargeTitle>
-          <h2>Full-stack TypeScript engineer from the UK {emoji}</h2>
           <Activity />
         </div>
         <div className="flex-1" />
@@ -41,9 +30,3 @@ export default function Index({isWin}: IndexProps) {
     </div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps<IndexProps> = (ctx) => {
-  return Promise.resolve({
-    props: {isWin: /Win/i.test(ctx.req.headers['user-agent'] || '')},
-  });
-};
