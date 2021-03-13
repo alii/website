@@ -1,5 +1,13 @@
 export const Email = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" height={24} width={24} viewBox="0 0 24 24" stroke="currentColor">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    height={24}
+    width={24}
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    className="inline"
+  >
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -10,9 +18,9 @@ export const Email = () => (
 );
 
 export const Discord = () => {
-  return <img alt="Discord Logo" height="24px" width="24px" src={'/discord.png'} />;
+  return <img alt="Discord Logo" height="24px" width="24px" src="/discord.png" className="inline" />;
 };
 
 export const GitHub = () => {
-  return <img src="/github.png" height="24px" width="24px" alt="GitHub Logo" />;
+  return <img src="/github.png" height="24px" width="24px" alt="GitHub Logo" className="inline" />;
 };

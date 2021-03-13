@@ -1,10 +1,11 @@
 import {LargeTitle} from '../components/large-title';
 import Link from 'next/link';
 import {Activity} from '../components/activity';
+import {Layout} from '../layouts/Layout';
 
 export default function Index() {
   return (
-    <div className="flex h-full flex-col p-14 bg-blur">
+    <Layout>
       <div className="flex">
         <Link href="/about" passHref>
           <a className="flex-1">About me</a>
@@ -25,6 +26,6 @@ export default function Index() {
           <Link href="/blog">Blog</Link>
         </p>
       </div>
-    </div>
+    </Layout>
   );
 }

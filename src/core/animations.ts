@@ -3,7 +3,7 @@ import {MotionProps} from 'framer-motion';
 export const animations: Pick<MotionProps, 'initial' | 'animate' | 'exit'> = {
   initial: {
     opacity: 0,
-    y: 50,
+    y: 500,
   },
   animate: {
     opacity: 1,
