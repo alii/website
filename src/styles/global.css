@@ -49,3 +49,8 @@ a {
 .title {
   font-family: 'Space Mono', monospace;
 }
+
+.bg-blur {
+  backdrop-filter: blur(10px);
+}
+

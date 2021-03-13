@@ -4,7 +4,7 @@ import {Activity} from '../components/activity';
 
 export default function Index() {
   return (
-    <div className="flex h-full flex-col p-14">
+    <div className="flex h-full flex-col p-14 bg-blur">
       <div className="flex">
         <Link href="/about" passHref>
           <a className="flex-1">About me</a>
@@ -12,11 +12,10 @@ export default function Index() {
         <p>TypeScript + React + Node.js</p>
       </div>
       <div className="flex flex-1">
-        <div className="flex justify-center flex-col space-y-4">
+        <div className="flex justify-center flex-col space-y-10">
           <LargeTitle>Alistair Smith</LargeTitle>
           <Activity />
         </div>
-        <div className="flex-1" />
       </div>
       <div className="flex">
         <p className="flex-1">
