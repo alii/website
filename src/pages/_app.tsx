@@ -20,6 +20,11 @@ export default function App({Component, pageProps, router}: AppProps) {
     document.body.style.backgroundSize = 'cover';
   }, [lastFm.song?.art, lastFm.status]);
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    void new Audio('/pop.mp3').play();
+  }, [router.pathname]);
+
   return (
     <StrictMode>
       <Head>
