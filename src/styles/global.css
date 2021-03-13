@@ -1,13 +1,8 @@
 html {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   height: 100%;
   background: #121212;
-}
-
-@supports (font-variation-settings: normal) {
-  html {
-    font-family: 'Inter var', sans-serif;
-  }
+  font-weight: 400;
 }
 
 body {
@@ -49,4 +44,8 @@ a {
   -webkit-backdrop-filter: blur(7px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.title {
+  font-family: 'Space Mono', monospace;
 }

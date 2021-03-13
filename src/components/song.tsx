@@ -1,27 +1,22 @@
 import {useLastFM} from 'use-last-fm';
 import {Consts} from '../core/consts';
-import Link from 'next/link';
 import {FC} from 'react';
 
 export const Song = () => {
   const lastFM = useLastFM(Consts.LastFMUsername, Consts.LastFMToken);
 
   if (lastFM.status !== 'playing') {
-    return (
-      <p>
-        <Link href="/blog">Read my blog</Link>
-      </p>
-    );
+    return null;
   }
 
   return (
-    <p>
-      <a href={lastFM.song.url} className="hover:underline">
+    <div className="pt-4">
+      <a href={lastFM.song.url} className="hover:underline border-t border-gray-200 pt-3 block border-opacity-10">
         Listening to <Segment>{lastFM.song.name}</Segment> by <Segment>{lastFM.song.artist}</Segment> on{' '}
         <Segment>Spotify</Segment>
         <Pulse />
       </a>
-    </p>
+    </div>
   );
 };
 
