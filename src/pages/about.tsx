@@ -23,9 +23,9 @@ export default function About() {
               Programming since seven, I've learned a lot about programming principles, scaling, and systems architecture. I
               consider myself forward-thinking and I always love to have a joke around.
             </p>
-            <div className="flex items-center n">
+            <div className="flex items-center">
               <img src="/me.png" alt="Me" className="h-20 rounded-md" />
-              <div className="flex justify-between flex-col py-4 pl-2">
+              <div className="flex justify-between flex-col py-4 pl-2 space-y-1">
                 <DiscordContactRow />
                 <a href="mailto:inbox@alistair.cloud" className="flex">
                   <Email /> inbox@alistair.cloud
