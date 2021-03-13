@@ -8,6 +8,7 @@ import {Consts} from '../core/consts';
 import {initialBackground} from '../core/data';
 import {toBackground} from '../core/utilities';
 
+import 'tailwindcss/tailwind.css';
 import '../styles/global.css';
 
 export default function App({Component, pageProps, router}: AppProps) {
@@ -16,7 +17,8 @@ export default function App({Component, pageProps, router}: AppProps) {
   useEffect(() => {
     const url = lastFm.status === 'playing' ? lastFm.song.art : initialBackground;
     document.body.style.background = toBackground(url);
-  }, [lastFm.song, lastFm.status]);
+    document.body.style.backgroundSize = 'cover';
+  }, [lastFm.song?.art, lastFm.status]);
 
   return (
     <StrictMode>
@@ -24,7 +26,7 @@ export default function App({Component, pageProps, router}: AppProps) {
         <title>Alistair Smith</title>
       </Head>
       <AnimatePresence exitBeforeEnter>
-        <motion.div key={router.pathname} {...animations} id="test" style={{height: '100%'}}>
+        <motion.div key={router.pathname} {...animations} className="h-full">
           <Component {...pageProps} />
         </motion.div>
       </AnimatePresence>

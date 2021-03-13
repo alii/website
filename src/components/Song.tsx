@@ -26,4 +26,4 @@ export const Song = () => {
 };
 
 const Segment: FC = (props) => <span className="font-bold">{props.children}</span>;
-const Pulse = () => <span className="bg-green-500 h-2 w-2 animate-pulse rounded-full inline-block" />;
+const Pulse = () => <span className="bg-green-500 h-2 w-2 animate-pulse ml-2 rounded-full inline-block" />;

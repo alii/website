@@ -1,41 +1,55 @@
 html {
-    font-family: 'Inter', sans-serif;
-    height: 100%;
+  font-family: 'Inter', sans-serif;
+  height: 100%;
+  background: #121212;
 }
 
 @supports (font-variation-settings: normal) {
-    html {
-        font-family: 'Inter var', sans-serif;
-    }
+  html {
+    font-family: 'Inter var', sans-serif;
+  }
 }
 
 body {
-    height: 100%;
-    margin: 0;
-    box-sizing: border-box;
+  height: 100%;
+  margin: 0;
+  box-sizing: border-box;
 
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
-    min-height: 100%;
-    background: #121212;
-    color: #ededed;
+  min-height: 100%;
+  color: #ededed;
+
+  background-size: cover;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 a {
-    color: white;
-    cursor: pointer;
+  color: white;
+  cursor: pointer;
 }
 
 #__next {
-    height: 100%;
+  height: 100%;
+}
+
+.glass {
+  background: rgba(15, 17, 21, 0.35);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+div.glass {
+  padding: 35px;
 }
