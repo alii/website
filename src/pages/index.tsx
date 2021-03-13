@@ -1,6 +1,5 @@
 import {LargeTitle} from '../components/large-title';
 import Link from 'next/link';
-import {GetServerSideProps} from 'next';
 import {Activity} from '../components/activity';
 
 export default function Index() {
