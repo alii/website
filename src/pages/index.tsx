@@ -1,5 +1,5 @@
-import {Song} from '../components/Song';
-import {LargeTitle} from '../components/LargeTitle';
+import {Song} from '../components/song';
+import {LargeTitle} from '../components/large-title';
 import Link from 'next/link';
 import {GetServerSideProps} from 'next';
 import {Activity} from '../components/activity';
@@ -23,10 +23,13 @@ export default function Index({isWin}: IndexProps) {
         </Link>
         <p>TypeScript + React + Node.js</p>
       </div>
-      <div className="flex flex-1 justify-center flex-col">
-        <LargeTitle>Alistair Smith</LargeTitle>
-        <h2>Full-stack TypeScript engineer from the UK {emoji}</h2>
-        <Activity />
+      <div className="flex flex-1">
+        <div className="flex justify-center flex-col">
+          <LargeTitle>Alistair Smith</LargeTitle>
+          <h2>Full-stack TypeScript engineer from the UK {emoji}</h2>
+          <Activity />
+        </div>
+        <div className="flex-1" />
       </div>
       <div className="flex">
         <p className="flex-1">
