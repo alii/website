@@ -2,8 +2,6 @@ import {toWords} from 'number-to-words';
 import React, {useState} from 'react';
 import {Consts} from '../core/consts';
 import day from 'dayjs';
-import {AnimatePresence, motion} from 'framer-motion';
-import {animations} from '../core/animations';
 import Link from 'next/link';
 import {Email, GitHub, Discord} from '../components/icons';
 import {Layout} from '../layouts/Layout';
@@ -15,16 +13,16 @@ export default function About() {
   return (
     <Layout>
       <Link href="/">Back</Link>
-      <div className="flex-1 flex h-full justify-center items-center flex-col">
-        <div className="glass overflow-hidden p-5">
-          <h1>Alistair Smith</h1>
+      <div className="flex-1 flex h-full justify-center items-center">
+        <div className="glass overflow-hidden p-5 w-96 space-y-4">
+          <h1 className="text-3xl font-bold title">Alistair Smith</h1>
           <p>
             Hey, I'm a {toWords(age)} year old full-stack TypeScript engineer from the United Kingdom. I have a huge passion for
             creating and supporting open-source software, desktop & mobile applications, and responsive, performant code.
             Programming since seven, I've learned a lot about programming principles, scaling, and systems architecture. I
             consider myself forward-thinking and I always love to have a joke around.
           </p>
-          <div className="flex items-center">
+          <div className="flex items-center n">
             <img src="/me.png" alt="Me" className="h-20 rounded-md" />
             <div className="flex justify-between flex-col py-4 pl-2">
               <DiscordContactRow />

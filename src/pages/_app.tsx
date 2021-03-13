@@ -25,11 +25,13 @@ export default function App({Component, pageProps, router}: AppProps) {
       <Head>
         <title>Alistair Smith</title>
       </Head>
-      <AnimatePresence exitBeforeEnter>
-        <motion.div key={router.pathname} {...animations} className="h-full bg-blur">
-          <Component {...pageProps} />
-        </motion.div>
-      </AnimatePresence>
+      <div className="h-full bg-blur">
+        <AnimatePresence exitBeforeEnter>
+          <motion.div key={router.pathname} {...animations} className="h-full">
+            <Component {...pageProps} />
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </StrictMode>
   );
 }
