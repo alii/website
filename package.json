@@ -9,6 +9,7 @@
     "number-to-words": "^1.2.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "use-lanyard": "^0.0.5",
     "use-last-fm": "^0.6.0"
   },
   "scripts": {

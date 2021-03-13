@@ -2,6 +2,7 @@ import {Song} from '../components/Song';
 import {LargeTitle} from '../components/LargeTitle';
 import Link from 'next/link';
 import {GetServerSideProps} from 'next';
+import {Activity} from '../components/activity';
 
 interface IndexProps {
   isWin: boolean;
@@ -25,12 +26,12 @@ export default function Index({isWin}: IndexProps) {
       <div className="flex flex-1 justify-center flex-col">
         <LargeTitle>Alistair Smith</LargeTitle>
         <h2>Full-stack TypeScript engineer from the UK {emoji}</h2>
+        <Activity />
       </div>
-      <div>
-        <p>
+      <div className="flex">
+        <p className="flex-1">
           Currently working at <a href="https://edge.gg">Edge</a>
         </p>
-
         <Song />
       </div>
     </div>

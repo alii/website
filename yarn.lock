@@ -3119,6 +3119,11 @@ swr@^0.4.0:
   dependencies:
     dequal "2.0.2"
 
+swr@^0.5.2:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-0.5.3.tgz#7290a9a61329d930583ef365317e636b8dbaa8bb"
+  integrity sha512-RUE3RWn3jt9e4qLPat2A9vbHG/5N6konsc27xKjE65jFSiGv0P7HLD8IGvwAv6DRKktL7Od2UcayX0plKb2awg==
+
 table@^6.0.4:
   version "6.0.7"
   resolved "https://registry.yarnpkg.com/table/-/table-6.0.7.tgz"
@@ -3274,6 +3279,13 @@ url@^0.11.0:
   dependencies:
     punycode "1.3.2"
     querystring "0.2.0"
+
+use-lanyard@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/use-lanyard/-/use-lanyard-0.0.5.tgz#880ba89254249c3ba12b79e77cb8cc9409cbb81b"
+  integrity sha512-uvxsaQDjLklsE6Vyxs1R7wfWKfJ+w5T7eOSV/IPGeRTxHC9w2O2bU2hLSWABNljG18yALL3kcAHkuwTPR1gM0A==
+  dependencies:
+    swr "^0.5.2"
 
 use-last-fm@^0.6.0:
   version "0.6.0"

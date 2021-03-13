@@ -12,7 +12,7 @@ const age = Math.abs(new Date(Date.now() - birthday.getTime()).getUTCFullYear() 
 
 export default function About() {
   return (
-    <div className="glass h-20 w-20 overflow-hidden">
+    <div className="glass w-80 overflow-hidden">
       <h1>Alistair Smith</h1>
       <p>
         Hey, I'm a {toWords(age)} year old full-stack TypeScript engineer from the United Kingdom. I have a huge passion for
