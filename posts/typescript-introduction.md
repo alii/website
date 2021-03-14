@@ -1,7 +1,7 @@
 ---
 title: "TypeScript Introduction"
 excerpt: "Bring static types, an overwhelmingly welcoming community, a massively improved developer experience, modern sugar syntax, decorators and much, much more to JavaScript."
-cover: "/assets/covers/xps.jpg"
+cover: "/covers/xps.jpg"
 date: "2020-12-22T10:53:12.000Z"
 tags: "typescript, introduction, tutorial, learn, javascript"
 author:
@@ -22,7 +22,7 @@ TypeScript brings static types, an overwhelmingly welcoming community, a massive
 
 Static types allow us as developers to guarantee the type of a variable or argument at runtime. Previously with JavaScript, this was not possible. For example, if we had a function that added two numbers together, we could write this in JavaScript like
 
-```javascript:add.js
+```js:add.js
 function add(a, b) {
   return a + b;
 }
@@ -144,7 +144,7 @@ Whilst the core TypeScript team have admitted this is not brilliant syntax, the 
 
 A union type is that of two or more types together, for example
 
-```typescript
+```ts:toast.ts
 type ToastPositions = "top" | "bottom" | "left" | "right";
 ```
 
