@@ -1,4 +1,4 @@
-import {useLanyard} from 'use-lanyard';
+import {Activity, useLanyard} from 'use-lanyard';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import {Song} from './song';
@@ -17,16 +17,7 @@ export function Activity() {
     <div className="glass p-5">
       {activity && (
         <div className="flex items-center">
-          {activity.assets && (
-            <img
-              src={`https://cdn.discordapp.com/app-assets/${BigInt(activity.application_id).toString()}/${
-                activity.assets.large_image
-              }.png`}
-              alt={activity.assets.large_text}
-              className="h-24 rounded-md"
-            />
-          )}
-
+          <ActivityImage activity={activity} />
           <p className="ml-4 flex flex-col justify-between leading-snug">
             <span className="text-xl font-bold">{activity.name}</span>
             <span className="opacity-50">{activity.state}</span>
@@ -39,4 +30,22 @@ export function Activity() {
       <Song />
     </div>
   );
+}
+
+function ActivityImage({activity}: {activity: Activity}) {
+  if (!activity.assets) return null;
+
+  try {
+    return (
+      <img
+        src={`https://cdn.discordapp.com/app-assets/${BigInt(activity.application_id).toString()}/${
+          activity.assets.large_image
+        }.png`}
+        alt={activity.assets.large_text}
+        className="h-24 rounded-md"
+      />
+    );
+  } catch (e) {
+    return null;
+  }
 }
