@@ -6,7 +6,7 @@ date: "2020-12-22T10:55:12.000Z"
 tags: "node.js, node, typescript, javascript, proxies, sneaker bot, sneakers, aio bot, http proxies, proxy agent, react, node-fetch, fetch"
 author:
     name: Alistair Smith
-    avatar: "/assets/authors/alistair.png"
+    avatar: "/authors/alistair.png"
     twitter: aabbccsmith
 ---
 

@@ -6,7 +6,7 @@ date: "2020-12-22T10:53:12.000Z"
 tags: "typescript, introduction, tutorial, learn, javascript"
 author:
     name: Alistair Smith
-    avatar: "/assets/authors/alistair.png"
+    avatar: "/authors/alistair.png"
     twitter: aabbccsmith
 ---
 

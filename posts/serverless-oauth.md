@@ -6,7 +6,7 @@ date: "2020-12-20T15:29:55.000Z"
 tags: "discord, oauth, nextjs, vercel, typescript, javascript, next.js"
 author:
     name: Alistair Smith
-    avatar: "/assets/authors/alistair.png"
+    avatar: "/authors/alistair.png"
     twitter: aabbccsmith
 ---
 
@@ -188,7 +188,7 @@ Next up, we must configure our environment variables. Head over to [discord.com/
 
 You'll want to save the `CLIENT ID` and `CLIENT SECRET` somewhere safe, as seen in the screenshot below.
 
-![A screenshot of the Discord Client ID and Client Secret on the dashboard](/assets/images/discord-applications.png)
+![A screenshot of the Discord Client ID and Client Secret on the dashboard](/images/discord-applications.png)
 
 After this, create a file in the root directory of your project called `.env`. This is where we will store our secrets (sensitive information that shouldn't be hardcoded). Add in the following content to `.env`:
 
@@ -204,11 +204,11 @@ Eventually, we will **change** `APP_URI` and `JWT_SECRET`, so don't save them an
 
 Now, if you rerun the app with `yarn dev` and head to [localhost:3000/api/oauth](http://localhost:3000/api/oauth) you should be redirected to the OAuth URI. However, you may see an issue regarding an invalid Redirect URI. To resolve this, head to "OAuth2" under the sidebar (as seen below):
 
-![A screenshot of the Discord developer dashboard sidebar](/assets/images/discord-oauth-panel.png)
+![A screenshot of the Discord developer dashboard sidebar](/images/discord-oauth-panel.png)
 
 Add `http://localhost:3000/api/oauth` as an entry for usable Redirect URIs.
 
-![Adding a Redirect](/assets/images/discord-redirect.png)
+![Adding a Redirect](/images/discord-redirect.png)
 
 ### Displaying the user's details
 
@@ -336,7 +336,7 @@ To connect the repo to your GitHub remote.
 
 Lastly, we need to deploy the app on Vercel. Open the [Vercel dashboard](https://vercel.com/dashboard) and hit "import project"
 
-![Vercel import project button screenshot](/assets/images/vercel-import.png)
+![Vercel import project button screenshot](/images/vercel-import.png)
 
 Choose "Import Git Repository" and enter the URL of the repo you just made on GitHub. Next, under environment settings, you need to add the same variables we defined in our local `.env`. **However**, you must set `JWT_SECRET` to a cryptographically secure, randomly generated string. I would recommend [this website](https://passwordsgenerator.net/) as a good start.
 

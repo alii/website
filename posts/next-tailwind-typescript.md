@@ -6,7 +6,7 @@ date: "2020-12-28T03:49:19.000Z"
 tags: "node.js, node, typescript, javascript, css, tailwindcss, stylesheets, react"
 author:
     name: Alistair Smith
-    avatar: "/assets/authors/alistair.png"
+    avatar: "/authors/alistair.png"
     twitter: aabbccsmith
 ---
 
