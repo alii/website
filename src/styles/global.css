@@ -1,7 +1,7 @@
 html {
   font-family: 'Open Sans', sans-serif;
   height: 100%;
-  background: #121212;
+  background: black;
   font-weight: 400;
 }
 
@@ -9,7 +9,6 @@ body {
   height: 100%;
   margin: 0;
   box-sizing: border-box;
-  overflow: hidden;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -54,3 +53,13 @@ a {
   backdrop-filter: blur(10px);
 }
 
+.remark-code-title {
+  @apply text-gray-200 px-5 py-3 border border-b-0 border-gray-600 rounded-t bg-gray-800 text-sm font-mono font-bold;
+}
+
+.remark-code-title + pre {
+  margin-top: 0!important;
+  border-top-left-radius: 0!important;
+  border-top-right-radius: 0!important;
+  border: 1px solid theme("colors.gray.600");
+}
