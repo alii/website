@@ -26,6 +26,8 @@ export default function App({Component, pageProps, router}: AppProps) {
     const url = lastFm.status === 'playing' ? lastFm.song.art : initialBackground;
     document.body.style.background = toBackground(url);
     document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundAttachment = 'fixed';
   }, [lastFm.song?.art, lastFm.status]);
 
   useEffect(() => {
