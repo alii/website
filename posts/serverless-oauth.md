@@ -192,7 +192,7 @@ You'll want to save the `CLIENT ID` and `CLIENT SECRET` somewhere safe, as seen 
 
 After this, create a file in the root directory of your project called `.env`. This is where we will store our secrets (sensitive information that shouldn't be hardcoded). Add in the following content to `.env`:
 
-```dotenv
+```:.env
 CLIENT_ID=<the client id you copied>
 CLIENT_SECRET=<the client secret you copied>
 APP_URI=http://localhost:3000
