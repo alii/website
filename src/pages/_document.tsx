@@ -19,6 +19,7 @@ export default class extends Document {
           <Main />
           <NextScript />
           <script async defer src={'https://lab.alistair.cloud/latest.js'} />
+          <script src="/height.js" />
         </body>
       </Html>
     );

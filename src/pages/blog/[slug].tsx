@@ -18,7 +18,7 @@ export default function Slug({post, content: mdxContent}: SlugProps) {
   const content = hydrate(mdxContent);
 
   return (
-    <div className="bg-green-900 bg-opacity-50 h-full">
+    <div className="bg-gray-900 bg-opacity-50 h-full">
       <Layout>
         <Head>
           <title>{post.title}</title>
@@ -43,7 +43,7 @@ export default function Slug({post, content: mdxContent}: SlugProps) {
             {post.title}
           </h1>
 
-          <div className="mt-44 max-w-3xl p-10 mx-auto prose prose-dark bg-black rounded-lg">{content}</div>
+          <div className="mt-44 max-w-3xl p-10 mx-auto prose prose-dark glass rounded-lg">{content}</div>
         </div>
       </Layout>
     </div>
@@ -51,7 +51,7 @@ export default function Slug({post, content: mdxContent}: SlugProps) {
 }
 
 export const getStaticProps: GetStaticProps<SlugProps> = async (ctx) => {
-  const post = getPostBySlug(ctx.params!.slug as string, ['title', 'excerpt', 'author', 'content', 'cover', 'slug', 'tags']);
+  const post = getPostBySlug(ctx.params?.slug as string, ['title', 'excerpt', 'author', 'content', 'cover', 'slug', 'tags']);
 
   const mdxSource = await renderToString(post.content, {
     scope: data,
