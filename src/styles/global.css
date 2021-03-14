@@ -2,10 +2,10 @@ html {
   font-family: 'Open Sans', sans-serif;
   height: 100%;
   font-weight: 400;
+  background: black;
 }
 
 body {
-  height: 100%;
   margin: 0;
   box-sizing: border-box;
 
@@ -16,7 +16,20 @@ body {
   color: #ededed;
 
   background-size: cover;
-  overflow: hidden;
+  display: grid;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+#nprogress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+}
+
+#__next {
+  height: 100%;
 }
 
 code {
@@ -31,11 +44,6 @@ code {
 a {
   color: white;
   cursor: pointer;
-}
-
-#app {
-  height: var(--app-height);
-  overflow: auto;
 }
 
 .glass {
@@ -59,8 +67,8 @@ a {
 }
 
 .remark-code-title + pre {
-  margin-top: 0!important;
-  border-top-left-radius: 0!important;
-  border-top-right-radius: 0!important;
-  border: 1px solid theme("colors.gray.600");
+  margin-top: 0 !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border: 1px solid theme('colors.gray.600');
 }

@@ -30,7 +30,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    void new Audio('/pop.mp3').play();
+    void new Audio('/pop.mp3').play().catch(() => null);
   }, [router.pathname]);
 
   return (
