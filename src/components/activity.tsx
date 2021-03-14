@@ -1,4 +1,4 @@
-import {Activity, useLanyard} from 'use-lanyard';
+import {Activity as ActivityType, useLanyard} from 'use-lanyard';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import {Song} from './song';
@@ -32,7 +32,7 @@ export function Activity() {
   );
 }
 
-function ActivityImage({activity}: {activity: Activity}) {
+function ActivityImage({activity}: {activity: ActivityType}) {
   if (!activity.assets) return null;
 
   try {
