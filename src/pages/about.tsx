@@ -27,10 +27,10 @@ export default function About() {
               <img src="/me.png" alt="Me" className="h-20 rounded-md" />
               <div className="flex justify-between flex-col py-4 pl-2 space-y-1">
                 <DiscordContactRow />
-                <a href="mailto:inbox@alistair.cloud" className="flex">
+                <a href="mailto:inbox@alistair.cloud">
                   <Email /> inbox@alistair.cloud
                 </a>
-                <a href="https://github.com/alii" className="flex">
+                <a href="https://github.com/alii">
                   <GitHub /> alii
                 </a>
               </div>
@@ -53,7 +53,7 @@ export const DiscordContactRow = () => {
   };
 
   return (
-    <a href="#" onClick={copy} className="flex">
+    <a href="#" onClick={copy}>
       <Discord /> {message}
     </a>
   );
