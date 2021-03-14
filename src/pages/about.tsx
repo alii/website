@@ -5,6 +5,7 @@ import day from 'dayjs';
 import Link from 'next/link';
 import {Email, GitHub, Discord} from '../components/icons';
 import {Layout} from '../layouts/Layout';
+import {Activity} from '../components/activity';
 
 const birthday = day('2 November 2004').toDate();
 const age = Math.abs(new Date(Date.now() - birthday.getTime()).getUTCFullYear() - 1970);
@@ -15,7 +16,7 @@ export default function About() {
       <Layout>
         <Link href="/">Back</Link>
         <div className="flex-1 flex h-full justify-center items-center">
-          <div className="glass overflow-hidden p-5 w-96 space-y-4">
+          <div className="glass overflow-hidden p-5 w-96 space-y-2">
             <h1 className="text-3xl font-bold title">Alistair Smith</h1>
             <p>
               Hey, I'm a {toWords(age)} year old full-stack TypeScript engineer from the United Kingdom. I have a huge passion for
@@ -35,6 +36,7 @@ export default function About() {
                 </a>
               </div>
             </div>
+            <Activity />
           </div>
         </div>
       </Layout>

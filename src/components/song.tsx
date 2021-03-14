@@ -10,8 +10,8 @@ export const Song = () => {
   }
 
   return (
-    <div className="pt-4">
-      <a href={lastFM.song.url} className="hover:underline border-t border-gray-200 pt-4 block border-opacity-10">
+    <div className="glass p-5">
+      <a href={lastFM.song.url} className="hover:underline">
         Listening to <Segment>{lastFM.song.name}</Segment> by <Segment>{lastFM.song.artist}</Segment> on{' '}
         <Segment>Spotify</Segment>
         <Pulse />

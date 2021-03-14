@@ -2,6 +2,7 @@ import {LargeTitle} from '../components/large-title';
 import Link from 'next/link';
 import {Activity} from '../components/activity';
 import {Layout} from '../layouts/Layout';
+import {Song} from '../components/song';
 
 export default function Index() {
   return (
@@ -15,7 +16,8 @@ export default function Index() {
       <div className="flex flex-1">
         <div className="flex justify-center flex-col space-y-10">
           <LargeTitle>Alistair Smith</LargeTitle>
-          <Activity />
+
+          <Song />
         </div>
       </div>
       <div className="flex">

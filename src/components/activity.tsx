@@ -19,15 +19,13 @@ export function Activity() {
         <div className="flex items-center">
           <ActivityImage activity={activity} />
           <p className="ml-4 flex flex-col justify-between leading-snug">
-            <span className="text-xl font-bold">{activity.name}</span>
+            <span className="text-xl font-bold">Playing {activity.name}</span>
             <span className="opacity-50">{activity.state}</span>
             <span className="opacity-50">{activity.details}</span>
             <span className="opacity-50">{dayjs(activity.timestamps?.start).fromNow(true)} elapsed</span>
           </p>
         </div>
       )}
-
-      <Song />
     </div>
   );
 }
