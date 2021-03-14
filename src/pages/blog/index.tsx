@@ -15,7 +15,7 @@ export default function Blog(props: Props) {
         <Link href="/">Back</Link>
         <div className="mt-20">
           <h1 className="text-6xl font-bold mb-10">Blog</h1>
-          <div className="grid grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {props.posts.map((post) => {
               return (
                 <Link key={post.title} href={`/blog/${post.slug}`} passHref>
