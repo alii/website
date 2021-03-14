@@ -66,7 +66,7 @@ After this, you're going to want to make a director under the `pages` called `ap
 
 ### The code
 
-```typescript
+```typescript:pages/api/oauth.ts
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import fetch from "node-fetch";
@@ -214,7 +214,7 @@ Add `http://localhost:3000/api/oauth` as an entry for usable Redirect URIs.
 
 Our last step is to display the user's details in the app. If you head to `pages/index.tsx`, add the following code
 
-```typescript
+```typescript:pages/api/index.tsx
 import { GetServerSideProps } from "next";
 import { parseUser } from "../utils/parse-user";
 
@@ -250,13 +250,14 @@ export const getServerSideProps: GetServerSideProps<Props> = async function (
   // Use our parseUser function (defined in the next steps)
   const user = parseUser(ctx);
 
-  // If the user is null, return 307 (redirect)
+  // If the user is null, return redirect
   if (!user) {
-    ctx.res.statusCode = 307;
-    // ...to the /api/oauth endpoint
-    ctx.res.setHeader("Location", "/api/oauth");
-    // ...and end the request early
-    ctx.res.end();
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      }
+    }
   }
 
   // return our props of a nullish user
@@ -266,7 +267,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async function (
 
 ...and create a file under a new directory called `utils` with the name of `parse-user.ts`. Add the following code:
 
-```ts
+```ts:utils/parse-user.ts
 import { GetServerSidePropsContext } from "next";
 import { parse } from "cookie";
 import { verify } from "jsonwebtoken";

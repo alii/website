@@ -48,7 +48,7 @@ npx tailwindcss init -p
 
 This will create a `tailwind.config.js` as well as `postcss.config.js`. If you head to `tailwind.config.js`, we need to edit the value of `purge` to include our TypeScript content. This can be done by setting it to
 
-```js
+```js:tailwind.config.js
 module.exports = {
   purge: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
   darkMode: false, // or 'media' or 'class'
