@@ -18,33 +18,35 @@ export default function Slug({post, content: mdxContent}: SlugProps) {
   const content = hydrate(mdxContent);
 
   return (
-    <Layout>
-      <Head>
-        <title>{post.title}</title>
-        <meta name="description" content={post.excerpt} />
-        <meta name="twitter:site" content={'@' + post.author.twitter} />
-        <meta name="twitter:title" content={post.title} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:description" content={post.excerpt} />
-        <meta name="twitter:creator" content={'@' + post.author.twitter} />
-        <meta name="twitter:image" content={`https://blog.alistair.cloud${post.cover}`} />
-        <meta property="og:title" content={post.title} />
-        <meta property="og:author" content={post.author.name} />
-        <meta property="og:url" content={`https://blog.alistair.cloud/post/${post.slug}`} />
-        <meta property="og:description" content={post.excerpt} />
-        <meta property="og:image" content={`https://blog.alistair.cloud${post.cover}`} />
-        <meta name="keywords" content={post.tags} />
-        <meta property="og:type" content="website" />
-      </Head>
-      <Link href="/blog">Back</Link>
-      <div className="mt-20">
-        <h1 className="text-6xl text-center md:text-7xl lg:text-8xl font-bold tracking-tighter leading-tight md:leading-none mb-5">
-          {post.title}
-        </h1>
+    <div className="bg-green-900 bg-opacity-50 h-full">
+      <Layout>
+        <Head>
+          <title>{post.title}</title>
+          <meta name="description" content={post.excerpt} />
+          <meta name="twitter:site" content={'@' + post.author.twitter} />
+          <meta name="twitter:title" content={post.title} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:description" content={post.excerpt} />
+          <meta name="twitter:creator" content={'@' + post.author.twitter} />
+          <meta name="twitter:image" content={`https://blog.alistair.cloud${post.cover}`} />
+          <meta property="og:title" content={post.title} />
+          <meta property="og:author" content={post.author.name} />
+          <meta property="og:url" content={`https://blog.alistair.cloud/post/${post.slug}`} />
+          <meta property="og:description" content={post.excerpt} />
+          <meta property="og:image" content={`https://blog.alistair.cloud${post.cover}`} />
+          <meta name="keywords" content={post.tags} />
+          <meta property="og:type" content="website" />
+        </Head>
+        <Link href="/blog">Back</Link>
+        <div className="mt-20">
+          <h1 className="text-6xl text-center md:text-7xl lg:text-8xl font-bold tracking-tighter leading-tight md:leading-none mb-5">
+            {post.title}
+          </h1>
 
-        <div className="mt-44 max-w-3xl p-10 mx-auto prose prose-dark bg-black rounded-lg">{content}</div>
-      </div>
-    </Layout>
+          <div className="mt-44 max-w-3xl p-10 mx-auto prose prose-dark bg-black rounded-lg">{content}</div>
+        </div>
+      </Layout>
+    </div>
   );
 }
 

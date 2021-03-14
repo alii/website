@@ -21,7 +21,7 @@ yarn add node-fetch http-proxy-agent
 yarn add @types/node-fetch @types/http-proxy-agent -D
 ```
 
-```typescript
+```typescript:fetch.ts
 import { HttpProxyAgent } from "http-proxy-agent";
 import fetch, { RequestInit } from "node-fetch";
 
