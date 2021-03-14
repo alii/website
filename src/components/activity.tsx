@@ -2,14 +2,14 @@ import {useLanyard} from 'use-lanyard';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import {Song} from './song';
+import {Consts} from '../core/consts';
 
 dayjs.extend(relativeTime);
 
-const DISCORD_ID = '268798547439255572';
 const PRESENCE_TYPE = 0;
 
 export function Activity() {
-  const {data: lanyard} = useLanyard(DISCORD_ID);
+  const {data: lanyard} = useLanyard(Consts.DiscordId);
 
   const activity = lanyard?.activities.find((activity) => activity.type === PRESENCE_TYPE);
 
