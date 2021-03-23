@@ -18,11 +18,15 @@ export default function Blog(props: Props) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {props.posts.map((post) => {
               return (
-                <Link key={post.title} href={`/blog/${post.slug}`} passHref>
+                <Link key={post.slug} href={`/blog/${post.slug}`} passHref>
                   <a className="p-10 border border-gray-100 border-opacity-10 bg-black bg-opacity-20 bg-blur rounded-md my-2 block space-y-5">
+                    <h2 className="text-xl font-bold text-white text-opacity-50 flex items-center space-x-4">
+                      <img className="h-10 w-10 rounded-full" src="/authors/alistair.png" alt="Alistair Smith" />
+                      <span>Alistair Smith</span>
+                    </h2>
                     <img src={post.cover} alt="Cover" className="rounded-lg h-72 w-full object-cover" />
-                    <h1 className="text-3xl font-bold">{post.title}</h1>
-                    <p>{post.excerpt}</p>
+                    <h1 className="text-3xl font-bold pt-2">{post.title}</h1>
+                    <p className="opacity-70">{post.excerpt}</p>
                   </a>
                 </Link>
               );

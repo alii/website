@@ -1,26 +1,20 @@
 ---
-title: "Serverless OAuth with Discord & Next.js"
-excerpt: "Since the early days of man, OAuth has always been a struggle for new developers. In the stone age, we struggled with three things: starting fires, finding food, and figuring out why our OAuth scopes..."
-cover: "/covers/cctv.jpg"
-date: "2020-12-20T15:29:55.000Z"
-tags: "discord, oauth, nextjs, vercel, typescript, javascript, next.js"
+title: 'Serverless OAuth with Discord & Next.js'
+excerpt: 'Since the early days of man, OAuth has always been a struggle for new developers. In the stone age, we struggled with three things: starting fires, finding food, and figuring out why our OAuth scopes...'
+cover: '/covers/cctv.jpg'
+date: '2020-12-20T15:29:55.000Z'
+tags: 'discord, oauth, nextjs, vercel, typescript, javascript, next.js'
 author:
-    name: Alistair Smith
-    avatar: "/authors/alistair.png"
-    twitter: aabbccsmith
+  name: Alistair Smith
+  avatar: '/authors/alistair.png'
+  twitter: aabbccsmith
 ---
-
-```typescript
-const user: User = ifOnlyOAuthWasThisSimple(getToken());
-```
 
 # Intro
 
-<small>Before we start, you can view the entire code [here](https://github.com/alii/nextjs-discord-oauth)</small>
+Before we start, you can view the entire code [here](https://github.com/alii/nextjs-discord-oauth)
 
-Since the early days of man, OAuth has always been a struggle for new developers. In the stone age, we struggled with three things: starting fires, finding food, and figuring out why our OAuth scopes weren't working. Well explorer, look no further. Today, we'll be going through the process of connecting & deploying Discord's OAuth 2 API with Next.js and serverless [now functions](https://vercel.com/docs/serverless-functions/introduction)
-
----
+Since the early days of man, OAuth has always been a struggle for new developers. In the stone age, we struggled with three things: starting fires, finding food, and figuring out why our OAuth scopes weren't working. Well explorer, look no further. Today, we'll be going through the process of connecting & deploying Discord's OAuth 2 API with Next.js and serverless [now functions](https://vercel.com/docs/serverless-functions/introduction).
 
 ## The setup
 
@@ -32,7 +26,7 @@ Firstly, we're going to need to create a Next.js app. Feel free to _skip_ this i
 yarn create next-app my-app
 ```
 
-or, if you use npm (although use of yarn is **strongly** recommended)
+or, if you use npm (although use of yarn is recommended)
 
 ```shell
 npx create-next-app my-app
@@ -59,7 +53,10 @@ If you open [http://localhost:3000](http://localhost:3000) in your browser you w
 We're going to use `jsonwebtoken` for generating the users' tokens, `cookie` for serializing & parsing cookies and `node-fetch` for making our requests to the Discord API. Install them like this
 
 ```shell
-yarn add node-fetch jsonwebtoken cookie && yarn add @types/node-fetch @types/jsonwebtoken @types/cookie --dev
+yarn add node-fetch jsonwebtoken cookie
+
+# And if you are using TypeScript
+yarn add @types/node-fetch @types/jsonwebtoken @types/cookie discord-api-types --dev
 ```
 
 After this, you're going to want to make a director under the `pages` called `api`. In this `api` folder, make a new file called `oauth.ts`. This is where we will add the code for OAuth.
@@ -71,19 +68,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import fetch from "node-fetch";
 import cookie from "cookie";
-
-// Create our type definition for a Discord User
-interface DiscordUser {
-  id: string;
-  username: string;
-  avatar: string;
-  discriminator: string;
-  public_flags: number;
-  flags: number;
-  locale: string;
-  mfa_enabled: boolean;
-  premium_type: number;
-}
+import { APIUser } from 'discord-api-types/v8';
 
 // Extract environment variables from process.env
 // (we will come on to this later)
@@ -217,18 +202,7 @@ Our last step is to display the user's details in the app. If you head to `pages
 ```typescript:pages/api/index.tsx
 import { GetServerSideProps } from "next";
 import { parseUser } from "../utils/parse-user";
-
-interface DiscordUser {
-  id: string;
-  username: string;
-  avatar: string;
-  discriminator: string;
-  public_flags: number;
-  flags: number;
-  locale: string;
-  mfa_enabled: boolean;
-  premium_type: number;
-}
+import { APIUser } from 'discord-api-types/v8';
 
 type Props = { user: DiscordUser | null };
 
@@ -271,21 +245,10 @@ export const getServerSideProps: GetServerSideProps<Props> = async function (
 import { GetServerSidePropsContext } from "next";
 import { parse } from "cookie";
 import { verify } from "jsonwebtoken";
+import { APIUser } from 'discord-api-types/v8';
 
 // Get our environment variables
 const { JWT_SECRET, COOKIE_NAME } = process.env;
-
-interface DiscordUser {
-  id: string;
-  username: string;
-  avatar: string;
-  discriminator: string;
-  public_flags: number;
-  flags: number;
-  locale: string;
-  mfa_enabled: boolean;
-  premium_type: number;
-}
 
 export function parseUser(ctx: GetServerSidePropsContext): DiscordUser | null {
   // Check if the cookie exists, if not return null
@@ -303,7 +266,7 @@ export function parseUser(ctx: GetServerSidePropsContext): DiscordUser | null {
 
   // Try parsing the JWT (this can throw errors, hence the try/catch block)
   try {
-    const { iat, exp, ...user } = verify(token, JWT_SECRET!) as DiscordUser & {
+    const { iat, exp, ...user } = verify(token, JWT_SECRET!)  & {
       iat: number;
       exp: number;
     };
@@ -350,8 +313,6 @@ Finally, with this all together, you can run your app and do the full OAuth flow
 
 1. Extract `DiscordUser` to a seperate file called `types.ts` (under `util` would make sense), so we are not repeating ourselves (this is done in the repo).
 2. Make coffee.
-
----
 
 If this article helped you, please [star the repo](https://github.com/alii/nextjs-discord-oauth) – it really helps me out!
 

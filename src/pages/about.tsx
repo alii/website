@@ -3,9 +3,11 @@ import React, {useState} from 'react';
 import {Consts} from '../core/consts';
 import day from 'dayjs';
 import Link from 'next/link';
-import {Email, GitHub, Discord} from '../components/icons';
 import {Layout} from '../layouts/Layout';
 import {Activity} from '../components/activity';
+
+import {FiMail, FiGithub} from 'react-icons/fi';
+import {FaDiscord} from 'react-icons/fa';
 
 const birthday = day('2 November 2004').toDate();
 const age = Math.abs(new Date(Date.now() - birthday.getTime()).getUTCFullYear() - 1970);
@@ -26,13 +28,13 @@ export default function About() {
             </p>
             <div className="flex items-center">
               <img src="/me.png" alt="Me" className="h-20 rounded-md" />
-              <div className="flex justify-between flex-col py-4 pl-2 space-y-1">
+              <div className="flex justify-between flex-col py-4 pl-6 space-y-1">
                 <DiscordContactRow />
-                <a href="mailto:inbox@alistair.cloud">
-                  <Email /> inbox@alistair.cloud
+                <a href="mailto:inbox@alistair.cloud" className="flex items-center space-x-3">
+                  <FiMail /> <span>inbox@alistair.cloud</span>
                 </a>
-                <a href="https://github.com/alii">
-                  <GitHub /> alii
+                <a href="https://github.com/alii" className="flex items-center space-x-3">
+                  <FiGithub /> <span>alii</span>
                 </a>
               </div>
             </div>
@@ -55,8 +57,8 @@ export const DiscordContactRow = () => {
   };
 
   return (
-    <a href="#" onClick={copy}>
-      <Discord /> {message}
+    <a href="#" onClick={copy} className="flex items-center space-x-3">
+      <FaDiscord /> <span>{message}</span>
     </a>
   );
 };

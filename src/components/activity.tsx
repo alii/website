@@ -1,7 +1,6 @@
 import {Activity as ActivityType, useLanyard} from 'use-lanyard';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import {Song} from './song';
 import {Consts} from '../core/consts';
 
 dayjs.extend(relativeTime);
@@ -13,19 +12,19 @@ export function Activity() {
 
   const activity = lanyard?.activities.find((activity) => activity.type === PRESENCE_TYPE);
 
+  if (!activity) return null;
+
   return (
     <div className="glass p-5">
-      {activity && (
-        <div className="flex items-center">
-          <ActivityImage activity={activity} />
-          <p className="ml-4 flex flex-col justify-between leading-snug">
-            <span className="text-xl font-bold">Playing {activity.name}</span>
-            <span className="opacity-50">{activity.state}</span>
-            <span className="opacity-50">{activity.details}</span>
-            <span className="opacity-50">{dayjs(activity.timestamps?.start).fromNow(true)} elapsed</span>
-          </p>
-        </div>
-      )}
+      <div className="flex items-center">
+        <ActivityImage activity={activity} />
+        <p className="ml-4 flex flex-col justify-between leading-snug">
+          <span className="text-xl font-bold">Playing {activity.name}</span>
+          <span className="opacity-50">{activity.state}</span>
+          <span className="opacity-50">{activity.details}</span>
+          <span className="opacity-50">{dayjs(activity.timestamps?.start).fromNow(true)} elapsed</span>
+        </p>
+      </div>
     </div>
   );
 }
