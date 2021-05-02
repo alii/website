@@ -39,7 +39,7 @@ Finally, you can remove the `styles` folder, and change the import in `_app.tsx`
 
 ## Adding Tailwind
 
-We need to install and setup tailwind and it's dependencies. We can do this by running these commands
+We need to install and setup tailwind and its dependencies. We can do this by running these commands
 
 ```shell
 yarn add tailwindcss@latest postcss@latest autoprefixer@latest --dev
