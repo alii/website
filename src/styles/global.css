@@ -5,6 +5,10 @@ html {
   background: black;
 }
 
+:root {
+  --app-height: 100vh;
+}
+
 body {
   margin: 0;
   box-sizing: border-box;
@@ -25,13 +29,13 @@ body {
 }
 
 .page-dims {
-  height: calc(100vh - theme('padding.10') * 2);
+  height: calc(var(--app-height) - theme('padding.10') * 2);
   width: calc(100vw - theme('padding.10') * 2);
 }
 
 @media (max-width: theme('screens.md')) {
   .page-dims {
-    height: calc(100vh - theme('padding.4') * 2);
+    height: calc(var(--app-height) - theme('padding.4') * 2);
     width: calc(100vw - theme('padding.4') * 2);
   }
 }

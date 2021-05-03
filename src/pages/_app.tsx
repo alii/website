@@ -37,6 +37,19 @@ export default function App({Component, pageProps, router}: AppProps) {
     void new Audio('/pop.mp3').play().catch(() => null);
   }, [router.pathname]);
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const appHeight = () => {
+      const doc = document.documentElement;
+      doc.style.setProperty('--app-height', `${window.innerHeight}px`);
+    };
+
+    appHeight();
+    window.addEventListener('resize', appHeight);
+
+    return () => window.removeEventListener('resize', appHeight);
+  }, []);
+
   return (
     <StrictMode>
       <Head>
