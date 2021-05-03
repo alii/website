@@ -16,9 +16,11 @@ const age = Math.abs(new Date(Date.now() - birthday.getTime()).getUTCFullYear() 
 export default function About() {
   return (
     <Layout>
-      <Link href="/">Back</Link>
       <div className="flex-1 flex h-full justify-center items-center">
         <div className="glass overflow-hidden p-5 w-96 space-y-2">
+          <Link href="/">
+            <a className="text-gray-400">Back</a>
+          </Link>
           <h1 className="text-3xl font-bold title">Alistair Smith</h1>
           <p className="text-gray-400">
             Yo! I'm a {toWords(age)} year old full-stack TypeScript engineer from the United Kingdom. I care about performant,
