@@ -2,15 +2,15 @@ import {MotionProps} from 'framer-motion';
 
 export const animations: MotionProps = {
   initial: {
-    x: '100%',
-    // clipPath: 'circle(0% at 100% 100%)',
+    scale: 0,
+    opacity: 0,
   },
   animate: {
-    x: '0%',
-    // clipPath: 'circle(150% at 0% 0%)',
+    scale: 1,
+    opacity: 1,
   },
   exit: {
-    x: '-100%',
-    // clipPath: 'circle(0% at 0% 0%)',
+    scale: 0,
+    opacity: 0,
   },
 };

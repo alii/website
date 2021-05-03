@@ -16,7 +16,7 @@ const age = Math.abs(new Date(Date.now() - birthday.getTime()).getUTCFullYear() 
 export default function About() {
   return (
     <Layout>
-      <div className="flex-1 flex h-full justify-center items-center">
+      <div className="flex-1 flex justify-center items-center">
         <div className="glass h-page overflow-x-hidden overflow-y-auto p-5 w-full md:w-96 space-y-2">
           <Link href="/">
             <a className="text-gray-400 hover:text-gray-200">Back</a>

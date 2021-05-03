@@ -20,6 +20,11 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
+const appHeight = () => {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+};
+
 export default function App({Component, pageProps, router}: AppProps) {
   const lastFm = useLastFM(Consts.LastFMUsername, Consts.LastFMToken);
 
@@ -40,10 +45,6 @@ export default function App({Component, pageProps, router}: AppProps) {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const appHeight = () => {
-      document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`);
-    };
-
     appHeight();
 
     window.addEventListener('resize', appHeight);
@@ -55,9 +56,13 @@ export default function App({Component, pageProps, router}: AppProps) {
       <Head>
         <title>Alistair Smith</title>
       </Head>
-      <div className="fixed bg-blur -z-1 page-dims" />
+
       <AnimatePresence>
-        <motion.div key={router.pathname} className="absolute page-dims" {...animations}>
+        <motion.div
+          key={router.pathname}
+          {...animations}
+          className="absolute left-4 right-4 top-4 bottom-4 md:left-10 md:right-10 md:top-10 md:bottom-10"
+        >
           <Component {...pageProps} />
         </motion.div>
       </AnimatePresence>

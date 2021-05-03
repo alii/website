@@ -1,12 +1,12 @@
-html {
-  font-family: 'Open Sans', sans-serif;
-  height: 100%;
-  font-weight: 400;
-  background: black;
+:root {
+  --vh: 1vh;
 }
 
-:root {
-  --app-height: 0;
+html {
+  font-family: 'Open Sans', sans-serif;
+  height: calc(var(--vh) * 100);
+  font-weight: 400;
+  background: black;
 }
 
 body {
@@ -14,41 +14,20 @@ body {
   box-sizing: border-box;
   display: flex;
 
-  @apply p-4 md:p-10;
-
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  min-height: 100%;
+  height: 100%;
   color: #ededed;
+  overflow: hidden;
 
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  overflow-x: hidden;
-}
-
-.page-dims {
-  height: calc(var(--app-height) - theme('padding.10') * 2);
-  width: calc(100vw - theme('padding.10') * 2);
-}
-
-@media (max-width: theme('screens.md')) {
-  .page-dims {
-    height: calc(var(--app-height) - theme('padding.4') * 2);
-    width: calc(100vw - theme('padding.4') * 2);
-  }
 }
 
 a {
   user-select: none;
-}
-
-#nprogress {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
 }
 
 code {
