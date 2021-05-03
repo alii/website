@@ -17,7 +17,7 @@ export default function About() {
   return (
     <Layout>
       <div className="flex-1 flex h-full justify-center items-center">
-        <div className="glass overflow-hidden p-5 w-96 space-y-2">
+        <div className="glass overflow-hidden p-5 w-full md:w-96 space-y-2">
           <Link href="/">
             <a className="text-gray-400">Back</a>
           </Link>
