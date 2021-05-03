@@ -19,7 +19,7 @@ export default function About() {
       <div className="flex-1 flex h-full justify-center items-center">
         <div className="glass h-page overflow-x-hidden overflow-y-auto p-5 w-full md:w-96 space-y-2">
           <Link href="/">
-            <a className="text-gray-400">Back</a>
+            <a className="text-gray-400 hover:text-gray-200">Back</a>
           </Link>
           <h1 className="text-3xl font-bold title">Alistair Smith</h1>
           <p className="text-gray-400">

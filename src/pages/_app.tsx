@@ -39,14 +39,14 @@ export default function App({Component, pageProps, router}: AppProps) {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
+
     const appHeight = () => {
-      const doc = document.documentElement;
-      doc.style.setProperty('--app-height', `${window.innerHeight}px`);
+      document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`);
     };
 
     appHeight();
-    window.addEventListener('resize', appHeight);
 
+    window.addEventListener('resize', appHeight);
     return () => window.removeEventListener('resize', appHeight);
   }, []);
 
