@@ -86,7 +86,7 @@ export default function Index() {
 }
 
 function Icons({children}: {children: ReactNode}) {
-  return <div className="flex space-x-1">{children}</div>;
+  return <div className="space-x-1 text-center">{children}</div>;
 }
 
 function Icon({icon, title}: {icon: IconType; title: string}) {
