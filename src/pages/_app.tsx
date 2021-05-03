@@ -8,6 +8,7 @@ import {Consts} from '../core/consts';
 import {initialBackground} from '../core/data';
 import {toBackground} from '../core/utilities';
 
+import 'react-tippy/dist/tippy.css';
 import 'tailwindcss/tailwind.css';
 import '../styles/global.css';
 
@@ -24,6 +25,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 
   useEffect(() => {
     const url = lastFm.status === 'playing' ? lastFm.song.art : initialBackground;
+
     document.body.style.background = toBackground(url);
     document.body.style.backgroundSize = 'cover';
     document.body.style.backgroundRepeat = 'no-repeat';
@@ -40,13 +42,12 @@ export default function App({Component, pageProps, router}: AppProps) {
       <Head>
         <title>Alistair Smith</title>
       </Head>
-      <div className="h-full bg-blur">
-        <AnimatePresence exitBeforeEnter>
-          <motion.div key={router.pathname} {...animations} className="h-full">
-            <Component {...pageProps} />
-          </motion.div>
-        </AnimatePresence>
-      </div>
+      <div className="fixed bg-blur -z-1 page-dims" />
+      <AnimatePresence>
+        <motion.div key={router.pathname} className="absolute page-dims" {...animations}>
+          <Component {...pageProps} />
+        </motion.div>
+      </AnimatePresence>
     </StrictMode>
   );
 }

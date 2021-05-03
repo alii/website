@@ -8,6 +8,7 @@ html {
 body {
   margin: 0;
   box-sizing: border-box;
+  padding: 40px;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -16,9 +17,18 @@ body {
   color: #ededed;
 
   background-size: cover;
-  display: grid;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+.page-dims {
+  height: calc(100vh - 80px);
+  width: calc(100vw - 80px);
+}
+
+a {
+  user-select: none;
 }
 
 #nprogress {
@@ -26,10 +36,6 @@ body {
   top: 0;
   left: 0;
   display: block;
-}
-
-#__next {
-  height: 100%;
 }
 
 code {
@@ -55,20 +61,9 @@ a {
 }
 
 .title {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Krona One', sans-serif;
 }
 
 .bg-blur {
   backdrop-filter: blur(10px);
-}
-
-.remark-code-title {
-  @apply text-gray-200 px-5 py-3 border border-b-0 border-gray-600 rounded-t bg-gray-800 text-sm font-mono font-bold;
-}
-
-.remark-code-title + pre {
-  margin-top: 0 !important;
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 0 !important;
-  border: 1px solid theme('colors.gray.600');
 }
