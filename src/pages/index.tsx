@@ -7,7 +7,7 @@ import {Tooltip} from 'react-tippy';
 
 export default function Index() {
   return (
-    <Layout bg="bg-orange-900">
+    <Layout>
       <div className="flex">
         <Link href="/about" passHref>
           <a className="flex-1">About me</a>
