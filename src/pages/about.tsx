@@ -17,7 +17,7 @@ export default function About() {
   return (
     <Layout>
       <div className="flex-1 flex h-full justify-center items-center">
-        <div className="glass overflow-hidden p-5 w-full md:w-96 space-y-2">
+        <div className="glass max-h-[calc(100vh-8rem)] overflow-x-hidden overflow-y-auto p-5 w-full md:w-96 space-y-2">
           <Link href="/">
             <a className="text-gray-400">Back</a>
           </Link>
@@ -25,7 +25,7 @@ export default function About() {
           <p className="text-gray-400">
             Yo! I'm a {toWords(age)} year old full-stack TypeScript engineer from the United Kingdom. I care about performant,
             accessible code. I'm a huge fan of open source &amp; you can{' '}
-            <a href="https://github.com/alii/sponsor">sponsor me on GitHub</a>. Programming since seven, I've learned a lot about
+            <a href="https://github.com/sponsors/alii">sponsor me on GitHub</a>. Programming since seven, I've learned a lot about
             programming principles, scaling, and systems architecture. I always love to joke around and I take my{' '}
             <a href="https://twitter.com/aabbccsmith">Twitter</a> presence <i>very seriously</i>... At the moment, I'm picking up
             Java with some friends, and really loving it. Watch this space?
