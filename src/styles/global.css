@@ -8,7 +8,9 @@ html {
 body {
   margin: 0;
   box-sizing: border-box;
-  padding: 40px;
+  display: flex;
+
+  @apply p-4 md:p-10;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -23,8 +25,15 @@ body {
 }
 
 .page-dims {
-  height: calc(100vh - 80px);
-  width: calc(100vw - 80px);
+  height: calc(100vh - theme('padding.10') * 2);
+  width: calc(100vw - theme('padding.10') * 2);
+}
+
+@media (max-width: theme('screens.md')) {
+  .page-dims {
+    height: calc(100vh - theme('padding.4') * 2);
+    width: calc(100vw - theme('padding.4') * 2);
+  }
 }
 
 a {
