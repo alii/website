@@ -5,9 +5,7 @@ import day from 'dayjs';
 import Link from 'next/link';
 import {Layout} from '../layouts/Layout';
 import {Activity} from '../components/activity';
-
-import {FiMail, FiGithub} from 'react-icons/fi';
-import {FaDiscord} from 'react-icons/fa';
+import {SiDiscord, SiGithub, SiInstagram, SiMonzo, SiTwitch, SiTwitter, SiGmail} from 'react-icons/si';
 import {Tooltip} from 'react-tippy';
 
 const birthday = day('2 November 2004').toDate();
@@ -21,7 +19,12 @@ export default function About() {
           <Link href="/">
             <a className="text-gray-400 hover:text-gray-200">Back</a>
           </Link>
-          <h1 className="text-3xl font-bold title">Alistair Smith</h1>
+          <div className="flex items-center space-x-3">
+            <Tooltip title="A selfie, unfortunately">
+              <img src="/me.png" alt="Me" className="h-8 rounded-full" />
+            </Tooltip>
+            <h1 className="text-3xl font-bold title">Alistair Smith</h1>
+          </div>
           <p className="text-gray-400">
             Yo! I'm a {toWords(age)} year old full-stack TypeScript engineer from the United Kingdom. I care about performant,
             accessible code. I'm a huge fan of open source &amp; you can{' '}
@@ -31,16 +34,28 @@ export default function About() {
             Java with some friends, and really loving it. Watch this space?
           </p>
           <div className="flex items-center">
-            <Tooltip title="A selfie, unfortunately">
-              <img src="/me.png" alt="Me" className="h-20 rounded-md" />
-            </Tooltip>
-            <div className="flex justify-between flex-col py-4 pl-6 space-y-1">
+            <div className="grid grid-cols-2">
               <DiscordContactRow />
               <a href="mailto:inbox@alistair.cloud" className="flex items-center space-x-3">
-                <FiMail /> <span>inbox@alistair.cloud</span>
+                <span>
+                  <SiGmail />
+                </span>{' '}
+                <span>inbox@alistair.cloud</span>
               </a>
               <a href="https://github.com/alii" className="flex items-center space-x-3">
-                <FiGithub /> <span>alii</span>
+                <SiGithub /> <span>alii</span>
+              </a>
+              <a href="https://monzo.me/as" className="flex items-center space-x-3">
+                <SiMonzo /> <span>as</span>
+              </a>
+              <a href="https://instagr.am/alistaor" className="flex items-center space-x-3">
+                <SiInstagram /> <span>alistaor</span>
+              </a>
+              <a href="https://twitter.com/aabbccsmith" className="flex items-center space-x-3">
+                <SiTwitter /> <span>aabbccsmith</span>
+              </a>
+              <a href="https://twitch.tv/aabbccsmith" className="flex items-center space-x-3">
+                <SiTwitch /> <span>aabbccsmith</span>
               </a>
             </div>
           </div>
@@ -63,7 +78,7 @@ export const DiscordContactRow = () => {
 
   return (
     <a href="#" onClick={copy} className="flex items-center space-x-3">
-      <FaDiscord /> <span>{message}</span>
+      <SiDiscord /> <span>{message}</span>
     </a>
   );
 };
