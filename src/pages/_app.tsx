@@ -1,20 +1,20 @@
-import React, {StrictMode, useEffect} from 'react';
+import React, {StrictMode, useEffect, useState} from 'react';
 import {AppProps} from 'next/app';
 import Head from 'next/head';
+import Image from "next/image";
+import {Router} from 'next/router';
 import {AnimatePresence, motion} from 'framer-motion';
-import {animations} from '../core/animations';
+import NProgress from 'nprogress';
 import {useLastFM} from 'use-last-fm';
+import {animations} from '../core/animations';
 import {Consts} from '../core/consts';
 import {initialBackground} from '../core/data';
-import {toBackground} from '../core/utilities';
 
 import 'react-tippy/dist/tippy.css';
 import 'tailwindcss/tailwind.css';
 import '../styles/global.css';
 
-import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import {Router} from 'next/router';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -27,15 +27,11 @@ const appHeight = () => {
 
 export default function App({Component, pageProps, router}: AppProps) {
   const lastFm = useLastFM(Consts.LastFMUsername, Consts.LastFMToken);
+  const [url, setURL] = useState(initialBackground);
 
   useEffect(() => {
-    const url = lastFm.status === 'playing' ? lastFm.song.art : initialBackground;
-
-    document.body.style.background = toBackground(url);
-    document.body.style.backgroundSize = 'cover';
-    document.body.style.backgroundRepeat = 'no-repeat';
-    document.body.style.backgroundAttachment = 'fixed';
-  }, [lastFm.song?.art, lastFm.status]);
+    if (lastFm.status === "playing") setURL(lastFm.song.art);
+    }, [lastFm.song?.art, lastFm.status]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -56,7 +52,7 @@ export default function App({Component, pageProps, router}: AppProps) {
       <Head>
         <title>Alistair Smith</title>
       </Head>
-
+        <Image className="bg" src={url} alt="" layout="fill" objectFit="cover" />
       <AnimatePresence>
         <motion.div
           key={router.pathname}
@@ -66,6 +62,15 @@ export default function App({Component, pageProps, router}: AppProps) {
           <Component {...pageProps} />
         </motion.div>
       </AnimatePresence>
+      <style jsx global>{`
+        body {
+          background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1))
+        }
+        
+        .bg {
+          z-index: -1;
+        }
+      `}</style>
     </StrictMode>
   );
 }
