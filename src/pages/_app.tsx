@@ -1,7 +1,7 @@
 import React, {StrictMode, useEffect, useState} from 'react';
 import {AppProps} from 'next/app';
 import Head from 'next/head';
-import Image from "next/image";
+import Image from 'next/image';
 import {Router} from 'next/router';
 import {AnimatePresence, motion} from 'framer-motion';
 import NProgress from 'nprogress';
@@ -30,8 +30,8 @@ export default function App({Component, pageProps, router}: AppProps) {
   const [url, setURL] = useState(initialBackground);
 
   useEffect(() => {
-    if (lastFm.status === "playing") setURL(lastFm.song.art);
-    }, [lastFm.song?.art, lastFm.status]);
+    if (lastFm.status === 'playing') setURL(lastFm.song.art);
+  }, [lastFm.song?.art, lastFm.status]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -52,7 +52,7 @@ export default function App({Component, pageProps, router}: AppProps) {
       <Head>
         <title>Alistair Smith</title>
       </Head>
-        <Image className="bg" src={url} alt="" layout="fill" objectFit="cover" />
+      <Image className="bg" src={url} alt="" layout="fill" objectFit="cover" />
       <AnimatePresence>
         <motion.div
           key={router.pathname}
@@ -64,9 +64,9 @@ export default function App({Component, pageProps, router}: AppProps) {
       </AnimatePresence>
       <style jsx global>{`
         body {
-          background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1))
+          background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1));
         }
-        
+
         .bg {
           z-index: -1;
         }

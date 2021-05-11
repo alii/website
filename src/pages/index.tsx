@@ -3,33 +3,33 @@ import Link from 'next/link';
 import {Layout} from '../layouts/Layout';
 import {Song} from '../components/song';
 import {
-  SiWebstorm,
-  SiTypescript,
-  SiReact,
-  SiNodeDotJs,
-  SiJava,
-  SiPostgresql,
   SiAmazonaws,
-  SiWebpack,
   SiBabel,
-  SiDocker,
-  SiRedis,
-  SiYarn,
-  SiStyledComponents,
   SiCss3,
-  SiHtml5,
-  SiTailwindcss,
-  SiSpotify,
-  SiSentry,
-  SiServerless,
+  SiDiscord,
+  SiDocker,
   SiGit,
   SiGithub,
-  SiSlack,
-  SiDiscord,
-  SiMarkdown,
+  SiHtml5,
+  SiJava,
   SiJsonwebtokens,
-  SiVisualstudiocode,
+  SiMarkdown,
   SiNextDotJs,
+  SiNodeDotJs,
+  SiPostgresql,
+  SiReact,
+  SiRedis,
+  SiSentry,
+  SiServerless,
+  SiSlack,
+  SiSpotify,
+  SiStyledComponents,
+  SiTailwindcss,
+  SiTypescript,
+  SiVisualstudiocode,
+  SiWebpack,
+  SiWebstorm,
+  SiYarn,
 } from 'react-icons/si';
 import {Tooltip} from 'react-tippy';
 import {IconType} from 'react-icons';
@@ -40,7 +40,7 @@ export default function Index() {
     <Layout>
       <div className="flex">
         <Link href="/about" passHref>
-          <a className="flex-1">About me</a>
+          <a className="flex-1 no-select">About me</a>
         </Link>
         <p>TypeScript + React + Node.js</p>
       </div>

@@ -1,11 +1,10 @@
 import {toWords} from 'number-to-words';
-import React, {useState} from 'react';
-import {Consts} from '../core/consts';
+import React, {ReactNode} from 'react';
 import day from 'dayjs';
 import Link from 'next/link';
 import {Layout} from '../layouts/Layout';
 import {Activity} from '../components/activity';
-import {SiDiscord, SiGithub, SiInstagram, SiMonzo, SiTwitch, SiTwitter, SiGmail} from 'react-icons/si';
+import {SiDiscord, SiGithub, SiGmail, SiInstagram, SiMonzo, SiTwitch} from 'react-icons/si';
 import {Tooltip} from 'react-tippy';
 
 const birthday = day('2 November 2004').toDate();
@@ -35,28 +34,13 @@ export default function About() {
           </p>
           <div className="flex items-center">
             <div className="grid grid-cols-2">
-              <DiscordContactRow />
-              <a href="mailto:inbox@alistair.cloud" className="flex items-center space-x-3">
-                <span>
-                  <SiGmail />
-                </span>{' '}
-                <span>inbox@alistair.cloud</span>
-              </a>
-              <a href="https://github.com/alii" className="flex items-center space-x-3">
-                <SiGithub /> <span>alii</span>
-              </a>
-              <a href="https://monzo.me/as" className="flex items-center space-x-3">
-                <SiMonzo /> <span>as</span>
-              </a>
-              <a href="https://instagr.am/alistaor" className="flex items-center space-x-3">
-                <SiInstagram /> <span>alistaor</span>
-              </a>
-              <a href="https://twitter.com/aabbccsmith" className="flex items-center space-x-3">
-                <SiTwitter /> <span>aabbccsmith</span>
-              </a>
-              <a href="https://twitch.tv/aabbccsmith" className="flex items-center space-x-3">
-                <SiTwitch /> <span>aabbccsmith</span>
-              </a>
+              <ContactLink icon={<SiDiscord />} text="alistair#9999" href="https://discord.com/users/268798547439255572/" />
+              <ContactLink icon={<SiGmail />} text="inbox@alistair.cloud" href="mailto:inbox@alistair.cloud" />
+              <ContactLink icon={<SiGithub />} text="alii" href="https://github.com/alii" />
+              <ContactLink icon={<SiMonzo />} text="as" href="https://monzo.me/as" />
+              <ContactLink icon={<SiInstagram />} text="alistaor" href="https://instagr.am/alistaor" />
+              <ContactLink icon={<SiTwitch />} text="@aabbccsmith" href="https://twitter.com/aabbccsmith" />
+              <ContactLink icon={<SiTwitch />} text="aabbccsmith" href="https://twitch.tv/aabbccsmith" />
             </div>
           </div>
           <Activity />
@@ -66,19 +50,10 @@ export default function About() {
   );
 }
 
-export const DiscordContactRow = () => {
-  const [message, setMessage] = useState(Consts.DiscordUsername);
-
-  const copy = async () => {
-    await navigator.clipboard.writeText(Consts.DiscordUsername);
-    setMessage('Copied ✔');
-    await new Promise((r) => setTimeout(r, 1500));
-    setMessage(Consts.DiscordUsername);
-  };
-
+function ContactLink(props: {icon: ReactNode; text: string; href: string}) {
   return (
-    <a href="#" onClick={copy} className="flex items-center space-x-3">
-      <SiDiscord /> <span>{message}</span>
+    <a href={props.href} className="flex items-center space-x-3" target="_blank" rel="noopener noreferrer">
+      <span>{props.icon}</span> <span>{props.text}</span>
     </a>
   );
-};
+}
