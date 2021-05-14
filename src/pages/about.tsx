@@ -4,7 +4,7 @@ import day from 'dayjs';
 import Link from 'next/link';
 import {Layout} from '../layouts/Layout';
 import {Activity} from '../components/activity';
-import {SiDiscord, SiGithub, SiGmail, SiInstagram, SiMonzo, SiTwitch} from 'react-icons/si';
+import {SiDiscord, SiGithub, SiGmail, SiInstagram, SiMonzo, SiTwitch, SiTwitter} from 'react-icons/si';
 import {Tooltip} from 'react-tippy';
 
 const birthday = day('2 November 2004').toDate();
@@ -39,7 +39,7 @@ export default function About() {
               <ContactLink icon={<SiGithub />} text="alii" href="https://github.com/alii" />
               <ContactLink icon={<SiMonzo />} text="as" href="https://monzo.me/as" />
               <ContactLink icon={<SiInstagram />} text="alistaor" href="https://instagr.am/alistaor" />
-              <ContactLink icon={<SiTwitch />} text="@aabbccsmith" href="https://twitter.com/aabbccsmith" />
+              <ContactLink icon={<SiTwitter />} text="@aabbccsmith" href="https://twitter.com/aabbccsmith" />
               <ContactLink icon={<SiTwitch />} text="aabbccsmith" href="https://twitch.tv/aabbccsmith" />
             </div>
           </div>
