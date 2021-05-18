@@ -3,12 +3,12 @@ const colors = require('tailwindcss/colors');
 
 /** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
 module.exports = {
-  purge: ['./src/**/*.{tsx,ts}'],
-  darkMode: 'class',
-  mode: 'jit',
-  theme: {colors},
-  variants: {
-    typography: ['dark'],
-  },
-  plugins: [require('@tailwindcss/typography')],
+	purge: ['./src/**/*.{tsx,ts}'],
+	darkMode: 'class',
+	mode: 'jit',
+	theme: {colors},
+	variants: {
+		typography: ['dark'],
+	},
+	plugins: [require('@tailwindcss/typography')],
 };
