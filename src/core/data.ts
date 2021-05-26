@@ -1,1 +1,1 @@
-export const initialBackground = 'https://source.unsplash.com/2pg0cobPn64/1920x1080';
+export const initialBackground = 'https://source.unsplash.com/rqWoB4LFgmc/1920x1080';
