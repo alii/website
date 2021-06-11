@@ -32,7 +32,7 @@ export function Activity() {
 }
 
 function ActivityImage({activity}: {activity: ActivityType}) {
-	if (!activity.assets) {
+	if (!activity.assets || !activity.application_id) {
 		return null;
 	}
 
