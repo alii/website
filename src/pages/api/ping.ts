@@ -1,15 +1,13 @@
-import {NextApiHandler} from 'next';
+import {api, InferAPIResponseType} from 'nextkit';
 
-export interface PingResponse {
-	ping: 'pong';
-	time: number;
-}
-
-const handler: NextApiHandler<PingResponse> = function (req, res) {
-	res.json({
-		ping: 'pong',
-		time: Date.now(),
-	});
-};
+const handler = api<{ping: 'pong'; time: number}>({
+	async GET() {
+		return {
+			ping: 'pong',
+			time: Date.now(),
+		};
+	},
+});
 
 export default handler;
+export type HandlerResponse = InferAPIResponseType<typeof handler>;
