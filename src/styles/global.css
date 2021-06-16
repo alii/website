@@ -39,6 +39,10 @@ a {
 	cursor: pointer;
 }
 
+img {
+	-webkit-user-drag: none;
+}
+
 .glass {
 	background: rgba(15, 17, 21, 0.35);
 	backdrop-filter: blur(7px);

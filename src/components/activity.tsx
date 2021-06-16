@@ -17,10 +17,10 @@ export function Activity() {
 	}
 
 	return (
-		<div className="glass p-5">
+		<div className="glass p-5 select-none">
 			<div className="flex items-center">
 				<ActivityImage activity={activity} />
-				<p className="ml-4 flex flex-col justify-between leading-snug">
+				<p className="ml-4 text-sm flex flex-col justify-between leading-snug">
 					<span className="font-bold">Playing {activity.name}</span>
 					<span className="opacity-75">{activity.state}</span>
 					<span className="opacity-50">{activity.details}</span>
@@ -43,10 +43,11 @@ function ActivityImage({activity}: {activity: ActivityType}) {
 					activity.assets.large_image
 				}.png`}
 				alt={activity.assets.large_text}
-				className="h-20 w-20 rounded-md"
+				className="h-16 w-16 rounded-md"
 			/>
 		);
 	} catch (error: unknown) {
+		// Likely happened because BigInt was not available here.
 		console.warn(error);
 		return null;
 	}
