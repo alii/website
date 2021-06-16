@@ -19,11 +19,6 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-const appHeight = () => {
-	const vh = window.innerHeight * 0.01;
-	document.documentElement.style.setProperty('--vh', `${vh}px`);
-};
-
 export default function App({Component, pageProps, router}: AppProps) {
 	const lastFm = useLastFM(Consts.LastFMUsername, Consts.LastFMToken);
 	const [url, setURL] = useState(initialBackground);
@@ -42,20 +37,6 @@ export default function App({Component, pageProps, router}: AppProps) {
 		void new Audio('/pop.mp3').play().catch(() => null);
 	}, [router.pathname]);
 
-	useEffect(() => {
-		if (typeof window === 'undefined') {
-			return;
-		}
-
-		appHeight();
-
-		window.addEventListener('resize', appHeight);
-
-		return () => {
-			window.removeEventListener('resize', appHeight);
-		};
-	}, []);
-
 	return (
 		<StrictMode>
 			<Head>
@@ -64,22 +45,11 @@ export default function App({Component, pageProps, router}: AppProps) {
 			<Image className="bg" src={url} alt="" layout="fill" objectFit="cover" />
 			<div className="bg-blur absolute left-0 right-0 top-0 bottom-0">
 				<AnimatePresence>
-					<motion.div key={router.pathname} {...animations} className="absolute left-0 right-0 top-0 bottom-0">
+					<motion.div key={router.pathname} {...animations} className="absolute h-full w-full">
 						<Component {...pageProps} />
 					</motion.div>
 				</AnimatePresence>
 			</div>
-			<style jsx global>
-				{`
-					body {
-						background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1));
-					}
-
-					.bg {
-						z-index: -1;
-					}
-				`}
-			</style>
 		</StrictMode>
 	);
 }

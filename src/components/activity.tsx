@@ -21,8 +21,8 @@ export function Activity() {
 			<div className="flex items-center">
 				<ActivityImage activity={activity} />
 				<p className="ml-4 flex flex-col justify-between leading-snug">
-					<span className="text-xl font-bold">Playing {activity.name}</span>
-					<span className="opacity-50">{activity.state}</span>
+					<span className="font-bold">Playing {activity.name}</span>
+					<span className="opacity-75">{activity.state}</span>
 					<span className="opacity-50">{activity.details}</span>
 					<span className="opacity-50">{dayjs(activity.timestamps?.start).fromNow(true)} elapsed</span>
 				</p>
@@ -43,7 +43,7 @@ function ActivityImage({activity}: {activity: ActivityType}) {
 					activity.assets.large_image
 				}.png`}
 				alt={activity.assets.large_text}
-				className="h-24 rounded-md"
+				className="h-20 w-20 rounded-md"
 			/>
 		);
 	} catch (error: unknown) {
