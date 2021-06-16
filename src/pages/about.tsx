@@ -5,6 +5,7 @@ import Link from 'next/link';
 import {Layout} from '../layouts/Layout';
 import {Activity} from '../components/activity';
 import {SiDiscord, SiGithub, SiGmail, SiInstagram, SiMonzo, SiTwitch, SiTwitter} from 'react-icons/si';
+import Image from 'next/image';
 
 const birthday = day('2 November 2004').toDate();
 const age = Math.abs(new Date(Date.now() - birthday.getTime()).getUTCFullYear() - 1970);
@@ -18,7 +19,7 @@ export default function About() {
 						<a className="text-gray-400 hover:text-gray-200">Back</a>
 					</Link>
 					<div className="flex items-center space-x-3">
-						<img src="/me.png" alt="Me" className="h-8 rounded-full" />
+						<Image src="/me.png" height={32} width={32} alt="Me" className="h-8 rounded-full" />
 						<h1 className="text-3xl font-bold title">Alistair Smith</h1>
 					</div>
 					<p className="text-gray-400">

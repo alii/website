@@ -21,7 +21,7 @@ function Page() {
 	);
 }
 
-export default class extends Document {
+export default class AlistairDocument extends Document {
 	render() {
 		return <Page />;
 	}

@@ -3,6 +3,8 @@ import {Activity as ActivityType, useLanyard} from 'use-lanyard';
 import dayjs from 'dayjs';
 import {Consts} from '../core/consts';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import Image from 'next/image';
+
 dayjs.extend(relativeTime);
 
 const PRESENCE_TYPE = 0;
@@ -38,10 +40,12 @@ function ActivityImage({activity}: {activity: ActivityType}) {
 
 	try {
 		return (
-			<img
+			<Image
 				src={`https://cdn.discordapp.com/app-assets/${BigInt(activity.application_id).toString()}/${
 					activity.assets.large_image
 				}.png`}
+				height={64}
+				width={64}
 				alt={activity.assets.large_text}
 				className="h-16 w-16 rounded-md"
 			/>

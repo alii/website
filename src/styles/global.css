@@ -44,7 +44,7 @@ img {
 }
 
 .glass {
-	background: rgba(15, 17, 21, 0.35);
+	background: rgba(15, 17, 21, 0.5);
 	backdrop-filter: blur(7px);
 	-webkit-backdrop-filter: blur(7px);
 	border-radius: 10px;

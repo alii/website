@@ -7,6 +7,6 @@ module.exports = {
 		strictPostcssConfiguration: true,
 	},
 	images: {
-		domains: ['source.unsplash.com', 'lastfm.freetls.fastly.net'],
+		domains: ['source.unsplash.com', 'lastfm.freetls.fastly.net', 'cdn.discordapp.com'],
 	},
 };
