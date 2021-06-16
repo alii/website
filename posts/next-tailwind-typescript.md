@@ -1,13 +1,13 @@
 ---
-title: "Next.js with Tailwind & TS"
+title: 'Next.js with Tailwind & TS'
 excerpt: "Setting up tailwind with Next.js & TypeScript can seem intimidating, but it's a fairly straightforward process once you have it all simplified."
-cover: "/covers/canvas.jpg"
-date: "2020-12-28T03:49:19.000Z"
-tags: "node.js, node, typescript, javascript, css, tailwindcss, stylesheets, react"
+cover: '/covers/canvas.jpg'
+date: '2020-12-28T03:49:19.000Z'
+tags: 'node.js, node, typescript, javascript, css, tailwindcss, stylesheets, react'
 author:
-    name: Alistair Smith
-    avatar: "/authors/alistair.png"
-    twitter: aabbccsmith
+  name: Alistair Smith
+  avatar: '/authors/alistair.png'
+  twitter: aabbccsmith
 ---
 
 # Intro

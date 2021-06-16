@@ -1,13 +1,13 @@
 ---
-title: "TypeScript Introduction"
-excerpt: "Bring static types, an overwhelmingly welcoming community, a massively improved developer experience, modern sugar syntax, decorators and much, much more to JavaScript."
-cover: "/covers/xps.jpg"
-date: "2020-12-22T10:53:12.000Z"
-tags: "typescript, introduction, tutorial, learn, javascript"
+title: 'TypeScript Introduction'
+excerpt: 'Bring static types, an overwhelmingly welcoming community, a massively improved developer experience, modern sugar syntax, decorators and much, much more to JavaScript.'
+cover: '/covers/xps.jpg'
+date: '2020-12-22T10:53:12.000Z'
+tags: 'typescript, introduction, tutorial, learn, javascript'
 author:
-    name: Alistair Smith
-    avatar: "/authors/alistair.png"
-    twitter: aabbccsmith
+  name: Alistair Smith
+  avatar: '/authors/alistair.png'
+  twitter: aabbccsmith
 ---
 
 #### This post is a work in progress, and will be updated over time.
@@ -40,11 +40,11 @@ This is where TypeScript comes into play. With TS, we can write this function as
 
 ```typescript
 function add(a: number, b: number) {
-  return a + b;
+	return a + b;
 }
 
 const resultA = add(10, 20);
-const resultB = add("Hello", 2);
+const resultB = add('Hello', 2);
 ```
 
 If you ran that in the [TypeScript playground](https://www.typescriptlang.org/play), you'll notice a line appear under `"Hello"`. It might say something like
@@ -58,10 +58,8 @@ TypeScript is telling us that we, as a developer, cannot give this function a st
 For example, if we had a function like this:
 
 ```typescript
-function badlyNamedFunctionThatDoesSomethingREALLYComplex(
-  userId: string
-): Promise<User> {
-  // ...
+function badlyNamedFunctionThatDoesSomethingREALLYComplex(userId: string): Promise<User> {
+	// ...
 }
 ```
 
@@ -73,11 +71,11 @@ In TypeScript, we can define the **shape** of something with an interface or a t
 
 ```typescript
 interface User {
-  name: string;
-  username: string;
-  links: {
-    github: string;
-  };
+	name: string;
+	username: string;
+	links: {
+		github: string;
+	};
 }
 ```
 
@@ -93,7 +91,7 @@ We can define a type as simple as:
 
 ```typescript
 type UserLinks = {
-  github: string;
+	github: string;
 };
 ```
 
@@ -103,7 +101,7 @@ Or, do something more complex, like this:
 // Don't worry about what this does for now.
 // We'll come on to it later.
 type PartialPick<T, K extends keyof T> = {
-  [P in K]?: T[P];
+	[P in K]?: T[P];
 };
 ```
 
@@ -117,7 +115,7 @@ In the above codeblock, we use something called Generics. They are in many stron
 //           Create "param"
 //           |        Add age
 //           |        |        /-- of type `number`
-type WithAge<T> = T & { age: number };
+type WithAge<T> = T & {age: number};
 
 type UserWithAge = WithAge<User>;
 ```
@@ -131,7 +129,7 @@ However, `K` is not just any key – it's a key that extends the `keyof T`. So, 
 If we did
 
 ```typescript
-type MyDemoType = PartialPick<{ name: string; age: number }, ?>;
+type MyDemoType = PartialPick<{name: string; age: number}, ?>;
 ```
 
 Then, the second "param" (I've left it as `?` for now) we pass to `PartialPick` has to extend `name | age`.

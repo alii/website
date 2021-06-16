@@ -1,13 +1,13 @@
 ---
-title: "node-fetch with proxies"
-excerpt: "A small guide on using node-fetch with HTTP Proxies in Node.js"
-cover: "/covers/network-tower.jpg"
-date: "2020-12-22T10:55:12.000Z"
-tags: "node.js, node, typescript, javascript, proxies, sneaker bot, sneakers, aio bot, http proxies, proxy agent, react, node-fetch, fetch"
+title: 'node-fetch with proxies'
+excerpt: 'A small guide on using node-fetch with HTTP Proxies in Node.js'
+cover: '/covers/network-tower.jpg'
+date: '2020-12-22T10:55:12.000Z'
+tags: 'node.js, node, typescript, javascript, proxies, sneaker bot, sneakers, aio bot, http proxies, proxy agent, react, node-fetch, fetch'
 author:
-    name: Alistair Smith
-    avatar: "/authors/alistair.png"
-    twitter: aabbccsmith
+  name: Alistair Smith
+  avatar: '/authors/alistair.png'
+  twitter: aabbccsmith
 ---
 
 # Using node-fetch with HTTP Proxies

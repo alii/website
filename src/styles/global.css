@@ -1,61 +1,61 @@
 :root {
-  --vh: 1vh;
+	--vh: 1vh;
 }
 
 html {
-  font-family: 'Open Sans', sans-serif;
-  height: calc(var(--vh) * 100);
-  font-weight: 400;
-  background: black;
+	font-family: 'Open Sans', sans-serif;
+	height: calc(var(--vh) * 100);
+	font-weight: 400;
+	background: black;
 }
 
 body {
-  margin: 0;
-  box-sizing: border-box;
-  display: flex;
+	margin: 0;
+	box-sizing: border-box;
+	display: flex;
 
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 
-  height: 100%;
-  color: #ededed;
-  overflow: hidden;
+	height: 100%;
+	color: #ededed;
+	overflow: hidden;
 
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 }
 
 .no-select {
-  user-select: none;
+	user-select: none;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 * {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 a {
-  color: white;
-  cursor: pointer;
+	color: white;
+	cursor: pointer;
 }
 
 .glass {
-  background: rgba(15, 17, 21, 0.35);
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+	background: rgba(15, 17, 21, 0.35);
+	backdrop-filter: blur(7px);
+	-webkit-backdrop-filter: blur(7px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .title {
-  font-family: 'Krona One', sans-serif;
+	font-family: 'Krona One', sans-serif;
 }
 
 .bg-blur {
-  backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
 }
