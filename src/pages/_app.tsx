@@ -62,15 +62,13 @@ export default function App({Component, pageProps, router}: AppProps) {
 				<title>Alistair Smith</title>
 			</Head>
 			<Image className="bg" src={url} alt="" layout="fill" objectFit="cover" />
-			<AnimatePresence>
-				<motion.div
-					key={router.pathname}
-					{...animations}
-					className="absolute left-4 right-4 top-4 bottom-4 md:left-10 md:right-10 md:top-10 md:bottom-10"
-				>
-					<Component {...pageProps} />
-				</motion.div>
-			</AnimatePresence>
+			<div className="bg-blur absolute left-0 right-0 top-0 bottom-0">
+				<AnimatePresence>
+					<motion.div key={router.pathname} {...animations} className="absolute left-0 right-0 top-0 bottom-0">
+						<Component {...pageProps} />
+					</motion.div>
+				</AnimatePresence>
+			</div>
 			<style jsx global>
 				{`
 					body {

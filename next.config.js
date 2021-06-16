@@ -4,7 +4,6 @@ module.exports = {
 		turboMode: true,
 	},
 	future: {
-		webpack5: true,
 		strictPostcssConfiguration: true,
 	},
 	images: {
