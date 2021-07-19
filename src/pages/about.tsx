@@ -12,7 +12,7 @@ const age = Math.abs(new Date(Date.now() - birthday.getTime()).getUTCFullYear() 
 
 export default function About() {
 	return (
-		<Layout>
+		<Layout extraClassNames="bg-black bg-opacity-80">
 			<div className="flex-1 flex justify-center items-center">
 				<div className="glass h-page overflow-x-hidden overflow-y-auto p-5 w-full md:w-96 space-y-2 max-h-screen">
 					<Link href="/">

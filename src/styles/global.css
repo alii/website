@@ -55,6 +55,10 @@ img {
 	font-family: 'Krona One', sans-serif;
 }
 
+.bg {
+	filter: blur(10px);
+}
+
 .bg-blur {
 	backdrop-filter: blur(10px);
 }

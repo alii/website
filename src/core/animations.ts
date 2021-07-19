@@ -2,7 +2,6 @@ import {MotionProps} from 'framer-motion';
 
 export const animations: MotionProps = {
 	initial: {
-		x: '-100%',
 		opacity: 0,
 	},
 	animate: {
