@@ -7,7 +7,7 @@
 		"dayjs": "^1.10.6",
 		"framer-motion": "^4.1.17",
 		"gray-matter": "^4.0.3",
-		"next": "^11.0.1",
+		"next": "^11.0.2-canary.23",
 		"next-mdx-remote": "^3.0.4",
 		"nextkit": "^1.0.5",
 		"nprogress": "^0.2.0",
