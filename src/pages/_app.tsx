@@ -75,7 +75,6 @@ function loadBall(ball: HTMLDivElement) {
 	let ballY = y;
 
 	let hideTimeout: NodeJS.Timeout | null = null;
-	let lastMove: number | null;
 
 	function drawBall() {
 		ballX += (x - ballX) * 0.1 - 0.5;
@@ -106,7 +105,6 @@ function loadBall(ball: HTMLDivElement) {
 
 		x = e.pageX;
 		y = e.pageY;
-		lastMove = performance.now();
 
 		hideTimeout = setTimeout(() => {
 			ball.style.opacity = '0';
