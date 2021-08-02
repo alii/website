@@ -20,5 +20,6 @@ module.exports = {
 		'react/jsx-tag-spacing': 'off',
 		'@typescript-eslint/comma-dangle': 'off',
 		'react/no-unescaped-entities': 'off',
+		'no-mixed-operators': 'off',
 	},
 };
