@@ -27,7 +27,6 @@ import {
 	SiStyledComponents,
 	SiTailwindcss,
 	SiTypescript,
-	SiVisualstudiocode,
 	SiWebpack,
 	SiWebstorm,
 	SiYarn,
@@ -37,10 +36,10 @@ import {IconType} from 'react-icons';
 
 export default function Index() {
 	return (
-		<Layout>
+		<Layout extraClassNames="bg-black bg-opacity-20">
 			<div className="flex">
 				<Link passHref href="/about">
-					<a className="flex-1 no-select">About me</a>
+					<a className="flex-1 no-select hover:text-white hover:opacity-50">About me</a>
 				</Link>
 				<p>TypeScript + React + Node.js</p>
 			</div>
@@ -62,7 +61,7 @@ export default function Index() {
 							<Icon icon={SiBabel} title="Babel" />
 							<Icon icon={SiJava} title="Java" />
 							<Icon icon={SiYarn} title="Yarn" />
-							<Icon icon={SiStyledComponents} title="Styled Components" />
+							<Icon icon={SiStyledComponents} title="styled-components" />
 							<Icon icon={SiCss3} title="CSS3" />
 							<Icon icon={SiHtml5} title="HTML5" />
 							<Icon icon={SiSpotify} title="Spotify" />
@@ -75,7 +74,6 @@ export default function Index() {
 							<Icon icon={SiDiscord} title="Discord" />
 							<Icon icon={SiMarkdown} title="Markdown" />
 							<Icon icon={SiJsonwebtokens} title="JSON Web Tokens" />
-							<Icon icon={SiVisualstudiocode} title="VSCode" />
 						</Icons>
 					</div>
 					<Song />

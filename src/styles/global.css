@@ -2,6 +2,7 @@ html {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 400;
 	background: black;
+	font-size: 0.9rem;
 }
 
 body {
@@ -39,6 +40,10 @@ a {
 	cursor: pointer;
 }
 
+a:hover {
+	color: gray;
+}
+
 img {
 	-webkit-user-drag: none;
 }
@@ -61,4 +66,8 @@ img {
 
 .bg-blur {
 	backdrop-filter: blur(10px);
+}
+
+.ball-transitions {
+	transition: opacity 0.2s, transform 0.1s;
 }
