@@ -38,9 +38,9 @@ import {IconType} from 'react-icons';
 export default function Index() {
 	return (
 		<Layout>
-			<div className="flex">
+			<div className="flex justify-between">
 				<Link passHref href="/about">
-					<a className="flex-1 no-select">About me</a>
+					<a className="no-select">About me</a>
 				</Link>
 				<p>TypeScript + React + Node.js</p>
 			</div>
