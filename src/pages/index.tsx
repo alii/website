@@ -37,9 +37,9 @@ import {IconType} from 'react-icons';
 export default function Index() {
 	return (
 		<Layout extraClassNames="bg-black bg-opacity-20">
-			<div className="flex">
+			<div className="flex justify-between">
 				<Link passHref href="/about">
-					<a className="flex-1 no-select hover:text-white hover:opacity-50">About me</a>
+					<a className="no-select hover:text-white hover:opacity-50">About me</a>
 				</Link>
 				<p>TypeScript + React + Node.js</p>
 			</div>
