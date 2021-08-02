@@ -9,7 +9,7 @@ export const Song = () => {
 
 	if (lastFM.status !== 'playing') {
 		return (
-			<div className="glass p-5">
+			<div className="glass px-3 py-1">
 				<p>Not listening to anything... 😞</p>
 			</div>
 		);
