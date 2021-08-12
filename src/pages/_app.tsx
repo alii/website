@@ -30,7 +30,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 		}
 
 		return loadBall(ballCanvas.current);
-	});
+	}, []);
 
 	useEffect(() => {
 		if (lastFm.status === 'playing') {
