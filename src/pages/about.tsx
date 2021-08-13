@@ -36,7 +36,7 @@ export default function About() {
 						<ContactLink icon={<SiGithub />} text="alii" href="https://github.com/alii" />
 						<ContactLink icon={<SiMonzo />} text="as" href="https://alistair.cash" />
 						<ContactLink icon={<SiInstagram />} text="alistaor" href="https://instagr.am/alistaor" />
-						<ContactLink icon={<SiTwitter />} text="@aabbccsmith" href="https://twitter.com/aabbccsmith" />
+						<ContactLink icon={<SiTwitter />} text="@alistaiiiir" href="https://twitter.com/alistaiiiir" />
 						<ContactLink icon={<SiTwitch />} text="aabbccsmith" href="https://twitch.tv/aabbccsmith" />
 					</div>
 				</div>
