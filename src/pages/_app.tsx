@@ -8,7 +8,6 @@ import NProgress from 'nprogress';
 import {useLastFM} from 'use-last-fm';
 import {animations} from '../core/animations';
 import {Consts} from '../core/consts';
-import {initialBackground} from '../core/data';
 
 import 'react-tippy/dist/tippy.css';
 import 'tailwindcss/tailwind.css';
@@ -21,7 +20,7 @@ Router.events.on('routeChangeError', () => NProgress.done());
 
 export default function App({Component, pageProps, router}: AppProps) {
 	const lastFm = useLastFM(Consts.LastFMUsername, Consts.LastFMToken);
-	const [url, setURL] = useState(initialBackground);
+	const [url, setURL] = useState<string>(Consts.InitialBackground);
 	const ballCanvas = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
