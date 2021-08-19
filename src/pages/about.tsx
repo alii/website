@@ -26,7 +26,7 @@ export default function About() {
 					accessible code. I'm a huge fan of open source &amp; you can{' '}
 					<a href="https://github.com/sponsors/alii">sponsor me on GitHub</a>. Programming since seven, I've learned a lot about
 					programming principles, scaling, and systems architecture. I always love to joke around and I take my{' '}
-					<a href="https://twitter.com/aabbccsmith">Twitter</a> presence <i>very seriously</i>... At the moment, I'm picking up
+					<a href="https://twitter.com/alistaiiiir">Twitter</a> presence <i>very seriously</i>... At the moment, I'm picking up
 					Java with some friends, and really loving it. Watch this space?
 				</p>
 				<div className="flex items-center">
