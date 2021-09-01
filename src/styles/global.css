@@ -3,6 +3,7 @@ html {
 	font-weight: 400;
 	background: black;
 	font-size: 0.9rem;
+	height: 100%;
 }
 
 body {
@@ -16,9 +17,15 @@ body {
 	color: #ededed;
 	overflow: hidden;
 
+	background: linear-gradient(to top, black, rgba(0, 0, 0, 0.4), black), url('//source.unsplash.com/ay53qag90W8/1920x1080');
+
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
+}
+
+#__next {
+	min-height: 100%;
 }
 
 .no-select {

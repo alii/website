@@ -45,7 +45,7 @@ export function loadCursor(ball: HTMLDivElement) {
 
 		hideTimeout = setTimeout(() => {
 			ball.style.opacity = '0';
-		}, 2500);
+		}, 300);
 	}
 
 	function mousedown() {
