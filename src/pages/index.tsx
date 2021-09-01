@@ -1,92 +1,21 @@
-import React, {ReactNode} from 'react';
-import {LargeTitle} from '../components/large-title';
-import Link from 'next/link';
-import {Layout} from '../layouts/Layout';
-import {Song} from '../components/song';
-import {
-	SiAmazonaws,
-	SiBabel,
-	SiCss3,
-	SiDiscord,
-	SiDocker,
-	SiGit,
-	SiGithub,
-	SiHtml5,
-	SiJava,
-	SiJsonwebtokens,
-	SiMarkdown,
-	SiNextDotJs,
-	SiNodeDotJs,
-	SiPostgresql,
-	SiReact,
-	SiRedis,
-	SiSentry,
-	SiServerless,
-	SiSlack,
-	SiSpotify,
-	SiStyledComponents,
-	SiTailwindcss,
-	SiTypescript,
-	SiWebpack,
-	SiWebstorm,
-	SiYarn,
-} from 'react-icons/si';
-import {Tooltip} from 'react-tippy';
-import {IconType} from 'react-icons';
+import React from 'react';
+import Image from 'next/image';
 
 export default function Index() {
 	return (
-		<Layout extraClassNames="bg-black bg-opacity-20">
-			<div className="flex justify-between">
-				<Link passHref href="/about">
-					<a className="no-select hover:text-white hover:opacity-50">About me</a>
-				</Link>
-				<p>TypeScript + React + Node.js</p>
+		<div className="p-5 flex space-x-4">
+			<div>
+				<Image src="/me.png" alt="Selfie" width="50px" height="50px" className="object-cover rounded-full" />
 			</div>
-			<div className="flex flex-1">
-				<div className="flex justify-end flex-col space-y-10">
-					<div className="space-y-2">
-						<LargeTitle>Alistair Smith</LargeTitle>
-						<Icons>
-							<Icon icon={SiTypescript} title="TypeScript" />
-							<Icon icon={SiWebstorm} title="WebStorm IDE" />
-							<Icon icon={SiReact} title="React.js" />
-							<Icon icon={SiRedis} title="Redis" />
-							<Icon icon={SiNodeDotJs} title="Node.js" />
-							<Icon icon={SiNextDotJs} title="Next.js" />
-							<Icon icon={SiPostgresql} title="PostgreSQL" />
-							<Icon icon={SiDocker} title="Docker" />
-							<Icon icon={SiAmazonaws} title="AWS" />
-							<Icon icon={SiWebpack} title="Webpack" />
-							<Icon icon={SiBabel} title="Babel" />
-							<Icon icon={SiJava} title="Java" />
-							<Icon icon={SiYarn} title="Yarn" />
-							<Icon icon={SiStyledComponents} title="styled-components" />
-							<Icon icon={SiCss3} title="CSS3" />
-							<Icon icon={SiHtml5} title="HTML5" />
-							<Icon icon={SiSpotify} title="Spotify" />
-							<Icon icon={SiSentry} title="Sentry" />
-							<Icon icon={SiTailwindcss} title="TailwindCSS" />
-							<Icon icon={SiServerless} title="Serverless" />
-							<Icon icon={SiGit} title="Git" />
-							<Icon icon={SiGithub} title="GitHub" />
-							<Icon icon={SiSlack} title="Slack" />
-							<Icon icon={SiDiscord} title="Discord" />
-							<Icon icon={SiMarkdown} title="Markdown" />
-							<Icon icon={SiJsonwebtokens} title="JSON Web Tokens" />
-						</Icons>
+			<div className="bg-gray-900 flex-1 p-5">
+				<div className="flex">
+					<div className="flex-1">
+						<h1 className="text-3xl font-semibold">alistair smith</h1>
+						<p>typescript, java, go, c++</p>
 					</div>
-					<Song />
+					<div className="float-right">listening to spotify</div>
 				</div>
 			</div>
-		</Layout>
+		</div>
 	);
-}
-
-function Icons({children}: {children: ReactNode}) {
-	return <div className="space-x-1 text-center">{children}</div>;
-}
-
-function Icon({icon, title}: {icon: IconType; title: string}) {
-	return <Tooltip title={title}>{icon({className: 'inline'})}</Tooltip>;
 }

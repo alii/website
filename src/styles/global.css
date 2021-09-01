@@ -8,7 +8,6 @@ html {
 body {
 	margin: 0;
 	box-sizing: border-box;
-	display: flex;
 
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;

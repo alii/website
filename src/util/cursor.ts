@@ -1,4 +1,10 @@
-export function loadBall(ball: HTMLDivElement) {
+/**
+ * Begins the render loop for the ball under the cursor
+ *
+ * @param ball The HTML element to load the ball into
+ * @return A callback to remove all listeners. This is so that you can safely use this function inside of a useEffect.
+ */
+export function loadCursor(ball: HTMLDivElement) {
 	let x = window.innerWidth / 2;
 	let y = window.innerHeight / 2;
 
