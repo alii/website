@@ -9,6 +9,7 @@ module.exports = {
 	theme: {colors},
 	variants: {
 		typography: ['dark'],
+		animation: ['motion-safe'],
 	},
 	plugins: [require('@tailwindcss/typography')],
 };
