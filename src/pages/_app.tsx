@@ -54,6 +54,8 @@ export default function App({Component, pageProps, router}: AppProps) {
 
 							throw new Error(message);
 						}
+
+						return json;
 					},
 				}}
 			>
