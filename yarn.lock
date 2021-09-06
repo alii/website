@@ -4511,6 +4511,7 @@ __metadata:
     react-dom: ^17.0.2
     react-icons: ^4.2.0
     react-tippy: ^1.4.0
+    swr: ^1.0.0
     tailwindcss: ^2.2.9
     typescript: ^4.4.2
     use-lanyard: ^0.0.6
@@ -5746,6 +5747,17 @@ resolve@^2.0.0-next.3:
   peerDependencies:
     react: ^16.11.0 || ^17.0.0
   checksum: 3ce2242b2ef52424079ba46130350096a9ca613473751560b4cc939c616536dc317dd84ca7b376ca8574714131913b72506e18a07d3b3ccef7508fce463d4dab
+  languageName: node
+  linkType: hard
+
+"swr@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "swr@npm:1.0.0"
+  dependencies:
+    dequal: 2.0.2
+  peerDependencies:
+    react: ^16.11.0 || ^17.0.0
+  checksum: 8ffb767ca5c2f0d5e2280d31a6f497fac2739cf7c3518b0266b8d5c619ea9a74b1953b82e13b47463f6dd4f122885f941ce785b2fbf4d45e4b2e1d88f62b9c74
   languageName: node
   linkType: hard
 

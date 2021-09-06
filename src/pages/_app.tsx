@@ -9,6 +9,7 @@ import 'tailwindcss/tailwind.css';
 import '../styles/global.css';
 import 'nprogress/nprogress.css';
 import {loadCursor} from '../util/cursor';
+import {SWRConfig} from 'swr';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -35,14 +36,23 @@ export default function App({Component, pageProps, router}: AppProps) {
 
 	return (
 		<StrictMode>
-			<Head>
-				<title>Alistair Smith</title>
-			</Head>
-			<Component {...pageProps} />
-			<div
-				ref={ballCanvas}
-				className="opacity-0 fixed ball-transitions duration-200 pointer-events-none z-30 h-3 w-3 bg-white rounded-full shadow-md"
-			/>
+			<SWRConfig
+				value={{
+					async fetcher(url: string) {
+						return fetch(url).then(async res => res.json());
+					},
+				}}
+			>
+				<Head>
+					<title>Alistair Smith</title>
+				</Head>
+				<Component {...pageProps} />
+
+				<div
+					ref={ballCanvas}
+					className="opacity-0 fixed ball-transitions duration-200 pointer-events-none z-30 h-3 w-3 bg-white rounded-full shadow-md"
+				/>
+			</SWRConfig>
 		</StrictMode>
 	);
 }

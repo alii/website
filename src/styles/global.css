@@ -15,9 +15,9 @@ body {
 
 	height: 100%;
 	color: #ededed;
-	overflow: hidden;
 
-	background: linear-gradient(to top, black, rgba(0, 0, 0, 0.4), black), url('//source.unsplash.com/ay53qag90W8/1920x1080');
+	background: linear-gradient(to top, black, rgba(0, 0, 0, 0.4), black),
+		url('//source.unsplash.com/ay53qag90W8/1920x1080');
 
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -33,7 +33,8 @@ body {
 }
 
 code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+		monospace;
 }
 
 * {

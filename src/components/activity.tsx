@@ -12,7 +12,9 @@ const PRESENCE_TYPE = 0;
 export function Activity() {
 	const {data: lanyard} = useLanyard(Consts.DiscordId);
 
-	const activity = lanyard?.activities.find(activity => activity.type === PRESENCE_TYPE);
+	const activity = lanyard?.activities.find(
+		activity => activity.type === PRESENCE_TYPE,
+	);
 
 	if (!activity) {
 		return null;
@@ -26,7 +28,9 @@ export function Activity() {
 					<span className="font-bold">Playing {activity.name}</span>
 					<span className="opacity-75">{activity.state}</span>
 					<span className="opacity-50">{activity.details}</span>
-					<span className="opacity-50">{dayjs(activity.timestamps?.start).fromNow(true)} elapsed</span>
+					<span className="opacity-50">
+						{dayjs(activity.timestamps?.start).fromNow(true)} elapsed
+					</span>
 				</p>
 			</div>
 		</div>
@@ -41,9 +45,9 @@ function ActivityImage({activity}: {activity: ActivityType}) {
 	try {
 		return (
 			<Image
-				src={`https://cdn.discordapp.com/app-assets/${BigInt(activity.application_id).toString()}/${
-					activity.assets.large_image
-				}.png`}
+				src={`https://cdn.discordapp.com/app-assets/${BigInt(
+					activity.application_id,
+				).toString()}/${activity.assets.large_image}.png`}
 				height={64}
 				width={64}
 				alt={activity.assets.large_text}
