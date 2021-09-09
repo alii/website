@@ -6,6 +6,7 @@ import {GetStaticProps} from 'next';
 import {
 	SiAmazonaws,
 	SiBabel,
+	SiDiscord,
 	SiDocker,
 	SiGit,
 	SiGithub,
@@ -25,6 +26,8 @@ import {
 	SiYarn,
 } from 'react-icons/si';
 import {IconType} from 'react-icons/lib';
+import {HiOutlineMail} from 'react-icons/hi';
+import {RiSendPlane2Line} from 'react-icons/ri';
 
 const birthday = day('2 November 2004').toDate();
 const age = Math.abs(
@@ -76,7 +79,7 @@ export default function Index(props: Props) {
 			</div>
 
 			<div className="space-y-4">
-				<h1 className="text-2xl sm:text-3xl font-bold">Technologies</h1>
+				<h1 className="text-2xl sm:text-3xl font-bold">Technologies 💻</h1>
 				<p className="opacity-80">
 					I use a wide range of tools to tackle each hurdle in the most
 					efficient manner possible. I really love working with Docker and
@@ -103,6 +106,46 @@ export default function Index(props: Props) {
 					<Technology icon={SiGit} text="Git" />
 					<Technology icon={SiStyledComponents} text="styled-components" />
 				</ul>
+			</div>
+
+			<div className="space-y-4">
+				<h1 className="text-2xl sm:text-3xl font-bold">Let's talk 💬</h1>
+				<p>
+					Leave a message on the form below or get in touch through Discord,
+					Twitter or email.
+				</p>
+
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+					<div className="bg-white bg-opacity-5 p-5 rounded-lg">
+						<form className="space-y-2">
+							<input
+								type="email"
+								required
+								className="bg-white text-lg block w-full font-sans bg-opacity-5 px-4 py-1 rounded-xl"
+								placeholder="Email Address"
+							/>
+							<textarea
+								rows={5}
+								className="bg-white text-lg block w-full font-sans bg-opacity-5 px-4 py-1 rounded-xl resize-none"
+							/>
+
+							<button className="text-lg bg-white bg-opacity-5 rounded-full px-8 py-2 inline-flex space-x-2 items-center">
+								<span>Send</span> <RiSendPlane2Line />
+							</button>
+						</form>
+					</div>
+
+					<div>
+						<ul className="list-disc list-inside space-y-2">
+							<Technology
+								icon={HiOutlineMail}
+								text="alistairsmith01@gmail.com"
+							/>
+							<Technology icon={SiDiscord} text="alistair#9999" />
+							<Technology icon={SiTwitter} text="alistaiiiir" />
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
