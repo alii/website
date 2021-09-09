@@ -63,8 +63,26 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 				className="select-none font-bold border-b border-white border-opacity-10 text-lg flex items-center space-x-2 px-5 py-4 cursor-pointer"
 				onClick={toggle}
 			>
-				<span>{project.repo}</span>
-				<span className="text-xs">⭐ {project.stars}</span>
+				<div className="flex-1 text-left">
+					<span>{project.repo}</span>
+					<span className="text-xs">⭐ {project.stars}</span>
+				</div>
+				<div>
+					<motion.div animate={{rotate: isOpen ? 90 : 0}}>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							className="h-5 w-5"
+							viewBox="0 0 20 20"
+							fill="currentColor"
+						>
+							<path
+								fillRule="evenodd"
+								d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+								clipRule="evenodd"
+							/>
+						</svg>
+					</motion.div>
+				</div>
 			</button>
 
 			<AnimatePresence>
