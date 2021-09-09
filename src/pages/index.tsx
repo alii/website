@@ -1,8 +1,10 @@
-import React, {useReducer} from 'react';
+import React, {ReactNode, useReducer} from 'react';
 import day from 'dayjs';
 import {PinnedRepo, useGitHubPinnedRepos} from '../hooks/github';
 import {AnimatePresence, motion} from 'framer-motion';
 import {GetStaticProps} from 'next';
+import {SiGithub, SiTwitter} from 'react-icons/si';
+import {IconType} from 'react-icons/lib';
 
 const birthday = day('2 November 2004').toDate();
 const age = Math.abs(
@@ -19,7 +21,13 @@ export default function Index(props: Props) {
 	return (
 		<div className="max-w-3xl mx-auto py-24 space-y-12">
 			<div className="space-y-4">
-				<h1 className="text-6xl font-bold">Hey, I'm Alistair ✌️</h1>
+				<div className="flex space-x-2">
+					<SocialLink href="https://github.com/alii" icon={SiGithub} />
+					<SocialLink href="https://twitter.com/alistaiiiir" icon={SiTwitter} />
+				</div>
+				<h1 className="text-3xl sm:text-4xl md:text-6xl font-bold">
+					Hey, I'm Alistair ✌️
+				</h1>
 				<p className="opacity-80">
 					I'm a {age} year old software engineer from the United Kingdom. I'm
 					interested in large scale frontend applications, performant and
@@ -29,7 +37,7 @@ export default function Index(props: Props) {
 			</div>
 
 			<div className="space-y-4">
-				<h1 className="text-3xl font-bold">What do I do? 💭</h1>
+				<h1 className="text-2xl sm:text-3xl font-bold">What do I do? 💭</h1>
 				<p className="opacity-80">
 					Honestly, a few too many things to count on one hand... I'm currently
 					having a fantastic time working with{' '}
@@ -50,6 +58,14 @@ export default function Index(props: Props) {
 	);
 }
 
+function SocialLink({href, icon}: {href: string; icon: IconType}) {
+	return (
+		<a href={href} target="_blank" rel="noreferrer">
+			{icon({className: 'h-6 w-6 hover:opacity-80'})}
+		</a>
+	);
+}
+
 function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 	const [isOpen, toggle] = useReducer(x => !x, false);
 
@@ -65,10 +81,35 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 			>
 				<div className="flex-1 text-left flex items-center space-x-2">
 					<span>{project.repo}</span>
-					<span className="text-xs">⭐ {project.stars}</span>
+					<span className="text-xs flex items-center space-x-3">
+						<span className="space-x-1">
+							<span>⭐</span>
+							<span>{project.stars}</span>
+						</span>
+						<span className="space-x-1">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								className="h-4 w-4 inline"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth={2}
+									d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+								/>
+							</svg>
+							<span>{project.forks}</span>
+						</span>
+					</span>
 				</div>
 				<div>
-					<motion.div animate={{rotate: isOpen ? 90 : 0}}>
+					<motion.div
+						className="hover:bg-opacity-10 bg-white bg-opacity-0 rounded-full p-1"
+						animate={{rotate: isOpen ? 90 : 0}}
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							className="h-5 w-5"
@@ -101,7 +142,7 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 									href={`https://github.com/${project.owner}/${project.repo}`}
 									target="_blank"
 									rel="noreferrer"
-									className="select-none inline-flex items-center space-x-2 no-underline bg-white bg-opacity-10 rounded-full px-6 py-2"
+									className="select-none inline-flex items-center space-x-2 no-underline bg-white bg-opacity-10 rounded-full px-6 py-2 transition-transform hover:scale-95 duration-500"
 								>
 									<span>View Project</span>
 									<svg

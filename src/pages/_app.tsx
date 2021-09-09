@@ -64,7 +64,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 					<title>Alistair Smith</title>
 				</Head>
 
-				<div className="py-10 max-w-4xl mx-auto">
+				<div className="py-10 max-w-4xl px-5 mx-auto">
 					<div className="flex items-center">
 						<nav className="flex-1">
 							<ul className="space-x-4 flex">
@@ -73,13 +73,11 @@ export default function App({Component, pageProps, router}: AppProps) {
 								<NavLink href="/misc">/misc</NavLink>
 							</ul>
 						</nav>
-						<div>
+						<div className="hidden sm:block">
 							<Song />
 						</div>
 					</div>
-					<div className="px-4">
-						<Component {...pageProps} />
-					</div>
+					<Component {...pageProps} />
 				</div>
 
 				<div
