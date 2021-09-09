@@ -1,9 +1,9 @@
-import React, {StrictMode, useEffect, useRef} from 'react';
+import React, {ReactNode, StrictMode, useEffect, useRef} from 'react';
 import {AppProps} from 'next/app';
 import Head from 'next/head';
 import {Router} from 'next/router';
 import NProgress from 'nprogress';
-
+import Link from 'next/link';
 import 'react-tippy/dist/tippy.css';
 import 'tailwindcss/tailwind.css';
 import '../styles/global.css';
@@ -62,7 +62,16 @@ export default function App({Component, pageProps, router}: AppProps) {
 				<Head>
 					<title>Alistair Smith</title>
 				</Head>
-				<Component {...pageProps} />
+
+				<div className="py-10 max-w-4xl mx-auto">
+					<nav>
+						<ul className="flex space-x-4">
+							<NavLink href="/">/</NavLink>
+							<NavLink href="/about">/about</NavLink>
+						</ul>
+					</nav>
+					<Component {...pageProps} />
+				</div>
 
 				<div
 					ref={ballCanvas}
@@ -70,5 +79,17 @@ export default function App({Component, pageProps, router}: AppProps) {
 				/>
 			</SWRConfig>
 		</StrictMode>
+	);
+}
+
+function NavLink(props: {children: ReactNode; href: string}) {
+	return (
+		<li>
+			<Link href={props.href}>
+				<a className="font-mono inline-block px-5 py-3 hover:text-white bg-white bg-opacity-0 hover:bg-opacity-10 rounded-full">
+					{props.children}
+				</a>
+			</Link>
+		</li>
 	);
 }
