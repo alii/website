@@ -32,10 +32,12 @@ export default function Index(props: Props) {
 			<div className="space-y-4">
 				<h1 className="text-3xl font-bold">What do I do? 💭</h1>
 				<p className="opacity-80">
-					I'm currently having a fantastic time with{' '}
-					<a href="https://twitter.com/gigglapp">Giggl</a> Honestly, too many to
-					count on one hand. Here's some recent projects I've worked on. In
-					total, the following repos have earnt me{' '}
+					Honestly, a few too many things to count on one hand... I'm currently
+					having a fantastic time working with{' '}
+					<a href="https://twitter.com/gigglapp">Giggl</a> - we're building a
+					way to watch &amp; browse the web, together. Below are some of the
+					more popular open source projects I've worked on. In total, the
+					following repos have earnt me{' '}
 					{projects?.reduce((stars, repo) => stars + repo.stars, 0)} stars!
 					Thank you! 💖
 				</p>
