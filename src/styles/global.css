@@ -20,8 +20,7 @@ body {
 	min-height: 100%;
 	color: #ededed;
 
-	background: linear-gradient(to top, black, rgba(0, 0, 0, 0.4), black),
-		url('//source.unsplash.com/ay53qag90W8/1920x1080');
+	@apply bg-gradient-to-tr from-gray-900 to-black;
 
 	background-size: cover;
 	background-repeat: no-repeat;

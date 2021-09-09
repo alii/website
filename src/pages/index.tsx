@@ -63,7 +63,7 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 				className="select-none font-bold border-b border-white border-opacity-10 text-lg flex items-center space-x-2 px-5 py-4 cursor-pointer"
 				onClick={toggle}
 			>
-				<div className="flex-1 text-left">
+				<div className="flex-1 text-left flex items-center space-x-2">
 					<span>{project.repo}</span>
 					<span className="text-xs">⭐ {project.stars}</span>
 				</div>
