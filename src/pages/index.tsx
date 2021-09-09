@@ -21,7 +21,7 @@ export default function Index(props: Props) {
 	return (
 		<div className="max-w-3xl mx-auto py-24 space-y-12">
 			<div className="space-y-4">
-				<div className="flex space-x-2">
+				<div className="flex space-x-3">
 					<SocialLink href="https://github.com/alii" icon={SiGithub} />
 					<SocialLink href="https://twitter.com/alistaiiiir" icon={SiTwitter} />
 				</div>
@@ -61,7 +61,7 @@ export default function Index(props: Props) {
 function SocialLink({href, icon}: {href: string; icon: IconType}) {
 	return (
 		<a href={href} target="_blank" rel="noreferrer">
-			{icon({className: 'h-6 w-6 hover:opacity-80'})}
+			{icon({className: 'h-8 w-8 opacity-70 hover:opacity-100'})}
 		</a>
 	);
 }
