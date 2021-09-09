@@ -38,7 +38,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 		<StrictMode>
 			<SWRConfig
 				value={{
-					async fetcher(url: string) {
+					async fetcher<T>(url: string): Promise<T> {
 						const request = await fetch(url);
 						const json = (await request.json()) as unknown;
 
@@ -55,7 +55,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 							throw new Error(message);
 						}
 
-						return json;
+						return json as T;
 					},
 				}}
 			>
@@ -70,7 +70,9 @@ export default function App({Component, pageProps, router}: AppProps) {
 							<NavLink href="/about">/about</NavLink>
 						</ul>
 					</nav>
-					<Component {...pageProps} />
+					<div className="px-4">
+						<Component {...pageProps} />
+					</div>
 				</div>
 
 				<div

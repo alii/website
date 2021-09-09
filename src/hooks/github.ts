@@ -39,7 +39,7 @@ export function useGitHubUser(username: string) {
 	return useSWR<User, Error>(`https://api.github.com/users/${username}`);
 }
 
-interface StarredRepo {
+export interface PinnedRepo {
 	owner: string;
 	repo: string;
 	description: string;
@@ -50,7 +50,7 @@ interface StarredRepo {
 }
 
 export function useGitHubPinnedRepos(username: string) {
-	return useSWR<StarredRepo[], Error>(
+	return useSWR<PinnedRepo[], Error>(
 		`https://gh-pinned-repos.egoist.sh/?username=${username}`,
 	);
 }
