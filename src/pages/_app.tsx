@@ -68,6 +68,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 						<ul className="flex space-x-4">
 							<NavLink href="/">/</NavLink>
 							<NavLink href="/about">/about</NavLink>
+							<NavLink href="/misc">/misc</NavLink>
 						</ul>
 					</nav>
 					<div className="px-4">
