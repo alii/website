@@ -5,10 +5,16 @@ import {SiSpotify} from 'react-icons/si';
 export function Song() {
 	const {data: user} = useLanyard('268798547439255572');
 
+	const c =
+		'inline-flex text-lg items-center space-x-2 no-underline opacity-50 hover:opacity-100 py-4';
+
 	if (!user || !user.spotify) {
 		return (
-			<p>
-				Not Playing anything <SiSpotify />
+			<p className={c}>
+				<span>Not playing anything</span>
+				<span>
+					<SiSpotify />
+				</span>
 			</p>
 		);
 	}
@@ -17,7 +23,7 @@ export function Song() {
 		<a
 			target="_blank"
 			rel="noreferrer"
-			className="inline-flex items-center space-x-2 no-underline opacity-50 hover:opacity-100 py-4"
+			className={c}
 			href={`https://open.spotify.com/track/${user.spotify.track_id}`}
 		>
 			<span>

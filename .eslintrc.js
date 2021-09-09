@@ -28,5 +28,6 @@ module.exports = {
 		'@typescript-eslint/comma-dangle': 'off',
 		'react/no-unescaped-entities': 'off',
 		'no-mixed-operators': 'off',
+		'operator-linebreak': 'off',
 	},
 };
