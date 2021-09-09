@@ -3,7 +3,27 @@ import day from 'dayjs';
 import {PinnedRepo, useGitHubPinnedRepos} from '../hooks/github';
 import {AnimatePresence, motion} from 'framer-motion';
 import {GetStaticProps} from 'next';
-import {SiGithub, SiTwitter} from 'react-icons/si';
+import {
+	SiAmazonaws,
+	SiBabel,
+	SiDocker,
+	SiGit,
+	SiGithub,
+	SiGo,
+	SiJava,
+	SiNextDotJs,
+	SiNodeDotJs,
+	SiPostgresql,
+	SiReact,
+	SiRedis,
+	SiStyledComponents,
+	SiTailwindcss,
+	SiTwitter,
+	SiTypescript,
+	SiWebpack,
+	SiWebstorm,
+	SiYarn,
+} from 'react-icons/si';
 import {IconType} from 'react-icons/lib';
 
 const birthday = day('2 November 2004').toDate();
@@ -54,7 +74,46 @@ export default function Index(props: Props) {
 					))}
 				</div>
 			</div>
+
+			<div className="space-y-4">
+				<h1 className="text-2xl sm:text-3xl font-bold">Technologies</h1>
+				<p className="opacity-80">
+					I use a wide range of tools to tackle each hurdle in the most
+					efficient manner possible. I really love working with Docker and
+					containersation and it's proven to be a reliable bit of kit for
+					working in and scaling services in both production and development
+					environments.
+				</p>
+				<ul className="grid grid-cols-3 sm:grid-cols-4 gap-4">
+					<Technology icon={SiDocker} text="Docker" />
+					<Technology icon={SiRedis} text="Redis" />
+					<Technology icon={SiPostgresql} text="Postgres" />
+					<Technology icon={SiReact} text="React.js" />
+					<Technology icon={SiNodeDotJs} text="Node.js" />
+					<Technology icon={SiTypescript} text="TypeScript" />
+					<Technology icon={SiGo} text="Golang" />
+					<Technology icon={SiJava} text="Java" />
+					<Technology icon={SiAmazonaws} text="AWS" />
+					<Technology icon={SiWebstorm} text="WebStorm" />
+					<Technology icon={SiNextDotJs} text="Next.js" />
+					<Technology icon={SiWebpack} text="Webpack" />
+					<Technology icon={SiBabel} text="Babel" />
+					<Technology icon={SiYarn} text="Yarn" />
+					<Technology icon={SiTailwindcss} text="TailwindCSS" />
+					<Technology icon={SiGit} text="Git" />
+					<Technology icon={SiStyledComponents} text="styled-components" />
+				</ul>
+			</div>
 		</div>
+	);
+}
+
+function Technology({text, icon}: {text: string; icon: IconType}) {
+	return (
+		<li className="flex space-x-2">
+			<span>{icon({className: 'h-6 w-6'})}</span>
+			<span>{text}</span>
+		</li>
 	);
 }
 
