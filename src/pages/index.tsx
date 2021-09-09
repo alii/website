@@ -23,9 +23,8 @@ export default function Index(props: Props) {
 				<p className="opacity-80">
 					I'm a {age} year old software engineer from the United Kingdom. I'm
 					interested in large scale frontend applications, performant and
-					responsive serverside code, and I love learning about database design.
-					Recently, web3 has intrigued me and I've love to explore blockchain
-					technology in depth eventually.
+					responsive serverside code. I've recently delved into lower level
+					languages with the help of some friends 😃
 				</p>
 			</div>
 
@@ -41,7 +40,7 @@ export default function Index(props: Props) {
 					{projects?.reduce((stars, repo) => stars + repo.stars, 0)} stars!
 					Thank you! 💖
 				</p>
-				<div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-3">
+				<div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-3 auto-cols-max">
 					{projects?.map(project => (
 						<ProjectCard key={project.repo} repo={project} />
 					))}
@@ -82,6 +81,8 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 							<div>
 								<a
 									href={`https://github.com/${project.owner}/${project.repo}`}
+									target="_blank"
+									rel="noreferrer"
 									className="select-none inline-flex items-center space-x-2 no-underline bg-white bg-opacity-10 rounded-full px-6 py-2"
 								>
 									<span>View Project</span>

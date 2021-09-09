@@ -14,7 +14,7 @@
 		"react-icons": "^4.2.0",
 		"react-tippy": "^1.4.0",
 		"swr": "^1.0.0",
-		"use-lanyard": "^0.0.6",
+		"use-lanyard": "^1.0.0",
 		"use-last-fm": "^0.6.1"
 	},
 	"scripts": {
@@ -45,14 +45,14 @@
 		"@testing-library/react": "^12.0.0",
 		"@testing-library/user-event": "^13.2.1",
 		"@types/jest": "^27.0.1",
-		"@types/node": "^16.7.10",
+		"@types/node": "^16.9.0",
 		"@types/nprogress": "^0.2.0",
 		"@types/number-to-words": "^1.2.1",
 		"@types/react": "^17.0.20",
 		"@types/react-dom": "^17.0.9",
 		"@types/tailwindcss": "^2.2.1",
-		"@typescript-eslint/eslint-plugin": "^4.30.0",
-		"@typescript-eslint/parser": "^4.30.0",
+		"@typescript-eslint/eslint-plugin": "^4.31.0",
+		"@typescript-eslint/parser": "^4.31.0",
 		"autoprefixer": "^10.3.4",
 		"eslint": "^7.32.0",
 		"eslint-config-next": "^11.1.2",
@@ -62,8 +62,8 @@
 		"eslint-plugin-react": "^7.25.1",
 		"eslint-plugin-react-hooks": "^4.2.0",
 		"postcss": "^8.3.6",
-		"prettier": "^2.3.2",
-		"tailwindcss": "^2.2.9",
+		"prettier": "^2.4.0",
+		"tailwindcss": "^2.2.14",
 		"typescript": "^4.4.2"
 	},
 	"packageManager": "yarn@3.0.1"

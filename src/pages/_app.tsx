@@ -10,6 +10,7 @@ import '../styles/global.css';
 import 'nprogress/nprogress.css';
 import {loadCursor} from '../util/cursor';
 import {SWRConfig} from 'swr';
+import {Song} from '../components/song';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -64,13 +65,18 @@ export default function App({Component, pageProps, router}: AppProps) {
 				</Head>
 
 				<div className="py-10 max-w-4xl mx-auto">
-					<nav>
-						<ul className="flex space-x-4">
-							<NavLink href="/">/</NavLink>
-							<NavLink href="/about">/about</NavLink>
-							<NavLink href="/misc">/misc</NavLink>
-						</ul>
-					</nav>
+					<div className="flex items-center">
+						<nav className="flex-1">
+							<ul className="space-x-4 flex">
+								<NavLink href="/">/</NavLink>
+								<NavLink href="/about">/about</NavLink>
+								<NavLink href="/misc">/misc</NavLink>
+							</ul>
+						</nav>
+						<div>
+							<Song />
+						</div>
+					</div>
 					<div className="px-4">
 						<Component {...pageProps} />
 					</div>
