@@ -28,7 +28,7 @@ export default api({
 		});
 
 		return {
-			sent: true,
+			_redirect: '/thanks',
 		};
 	},
 });
