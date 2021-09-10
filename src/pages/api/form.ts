@@ -5,11 +5,12 @@ import {DISCORD_WEBHOOK} from '../../constants';
 const schema = z.object({
 	email: z.string().email(),
 	body: z.string().max(500),
+	is_json: z.boolean().optional(),
 });
 
 export default api({
 	async POST(req) {
-		const body = schema.parse(req.body);
+		const {is_json = false, ...body} = schema.parse(req.body);
 
 		await fetch(DISCORD_WEBHOOK, {
 			method: 'POST',
@@ -26,6 +27,12 @@ export default api({
 				],
 			}),
 		});
+
+		if (is_json) {
+			return {
+				sent: true,
+			};
+		}
 
 		return {
 			_redirect: '/thanks',

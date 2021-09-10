@@ -2817,6 +2817,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"goober@npm:^2.0.35":
+  version: 2.0.41
+  resolution: "goober@npm:2.0.41"
+  peerDependencies:
+    csstype: ^2.6.2
+  checksum: ef1e4c7491633972497dfd28ef5641154d30f494455101456ba8ed70902e6127167bc2e9a258504a3bad9a3dd354805c9290353c84065af30cb6fcbeecb37894
+  languageName: node
+  linkType: hard
+
 "graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.1.6, graceful-fs@npm:^4.2.0, graceful-fs@npm:^4.2.6":
   version: 4.2.8
   resolution: "graceful-fs@npm:4.2.8"
@@ -4551,6 +4560,7 @@ __metadata:
     prettier: ^2.4.0
     react: ^17.0.2
     react-dom: ^17.0.2
+    react-hot-toast: ^2.1.1
     react-icons: ^4.2.0
     react-tippy: ^1.4.0
     swr: ^1.0.0
@@ -4939,6 +4949,18 @@ __metadata:
   peerDependencies:
     react: 17.0.2
   checksum: 1c1eaa3bca7c7228d24b70932e3d7c99e70d1d04e13bb0843bbf321582bc25d7961d6b8a6978a58a598af2af496d1cedcfb1bf65f6b0960a0a8161cb8dab743c
+  languageName: node
+  linkType: hard
+
+"react-hot-toast@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "react-hot-toast@npm:2.1.1"
+  dependencies:
+    goober: ^2.0.35
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: 029d375d50a937143d21d71c11d4ad00dbb58a6ca12a50378a7bd80fe294821def6f7a5b9a53404d31230d1fed5246453a73b9f90bc85811036e53b802ad790f
   languageName: node
   linkType: hard
 

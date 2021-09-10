@@ -1,4 +1,4 @@
-import React, {ReactNode, useReducer} from 'react';
+import React, {useReducer} from 'react';
 import day from 'dayjs';
 import {PinnedRepo, useGitHubPinnedRepos} from '../hooks/github';
 import {AnimatePresence, motion} from 'framer-motion';
@@ -28,6 +28,8 @@ import {
 import {IconType} from 'react-icons/lib';
 import {HiOutlineMail} from 'react-icons/hi';
 import {RiSendPlane2Line} from 'react-icons/ri';
+import toast from 'react-hot-toast';
+import router from 'next/router';
 
 const birthday = day('2 November 2004').toDate();
 const age = Math.abs(
@@ -117,7 +119,36 @@ export default function Index(props: Props) {
 
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 					<div className="bg-white bg-opacity-5 p-5 rounded-lg">
-						<form className="space-y-2" action="/api/form" method="POST">
+						<form
+							onSubmit={async e => {
+								e.preventDefault();
+
+								const values = [
+									...new FormData(e.target as HTMLFormElement).entries(),
+								].reduce((all, value) => {
+									const [key, v] = value;
+									return {...all, [key]: v};
+								}, {});
+
+								const promise = fetch('/api/form', {
+									headers: {'Content-Type': 'application/json'},
+									body: JSON.stringify({...values, is_json: true}),
+									method: 'POST',
+								});
+
+								await toast
+									.promise(promise, {
+										success: 'Success!',
+										loading: 'Sending...',
+										error: (e: Error) => e.message ?? 'Something went wrong...',
+									})
+									.then(() => router.push('/thanks'))
+									.catch(() => null);
+							}}
+							className="space-y-2"
+							action="/api/form"
+							method="POST"
+						>
 							<input
 								type="email"
 								name="email"

@@ -11,6 +11,7 @@ import 'nprogress/nprogress.css';
 import {loadCursor} from '../util/cursor';
 import {SWRConfig} from 'swr';
 import {Song} from '../components/song';
+import {Toaster} from 'react-hot-toast';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -60,6 +61,8 @@ export default function App({Component, pageProps, router}: AppProps) {
 					},
 				}}
 			>
+				<Toaster toastOptions={{position: 'top-left'}} />
+
 				<Head>
 					<title>Alistair Smith</title>
 				</Head>
