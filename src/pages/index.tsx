@@ -130,7 +130,7 @@ export default function Index(props: Props) {
 								].reduce((all, value) => {
 									const [key, v] = value;
 									return {...all, [key]: v};
-								}, {});
+								}, {} as Record<string, FormDataEntryValue>);
 
 								const promise = fetch('/api/form', {
 									headers: {'Content-Type': 'application/json'},
@@ -213,7 +213,7 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 		>
 			<button
 				type="button"
-				className="select-none font-bold border-b border-white border-opacity-10 text-lg flex items-center space-x-2 px-5 py-4 cursor-pointer"
+				className="focus:outline-none select-none font-bold border-b border-white border-opacity-10 text-lg flex items-center space-x-2 px-5 py-4 cursor-pointer"
 				onClick={toggle}
 			>
 				<div className="flex-1 text-left flex items-center space-x-2">
