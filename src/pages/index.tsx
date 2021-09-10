@@ -117,15 +117,17 @@ export default function Index(props: Props) {
 
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 					<div className="bg-white bg-opacity-5 p-5 rounded-lg">
-						<form className="space-y-2">
+						<form className="space-y-2" action="/api/form" method="POST">
 							<input
 								type="email"
+								name="email"
 								required
 								className="bg-white text-lg block w-full font-sans bg-opacity-5 px-4 py-1 rounded-xl"
 								placeholder="Email Address"
 							/>
 							<textarea
 								rows={5}
+								name="body"
 								className="bg-white text-lg block w-full font-sans bg-opacity-5 px-4 py-1 rounded-xl resize-none"
 							/>
 

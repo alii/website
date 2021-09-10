@@ -15,7 +15,8 @@
 		"react-tippy": "^1.4.0",
 		"swr": "^1.0.0",
 		"use-lanyard": "^1.0.0",
-		"use-last-fm": "^0.6.1"
+		"use-last-fm": "^0.6.1",
+		"zod": "^3.8.2"
 	},
 	"scripts": {
 		"dev": "next dev",
