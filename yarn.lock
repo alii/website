@@ -4207,13 +4207,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"number-to-words@npm:^1.2.4":
-  version: 1.2.4
-  resolution: "number-to-words@npm:1.2.4"
-  checksum: 468f4d745b18f961c7a6f933d3beb3f3b8b434f3daa2b3d891a43f5f43c6eeddea9f08bbc25d46a8221adaf2b31d5acc801ef6ece270190267ae79c6ac27857d
-  languageName: node
-  linkType: hard
-
 "object-assign@npm:^4.1.0, object-assign@npm:^4.1.1":
   version: 4.1.1
   resolution: "object-assign@npm:4.1.1"
@@ -4555,7 +4548,6 @@ __metadata:
     next: ^11.1.2
     nextkit: ^1.0.10
     nprogress: ^0.2.0
-    number-to-words: ^1.2.4
     postcss: ^8.3.6
     prettier: ^2.4.0
     react: ^17.0.2
@@ -4567,7 +4559,6 @@ __metadata:
     tailwindcss: ^2.2.15
     typescript: ^4.4.2
     use-lanyard: ^1.0.0
-    use-last-fm: ^0.6.1
     zod: ^3.8.2
   languageName: unknown
   linkType: soft
@@ -5807,17 +5798,6 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"swr@npm:^0.4.0":
-  version: 0.4.2
-  resolution: "swr@npm:0.4.2"
-  dependencies:
-    dequal: 2.0.2
-  peerDependencies:
-    react: ^16.11.0 || ^17.0.0
-  checksum: 04ccb0d244dfbb2402d4df72ac99138ee44b4a9fa43e536536cb61fceeec6fb0042dc92d69815f43c983dda1066f91ade9bacfea98992ff944194a1db8bb0572
-  languageName: node
-  linkType: hard
-
 "swr@npm:^1.0.0":
   version: 1.0.0
   resolution: "swr@npm:1.0.0"
@@ -6160,17 +6140,6 @@ typescript@^4.4.2:
     react: ">=16"
     swr: ^1.0.0
   checksum: c0f8c22769bcdc758efc1835255fd7791a6a7dfcf55df730bb1b1f6900b136eca96f62ef1310f0c098c460edf29ab5386066c7a0b0e1b862dd10bf4e8c0f228c
-  languageName: node
-  linkType: hard
-
-"use-last-fm@npm:^0.6.1":
-  version: 0.6.1
-  resolution: "use-last-fm@npm:0.6.1"
-  dependencies:
-    swr: ^0.4.0
-  peerDependencies:
-    react: ">=17"
-  checksum: 74f0f2dbeba21f47a9421acfaf53583a6dd76a917252b5d78ee5cebae73ac0a731f0d17bc2472fd0be47c54eb67dfe2a62cde84b07207e1b18df0d83aed8154c
   languageName: node
   linkType: hard
 

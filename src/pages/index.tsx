@@ -32,6 +32,7 @@ import {HiOutlineMail} from 'react-icons/hi';
 import {RiSendPlane2Line} from 'react-icons/ri';
 import toast from 'react-hot-toast';
 import router from 'next/router';
+import {mockPinnedRepos} from '../offline/mock';
 
 const birthday = day('2 November 2004').toDate();
 const age = Math.abs(
@@ -138,7 +139,7 @@ export default function Index(props: Props) {
 									method: 'POST',
 								});
 
-								await toast
+								const result = await toast
 									.promise(promise, {
 										success: 'Success!',
 										loading: 'Sending...',
@@ -309,7 +310,16 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 export const getStaticProps: GetStaticProps<Props> = async function () {
 	const pinnedRepos = await fetch(
 		'https://gh-pinned-repos.egoist.sh/?username=alii',
-	).then(async res => res.json() as Promise<PinnedRepo[]>);
+	)
+		.then(async res => res.json() as Promise<PinnedRepo[]>)
+		.catch(e => {
+			if (process.env.NODE_ENV === 'development') {
+				return mockPinnedRepos;
+			}
+
+			// Something has probably gone wrong... (likely a network error)
+			throw e;
+		});
 
 	return {
 		props: {pinnedRepos},
