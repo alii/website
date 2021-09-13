@@ -14,8 +14,8 @@ export function loadCursor(ball: HTMLDivElement) {
 	let hideTimeout: NodeJS.Timeout | null = null;
 
 	function drawBall() {
-		ballX += (x - ballX) * 0.1 - 0.5;
-		ballY += (y - ballY) * 0.1 - 0.5;
+		ballX += (x - ballX) * 0.1 - 1;
+		ballY += (y - ballY) * 0.1 - 1;
 
 		ball.style.top = `${ballY - window.scrollY}px`;
 		ball.style.left = `${ballX}px`;

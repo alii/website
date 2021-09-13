@@ -73,19 +73,26 @@ export default function App({Component, pageProps, router}: AppProps) {
 							<ul className="space-x-4 flex">
 								<NavLink href="/">/</NavLink>
 								<NavLink href="/about">/about</NavLink>
-								<NavLink href="/misc">/misc</NavLink>
+								<NavLink href="/talk">/talk</NavLink>
 							</ul>
 						</nav>
 						<div className="hidden sm:block">
 							<Song />
 						</div>
 					</div>
-					<Component {...pageProps} />
+					<div className="max-w-3xl mx-auto py-24 space-y-12">
+						<Component {...pageProps} />
+					</div>
+
+					<div className="max-w-3xl opacity-50 mx-auto p-4 py-10 mt-20 border-t-2 border-white border-opacity-10">
+						<h1 className="text-3xl font-bold">Alistair Smith</h1>
+						<p>Software Engineer • {new Date().getFullYear()}</p>
+					</div>
 				</div>
 
 				<div
 					ref={ballCanvas}
-					className="opacity-0 fixed ball-transitions duration-200 pointer-events-none z-30 h-3 w-3 bg-white rounded-full shadow-md"
+					className="opacity-0 fixed ball-transitions duration-200 pointer-events-none z-30 h-6 w-6 bg-transparent border border-white rounded-full shadow-md"
 				/>
 			</SWRConfig>
 		</StrictMode>

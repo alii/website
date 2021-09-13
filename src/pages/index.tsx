@@ -1,6 +1,6 @@
 // came out swinging – the wonder years
 
-import React, {useReducer} from 'react';
+import React, {Fragment, useReducer} from 'react';
 import day from 'dayjs';
 import {PinnedRepo, useGitHubPinnedRepos} from '../hooks/github';
 import {AnimatePresence, motion} from 'framer-motion';
@@ -33,6 +33,7 @@ import {RiSendPlane2Line} from 'react-icons/ri';
 import toast from 'react-hot-toast';
 import router from 'next/router';
 import {mockPinnedRepos} from '../offline/mock';
+import {ListItem} from '../components/list-item';
 
 const birthday = day('2 November 2004').toDate();
 const age = Math.abs(
@@ -47,7 +48,7 @@ export default function Index(props: Props) {
 	const {data: projects = props.pinnedRepos} = useGitHubPinnedRepos('alii');
 
 	return (
-		<div className="max-w-3xl mx-auto py-24 space-y-12">
+		<Fragment>
 			<div className="space-y-4">
 				<div className="flex space-x-3">
 					<SocialLink href="https://github.com/alii" icon={SiGithub} />
@@ -93,106 +94,26 @@ export default function Index(props: Props) {
 					environments.
 				</p>
 				<ul className="grid grid-cols-3 sm:grid-cols-4 gap-4">
-					<Technology icon={SiDocker} text="Docker" />
-					<Technology icon={SiRedis} text="Redis" />
-					<Technology icon={SiPostgresql} text="Postgres" />
-					<Technology icon={SiReact} text="React.js" />
-					<Technology icon={SiNodeDotJs} text="Node.js" />
-					<Technology icon={SiTypescript} text="TypeScript" />
-					<Technology icon={SiGo} text="Golang" />
-					<Technology icon={SiJava} text="Java" />
-					<Technology icon={SiAmazonaws} text="AWS" />
-					<Technology icon={SiWebstorm} text="WebStorm" />
-					<Technology icon={SiNextDotJs} text="Next.js" />
-					<Technology icon={SiWebpack} text="Webpack" />
-					<Technology icon={SiBabel} text="Babel" />
-					<Technology icon={SiYarn} text="Yarn" />
-					<Technology icon={SiTailwindcss} text="TailwindCSS" />
-					<Technology icon={SiGit} text="Git" />
-					<Technology icon={SiStyledComponents} text="styled-components" />
+					<ListItem icon={SiDocker} text="Docker" />
+					<ListItem icon={SiRedis} text="Redis" />
+					<ListItem icon={SiPostgresql} text="Postgres" />
+					<ListItem icon={SiReact} text="React.js" />
+					<ListItem icon={SiNodeDotJs} text="Node.js" />
+					<ListItem icon={SiTypescript} text="TypeScript" />
+					<ListItem icon={SiGo} text="Golang" />
+					<ListItem icon={SiJava} text="Java" />
+					<ListItem icon={SiAmazonaws} text="AWS" />
+					<ListItem icon={SiWebstorm} text="WebStorm" />
+					<ListItem icon={SiNextDotJs} text="Next.js" />
+					<ListItem icon={SiWebpack} text="Webpack" />
+					<ListItem icon={SiBabel} text="Babel" />
+					<ListItem icon={SiYarn} text="Yarn" />
+					<ListItem icon={SiTailwindcss} text="TailwindCSS" />
+					<ListItem icon={SiGit} text="Git" />
+					<ListItem icon={SiStyledComponents} text="styled-components" />
 				</ul>
 			</div>
-
-			<div className="space-y-4">
-				<h1 className="text-2xl sm:text-3xl font-bold">Let's talk 💬</h1>
-				<p>
-					Leave a message on the form below or get in touch through Discord,
-					Twitter or email.
-				</p>
-
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-					<div className="bg-white bg-opacity-5 p-5 rounded-lg">
-						<form
-							onSubmit={async e => {
-								e.preventDefault();
-
-								const values = [
-									...new FormData(e.target as HTMLFormElement).entries(),
-								].reduce((all, value) => {
-									const [key, v] = value;
-									return {...all, [key]: v};
-								}, {} as Record<string, FormDataEntryValue>);
-
-								const promise = fetch('/api/form', {
-									headers: {'Content-Type': 'application/json'},
-									body: JSON.stringify({...values, is_json: true}),
-									method: 'POST',
-								});
-
-								const result = await toast
-									.promise(promise, {
-										success: 'Success!',
-										loading: 'Sending...',
-										error: (e: Error) => e.message ?? 'Something went wrong...',
-									})
-									.then(() => router.push('/thanks'))
-									.catch(() => null);
-							}}
-							className="space-y-2"
-							action="/api/form"
-							method="POST"
-						>
-							<input
-								type="email"
-								name="email"
-								required
-								className="bg-white text-lg block w-full font-sans bg-opacity-5 px-4 py-1 rounded-xl"
-								placeholder="Email Address"
-							/>
-							<textarea
-								rows={5}
-								name="body"
-								className="bg-white text-lg block w-full font-sans bg-opacity-5 px-4 py-1 rounded-xl resize-none"
-							/>
-
-							<button className="text-lg bg-white bg-opacity-5 rounded-full px-8 py-2 inline-flex space-x-2 items-center">
-								<span>Send</span> <RiSendPlane2Line />
-							</button>
-						</form>
-					</div>
-
-					<div>
-						<ul className="list-disc list-inside space-y-2">
-							<Technology
-								icon={HiOutlineMail}
-								text="alistairsmith01@gmail.com"
-							/>
-							<Technology icon={SiDiscord} text="alistair#9999" />
-							<Technology icon={SiTwitter} text="alistaiiiir" />
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
-}
-
-function Technology({text, icon}: {text: string; icon: IconType}) {
-	return (
-		<li className="flex space-x-2">
-			<span>{icon({className: 'h-6 w-6'})}</span>
-			<span>{text}</span>
-		</li>
+		</Fragment>
 	);
 }
 

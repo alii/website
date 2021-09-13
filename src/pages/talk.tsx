@@ -1,0 +1,81 @@
+import {useRouter} from 'next/router';
+import React from 'react';
+import toast from 'react-hot-toast';
+import {HiOutlineMail} from 'react-icons/hi';
+import {RiSendPlane2Line} from 'react-icons/ri';
+import {SiDiscord, SiTwitter} from 'react-icons/si';
+import {ListItem} from '../components/list-item';
+
+export default function Talk() {
+	const router = useRouter();
+
+	return (
+		<div className="space-y-4">
+			<h1 className="text-2xl sm:text-3xl font-bold">Let's talk 💬</h1>
+			<p>
+				Leave a message on the form below or get in touch through Discord,
+				Twitter or email.
+			</p>
+
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+				<div className="bg-white bg-opacity-5 p-5 rounded-lg">
+					<form
+						onSubmit={async e => {
+							e.preventDefault();
+
+							const values = [
+								...new FormData(e.target as HTMLFormElement).entries(),
+							].reduce((all, value) => {
+								const [key, v] = value;
+								return {...all, [key]: v};
+							}, {} as Record<string, FormDataEntryValue>);
+
+							const promise = fetch('/api/form', {
+								headers: {'Content-Type': 'application/json'},
+								body: JSON.stringify({...values, is_json: true}),
+								method: 'POST',
+							});
+
+							const result = await toast
+								.promise(promise, {
+									success: 'Success!',
+									loading: 'Sending...',
+									error: (e: Error) => e.message ?? 'Something went wrong...',
+								})
+								.then(() => router.push('/thanks'))
+								.catch(() => null);
+						}}
+						className="space-y-2"
+						action="/api/form"
+						method="POST"
+					>
+						<input
+							type="email"
+							name="email"
+							required
+							className="bg-white text-lg block w-full font-sans bg-opacity-5 px-4 py-1 rounded-xl"
+							placeholder="Email Address"
+						/>
+						<textarea
+							rows={5}
+							name="body"
+							className="bg-white text-lg block w-full font-sans bg-opacity-5 px-4 py-1 rounded-xl resize-none"
+						/>
+
+						<button className="text-lg bg-white bg-opacity-5 rounded-full px-8 py-2 inline-flex space-x-2 items-center">
+							<span>Send</span> <RiSendPlane2Line />
+						</button>
+					</form>
+				</div>
+
+				<div>
+					<ul className="list-disc list-inside space-y-2">
+						<ListItem icon={HiOutlineMail} text="alistairsmith01@gmail.com" />
+						<ListItem icon={SiDiscord} text="alistair#9999" />
+						<ListItem icon={SiTwitter} text="alistaiiiir" />
+					</ul>
+				</div>
+			</div>
+		</div>
+	);
+}
