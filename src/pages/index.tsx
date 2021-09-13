@@ -8,7 +8,6 @@ import {GetStaticProps} from 'next';
 import {
 	SiAmazonaws,
 	SiBabel,
-	SiDiscord,
 	SiDocker,
 	SiGit,
 	SiGithub,
@@ -28,16 +27,12 @@ import {
 	SiYarn,
 } from 'react-icons/si';
 import {IconType} from 'react-icons/lib';
-import {HiOutlineMail} from 'react-icons/hi';
-import {RiSendPlane2Line} from 'react-icons/ri';
-import toast from 'react-hot-toast';
-import router from 'next/router';
 import {mockPinnedRepos} from '../offline/mock';
 import {ListItem} from '../components/list-item';
 
-const birthday = day('2 November 2004').toDate();
+const birthday = day('2 November 2004');
 const age = Math.abs(
-	new Date(Date.now() - birthday.getTime()).getUTCFullYear() - 1970,
+	new Date(Date.now() - birthday.toDate().getTime()).getUTCFullYear() - 1970,
 );
 
 interface Props {
