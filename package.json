@@ -13,7 +13,7 @@
 		"react-hot-toast": "^2.1.1",
 		"react-icons": "^4.2.0",
 		"react-tippy": "^1.4.0",
-		"swr": "^1.0.0",
+		"swr": "^1.0.1",
 		"use-lanyard": "^1.0.0",
 		"zod": "^3.8.2"
 	},
@@ -42,7 +42,7 @@
 	"devDependencies": {
 		"@tailwindcss/typography": "^0.4.1",
 		"@testing-library/jest-dom": "^5.14.1",
-		"@testing-library/react": "^12.0.0",
+		"@testing-library/react": "^12.1.0",
 		"@testing-library/user-event": "^13.2.1",
 		"@types/jest": "^27.0.1",
 		"@types/node": "^16.9.1",
@@ -64,7 +64,7 @@
 		"postcss": "^8.3.6",
 		"prettier": "^2.4.0",
 		"tailwindcss": "^2.2.15",
-		"typescript": "^4.4.2"
+		"typescript": "^4.4.3"
 	},
 	"packageManager": "yarn@3.0.1"
 }

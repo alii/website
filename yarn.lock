@@ -388,16 +388,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/react@npm:^12.0.0":
-  version: 12.0.0
-  resolution: "@testing-library/react@npm:12.0.0"
+"@testing-library/react@npm:^12.1.0":
+  version: 12.1.0
+  resolution: "@testing-library/react@npm:12.1.0"
   dependencies:
     "@babel/runtime": ^7.12.5
     "@testing-library/dom": ^8.0.0
   peerDependencies:
     react: "*"
     react-dom: "*"
-  checksum: 07f0ba4092f7cd3232c2c61329353b2f2fa65388fc58666780be80f99f75daaf897a09a9897ac53f213d7b2d57e3cecb8127fd940da8cfd4275fa4a281e5b32c
+  checksum: 84ab074f12dbea82e5b08b976a6471c3a7d71629c72c895b661a2652d2b136cbc3de91f7152ca9e1485255c54f39acfa2ff2982ac20f94cf63f5eb84319c56d5
   languageName: node
   linkType: hard
 
@@ -4524,7 +4524,7 @@ __metadata:
   dependencies:
     "@tailwindcss/typography": ^0.4.1
     "@testing-library/jest-dom": ^5.14.1
-    "@testing-library/react": ^12.0.0
+    "@testing-library/react": ^12.1.0
     "@testing-library/user-event": ^13.2.1
     "@types/jest": ^27.0.1
     "@types/node": ^16.9.1
@@ -4555,9 +4555,9 @@ __metadata:
     react-hot-toast: ^2.1.1
     react-icons: ^4.2.0
     react-tippy: ^1.4.0
-    swr: ^1.0.0
+    swr: ^1.0.1
     tailwindcss: ^2.2.15
-    typescript: ^4.4.2
+    typescript: ^4.4.3
     use-lanyard: ^1.0.0
     zod: ^3.8.2
   languageName: unknown
@@ -5798,14 +5798,14 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"swr@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "swr@npm:1.0.0"
+"swr@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "swr@npm:1.0.1"
   dependencies:
     dequal: 2.0.2
   peerDependencies:
     react: ^16.11.0 || ^17.0.0
-  checksum: 8ffb767ca5c2f0d5e2280d31a6f497fac2739cf7c3518b0266b8d5c619ea9a74b1953b82e13b47463f6dd4f122885f941ce785b2fbf4d45e4b2e1d88f62b9c74
+  checksum: 8aaa10c4c65cb9b46a143a52ac2728111fc8af96e83781df1f7b7d56aa027ef720b7feb230658616e479f224f684d4cbc5d2ca3265c40f95a3140dbdba801061
   languageName: node
   linkType: hard
 
@@ -6040,13 +6040,13 @@ typescript@>=4.3:
   languageName: node
   linkType: hard
 
-typescript@^4.4.2:
-  version: 4.4.2
-  resolution: "typescript@npm:4.4.2"
+typescript@^4.4.3:
+  version: 4.4.3
+  resolution: "typescript@npm:4.4.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 194e08e9d1971d667d6fd1a0554616b7022312a2319d70e81a64e502a265992061ee7817ed9a69b52bbabe7a9b85e7938cb8c11c433e40a516b277f8c4dacd51
+  checksum: 05823f21796d450531a7e4ab299715d38fd9ded0e4ce7400876053f4b5166ca3dde7a68cecfe72d9086039f03c0b6edba36516fb10ed83c5837d9600532ea4c2
   languageName: node
   linkType: hard
 
@@ -6060,13 +6060,13 @@ typescript@^4.4.2:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.4.2#~builtin<compat/typescript>":
-  version: 4.4.2
-  resolution: "typescript@patch:typescript@npm%3A4.4.2#~builtin<compat/typescript>::version=4.4.2&hash=d8b4e7"
+"typescript@patch:typescript@^4.4.3#~builtin<compat/typescript>":
+  version: 4.4.3
+  resolution: "typescript@patch:typescript@npm%3A4.4.3#~builtin<compat/typescript>::version=4.4.3&hash=d8b4e7"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 11d6ab6e868117908c388401e2ac06d503c5c8709115ab80ee69a1a6352c1f98471d1e595636bfe6a2d6b20b03a44df6bb2d3d198cea97c0c328968cd18d2b70
+  checksum: 215a59742afb7e0c3668e2c50ca19813deb24b3cc0d16ac3591990e033728050aaa99e159a72b54cb43653f16c778a5cf9dfeed1f51c3b105710ae082c064af7
   languageName: node
   linkType: hard
 
