@@ -50,7 +50,7 @@ export interface PinnedRepo {
 	description: string;
 	language: string;
 	languageColor: string;
-	stars: number;
+	stars: string;
 	forks: number;
 }
 

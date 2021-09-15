@@ -79,8 +79,8 @@ export default function Index(props: Props) {
 					way to watch &amp; browse the web, together. Below are some of the
 					more popular open source projects I've worked on. In total, the
 					following repos have earnt me{' '}
-					{projects?.reduce((stars, repo) => stars + repo.stars, 0)} stars!
-					Thank you! 💖
+					{projects?.reduce((stars, repo) => stars + parseInt(repo.stars), 0)}{' '}
+					stars! Thank you! 💖
 				</p>
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-3 auto-cols-max">
 					{projects?.map(project => (
