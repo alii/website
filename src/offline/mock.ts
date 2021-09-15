@@ -7,8 +7,8 @@ function getMock(_: never, index: number): PinnedRepo {
 		description: 'This is a mock repo',
 		language: 'TypeScript',
 		languageColor: '#123456',
-		stars: Math.floor(Math.random() * 100),
-		forks: Math.floor(Math.random() * 100),
+		stars: Math.floor(Math.random() * 100).toString(),
+		forks: Math.floor(Math.random() * 100).toString(),
 	};
 }
 

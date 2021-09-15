@@ -51,7 +51,7 @@ export interface PinnedRepo {
 	language: string;
 	languageColor: string;
 	stars: string;
-	forks: number;
+	forks: string;
 }
 
 /**
