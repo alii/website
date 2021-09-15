@@ -1,6 +1,6 @@
 // came out swinging – the wonder years
 
-import React, {Fragment, useReducer} from 'react';
+import React, {Fragment, useEffect, useReducer} from 'react';
 import day from 'dayjs';
 import {PinnedRepo, useGitHubPinnedRepos} from '../hooks/github';
 import {AnimatePresence, motion} from 'framer-motion';
@@ -35,12 +35,22 @@ const age = Math.abs(
 	new Date(Date.now() - birthday.toDate().getTime()).getUTCFullYear() - 1970,
 );
 
+const isBirthday = day().isSame('2 November 2004');
+
 interface Props {
 	pinnedRepos: PinnedRepo[];
 }
 
 export default function Index(props: Props) {
 	const {data: projects = props.pinnedRepos} = useGitHubPinnedRepos('alii');
+
+	useEffect(() => {
+		if (!isBirthday) {
+			return;
+		}
+
+		// TODO: Add birthday fireworks
+	}, []);
 
 	return (
 		<Fragment>

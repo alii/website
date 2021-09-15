@@ -35,6 +35,11 @@ interface User {
 	updated_at: string;
 }
 
+/**
+ * SWR wrapper that retusn a full github user object from the public api
+ * @param username The github username to fetch data for
+ * @returns An SWRREsponse fulfilled with the github user
+ */
 export function useGitHubUser(username: string) {
 	return useSWR<User, Error>(`https://api.github.com/users/${username}`);
 }
@@ -49,8 +54,23 @@ export interface PinnedRepo {
 	forks: number;
 }
 
+/**
+ * SWR wrapper that returns github repositories for a user
+ * @param username The github username to fetch pinned repos for
+ * @returns An SWRResponse fulfilled with an array of pinned github repos
+ */
 export function useGitHubPinnedRepos(username: string) {
-	return useSWR<PinnedRepo[], Error>(
+	const resp = useSWR<PinnedRepo[], Error>(
 		`https://gh-pinned-repos.egoist.sh/?username=${username}`,
 	);
+
+	return {
+		...resp,
+		data: resp.data?.map(item => {
+			return {
+				...item,
+				url: `https://github.com/${item.owner}/${item.repo}`,
+			} as PinnedRepo & {url: string};
+		}),
+	};
 }
