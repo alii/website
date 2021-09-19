@@ -94,7 +94,7 @@ export default function Index(props: Props) {
 				<p className="opacity-80">
 					I use a wide range of tools to tackle each hurdle in the most
 					efficient manner possible. I really love working with Docker and
-					containersation and it's proven to be a reliable bit of kit for
+					containerization and it's proven to be a reliable bit of kit for
 					working in and scaling services in both production and development
 					environments.
 				</p>
