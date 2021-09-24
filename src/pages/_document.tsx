@@ -11,7 +11,7 @@ function Page() {
 					type="image/png"
 					href="https://avatars3.githubusercontent.com/u/25351731?s=460&v=4"
 				/>
-				<meta name="theme-color" content="#ffe8e8" />
+				<meta name="theme-color" content="#000000" />
 				<meta
 					name="description"
 					content="Alistair Smith, Full–stack TypeScript engineer from the UK"
