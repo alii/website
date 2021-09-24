@@ -154,6 +154,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@headlessui/react@npm:^1.4.1":
+  version: 1.4.1
+  resolution: "@headlessui/react@npm:1.4.1"
+  peerDependencies:
+    react: ^16 || ^17 || ^18
+    react-dom: ^16 || ^17 || ^18
+  checksum: e036941e31b02a17e8c27b018d40cced1e7165ec85ce00cddf74884349e86cb7ef75e3c645d7d0f133f63dfbac97ad4a5765d996db3b8f3cc4a678c84402ad6e
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.5.0":
   version: 0.5.0
   resolution: "@humanwhocodes/config-array@npm:0.5.0"
@@ -4589,6 +4599,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "personal-website@workspace:."
   dependencies:
+    "@headlessui/react": ^1.4.1
     "@tailwindcss/typography": ^0.4.1
     "@testing-library/jest-dom": ^5.14.1
     "@testing-library/react": ^12.1.0
@@ -4621,6 +4632,7 @@ __metadata:
     react-dom: ^17.0.2
     react-hot-toast: ^2.1.1
     react-icons: ^4.2.0
+    react-text-translator: ^1.1.4
     react-tippy: ^1.4.0
     swr: ^1.0.1
     tailwindcss: ^2.2.15
@@ -5060,6 +5072,16 @@ __metadata:
   version: 0.8.3
   resolution: "react-refresh@npm:0.8.3"
   checksum: 3cffe5a9cbac1c5d59bf74bf9fff43c987d87ef32098b9092ea94b6637377d86c08565b9374d9397f446b3fbcd95de986ec77220a16f979687cb39b7b89e2f91
+  languageName: node
+  linkType: hard
+
+"react-text-translator@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "react-text-translator@npm:1.1.4"
+  peerDependencies:
+    "@types/react": ^17.0.24
+    react: ^17.0.2
+  checksum: e9dfc754631cbbc1bd2678d8402e42bc46cd9655425f0ac56fbfa2dd07fc4253d24f1a55b3268b2962ecab005b158926107d6c5c1e0d8e7e2262b2128174c81c
   languageName: node
   linkType: hard
 

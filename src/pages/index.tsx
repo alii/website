@@ -29,6 +29,7 @@ import {
 import {IconType} from 'react-icons/lib';
 import {mockPinnedRepos} from '../offline/mock';
 import {ListItem} from '../components/list-item';
+import {T} from '../i18n/translator';
 
 const birthday = day('2 November 2004');
 const age = Math.abs(
@@ -60,13 +61,10 @@ export default function Index(props: Props) {
 					<SocialLink href="https://twitter.com/alistaiiiir" icon={SiTwitter} />
 				</div>
 				<h1 className="text-3xl sm:text-4xl md:text-6xl font-bold">
-					Hey, I'm Alistair ✌️
+					<T phrase="Hey, I'm Alistair" />
 				</h1>
 				<p className="opacity-80">
-					I'm a {age} year old software engineer from the United Kingdom. I'm
-					interested in large scale frontend applications, performant and
-					responsive serverside code. I've recently delved into lower level
-					languages with the help of some friends 😃
+					<T phrase="intro.para-1" />
 				</p>
 			</div>
 
