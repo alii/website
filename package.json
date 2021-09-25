@@ -15,6 +15,7 @@
 		"react-icons": "^4.2.0",
 		"react-text-translator": "^1.1.7",
 		"react-tippy": "^1.4.0",
+		"react-uwu": "^1.0.2",
 		"swr": "^1.0.1",
 		"use-lanyard": "^1.0.0",
 		"zod": "^3.8.2"
@@ -43,10 +44,6 @@
 	},
 	"devDependencies": {
 		"@tailwindcss/typography": "^0.4.1",
-		"@testing-library/jest-dom": "^5.14.1",
-		"@testing-library/react": "^12.1.0",
-		"@testing-library/user-event": "^13.2.1",
-		"@types/jest": "^27.0.2",
 		"@types/node": "^16.9.6",
 		"@types/nprogress": "^0.2.0",
 		"@types/number-to-words": "^1.2.1",
