@@ -1565,13 +1565,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"colorette@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "colorette@npm:1.4.0"
-  checksum: 01c3c16058b182a4ab4c126a65a75faa4d38a20fa7c845090b25453acec6c371bb2c5dceb0a2338511f17902b9d1a9af0cadd8509c9403894b79311032c256c3
-  languageName: node
-  linkType: hard
-
 "commander@npm:^6.0.0":
   version: 6.2.1
   resolution: "commander@npm:6.2.1"
@@ -4110,14 +4103,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nextkit@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "nextkit@npm:1.1.0"
-  dependencies:
-    colorette: ^1.4.0
+"nextkit@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "nextkit@npm:1.2.3"
   peerDependencies:
     next: ^11.1.2
-  checksum: 5348d62d8deff4fb0c82e4f037d419b4057af6918ece6dd685d65d6ecac9640884c1e8ff770dd4cc97d2578170b236ebe60fe4874462de69dfd679099aed6935
+  checksum: fc2750d1d87cda8d1dfd8a94f4b3e4c23311f6b80544819b142e5194e41abde650a997cfecc0f153c630db7d5a788280bf79c64ab99a8124abc47cc062864ad1
   languageName: node
   linkType: hard
 
@@ -4624,7 +4615,7 @@ __metadata:
     eslint-plugin-react-hooks: ^4.2.0
     framer-motion: ^4.1.17
     next: canary
-    nextkit: ^1.1.0
+    nextkit: ^1.2.3
     nprogress: ^0.2.0
     postcss: ^8.3.7
     prettier: ^2.4.1
@@ -4632,7 +4623,7 @@ __metadata:
     react-dom: ^17.0.2
     react-hot-toast: ^2.1.1
     react-icons: ^4.2.0
-    react-text-translator: ^1.1.4
+    react-text-translator: ^1.1.7
     react-tippy: ^1.4.0
     swr: ^1.0.1
     tailwindcss: ^2.2.15
@@ -5075,13 +5066,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-text-translator@npm:^1.1.4":
-  version: 1.1.4
-  resolution: "react-text-translator@npm:1.1.4"
+"react-text-translator@npm:^1.1.7":
+  version: 1.1.7
+  resolution: "react-text-translator@npm:1.1.7"
   peerDependencies:
     "@types/react": ^17.0.24
     react: ^17.0.2
-  checksum: e9dfc754631cbbc1bd2678d8402e42bc46cd9655425f0ac56fbfa2dd07fc4253d24f1a55b3268b2962ecab005b158926107d6c5c1e0d8e7e2262b2128174c81c
+  checksum: b306eae98dcd48755e06734debc2a59d0aa7f95b25316805cfef0ae43da96da8c19f026ebe5654dfd6a660e36355ec387ac27f1f0233eae4942251c64f9e02ad
   languageName: node
   linkType: hard
 
