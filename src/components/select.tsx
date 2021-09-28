@@ -36,7 +36,7 @@ export function Select<T>(props: {
 						<Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
 							{props.items.map((item, itemIndex) => (
 								<Listbox.Option
-									key={itemIndex + item.name}
+									key={item.name}
 									className={({active}) =>
 										`${active ? 'text-amber-900 bg-amber-100' : 'text-gray-900'}
                           cursor-default select-none relative py-2 pl-10 pr-4`

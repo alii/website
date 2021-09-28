@@ -17,8 +17,8 @@
 		"react-tippy": "^1.4.0",
 		"react-uwu": "^1.0.2",
 		"swr": "^1.0.1",
-		"use-lanyard": "^1.0.0",
-		"zod": "^3.8.2"
+		"use-lanyard": "^1.0.1",
+		"zod": "^3.9.3"
 	},
 	"scripts": {
 		"dev": "next dev",
@@ -44,15 +44,15 @@
 	},
 	"devDependencies": {
 		"@tailwindcss/typography": "^0.4.1",
-		"@types/node": "^16.9.6",
+		"@types/node": "^16.10.1",
 		"@types/nprogress": "^0.2.0",
 		"@types/number-to-words": "^1.2.1",
 		"@types/react": "^17.0.24",
 		"@types/react-dom": "^17.0.9",
 		"@types/tailwindcss": "^2.2.1",
-		"@typescript-eslint/eslint-plugin": "^4.31.2",
-		"@typescript-eslint/parser": "^4.31.2",
-		"autoprefixer": "^10.3.5",
+		"@typescript-eslint/eslint-plugin": "^4.32.0",
+		"@typescript-eslint/parser": "^4.32.0",
+		"autoprefixer": "^10.3.6",
 		"eslint": "^7.32.0",
 		"eslint-config-next": "^11.1.2",
 		"eslint-config-xo": "^0.38.0",
@@ -60,9 +60,9 @@
 		"eslint-config-xo-typescript": "^0.44.0",
 		"eslint-plugin-react": "^7.26.0",
 		"eslint-plugin-react-hooks": "^4.2.0",
-		"postcss": "^8.3.7",
+		"postcss": "^8.3.8",
 		"prettier": "^2.4.1",
-		"tailwindcss": "^2.2.15",
+		"tailwindcss": "^2.2.16",
 		"typescript": "^4.4.3"
 	},
 	"packageManager": "yarn@3.0.1"

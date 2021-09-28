@@ -55,6 +55,24 @@ export const translator = createTranslations({
 			);
 		},
 	},
+	'intro.technologies': {
+		'en-gb': () => (
+			<>
+				I use a wide range of tools to tackle each hurdle in the most efficient
+				manner possible. I really love working with Docker and containersation
+				and it's proven to be a reliable bit of kit for working in and scaling
+				services in both production and development environments.
+			</>
+		),
+		'kitty': () => (
+			<>
+				i use a wide wange of toows to tackle each huwdle in the most efficient
+				manner possible. i weawwy wove wowking with docker and containewsation
+				and it's pwoven to be a wewiable bit of kit fow wowking in and scawing
+				sewvices in both pwoduction and devewopment enviwonments.
+			</>
+		),
+	},
 });
 
 export const languages = translator.getLanguages();

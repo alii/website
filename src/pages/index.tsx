@@ -30,6 +30,12 @@ import {IconType} from 'react-icons/lib';
 import {mockPinnedRepos} from '../offline/mock';
 import {ListItem} from '../components/list-item';
 import {T} from '../i18n/translator';
+import {DISCORD_ID} from '../components/song';
+import useLanyard, {
+	Data as LanyardData,
+	LanyardError,
+	LanyardResponse,
+} from 'use-lanyard';
 
 const birthday = day('2 November 2004');
 const age = Math.abs(
@@ -40,10 +46,15 @@ const isBirthday = day().isSame('2 November 2004');
 
 interface Props {
 	pinnedRepos: PinnedRepo[];
+	lanyard: LanyardData;
 }
 
 export default function Index(props: Props) {
 	const {data: projects = props.pinnedRepos} = useGitHubPinnedRepos('alii');
+
+	useLanyard(DISCORD_ID, {
+		fallbackData: props.lanyard,
+	});
 
 	useEffect(() => {
 		if (!isBirthday) {
@@ -83,11 +94,7 @@ export default function Index(props: Props) {
 			<div className="space-y-4">
 				<h1 className="text-2xl sm:text-3xl font-bold">Technologies 💻</h1>
 				<p className="opacity-80">
-					I use a wide range of tools to tackle each hurdle in the most
-					efficient manner possible. I really love working with Docker and
-					containersation and it's proven to be a reliable bit of kit for
-					working in and scaling services in both production and development
-					environments.
+					<T phrase="intro.technologies" />
 				</p>
 				<ul className="grid grid-cols-3 sm:grid-cols-4 gap-4">
 					<ListItem icon={SiDocker} text="Docker" />
@@ -238,8 +245,18 @@ export const getStaticProps: GetStaticProps<Props> = async function () {
 			throw e;
 		});
 
+	const lanyard = await fetch(
+		`https://api.lanyard.rest/v1/users/${DISCORD_ID}`,
+	);
+
+	const lanyardBody = (await lanyard.json()) as LanyardResponse;
+
+	if ('error' in lanyardBody) {
+		throw new LanyardError(lanyard.status, lanyardBody.error.message);
+	}
+
 	return {
-		props: {pinnedRepos},
+		props: {pinnedRepos, lanyard: lanyardBody.data},
 		revalidate: 120,
 	};
 };

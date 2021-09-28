@@ -6,7 +6,7 @@ import NProgress from 'nprogress';
 import Link from 'next/link';
 import {loadCursor} from '../util/cursor';
 import {SWRConfig} from 'swr';
-import {Song} from '../components/song';
+import {DISCORD_ID, Song} from '../components/song';
 import {Toaster} from 'react-hot-toast';
 import {
 	getInitialLanguage,
@@ -56,6 +56,10 @@ export default function App({Component, pageProps, router}: AppProps) {
 			<translator.TranslationProvider activeLang={lang}>
 				<SWRConfig
 					value={{
+						fallback: {
+							// SSR Lanyard's data
+							[`lanyard:${DISCORD_ID}`]: pageProps?.lanyard,
+						},
 						async fetcher<T>(url: string): Promise<T> {
 							const request = await fetch(url);
 							const json = (await request.json()) as unknown;
