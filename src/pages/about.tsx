@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import {T} from '../i18n/translator';
 
 export default function AboutPage() {
 	return (
@@ -14,7 +15,9 @@ export default function AboutPage() {
 					height={400}
 					className="rounded-xl block border-2 object-cover border-white"
 				/>
-				<span className="text-sm">a trip to london with some friends</span>
+				<span className="text-sm">
+					<T phrase="a trip to london with some friends" />
+				</span>
 			</div>
 			<p className="opacity-80">
 				Yo! I'm a full-stack engineer from the United Kingdom. I care about

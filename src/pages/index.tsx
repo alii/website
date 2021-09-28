@@ -29,6 +29,13 @@ import {
 import {IconType} from 'react-icons/lib';
 import {mockPinnedRepos} from '../offline/mock';
 import {ListItem} from '../components/list-item';
+import {T} from '../i18n/translator';
+import {DISCORD_ID} from '../components/song';
+import useLanyard, {
+	Data as LanyardData,
+	LanyardError,
+	LanyardResponse,
+} from 'use-lanyard';
 
 const birthday = day('2 November 2004');
 const age = Math.abs(
@@ -39,10 +46,15 @@ const isBirthday = day().isSame('2 November 2004');
 
 interface Props {
 	pinnedRepos: PinnedRepo[];
+	lanyard: LanyardData;
 }
 
 export default function Index(props: Props) {
 	const {data: projects = props.pinnedRepos} = useGitHubPinnedRepos('alii');
+
+	useLanyard(DISCORD_ID, {
+		fallbackData: props.lanyard,
+	});
 
 	useEffect(() => {
 		if (!isBirthday) {
@@ -60,27 +72,17 @@ export default function Index(props: Props) {
 					<SocialLink href="https://twitter.com/alistaiiiir" icon={SiTwitter} />
 				</div>
 				<h1 className="text-3xl sm:text-4xl md:text-6xl font-bold">
-					Hey, I'm Alistair ✌️
+					<T phrase="Hey, I'm Alistair" />
 				</h1>
 				<p className="opacity-80">
-					I'm a {age} year old software engineer from the United Kingdom. I'm
-					interested in large scale frontend applications, performant and
-					responsive serverside code. I've recently delved into lower level
-					languages with the help of some friends 😃
+					<T phrase="intro.para-1" />
 				</p>
 			</div>
 
 			<div className="space-y-4">
 				<h1 className="text-2xl sm:text-3xl font-bold">What do I do? 💭</h1>
 				<p className="opacity-80">
-					Honestly, a few too many things to count on one hand... I'm currently
-					having a fantastic time working with{' '}
-					<a href="https://twitter.com/gigglapp">Giggl</a> - we're building a
-					way to watch &amp; browse the web, together. Below are some of the
-					more popular open source projects I've worked on. In total, the
-					following repos have earnt me{' '}
-					{projects?.reduce((stars, repo) => stars + parseInt(repo.stars), 0)}{' '}
-					stars! Thank you! 💖
+					<T phrase="intro.para-2" />
 				</p>
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-3 auto-cols-max">
 					{projects?.map(project => (
@@ -92,11 +94,7 @@ export default function Index(props: Props) {
 			<div className="space-y-4">
 				<h1 className="text-2xl sm:text-3xl font-bold">Technologies 💻</h1>
 				<p className="opacity-80">
-					I use a wide range of tools to tackle each hurdle in the most
-					efficient manner possible. I really love working with Docker and
-					containersation and it's proven to be a reliable bit of kit for
-					working in and scaling services in both production and development
-					environments.
+					<T phrase="intro.technologies" />
 				</p>
 				<ul className="grid grid-cols-3 sm:grid-cols-4 gap-4">
 					<ListItem icon={SiDocker} text="Docker" />
@@ -247,8 +245,18 @@ export const getStaticProps: GetStaticProps<Props> = async function () {
 			throw e;
 		});
 
+	const lanyard = await fetch(
+		`https://api.lanyard.rest/v1/users/${DISCORD_ID}`,
+	);
+
+	const lanyardBody = (await lanyard.json()) as LanyardResponse;
+
+	if ('error' in lanyardBody) {
+		throw new LanyardError(lanyard.status, lanyardBody.error.message);
+	}
+
 	return {
-		props: {pinnedRepos},
+		props: {pinnedRepos, lanyard: lanyardBody.data},
 		revalidate: 120,
 	};
 };
