@@ -75,14 +75,14 @@ export default function Index(props: Props) {
 					<T phrase="Hey, I'm Alistair" />
 				</h1>
 				<p className="opacity-80">
-					<T phrase="intro.para-1" />
+					<T phrase="intro.intro" />
 				</p>
 			</div>
 
 			<div className="space-y-4">
 				<h1 className="text-2xl sm:text-3xl font-bold">What do I do? 💭</h1>
 				<p className="opacity-80">
-					<T phrase="intro.para-2" />
+					<T phrase="intro.projects" />
 				</p>
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-3 auto-cols-max">
 					{projects?.map(project => (
