@@ -13,12 +13,12 @@ import {
 	SiGithub,
 	SiGo,
 	SiJava,
-	SiNextDotJs,
-	SiNodeDotJs,
+	SiNextdotjs as SiNextDotJs,
+	SiNodedotjs as SiNodeDotJs,
 	SiPostgresql,
 	SiReact,
 	SiRedis,
-	SiStyledComponents,
+	SiStyledcomponents as SiStyledComponents,
 	SiTailwindcss,
 	SiTwitter,
 	SiTypescript,
@@ -68,8 +68,19 @@ export default function Index(props: Props) {
 		<Fragment>
 			<div className="space-y-4">
 				<div className="flex space-x-3">
-					<SocialLink href="https://github.com/alii" icon={SiGithub} />
-					<SocialLink href="https://twitter.com/alistaiiiir" icon={SiTwitter} />
+					<a href="https://github.com/alii" target="_blank" rel="noreferrer">
+						<SiGithub className="h-8 w-8 opacity-70 hover:opacity-100" />
+						<span className="sr-only">GitHub Profile</span>
+					</a>
+
+					<a
+						href="https://twitter.com/alistaiiiir"
+						target="_blank"
+						rel="noreferrer"
+					>
+						<SiTwitter className="h-8 w-8 opacity-70 hover:opacity-100" />
+						<span className="sr-only">Twitter Profile</span>
+					</a>
 				</div>
 				<h1 className="text-3xl sm:text-4xl md:text-6xl font-bold">
 					<T phrase="Hey, I'm Alistair" />
