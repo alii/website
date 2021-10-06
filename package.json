@@ -18,7 +18,7 @@
 		"react-uwu": "^1.0.2",
 		"swr": "^1.0.1",
 		"use-lanyard": "^1.0.1",
-		"zod": "^3.9.5"
+		"zod": "^3.9.8"
 	},
 	"scripts": {
 		"dev": "next dev",
@@ -44,7 +44,7 @@
 	},
 	"devDependencies": {
 		"@tailwindcss/typography": "^0.4.1",
-		"@types/node": "^16.10.2",
+		"@types/node": "^16.10.3",
 		"@types/nprogress": "^0.2.0",
 		"@types/number-to-words": "^1.2.1",
 		"@types/react": "^17.0.27",
@@ -52,7 +52,7 @@
 		"@types/tailwindcss": "^2.2.1",
 		"@typescript-eslint/eslint-plugin": "^4.33.0",
 		"@typescript-eslint/parser": "^4.33.0",
-		"autoprefixer": "^10.3.6",
+		"autoprefixer": "^10.3.7",
 		"eslint": "^7.32.0",
 		"eslint-config-next": "^11.1.2",
 		"eslint-config-xo": "^0.39.0",
@@ -60,7 +60,7 @@
 		"eslint-config-xo-typescript": "^0.45.1",
 		"eslint-plugin-react": "^7.26.1",
 		"eslint-plugin-react-hooks": "^4.2.0",
-		"postcss": "^8.3.8",
+		"postcss": "^8.3.9",
 		"prettier": "^2.4.1",
 		"tailwindcss": "^2.2.16",
 		"typescript": "^4.4.3"
