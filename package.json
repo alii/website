@@ -17,7 +17,7 @@
 		"react-tippy": "^1.4.0",
 		"react-uwu": "^1.0.2",
 		"swr": "^1.0.1",
-		"use-lanyard": "^1.0.1",
+		"use-lanyard": "^1.0.2",
 		"zod": "^3.9.8"
 	},
 	"scripts": {
