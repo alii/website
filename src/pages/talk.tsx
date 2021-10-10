@@ -1,6 +1,6 @@
 import {useRouter} from 'next/router';
 import React from 'react';
-import toast from 'react-hot-toast';
+import {toast} from 'react-hot-toast';
 import {HiOutlineMail} from 'react-icons/hi';
 import {RiSendPlane2Line} from 'react-icons/ri';
 import {SiDiscord, SiTwitter} from 'react-icons/si';
@@ -20,15 +20,12 @@ export default function Talk() {
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 				<div className="bg-white bg-opacity-5 p-5 rounded-lg">
 					<form
-						onSubmit={async e => {
-							e.preventDefault();
+						onSubmit={async event => {
+							event.preventDefault();
 
-							const values = [
-								...new FormData(e.target as HTMLFormElement).entries(),
-							].reduce<Record<string, FormDataEntryValue>>((all, value) => {
-								const [key, v] = value;
-								return {...all, [key]: v};
-							}, {});
+							const values = Object.fromEntries(
+								new FormData(event.target as HTMLFormElement).entries(),
+							);
 
 							const promise = fetch('/api/form', {
 								headers: {'Content-Type': 'application/json'},
@@ -36,11 +33,12 @@ export default function Talk() {
 								method: 'POST',
 							});
 
-							const result = await toast
+							await toast
 								.promise(promise, {
 									success: 'Success!',
 									loading: 'Sending...',
-									error: (e: Error) => e.message ?? 'Something went wrong...',
+									error: (error: Error) =>
+										error.message ?? 'Something went wrong...',
 								})
 								.then(async () => router.push('/thanks'))
 								.catch(() => null);

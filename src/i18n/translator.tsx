@@ -34,7 +34,7 @@ export const translator = createTranslations({
 		),
 	},
 	'intro.projects': {
-		'en-gb': function ENGBPara2() {
+		'en-gb'() {
 			const {data: projects} = useGitHubPinnedRepos('alii');
 
 			return (
@@ -46,14 +46,14 @@ export const translator = createTranslations({
 					more popular open source projects I've worked on. In total, the
 					following repos have earnt me{' '}
 					{projects?.reduce(
-						(stars, repo) => stars + Number.parseInt(repo.stars),
+						(stars, repo) => stars + Number.parseInt(repo.stars, 10),
 						0,
 					)}{' '}
 					stars! Thank you! 💖
 				</>
 			);
 		},
-		'kitty': function KittyPara2() {
+		'kitty'() {
 			const {data: projects} = useGitHubPinnedRepos('alii');
 
 			return (
@@ -65,7 +65,7 @@ export const translator = createTranslations({
 					the more popuwaw open souwce pwojects i've wowked o-on〜☆ in totaw,
 					the fowwowing wepos have eawnt me{' '}
 					{projects?.reduce(
-						(stars, repo) => stars + Number.parseInt(repo.stars),
+						(stars, repo) => stars + Number.parseInt(repo.stars, 10),
 						0,
 					)}{' '}
 					staws (* ^ ω ^) t-thank you! 💖

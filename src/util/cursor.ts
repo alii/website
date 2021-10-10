@@ -28,20 +28,20 @@ export function loadCursor(ball: HTMLDivElement) {
 
 	loop();
 
-	function touch(e: TouchEvent) {
-		x = e.touches[0].pageX;
-		y = e.touches[0].pageY;
+	function touch(event: TouchEvent) {
+		x = event.touches[0].pageX;
+		y = event.touches[0].pageY;
 	}
 
-	function mousemove(e: MouseEvent) {
+	function mousemove(event: MouseEvent) {
 		ball.style.opacity = '1';
 
 		if (hideTimeout) {
 			clearTimeout(hideTimeout);
 		}
 
-		x = e.pageX;
-		y = e.pageY;
+		x = event.pageX;
+		y = event.pageY;
 
 		hideTimeout = setTimeout(() => {
 			ball.style.opacity = '0';

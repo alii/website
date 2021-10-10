@@ -1,4 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+/* eslint-disable unicorn/prefer-module */
+
 const colors = require('tailwindcss/colors');
 const defaults = require('tailwindcss/defaultTheme');
 

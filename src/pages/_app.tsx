@@ -58,9 +58,9 @@ export default function App({Component, pageProps, router}: AppProps) {
 					value={{
 						fallback: {
 							// SSR Lanyard's data
-							[`lanyard:${DISCORD_ID}`]: pageProps?.lanyard,
+							[`lanyard:${DISCORD_ID}`]: pageProps?.lanyard as unknown,
 							[`https://gh-pinned-repos.egoist.sh/?username=alii`]:
-								pageProps?.pinnedRepos,
+								pageProps?.pinnedRepos as unknown,
 						},
 						async fetcher<T>(url: string): Promise<T> {
 							const request = await fetch(url);

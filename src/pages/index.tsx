@@ -1,7 +1,4 @@
-// Came out swinging – the wonder years
-
-import React, {Fragment, useEffect, useReducer} from 'react';
-import day from 'dayjs';
+import React, {Fragment, useReducer} from 'react';
 import {AnimatePresence, motion} from 'framer-motion';
 import {GetStaticProps} from 'next';
 import {
@@ -25,7 +22,6 @@ import {
 	SiWebstorm,
 	SiYarn,
 } from 'react-icons/si';
-import {IconType} from 'react-icons/lib';
 import {
 	useLanyard,
 	Data as LanyardData,
@@ -38,13 +34,6 @@ import {ListItem} from '../components/list-item';
 import {T} from '../i18n/translator';
 import {DISCORD_ID} from '../components/song';
 
-const birthday = day('2 November 2004');
-const age = Math.abs(
-	new Date(Date.now() - birthday.toDate().getTime()).getUTCFullYear() - 1970,
-);
-
-const isBirthday = day().isSame('2 November 2004');
-
 interface Props {
 	pinnedRepos: PinnedRepo[];
 	lanyard: LanyardData;
@@ -56,13 +45,6 @@ export default function Index(props: Props) {
 	useLanyard(DISCORD_ID, {
 		fallbackData: props.lanyard,
 	});
-
-	useEffect(() => {
-		if (!isBirthday) {
-		}
-
-		// TODO: Add birthday fireworks
-	}, []);
 
 	return (
 		<Fragment>
@@ -128,14 +110,6 @@ export default function Index(props: Props) {
 				</ul>
 			</div>
 		</Fragment>
-	);
-}
-
-function SocialLink({href, icon}: {href: string; icon: IconType}) {
-	return (
-		<a href={href} target="_blank" rel="noreferrer">
-			{icon({className: 'h-8 w-8 opacity-70 hover:opacity-100'})}
-		</a>
 	);
 }
 
@@ -246,7 +220,7 @@ export const getStaticProps: GetStaticProps<Props> = async function () {
 	const pinnedRepos = await fetch(
 		'https://gh-pinned-repos.egoist.sh/?username=alii',
 	)
-		.then(async res => res.json() as Promise<PinnedRepo[]>)
+		.then(async response => response.json() as Promise<PinnedRepo[]>)
 		.catch(error => {
 			if (process.env.NODE_ENV === 'development') {
 				return mockPinnedRepos;
