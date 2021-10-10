@@ -4,10 +4,10 @@ import Head from 'next/head';
 import {Router} from 'next/router';
 import NProgress from 'nprogress';
 import Link from 'next/link';
-import {loadCursor} from '../util/cursor';
 import {SWRConfig} from 'swr';
-import {DISCORD_ID, Song} from '../components/song';
 import {Toaster} from 'react-hot-toast';
+import {loadCursor} from '../util/cursor';
+import {DISCORD_ID, Song} from '../components/song';
 import {
 	getInitialLanguage,
 	languages,
@@ -107,7 +107,9 @@ export default function App({Component, pageProps, router}: AppProps) {
 												};
 											})}
 											selected={{value: lang, name: lang}}
-											setSelected={v => setLang(v.value)}
+											setSelected={v => {
+												setLang(v.value);
+											}}
 										/>
 									</li>
 								</ul>

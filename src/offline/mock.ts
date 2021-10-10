@@ -1,6 +1,6 @@
 import {PinnedRepo} from '../hooks/github';
 
-function getMock(_: never, index: number): PinnedRepo {
+function getMock(index: number): PinnedRepo {
 	return {
 		repo: `mock-${index}`,
 		owner: 'alii',
@@ -12,4 +12,6 @@ function getMock(_: never, index: number): PinnedRepo {
 	};
 }
 
-export const mockPinnedRepos = [...new Array<never>(6)].map(getMock);
+export const mockPinnedRepos = [...Array.from({length: 6})].map((_, index) =>
+	getMock(index),
+);

@@ -2,15 +2,15 @@ import {Fragment} from 'react';
 import {Listbox, Transition} from '@headlessui/react';
 import {HiCheck, HiChevronDown} from 'react-icons/hi';
 
-type Val<T> = {
+type Value<T> = {
 	value: T;
 	name: string;
 };
 
 export function Select<T>(props: {
-	items: Array<Val<T>>;
-	selected: Val<T>;
-	setSelected: (val: Val<T>) => unknown;
+	items: Array<Value<T>>;
+	selected: Value<T>;
+	setSelected: (value: Value<T>) => unknown;
 }) {
 	const {selected, setSelected} = props;
 
@@ -34,7 +34,7 @@ export function Select<T>(props: {
 						leaveTo="opacity-0"
 					>
 						<Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-							{props.items.map((item, itemIndex) => (
+							{props.items.map(item => (
 								<Listbox.Option
 									key={item.name}
 									className={({active}) =>

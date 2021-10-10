@@ -25,10 +25,10 @@ export default function Talk() {
 
 							const values = [
 								...new FormData(e.target as HTMLFormElement).entries(),
-							].reduce((all, value) => {
+							].reduce<Record<string, FormDataEntryValue>>((all, value) => {
 								const [key, v] = value;
 								return {...all, [key]: v};
-							}, {} as Record<string, FormDataEntryValue>);
+							}, {});
 
 							const promise = fetch('/api/form', {
 								headers: {'Content-Type': 'application/json'},
@@ -42,7 +42,7 @@ export default function Talk() {
 									loading: 'Sending...',
 									error: (e: Error) => e.message ?? 'Something went wrong...',
 								})
-								.then(() => router.push('/thanks'))
+								.then(async () => router.push('/thanks'))
 								.catch(() => null);
 						}}
 						className="space-y-2"

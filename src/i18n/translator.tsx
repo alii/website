@@ -45,7 +45,10 @@ export const translator = createTranslations({
 					way to watch &amp; browse the web, together. Below are some of the
 					more popular open source projects I've worked on. In total, the
 					following repos have earnt me{' '}
-					{projects?.reduce((stars, repo) => stars + parseInt(repo.stars), 0)}{' '}
+					{projects?.reduce(
+						(stars, repo) => stars + Number.parseInt(repo.stars),
+						0,
+					)}{' '}
 					stars! Thank you! 💖
 				</>
 			);
@@ -61,7 +64,10 @@ export const translator = createTranslations({
 					way to watch &amp; bwowse t-the web-.- together-.- bewow are s-some of
 					the more popuwaw open souwce pwojects i've wowked o-on〜☆ in totaw,
 					the fowwowing wepos have eawnt me{' '}
-					{projects?.reduce((stars, repo) => stars + parseInt(repo.stars), 0)}{' '}
+					{projects?.reduce(
+						(stars, repo) => stars + Number.parseInt(repo.stars),
+						0,
+					)}{' '}
 					staws (* ^ ω ^) t-thank you! 💖
 				</>
 			);

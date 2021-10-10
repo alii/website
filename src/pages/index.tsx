@@ -1,8 +1,7 @@
-// came out swinging – the wonder years
+// Came out swinging – the wonder years
 
 import React, {Fragment, useEffect, useReducer} from 'react';
 import day from 'dayjs';
-import {PinnedRepo, useGitHubPinnedRepos} from '../hooks/github';
 import {AnimatePresence, motion} from 'framer-motion';
 import {GetStaticProps} from 'next';
 import {
@@ -27,16 +26,17 @@ import {
 	SiYarn,
 } from 'react-icons/si';
 import {IconType} from 'react-icons/lib';
-import {mockPinnedRepos} from '../offline/mock';
-import {ListItem} from '../components/list-item';
-import {T} from '../i18n/translator';
-import {DISCORD_ID} from '../components/song';
 import {
 	useLanyard,
 	Data as LanyardData,
 	LanyardError,
 	LanyardResponse,
 } from 'use-lanyard';
+import {PinnedRepo, useGitHubPinnedRepos} from '../hooks/github';
+import {mockPinnedRepos} from '../offline/mock';
+import {ListItem} from '../components/list-item';
+import {T} from '../i18n/translator';
+import {DISCORD_ID} from '../components/song';
 
 const birthday = day('2 November 2004');
 const age = Math.abs(
@@ -59,7 +59,6 @@ export default function Index(props: Props) {
 
 	useEffect(() => {
 		if (!isBirthday) {
-			return;
 		}
 
 		// TODO: Add birthday fireworks
@@ -248,13 +247,13 @@ export const getStaticProps: GetStaticProps<Props> = async function () {
 		'https://gh-pinned-repos.egoist.sh/?username=alii',
 	)
 		.then(async res => res.json() as Promise<PinnedRepo[]>)
-		.catch(e => {
+		.catch(error => {
 			if (process.env.NODE_ENV === 'development') {
 				return mockPinnedRepos;
 			}
 
 			// Something has probably gone wrong... (likely a network error)
-			throw e;
+			throw error;
 		});
 
 	const lanyard = await fetch(

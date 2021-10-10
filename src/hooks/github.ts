@@ -67,10 +67,12 @@ export function useGitHubPinnedRepos(username: string) {
 	return {
 		...resp,
 		data: resp.data?.map(item => {
-			return {
+			const data: PinnedRepo & {url: string} = {
 				...item,
 				url: `https://github.com/${item.owner}/${item.repo}`,
-			} as PinnedRepo & {url: string};
+			};
+
+			return data;
 		}),
 	};
 }

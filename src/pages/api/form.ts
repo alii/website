@@ -9,8 +9,8 @@ const schema = z.object({
 });
 
 export default api({
-	async POST(req) {
-		const {is_json = false, ...body} = schema.parse(req.body);
+	async POST(request) {
+		const {is_json = false, ...body} = schema.parse(request.body);
 
 		await fetch(DISCORD_WEBHOOK, {
 			method: 'POST',

@@ -23,12 +23,9 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
-		"test": "next test",
+		"test": "xo && next test",
 		"start": "next start",
-		"lint": "eslint . --fix"
-	},
-	"eslintConfig": {
-		"extends": "react-app"
+		"lint": "xo . --fix"
 	},
 	"browserslist": {
 		"production": [
@@ -42,6 +39,14 @@
 			"last 1 safari version"
 		]
 	},
+	"xo": {
+		"space": false,
+		"prettier": true,
+		"rules": {
+			"@typescript-eslint/naming-convention": "off",
+			"node/prefer-global/process": "off"
+		}
+	},
 	"devDependencies": {
 		"@tailwindcss/typography": "^0.4.1",
 		"@types/node": "^16.10.3",
@@ -50,20 +55,12 @@
 		"@types/react": "^17.0.27",
 		"@types/react-dom": "^17.0.9",
 		"@types/tailwindcss": "^2.2.1",
-		"@typescript-eslint/eslint-plugin": "^4.33.0",
-		"@typescript-eslint/parser": "^4.33.0",
 		"autoprefixer": "^10.3.7",
-		"eslint": "^8.0.0",
-		"eslint-config-next": "^11.1.2",
-		"eslint-config-xo": "^0.39.0",
-		"eslint-config-xo-react": "^0.25.0",
-		"eslint-config-xo-typescript": "^0.45.2",
-		"eslint-plugin-react": "^7.26.1",
-		"eslint-plugin-react-hooks": "^4.2.0",
 		"postcss": "^8.3.9",
 		"prettier": "^2.4.1",
 		"tailwindcss": "^2.2.16",
-		"typescript": "^4.4.3"
+		"typescript": "^4.4.3",
+		"xo": "^0.45.0"
 	},
 	"packageManager": "yarn@3.0.1"
 }
