@@ -1,5 +1,5 @@
 import React from 'react';
-import useLanyard from 'use-lanyard';
+import {useLanyard} from 'use-lanyard';
 import {SiSpotify} from 'react-icons/si';
 
 export const DISCORD_ID = '268798547439255572';

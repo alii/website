@@ -59,6 +59,8 @@ export default function App({Component, pageProps, router}: AppProps) {
 						fallback: {
 							// SSR Lanyard's data
 							[`lanyard:${DISCORD_ID}`]: pageProps?.lanyard,
+							[`https://gh-pinned-repos.egoist.sh/?username=alii`]:
+								pageProps?.pinnedRepos,
 						},
 						async fetcher<T>(url: string): Promise<T> {
 							const request = await fetch(url);

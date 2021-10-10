@@ -31,7 +31,8 @@ import {mockPinnedRepos} from '../offline/mock';
 import {ListItem} from '../components/list-item';
 import {T} from '../i18n/translator';
 import {DISCORD_ID} from '../components/song';
-import useLanyard, {
+import {
+	useLanyard,
 	Data as LanyardData,
 	LanyardError,
 	LanyardResponse,
