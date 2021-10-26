@@ -31,5 +31,6 @@ module.exports = {
 		'operator-linebreak': 'off',
 		'@typescript-eslint/naming-convention': 'off',
 		'react/react-in-jsx-scope': 'off',
+		'quote-props': 'off',
 	},
 };
