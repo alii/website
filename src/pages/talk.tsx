@@ -68,7 +68,7 @@ export default function Talk() {
 
 				<div>
 					<ul className="list-disc list-inside space-y-2">
-						<ListItem icon={HiOutlineMail} text="alistairsmith01@gmail.com" />
+						<ListItem icon={HiOutlineMail} text="hi@alistair.sh" />
 						<ListItem icon={SiDiscord} text="alistair#9999" />
 						<ListItem icon={SiTwitter} text="alistaiiiir" />
 					</ul>
