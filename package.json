@@ -7,7 +7,7 @@
 		"dayjs": "^1.10.7",
 		"framer-motion": "^4.1.17",
 		"next": "canary",
-		"nextkit": "^1.2.3",
+		"nextkit": "^2.0.3",
 		"nprogress": "^0.2.0",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
@@ -18,7 +18,7 @@
 		"react-uwu": "^1.0.2",
 		"swr": "^1.0.1",
 		"use-lanyard": "^1.0.2",
-		"zod": "^3.9.8"
+		"zod": "^3.11.4"
 	},
 	"scripts": {
 		"dev": "next dev",
@@ -50,17 +50,17 @@
 	},
 	"devDependencies": {
 		"@tailwindcss/typography": "^0.4.1",
-		"@types/node": "^16.10.3",
+		"@types/node": "^16.11.6",
 		"@types/nprogress": "^0.2.0",
 		"@types/number-to-words": "^1.2.1",
-		"@types/react": "^17.0.27",
-		"@types/react-dom": "^17.0.9",
-		"@types/tailwindcss": "^2.2.1",
+		"@types/react": "^17.0.33",
+		"@types/react-dom": "^17.0.10",
+		"@types/tailwindcss": "^2.2.2",
 		"autoprefixer": "^10.3.7",
-		"postcss": "^8.3.9",
+		"postcss": "^8.3.11",
 		"prettier": "^2.4.1",
-		"tailwindcss": "^2.2.16",
-		"typescript": "^4.4.3",
+		"tailwindcss": "^2.2.17",
+		"typescript": "^4.4.4",
 		"xo": "^0.45.0"
 	},
 	"packageManager": "yarn@3.0.1"

@@ -656,10 +656,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^16.10.3":
-  version: 16.10.3
-  resolution: "@types/node@npm:16.10.3"
-  checksum: 3fd429bce8a4acb497dcc62b536782a5e87ccf7cd91d64a78b263ae5d66cb72bf84be9eeeff6f84ae0567b065a40b267caa66d311f9e094990a5847bbd168a29
+"@types/node@npm:^16.11.6":
+  version: 16.11.6
+  resolution: "@types/node@npm:16.11.6"
+  checksum: 6e19634766ff589d3d2f361c2196b671f8f133cdadc5ad347a621c360d8994b6c4fbccfb2ad9c60c588c593831a96497c9c6b77d2b7e91be723384b94f6368e7
   languageName: node
   linkType: hard
 
@@ -698,12 +698,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^17.0.9":
-  version: 17.0.9
-  resolution: "@types/react-dom@npm:17.0.9"
+"@types/react-dom@npm:^17.0.10":
+  version: 17.0.10
+  resolution: "@types/react-dom@npm:17.0.10"
   dependencies:
     "@types/react": "*"
-  checksum: b7e898e1a22643a371f58e801a3d1d8cf13a82d77063c24be73e840ef8d877ca1d04adc5db168d0dac3167dc050a26b1d70efc5fe8566a7f46a3c488a8322989
+  checksum: cc7d8d5b77ee2f3b989c107abd8ec0f2460ba1b1ee6e6d637124e1939594b5619fa4166ef0ea7632a69b68358e0b71aa618de446ccc416dcc0017175549da601
   languageName: node
   linkType: hard
 
@@ -718,14 +718,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^17.0.27":
-  version: 17.0.27
-  resolution: "@types/react@npm:17.0.27"
+"@types/react@npm:^17.0.33":
+  version: 17.0.33
+  resolution: "@types/react@npm:17.0.33"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: 3a1147d963c16dc9bbea5afb20c4be94f2389cf4eca4c5fbe9b02f3406bd9957602c0459ea017c95f8c3d523221f572e8bd842f94654835776d4c2923357f9dc
+  checksum: 5f53f3dae034229ff1eccb5de1c16d046696e883f8eae81b86e95c532798e655015e4edff8a6c9ec8f1c0ef12bb60dec43622d06256ba33ba6069e67a74b8d4e
   languageName: node
   linkType: hard
 
@@ -736,10 +736,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/tailwindcss@npm:^2.2.1":
-  version: 2.2.1
-  resolution: "@types/tailwindcss@npm:2.2.1"
-  checksum: 4e3a625707caf345786825f8b4eba47cc5a6fc8f5417a8dc0b7776de4ef499b2ea08f5d2c05fbaf793c236b14765ab06b02737c432da1801279fe33bddf82624
+"@types/tailwindcss@npm:^2.2.2":
+  version: 2.2.2
+  resolution: "@types/tailwindcss@npm:2.2.2"
+  checksum: 9f1b8c31a7660492384ec2be89d5558160771663460a67d8adaf50dae04e67a40c4d617191aaadf2bd63f36cef2a0806862c475d85ff5fbfe336e296039fdc64
   languageName: node
   linkType: hard
 
@@ -4627,12 +4627,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^3.1.28":
-  version: 3.1.29
-  resolution: "nanoid@npm:3.1.29"
+"nanoid@npm:^3.1.30":
+  version: 3.1.30
+  resolution: "nanoid@npm:3.1.30"
   bin:
     nanoid: bin/nanoid.cjs
-  checksum: 8837bc351ac6d26882d568ce3e1d5e2d5095b0c6ca99aa8f5710eff5153e0aea4c5273681c7642d9d7a6f6e20fb1d32e5eb1125c70b25bdead417f007d30f96f
+  checksum: 276d0d4b0c41c46aeefec5f09f093e4085a2352d06881c845db22b84f8ef72cc8defae6d76bfb1d8a2a128eb2dec42ab148d16582be4e7754c97905806ef57b6
   languageName: node
   linkType: hard
 
@@ -4737,12 +4737,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nextkit@npm:^1.2.3":
-  version: 1.2.3
-  resolution: "nextkit@npm:1.2.3"
+"nextkit@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "nextkit@npm:2.0.3"
   peerDependencies:
     next: ^11.1.2
-  checksum: fc2750d1d87cda8d1dfd8a94f4b3e4c23311f6b80544819b142e5194e41abde650a997cfecc0f153c630db7d5a788280bf79c64ab99a8124abc47cc062864ad1
+  checksum: 30643dda1b3b8043f5b0337059f3fb0766458a1dcd39b56b1df4965635146a71990c61b85bf3a77ae9dbd899fa27e7a12930908aca87ab9d1eb54b4d946a35fc
   languageName: node
   linkType: hard
 
@@ -5286,19 +5286,19 @@ __metadata:
   dependencies:
     "@headlessui/react": ^1.4.1
     "@tailwindcss/typography": ^0.4.1
-    "@types/node": ^16.10.3
+    "@types/node": ^16.11.6
     "@types/nprogress": ^0.2.0
     "@types/number-to-words": ^1.2.1
-    "@types/react": ^17.0.27
-    "@types/react-dom": ^17.0.9
-    "@types/tailwindcss": ^2.2.1
+    "@types/react": ^17.0.33
+    "@types/react-dom": ^17.0.10
+    "@types/tailwindcss": ^2.2.2
     autoprefixer: ^10.3.7
     dayjs: ^1.10.7
     framer-motion: ^4.1.17
     next: canary
-    nextkit: ^1.2.3
+    nextkit: ^2.0.3
     nprogress: ^0.2.0
-    postcss: ^8.3.9
+    postcss: ^8.3.11
     prettier: ^2.4.1
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -5308,11 +5308,11 @@ __metadata:
     react-tippy: ^1.4.0
     react-uwu: ^1.0.2
     swr: ^1.0.1
-    tailwindcss: ^2.2.16
-    typescript: ^4.4.3
+    tailwindcss: ^2.2.17
+    typescript: ^4.4.4
     use-lanyard: ^1.0.2
     xo: ^0.45.0
-    zod: ^3.9.8
+    zod: ^3.11.4
   languageName: unknown
   linkType: soft
 
@@ -5320,6 +5320,13 @@ __metadata:
   version: 0.2.1
   resolution: "picocolors@npm:0.2.1"
   checksum: 3b0f441f0062def0c0f39e87b898ae7461c3a16ffc9f974f320b44c799418cabff17780ee647fda42b856a1dc45897e2c62047e1b546d94d6d5c6962f45427b2
+  languageName: node
+  linkType: hard
+
+"picocolors@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "picocolors@npm:1.0.0"
+  checksum: a2e8092dd86c8396bdba9f2b5481032848525b3dc295ce9b57896f931e63fc16f79805144321f72976383fc249584672a75cc18d6777c6b757603f372f745981
   languageName: node
   linkType: hard
 
@@ -5507,14 +5514,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.3.9":
-  version: 8.3.9
-  resolution: "postcss@npm:8.3.9"
+"postcss@npm:^8.3.11":
+  version: 8.3.11
+  resolution: "postcss@npm:8.3.11"
   dependencies:
-    nanoid: ^3.1.28
-    picocolors: ^0.2.1
+    nanoid: ^3.1.30
+    picocolors: ^1.0.0
     source-map-js: ^0.6.2
-  checksum: b64d0e59bc027b2f09e5a84ca32b4f0620553812110e42295a79fd0e6ea664779e575c2d5e8d35a1b0804f0933ec878404c6e161e008b5bc51cba44eaef216ef
+  checksum: 1a230553d74c66aa9585c90781ed8ea75f19cefea405d2117b67fbeb24b5b5e0e17be2e0c5a07db31dd085643a13394127ab2222e940771b70498331bf20f35e
   languageName: node
   linkType: hard
 
@@ -6680,9 +6687,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^2.2.16":
-  version: 2.2.16
-  resolution: "tailwindcss@npm:2.2.16"
+"tailwindcss@npm:^2.2.17":
+  version: 2.2.17
+  resolution: "tailwindcss@npm:2.2.17"
   dependencies:
     arg: ^5.0.1
     bytes: ^3.0.0
@@ -6722,7 +6729,7 @@ __metadata:
   bin:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
-  checksum: 4c8ac0503ab5f3e868779a651cc0d605a435e8dd072f21fb1ed31cadc7d253b6b27109b8224e10aa4d846fee019ac839289b1f4740bc25df3c62170732650cc8
+  checksum: a0bff1a014f5283676faca321a60c6e97c5512d42f3fe89aae04dffde2b1425c47b7cc3562ee16a9d748fb5cb3a2b8782845c6d8c815de293c4ed6c035b024b0
   languageName: node
   linkType: hard
 
@@ -6957,6 +6964,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+typescript@^4.4.4:
+  version: 4.4.4
+  resolution: "typescript@npm:4.4.4"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 89ecb8436bb48ef5594d49289f5f89103071716b6e4844278f4fb3362856e31203e187a9c76d205c3f0b674d221a058fd28310dbcbcf5d95e9a57229bb5203f1
+  languageName: node
+  linkType: hard
+
 "typescript@patch:typescript@>=4.3#~builtin<compat/typescript>, typescript@patch:typescript@^4.4.3#~builtin<compat/typescript>":
   version: 4.4.3
   resolution: "typescript@patch:typescript@npm%3A4.4.3#~builtin<compat/typescript>::version=4.4.3&hash=d8b4e7"
@@ -6964,6 +6981,16 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 215a59742afb7e0c3668e2c50ca19813deb24b3cc0d16ac3591990e033728050aaa99e159a72b54cb43653f16c778a5cf9dfeed1f51c3b105710ae082c064af7
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@^4.4.4#~builtin<compat/typescript>":
+  version: 4.4.4
+  resolution: "typescript@patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=d8b4e7"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 4a639b6886be13616582ab82abdb4ffbbf5b0458069d13c10cd5d44fc1cafa33eab005e8ac8691ad8fae249fee85844bb7d523263c4568fe9a2ca31cd3c91c3d
   languageName: node
   linkType: hard
 
@@ -7301,9 +7328,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.9.8":
-  version: 3.9.8
-  resolution: "zod@npm:3.9.8"
-  checksum: 6e88fd13f77284e877a0664d373dfc3662199a57e4fad1b01d1c913c45ba670d40db4fafe577161b7f9f3bc2d80aff8bf7a2ffa49108d0e40b886ad13ee747ba
+"zod@npm:^3.11.4":
+  version: 3.11.4
+  resolution: "zod@npm:3.11.4"
+  checksum: 20daee651205f5dad1c351bd8f64978bee50677cba435115cf3a2b95cff519572c5e1c385f710c60925ed6b58814f49dc3dcdcf9198c312e99d6fa8f952ceea5
   languageName: node
   linkType: hard

@@ -1,6 +1,6 @@
 import {api} from 'nextkit';
 
-export default api<{ping: 'pong'; time: number}>({
+export default api({
 	async GET() {
 		return {
 			ping: 'pong',
