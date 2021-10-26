@@ -10,12 +10,13 @@ export default function AboutPage() {
 			</h1>
 			<div className="text-opacity-20 text-white hover:text-opacity-100 transition-all">
 				<Image
+					alt="Some friends and I in London"
 					src="/banner.jpg"
 					width={1000}
 					height={400}
 					className="rounded-xl block border-2 object-cover border-white"
 				/>
-				<span className="text-sm">
+				<span className="text-sm not-sr-only">
 					<T phrase="a trip to london with some friends" />
 				</span>
 			</div>

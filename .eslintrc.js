@@ -29,5 +29,7 @@ module.exports = {
 		'react/no-unescaped-entities': 'off',
 		'no-mixed-operators': 'off',
 		'operator-linebreak': 'off',
+		'@typescript-eslint/naming-convention': 'off',
+		'react/react-in-jsx-scope': 'off',
 	},
 };

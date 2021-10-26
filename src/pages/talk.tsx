@@ -20,6 +20,9 @@ export default function Talk() {
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 				<div className="bg-white bg-opacity-5 p-5 rounded-lg">
 					<form
+						className="space-y-2"
+						action="/api/form"
+						method="POST"
 						onSubmit={async event => {
 							event.preventDefault();
 
@@ -43,14 +46,11 @@ export default function Talk() {
 								.then(async () => router.push('/thanks'))
 								.catch(() => null);
 						}}
-						className="space-y-2"
-						action="/api/form"
-						method="POST"
 					>
 						<input
+							required
 							type="email"
 							name="email"
-							required
 							className="bg-white text-lg block w-full font-sans bg-opacity-5 px-4 py-1 rounded-xl"
 							placeholder="Email Address"
 						/>
@@ -60,7 +60,10 @@ export default function Talk() {
 							className="bg-white text-lg block w-full font-sans bg-opacity-5 px-4 py-1 rounded-xl resize-none"
 						/>
 
-						<button className="text-lg bg-white bg-opacity-5 rounded-full px-8 py-2 inline-flex space-x-2 items-center">
+						<button
+							type="submit"
+							className="text-lg bg-white bg-opacity-5 rounded-full px-8 py-2 inline-flex space-x-2 items-center"
+						>
 							<span>Send</span> <RiSendPlane2Line />
 						</button>
 					</form>

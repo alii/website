@@ -59,7 +59,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 						fallback: {
 							// SSR Lanyard's data
 							[`lanyard:${DISCORD_ID}`]: pageProps?.lanyard as unknown,
-							[`https://gh-pinned-repos.egoist.sh/?username=alii`]:
+							'https://gh-pinned-repos.egoist.sh/?username=alii':
 								pageProps?.pinnedRepos as unknown,
 						},
 						async fetcher<T>(url: string): Promise<T> {
@@ -100,12 +100,10 @@ export default function App({Component, pageProps, router}: AppProps) {
 									<NavLink href="/talk">/talk</NavLink>
 									<li>
 										<Select<typeof lang>
-											items={languages.map(lang => {
-												return {
-													name: lang,
-													value: lang,
-												};
-											})}
+											items={languages.map(lang => ({
+												name: lang,
+												value: lang,
+											}))}
 											selected={{value: lang, name: lang}}
 											setSelected={v => {
 												setLang(v.value);

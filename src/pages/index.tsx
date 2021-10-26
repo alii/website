@@ -47,7 +47,7 @@ export default function Index(props: Props) {
 	});
 
 	return (
-		<Fragment>
+		<>
 			<div className="space-y-4">
 				<div className="flex space-x-3">
 					<a href="https://github.com/alii" target="_blank" rel="noreferrer">
@@ -109,7 +109,7 @@ export default function Index(props: Props) {
 					<ListItem icon={SiStyledComponents} text="styled-components" />
 				</ul>
 			</div>
-		</Fragment>
+		</>
 	);
 }
 

@@ -6,8 +6,8 @@
 		"@headlessui/react": "^1.4.1",
 		"dayjs": "^1.10.7",
 		"framer-motion": "^4.1.17",
-		"next": "canary",
-		"nextkit": "^2.0.3",
+		"next": "12",
+		"nextkit": "^2.0.4",
 		"nprogress": "^0.2.0",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
@@ -18,14 +18,14 @@
 		"react-uwu": "^1.0.2",
 		"swr": "^1.0.1",
 		"use-lanyard": "^1.0.2",
-		"zod": "^3.11.4"
+		"zod": "^3.11.6"
 	},
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
-		"test": "xo && next test",
+		"test": "next test",
 		"start": "next start",
-		"lint": "xo . --fix"
+		"lint": "eslint . --fix"
 	},
 	"browserslist": {
 		"production": [
@@ -56,12 +56,19 @@
 		"@types/react": "^17.0.33",
 		"@types/react-dom": "^17.0.10",
 		"@types/tailwindcss": "^2.2.2",
+		"@typescript-eslint/eslint-plugin": "^5.2.0",
 		"autoprefixer": "^10.3.7",
+		"eslint": "^8.1.0",
+		"eslint-config-next": "^12.0.0",
+		"eslint-config-xo": "^0.39.0",
+		"eslint-config-xo-react": "^0.25.0",
+		"eslint-config-xo-typescript": "^0.46.0",
+		"eslint-plugin-react": "^7.26.1",
+		"eslint-plugin-react-hooks": "^4.2.0",
 		"postcss": "^8.3.11",
 		"prettier": "^2.4.1",
 		"tailwindcss": "^2.2.17",
-		"typescript": "^4.4.4",
-		"xo": "^0.45.0"
+		"typescript": "^4.4.4"
 	},
 	"packageManager": "yarn@3.0.1"
 }
