@@ -1,6 +1,12 @@
+import dayjs from 'dayjs';
 import {useEffect} from 'react';
 import {createTranslations} from 'react-text-translator';
 import {useGitHubPinnedRepos} from '../hooks/github';
+
+const birthday = dayjs('2 November 2004').toDate();
+const age = Math.abs(
+	new Date(Date.now() - birthday.getTime()).getUTCFullYear() - 1970,
+);
 
 export const translator = createTranslations({
 	'a trip to london with some friends': {
@@ -18,7 +24,7 @@ export const translator = createTranslations({
 	'intro.intro': {
 		'en-gb': () => (
 			<>
-				I'm a 16 year old software engineer from the United Kingdom. I'm
+				I'm a {age} year old software engineer from the United Kingdom. I'm
 				interested in large scale frontend applications, performant and
 				responsive serverside code. I've recently delved into lower level
 				languages with the help of some friends 😃
@@ -26,8 +32,8 @@ export const translator = createTranslations({
 		),
 		'kitty': () => (
 			<>
-				yaii hai i'm a 16 yeaw owd softwawe engineew fwom the united kingdom.
-				I'm intewested in wawge scawe fwontend appwications, pewfowmant awnd
+				hai i'm a {age} yeaw owd softwawe engineew fwom the united kingdom. I'm
+				intewested in wawge scawe fwontend appwications, pewfowmant awnd
 				wesponsive sewvewside code. I've wecentwy dewved intwo wowew wevew
 				wanguages with the hewp of sowme fwiends 😃
 			</>

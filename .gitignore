@@ -22,3 +22,6 @@ out
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+
+# bun
+*.bun

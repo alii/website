@@ -32,5 +32,6 @@ module.exports = {
 		'@typescript-eslint/naming-convention': 'off',
 		'react/react-in-jsx-scope': 'off',
 		'quote-props': 'off',
+		'@typescript-eslint/quotes': 'off',
 	},
 };

@@ -5,7 +5,7 @@
 	"dependencies": {
 		"@headlessui/react": "^1.4.1",
 		"dayjs": "^1.10.7",
-		"framer-motion": "^4.1.17",
+		"framer-motion": "^5.0.1",
 		"next": "12",
 		"nextkit": "^2.0.4",
 		"nprogress": "^0.2.0",
@@ -56,19 +56,19 @@
 		"@types/react": "^17.0.33",
 		"@types/react-dom": "^17.0.10",
 		"@types/tailwindcss": "^2.2.2",
-		"@typescript-eslint/eslint-plugin": "^5.2.0",
-		"autoprefixer": "^10.3.7",
-		"eslint": "<8.0.0",
-		"eslint-config-next": "^12.0.0",
+		"@typescript-eslint/eslint-plugin": "^5.3.0",
+		"autoprefixer": "^10.4.0",
+		"eslint": "^8.1.0",
+		"eslint-config-next": "^12.0.2",
 		"eslint-config-xo": "^0.39.0",
 		"eslint-config-xo-react": "^0.25.0",
-		"eslint-config-xo-typescript": "^0.46.0",
+		"eslint-config-xo-typescript": "^0.47.1",
 		"eslint-plugin-react": "^7.26.1",
 		"eslint-plugin-react-hooks": "^4.2.0",
 		"postcss": "^8.3.11",
 		"prettier": "^2.4.1",
-		"tailwindcss": "^2.2.17",
+		"tailwindcss": "^2.2.19",
 		"typescript": "^4.4.4"
 	},
-	"packageManager": "yarn@3.0.1"
+	"packageManager": "yarn@3.1.0"
 }
