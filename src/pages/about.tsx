@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import {T} from '../i18n/translator';
+import Banner from '../../public/banner.jpg';
 
 export default function AboutPage() {
 	return (
@@ -11,9 +12,10 @@ export default function AboutPage() {
 			<div className="text-opacity-20 text-white hover:text-opacity-100 transition-all">
 				<Image
 					alt="Some friends and I in London"
-					src="/banner.jpg"
+					src={Banner}
 					width={1000}
 					height={400}
+					placeholder="blur"
 					className="rounded-xl block border-2 object-cover border-white"
 				/>
 				<span className="text-sm not-sr-only">
