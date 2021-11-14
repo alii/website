@@ -1,4 +1,11 @@
-import React, {ReactNode, StrictMode, useEffect, useRef, useState} from 'react';
+import React, {
+	ReactNode,
+	StrictMode,
+	useEffect,
+	useReducer,
+	useRef,
+	useState,
+} from 'react';
 import {AppProps} from 'next/app';
 import Head from 'next/head';
 import {Router} from 'next/router';
@@ -6,6 +13,7 @@ import NProgress from 'nprogress';
 import Link from 'next/link';
 import {SWRConfig} from 'swr';
 import {Toaster} from 'react-hot-toast';
+import {Squash as Hamburger} from 'hamburger-react';
 import {loadCursor} from '../util/cursor';
 import {DISCORD_ID, Song} from '../components/song';
 import {
@@ -21,6 +29,7 @@ import 'react-tippy/dist/tippy.css';
 import 'tailwindcss/tailwind.css';
 import '../styles/global.css';
 import 'nprogress/nprogress.css';
+import {AnimatePresence, motion} from 'framer-motion';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -32,6 +41,7 @@ function LocalContextHooks() {
 }
 
 export default function App({Component, pageProps, router}: AppProps) {
+	const [mobileMenuOpen, toggleMenu] = useReducer(old => !old, false);
 	const ballCanvas = useRef<HTMLDivElement>(null);
 	const [lang, setLang] = useState(getInitialLanguage);
 
@@ -50,6 +60,42 @@ export default function App({Component, pageProps, router}: AppProps) {
 
 		void new Audio('/pop.mp3').play().catch(() => null);
 	}, [router.pathname]);
+
+	const [hasScrolled, setHasScrolled] = useState(false);
+
+	useEffect(() => {
+		if (typeof window === 'undefined') {
+			return;
+		}
+
+		const listener = () => {
+			setHasScrolled(window.scrollY >= 50);
+		};
+
+		document.addEventListener('scroll', listener);
+
+		return () => {
+			document.removeEventListener('scroll', listener);
+		};
+	}, []);
+
+	const navLinks = (
+		<>
+			<NavLink href="/">/</NavLink>
+			<NavLink href="/about">/about</NavLink>
+			<NavLink href="/talk">/talk</NavLink>
+		</>
+	);
+
+	const languageSwitcher = (
+		<Select<typeof lang>
+			items={languages.map(lang => ({name: lang, value: lang}))}
+			selected={{value: lang, name: lang}}
+			setSelected={v => {
+				setLang(v.value);
+			}}
+		/>
+	);
 
 	return (
 		<StrictMode>
@@ -91,31 +137,61 @@ export default function App({Component, pageProps, router}: AppProps) {
 
 					<LocalContextHooks />
 
-					<div className="py-10 max-w-4xl px-5 mx-auto">
-						<div className="flex items-center">
-							<nav className="flex-1">
-								<ul className="space-x-4 flex">
-									<NavLink href="/">/</NavLink>
-									<NavLink href="/about">/about</NavLink>
-									<NavLink href="/talk">/talk</NavLink>
-									<li>
-										<Select<typeof lang>
-											items={languages.map(lang => ({
-												name: lang,
-												value: lang,
-											}))}
-											selected={{value: lang, name: lang}}
-											setSelected={v => {
-												setLang(v.value);
-											}}
-										/>
-									</li>
-								</ul>
-							</nav>
-							<div className="hidden sm:block">
+					<AnimatePresence>
+						{mobileMenuOpen && (
+							<motion.div
+								initial={{opacity: 0, y: -10}}
+								animate={{opacity: 1, y: 0}}
+								exit={{opacity: 0}}
+								className="inset-0 bg-gray-900 sm:hidden fixed z-10 px-8 py-24"
+							>
+								<h1 className="text-4xl font-bold">Menu.</h1>
+							</motion.div>
+						)}
+					</AnimatePresence>
+
+					<div
+						className={`${
+							hasScrolled || mobileMenuOpen ? 'rounded-none' : 'mx-5 rounded-lg'
+						} sm:hidden sticky ${
+							mobileMenuOpen ? 'mt-0' : 'mt-10'
+						} top-0 z-20 bg-gray-900 transition-all overflow-hidden`}
+					>
+						<div className="pr-5 flex justify-between">
+							<button
+								type="button"
+								className={`px-2 z-50 text-gray-500 relative block transition-all rounded-br-md ${
+									mobileMenuOpen ? 'bg-gray-800' : ''
+								}`}
+								onClick={toggleMenu}
+							>
+								<Hamburger
+									toggled={mobileMenuOpen}
+									size={20}
+									color="currentColor"
+								/>
+							</button>
+
+							<div className="max-w-full truncate">
 								<Song />
 							</div>
 						</div>
+					</div>
+
+					<div className="py-10 max-w-4xl px-5 mx-auto">
+						<div className="hidden sm:flex items-center">
+							<nav className="flex-1">
+								<ul className="space-x-4 flex">
+									{navLinks}
+									<li>{languageSwitcher}</li>
+								</ul>
+							</nav>
+
+							<div>
+								<Song />
+							</div>
+						</div>
+
 						<div className="max-w-3xl mx-auto py-24 space-y-12">
 							<Component {...pageProps} />
 						</div>
