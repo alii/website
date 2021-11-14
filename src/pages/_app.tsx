@@ -96,8 +96,6 @@ export default function App({Component, pageProps, router}: AppProps) {
 		/>
 	);
 
-	console.log(hasScrolled);
-
 	return (
 		<StrictMode>
 			<translator.TranslationProvider activeLang={lang}>
