@@ -1,11 +1,4 @@
-import React, {
-	ReactNode,
-	StrictMode,
-	useEffect,
-	useReducer,
-	useRef,
-	useState,
-} from 'react';
+import React, {ReactNode, StrictMode, useEffect, useRef, useState} from 'react';
 import {AppProps} from 'next/app';
 import Head from 'next/head';
 import {Router} from 'next/router';
@@ -41,9 +34,15 @@ function LocalContextHooks() {
 }
 
 export default function App({Component, pageProps, router}: AppProps) {
-	const [mobileMenuOpen, toggleMenu] = useReducer(old => !old, false);
-	const ballCanvas = useRef<HTMLDivElement>(null);
+	const [mobileMenuOpen, setMenuOpen] = useState(false);
+	const [hasScrolled, setHasScrolled] = useState(false);
 	const [lang, setLang] = useState(getInitialLanguage);
+
+	const ballCanvas = useRef<HTMLDivElement>(null);
+
+	const toggleMenu = () => {
+		setMenuOpen(old => !old);
+	};
 
 	useEffect(() => {
 		if (typeof window === 'undefined' || !ballCanvas.current) {
@@ -58,10 +57,10 @@ export default function App({Component, pageProps, router}: AppProps) {
 			return;
 		}
 
+		setMenuOpen(false);
+
 		void new Audio('/pop.mp3').play().catch(() => null);
 	}, [router.pathname]);
-
-	const [hasScrolled, setHasScrolled] = useState(false);
 
 	useEffect(() => {
 		if (typeof window === 'undefined') {
@@ -145,9 +144,11 @@ export default function App({Component, pageProps, router}: AppProps) {
 								initial={{opacity: 0, y: -10}}
 								animate={{opacity: 1, y: 0}}
 								exit={{opacity: 0}}
-								className="inset-0 bg-gray-900 sm:hidden fixed z-10 px-8 py-24"
+								className="inset-0 bg-gray-900 sm:hidden fixed z-10 px-8 py-24 space-y-2"
 							>
 								<h1 className="text-4xl font-bold">Menu.</h1>
+
+								<ul className="grid grid-cols-1 gap-2">{navLinks}</ul>
 							</motion.div>
 						)}
 					</AnimatePresence>
@@ -162,7 +163,11 @@ export default function App({Component, pageProps, router}: AppProps) {
 									: 'rounded-lg'
 							}`}
 						>
-							<div className="pr-5 flex justify-between">
+							<div
+								className={`pr-5 flex justify-between transition-colors border-b ${
+									mobileMenuOpen ? 'border-gray-700' : 'border-transparent'
+								}`}
+							>
 								<button
 									type="button"
 									className={`px-2 z-50 text-gray-500 relative block transition-all ${
@@ -224,7 +229,7 @@ function NavLink(props: {children: ReactNode; href: string}) {
 	return (
 		<li>
 			<Link href={props.href}>
-				<a className="text-sm font-mono inline-block px-5 py-3 hover:text-white bg-white bg-opacity-0 hover:bg-opacity-10 rounded-full">
+				<a className="block no-underline md:underline text-lg md:font-normal md:text-sm md:font-mono md:inline-block md:px-5 py-3 hover:text-white md:bg-opacity-0 md:hover:bg-opacity-10 rounded-md md:rounded-full">
 					{props.children}
 				</a>
 			</Link>
