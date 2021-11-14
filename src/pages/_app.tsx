@@ -69,7 +69,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 		}
 
 		const listener = () => {
-			setHasScrolled(window.scrollY >= 50);
+			setHasScrolled(window.scrollY > 20);
 		};
 
 		document.addEventListener('scroll', listener);
@@ -96,6 +96,8 @@ export default function App({Component, pageProps, router}: AppProps) {
 			}}
 		/>
 	);
+
+	console.log(hasScrolled);
 
 	return (
 		<StrictMode>
@@ -151,29 +153,33 @@ export default function App({Component, pageProps, router}: AppProps) {
 					</AnimatePresence>
 
 					<div
-						className={`${
-							hasScrolled || mobileMenuOpen ? 'rounded-none' : 'mx-5 rounded-lg'
-						} sm:hidden sticky ${
-							mobileMenuOpen ? 'mt-0' : 'mt-10'
-						} top-0 z-20 bg-gray-900 transition-all overflow-hidden`}
+						className={`sm:hidden sticky ${
+							hasScrolled || mobileMenuOpen ? 'pt-0' : 'pt-10 mx-5'
+						} top-0 z-20 overflow-hidden transition-all`}
 					>
-						<div className="pr-5 flex justify-between">
-							<button
-								type="button"
-								className={`px-2 z-50 text-gray-500 relative block transition-all rounded-br-md ${
-									mobileMenuOpen ? 'bg-gray-800' : ''
-								}`}
-								onClick={toggleMenu}
-							>
-								<Hamburger
-									toggled={mobileMenuOpen}
-									size={20}
-									color="currentColor"
-								/>
-							</button>
+						<div
+							className={`bg-gray-900 transition-all ${
+								hasScrolled || mobileMenuOpen ? 'rounded-none' : 'rounded-lg'
+							}`}
+						>
+							<div className="pr-5 flex justify-between">
+								<button
+									type="button"
+									className={`px-2 z-50 text-gray-500 relative block transition-all rounded-br-md ${
+										mobileMenuOpen ? 'bg-gray-800' : ''
+									}`}
+									onClick={toggleMenu}
+								>
+									<Hamburger
+										toggled={mobileMenuOpen}
+										size={20}
+										color="currentColor"
+									/>
+								</button>
 
-							<div className="max-w-full truncate">
-								<Song />
+								<div className="overflow-hidden">
+									<Song />
+								</div>
 							</div>
 						</div>
 					</div>
@@ -187,12 +193,12 @@ export default function App({Component, pageProps, router}: AppProps) {
 								</ul>
 							</nav>
 
-							<div>
+							<div className="overflow-hidden">
 								<Song />
 							</div>
 						</div>
 
-						<div className="max-w-3xl mx-auto py-24 space-y-12">
+						<div className="max-w-3xl mx-auto py-12 md:py-24 space-y-12">
 							<Component {...pageProps} />
 						</div>
 
