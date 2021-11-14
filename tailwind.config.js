@@ -9,7 +9,10 @@ module.exports = {
 	darkMode: 'class',
 	mode: 'jit',
 	theme: {
-		colors,
+		colors: {
+			...colors,
+			transparent: 'transparent',
+		},
 		extend: {
 			fontFamily: {
 				...defaults.fontFamily,

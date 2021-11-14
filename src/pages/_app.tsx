@@ -6,6 +6,7 @@ import NProgress from 'nprogress';
 import Link from 'next/link';
 import {SWRConfig} from 'swr';
 import {Toaster} from 'react-hot-toast';
+import {Squash as Hamburger} from 'hamburger-react';
 import {loadCursor} from '../util/cursor';
 import {DISCORD_ID, Song} from '../components/song';
 import {
@@ -21,6 +22,7 @@ import 'react-tippy/dist/tippy.css';
 import 'tailwindcss/tailwind.css';
 import '../styles/global.css';
 import 'nprogress/nprogress.css';
+import {AnimatePresence, motion} from 'framer-motion';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -32,8 +34,15 @@ function LocalContextHooks() {
 }
 
 export default function App({Component, pageProps, router}: AppProps) {
-	const ballCanvas = useRef<HTMLDivElement>(null);
+	const [mobileMenuOpen, setMenuOpen] = useState(false);
+	const [hasScrolled, setHasScrolled] = useState(false);
 	const [lang, setLang] = useState(getInitialLanguage);
+
+	const ballCanvas = useRef<HTMLDivElement>(null);
+
+	const toggleMenu = () => {
+		setMenuOpen(old => !old);
+	};
 
 	useEffect(() => {
 		if (typeof window === 'undefined' || !ballCanvas.current) {
@@ -48,8 +57,46 @@ export default function App({Component, pageProps, router}: AppProps) {
 			return;
 		}
 
+		setMenuOpen(false);
+
 		void new Audio('/pop.mp3').play().catch(() => null);
 	}, [router.pathname]);
+
+	useEffect(() => {
+		if (typeof window === 'undefined') {
+			return;
+		}
+
+		const listener = () => {
+			setHasScrolled(window.scrollY > 20);
+		};
+
+		document.addEventListener('scroll', listener);
+
+		return () => {
+			document.removeEventListener('scroll', listener);
+		};
+	}, []);
+
+	const navLinks = (
+		<>
+			<NavLink href="/">/</NavLink>
+			<NavLink href="/about">/about</NavLink>
+			<NavLink href="/talk">/talk</NavLink>
+		</>
+	);
+
+	const languageSwitcher = (
+		<Select<typeof lang>
+			items={languages.map(lang => ({name: lang, value: lang}))}
+			selected={{value: lang, name: lang}}
+			setSelected={v => {
+				setLang(v.value);
+			}}
+		/>
+	);
+
+	console.log(hasScrolled);
 
 	return (
 		<StrictMode>
@@ -91,32 +138,72 @@ export default function App({Component, pageProps, router}: AppProps) {
 
 					<LocalContextHooks />
 
+					<AnimatePresence>
+						{mobileMenuOpen && (
+							<motion.div
+								initial={{opacity: 0, y: -10}}
+								animate={{opacity: 1, y: 0}}
+								exit={{opacity: 0}}
+								className="inset-0 bg-gray-900 sm:hidden fixed z-10 px-8 py-24 space-y-2"
+							>
+								<h1 className="text-4xl font-bold">Menu.</h1>
+
+								<ul className="grid grid-cols-1 gap-2">{navLinks}</ul>
+							</motion.div>
+						)}
+					</AnimatePresence>
+
+					<div className="sm:hidden h-32 sticky	 top-0 z-20 overflow-hidden transition-all">
+						<div
+							className={`${
+								hasScrolled || mobileMenuOpen ? 'mt-0' : 'mt-10 mx-5'
+							} bg-gray-900 relative transition-all ${
+								hasScrolled || mobileMenuOpen
+									? 'bg-opacity-95 backdrop-blur-sm rounded-none'
+									: 'rounded-lg'
+							}`}
+						>
+							<div
+								className={`pr-5 flex justify-between transition-colors border-b ${
+									mobileMenuOpen ? 'border-gray-700' : 'border-transparent'
+								}`}
+							>
+								<button
+									type="button"
+									className={`px-2 z-50 text-gray-500 relative block transition-all ${
+										mobileMenuOpen ? 'bg-gray-800' : ''
+									}`}
+									onClick={toggleMenu}
+								>
+									<Hamburger
+										toggled={mobileMenuOpen}
+										size={20}
+										color="currentColor"
+									/>
+								</button>
+
+								<div className="overflow-hidden">
+									<Song />
+								</div>
+							</div>
+						</div>
+					</div>
+
 					<div className="py-10 max-w-4xl px-5 mx-auto">
-						<div className="flex items-center">
+						<div className="hidden sm:flex items-center space-x-2">
 							<nav className="flex-1">
 								<ul className="space-x-4 flex">
-									<NavLink href="/">/</NavLink>
-									<NavLink href="/about">/about</NavLink>
-									<NavLink href="/talk">/talk</NavLink>
-									<li>
-										<Select<typeof lang>
-											items={languages.map(lang => ({
-												name: lang,
-												value: lang,
-											}))}
-											selected={{value: lang, name: lang}}
-											setSelected={v => {
-												setLang(v.value);
-											}}
-										/>
-									</li>
+									{navLinks}
+									<li>{languageSwitcher}</li>
 								</ul>
 							</nav>
-							<div className="hidden sm:block">
+
+							<div className="overflow-hidden">
 								<Song />
 							</div>
 						</div>
-						<div className="max-w-3xl mx-auto py-24 space-y-12">
+
+						<div className="max-w-3xl mx-auto md:py-24 space-y-12">
 							<Component {...pageProps} />
 						</div>
 
@@ -142,7 +229,7 @@ function NavLink(props: {children: ReactNode; href: string}) {
 	return (
 		<li>
 			<Link href={props.href}>
-				<a className="font-mono inline-block px-5 py-3 hover:text-white bg-white bg-opacity-0 hover:bg-opacity-10 rounded-full">
+				<a className="block no-underline md:underline text-lg md:font-normal md:text-sm md:font-mono md:inline-block md:px-5 py-3 hover:text-white md:bg-opacity-0 md:hover:bg-opacity-10 rounded-md md:rounded-full">
 					{props.children}
 				</a>
 			</Link>
