@@ -152,20 +152,20 @@ export default function App({Component, pageProps, router}: AppProps) {
 						)}
 					</AnimatePresence>
 
-					<div
-						className={`sm:hidden sticky ${
-							hasScrolled || mobileMenuOpen ? 'pt-0' : 'pt-10 mx-5'
-						} top-0 z-20 overflow-hidden transition-all`}
-					>
+					<div className="sm:hidden h-32 sticky	 top-0 z-20 overflow-hidden transition-all">
 						<div
-							className={`bg-gray-900 transition-all ${
-								hasScrolled || mobileMenuOpen ? 'rounded-none' : 'rounded-lg'
+							className={`${
+								hasScrolled || mobileMenuOpen ? 'mt-0' : 'mt-10 mx-5'
+							} bg-gray-900 relative transition-all ${
+								hasScrolled || mobileMenuOpen
+									? 'bg-opacity-95 backdrop-blur-sm rounded-none'
+									: 'rounded-lg'
 							}`}
 						>
 							<div className="pr-5 flex justify-between">
 								<button
 									type="button"
-									className={`px-2 z-50 text-gray-500 relative block transition-all rounded-br-md ${
+									className={`px-2 z-50 text-gray-500 relative block transition-all ${
 										mobileMenuOpen ? 'bg-gray-800' : ''
 									}`}
 									onClick={toggleMenu}
@@ -198,7 +198,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 							</div>
 						</div>
 
-						<div className="max-w-3xl mx-auto py-12 md:py-24 space-y-12">
+						<div className="max-w-3xl mx-auto md:py-24 space-y-12">
 							<Component {...pageProps} />
 						</div>
 
