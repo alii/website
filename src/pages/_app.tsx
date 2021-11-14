@@ -179,7 +179,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 					</div>
 
 					<div className="py-10 max-w-4xl px-5 mx-auto">
-						<div className="hidden sm:flex items-center">
+						<div className="hidden sm:flex items-center space-x-2">
 							<nav className="flex-1">
 								<ul className="space-x-4 flex">
 									{navLinks}
@@ -218,7 +218,7 @@ function NavLink(props: {children: ReactNode; href: string}) {
 	return (
 		<li>
 			<Link href={props.href}>
-				<a className="font-mono inline-block px-5 py-3 hover:text-white bg-white bg-opacity-0 hover:bg-opacity-10 rounded-full">
+				<a className="text-sm font-mono inline-block px-5 py-3 hover:text-white bg-white bg-opacity-0 hover:bg-opacity-10 rounded-full">
 					{props.children}
 				</a>
 			</Link>
