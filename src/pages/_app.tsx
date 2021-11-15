@@ -145,15 +145,13 @@ export default function App({Component, pageProps, router}: AppProps) {
 							}`}
 						>
 							<div
-								className={`pr-5 flex justify-between transition-colors border-b ${
-									mobileMenuOpen ? 'border-gray-700' : 'border-transparent'
+								className={`pr-5 flex justify-between transition-colors space-x-2 ${
+									mobileMenuOpen ? 'bg-gray-800' : 'bg-transparent'
 								}`}
 							>
 								<button
 									type="button"
-									className={`px-2 z-50 text-gray-500 relative block transition-all ${
-										mobileMenuOpen ? 'bg-gray-800' : ''
-									}`}
+									className="px-2 z-50 text-gray-500 relative block transition-all"
 									onClick={toggleMenu}
 								>
 									<Hamburger
@@ -210,7 +208,7 @@ function NavLink(props: {children: ReactNode; href: string}) {
 	return (
 		<li>
 			<Link href={props.href}>
-				<a className="block no-underline md:underline text-lg md:font-normal md:text-sm md:font-mono md:inline-block md:px-5 py-3 hover:text-white md:bg-opacity-0 md:hover:bg-opacity-10 rounded-md md:rounded-full">
+				<a className="block no-underline md:underline text-lg md:font-normal md:text-sm md:font-mono md:inline-block md:px-5 py-3 hover:text-white md:bg-white md:bg-opacity-0 md:hover:bg-opacity-10 rounded-md md:rounded-full">
 					{props.children}
 				</a>
 			</Link>
