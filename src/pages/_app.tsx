@@ -139,9 +139,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 							className={`${
 								hasScrolled || mobileMenuOpen ? 'mt-0' : 'mt-10 mx-5'
 							} bg-gray-900 relative transition-all ${
-								hasScrolled || mobileMenuOpen
-									? 'bg-opacity-95 backdrop-blur-sm rounded-none'
-									: 'rounded-lg'
+								hasScrolled || mobileMenuOpen ? 'rounded-none' : 'rounded-lg'
 							}`}
 						>
 							<div
