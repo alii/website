@@ -40,15 +40,6 @@
 			"last 1 safari version"
 		]
 	},
-	"xo": {
-		"space": false,
-		"prettier": true,
-		"rules": {
-			"@typescript-eslint/naming-convention": "off",
-			"node/prefer-global/process": "off",
-			"@typescript-eslint/triple-slash-reference": "off"
-		}
-	},
 	"devDependencies": {
 		"@tailwindcss/typography": "^0.4.1",
 		"@types/node": "^16.11.7",
