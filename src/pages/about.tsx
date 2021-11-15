@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import {T} from '../i18n/translator';
 import Banner from '../../public/banner.jpg';
 
 export default function AboutPage() {
@@ -19,7 +18,7 @@ export default function AboutPage() {
 					className="rounded-xl block border-2 object-cover border-white"
 				/>
 				<span className="text-sm not-sr-only">
-					<T phrase="a trip to london with some friends" />
+					a trip to london with some friends
 				</span>
 			</div>
 			<p className="opacity-80">

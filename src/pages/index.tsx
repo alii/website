@@ -1,4 +1,4 @@
-import React, {Fragment, useReducer} from 'react';
+import React, {useReducer} from 'react';
 import {AnimatePresence, motion} from 'framer-motion';
 import {GetStaticProps} from 'next';
 import {
@@ -31,7 +31,6 @@ import {
 import {PinnedRepo, useGitHubPinnedRepos} from '../hooks/github';
 import {mockPinnedRepos} from '../offline/mock';
 import {ListItem} from '../components/list-item';
-import {T} from '../i18n/translator';
 import {DISCORD_ID} from '../components/song';
 
 interface Props {
@@ -65,17 +64,29 @@ export default function Index(props: Props) {
 					</a>
 				</div>
 				<h1 className="text-3xl sm:text-4xl md:text-6xl font-bold">
-					<T phrase="Hey, I'm Alistair" />
+					Hey, I'm Alistair ✌️
 				</h1>
 				<p className="opacity-80">
-					<T phrase="intro.intro" />
+					I'm a 17 year old software engineer from the United Kingdom. I'm
+					interested in large scale frontend applications, performant and
+					responsive serverside code. I've recently delved into lower level
+					languages with the help of some friends 😃
 				</p>
 			</div>
 
 			<div className="space-y-4">
 				<h1 className="text-2xl sm:text-3xl font-bold">What do I do? 💭</h1>
 				<p className="opacity-80">
-					<T phrase="intro.projects" />
+					Honestly, a few too many things to count on one hand... I'm currently
+					having a fantastic time working with Giggl - we're building a way to
+					watch & browse the web, together. Below are some of the more popular
+					open source projects I've worked on. In total, the following repos
+					have earnt me{' '}
+					{projects.reduce(
+						(acc, project) => acc + parseInt(project.stars, 10),
+						0,
+					)}{' '}
+					stars! Thank you! 💖
 				</p>
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-3 auto-cols-max">
 					{projects?.map(project => (
@@ -87,7 +98,11 @@ export default function Index(props: Props) {
 			<div className="space-y-4">
 				<h1 className="text-2xl sm:text-3xl font-bold">Technologies 💻</h1>
 				<p className="opacity-80">
-					<T phrase="intro.technologies" />
+					I use a wide range of tools to tackle each hurdle in the most
+					efficient manner possible. I really love working with Docker and
+					containersation and it's proven to be a reliable bit of kit for
+					working in and scaling services in both production and development
+					environments.
 				</p>
 				<ul className="grid grid-cols-3 sm:grid-cols-4 gap-4">
 					<ListItem icon={SiDocker} text="Docker" />
