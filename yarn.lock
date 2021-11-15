@@ -4267,7 +4267,6 @@ __metadata:
     react-dom: ^17.0.2
     react-hot-toast: ^2.1.1
     react-icons: ^4.3.1
-    react-text-translator: ^1.1.7
     react-tippy: ^1.4.0
     react-uwu: ^1.0.2
     swr: ^1.0.1
@@ -4650,16 +4649,6 @@ __metadata:
   version: 0.8.3
   resolution: "react-refresh@npm:0.8.3"
   checksum: 3cffe5a9cbac1c5d59bf74bf9fff43c987d87ef32098b9092ea94b6637377d86c08565b9374d9397f446b3fbcd95de986ec77220a16f979687cb39b7b89e2f91
-  languageName: node
-  linkType: hard
-
-"react-text-translator@npm:^1.1.7":
-  version: 1.1.7
-  resolution: "react-text-translator@npm:1.1.7"
-  peerDependencies:
-    "@types/react": ^17.0.24
-    react: ^17.0.2
-  checksum: b306eae98dcd48755e06734debc2a59d0aa7f95b25316805cfef0ae43da96da8c19f026ebe5654dfd6a660e36355ec387ac27f1f0233eae4942251c64f9e02ad
   languageName: node
   linkType: hard
 
