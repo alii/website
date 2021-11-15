@@ -122,7 +122,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 						>
 							<button
 								type="button"
-								className="px-2 z-50 text-gray-500 relative block transition-all"
+								className="px-2 z-50 text-gray-500 relative block transition-all focus:ring"
 								onClick={toggleMenu}
 							>
 								<Hamburger
@@ -132,7 +132,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 								/>
 							</button>
 
-							<div className="overflow-hidden">
+							<div className="overflow-hidden py-2 px-1">
 								<Song />
 							</div>
 						</div>
@@ -145,7 +145,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 							<ul className="space-x-4 flex">{navLinks}</ul>
 						</nav>
 
-						<div className="overflow-hidden">
+						<div className="overflow-hidden py-2 px-1">
 							<Song />
 						</div>
 					</div>

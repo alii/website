@@ -30,10 +30,6 @@ body {
 	min-height: 100%;
 }
 
-.no-select {
-	user-select: none;
-}
-
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 		monospace;
@@ -45,9 +41,7 @@ code {
 }
 
 a {
-	color: white;
-	cursor: pointer;
-	text-decoration: underline;
+	@apply text-white cursor-pointer underline;
 }
 
 img {
