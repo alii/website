@@ -1,4 +1,5 @@
-import {api, HttpException} from 'nextkit';
+import {HttpException} from 'nextkit';
+import {api} from '../../server/api';
 
 export default api({
 	async GET() {

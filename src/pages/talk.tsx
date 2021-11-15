@@ -5,6 +5,7 @@ import {HiOutlineMail} from 'react-icons/hi';
 import {RiSendPlane2Line} from 'react-icons/ri';
 import {SiDiscord, SiTwitter} from 'react-icons/si';
 import {ListItem} from '../components/list-item';
+import {fetcher} from '../util/fetcher';
 
 export default function Talk() {
 	const router = useRouter();
@@ -30,7 +31,7 @@ export default function Talk() {
 								new FormData(event.target as HTMLFormElement).entries(),
 							);
 
-							const promise = fetch('/api/form', {
+							const promise = fetcher('/api/form', {
 								headers: {'Content-Type': 'application/json'},
 								body: JSON.stringify({...values, is_json: true}),
 								method: 'POST',

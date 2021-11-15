@@ -23,6 +23,7 @@ import 'tailwindcss/tailwind.css';
 import '../styles/global.css';
 import 'nprogress/nprogress.css';
 import {AnimatePresence, motion} from 'framer-motion';
+import {fetcher} from '../util/fetcher';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -107,25 +108,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 							'https://gh-pinned-repos.egoist.sh/?username=alii':
 								pageProps?.pinnedRepos as unknown,
 						},
-						async fetcher<T>(url: string): Promise<T> {
-							const request = await fetch(url);
-							const json = (await request.json()) as unknown;
-
-							if (request.status >= 400) {
-								let message: string;
-
-								if (json && typeof json === 'object' && 'message' in json) {
-									// Safe to assert because of the ??= underneath this
-									message = (json as {message?: string}).message!;
-								}
-
-								message ??= 'Something went wrong';
-
-								throw new Error(message);
-							}
-
-							return json as T;
-						},
+						fetcher,
 					}}
 				>
 					<Toaster toastOptions={{position: 'top-left'}} />
