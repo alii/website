@@ -39,8 +39,6 @@ export default api({
 		});
 
 		if (result.status >= 400) {
-			const json = await result.json();
-			console.log({status: result.status, json});
 			throw new HttpException(result.status, 'Error sending notification');
 		}
 
