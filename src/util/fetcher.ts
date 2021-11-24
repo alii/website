@@ -1,3 +1,5 @@
+import {NextkitException} from 'nextkit';
+
 export async function fetcher<T>(url: string, init?: RequestInit): Promise<T> {
 	const request = await fetch(url, init);
 	const json = (await request.json()) as unknown;
@@ -12,7 +14,7 @@ export async function fetcher<T>(url: string, init?: RequestInit): Promise<T> {
 
 		message ??= 'Something went wrong';
 
-		throw new Error(message);
+		throw new NextkitException(request.status, message);
 	}
 
 	return json as T;

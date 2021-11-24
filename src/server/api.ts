@@ -1,11 +1,12 @@
-import {createAPIWithHandledErrors} from 'nextkit';
+import {createAPI} from 'nextkit';
 
-export const api = createAPIWithHandledErrors((req, res, err) => {
-	console.warn(err);
+export const api = createAPI({
+	onError: async (req, res, error) => {
+		console.warn(error);
 
-	res.json({
-		success: false,
-		data: null,
-		message: 'Bruh',
-	});
+		return {
+			status: 500,
+			message: error.message,
+		};
+	},
 });

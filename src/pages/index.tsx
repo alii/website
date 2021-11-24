@@ -22,6 +22,7 @@ import {
 	SiWebstorm,
 	SiYarn,
 } from 'react-icons/si';
+import {HiOutlineLocationMarker} from 'react-icons/hi';
 import {
 	useLanyard,
 	Data as LanyardData,
@@ -41,16 +42,21 @@ interface Props {
 export default function Index(props: Props) {
 	const {data: projects = props.pinnedRepos} = useGitHubPinnedRepos('alii');
 
-	useLanyard(DISCORD_ID, {
+	const {data: lanyard} = useLanyard(DISCORD_ID, {
 		fallbackData: props.lanyard,
 	});
 
 	return (
 		<>
 			<div className="space-y-4">
-				<div className="flex space-x-3">
-					<a href="https://github.com/alii" target="_blank" rel="noreferrer">
-						<SiGithub className="h-8 w-8 opacity-70 hover:opacity-100" />
+				<div className="flex space-x-3 items-center">
+					<a
+						href="https://github.com/alii"
+						target="_blank"
+						rel="noreferrer"
+						aria-label="GitHub Profile"
+					>
+						<SiGithub className="h-7 w-7" />
 						<span className="sr-only">GitHub Profile</span>
 					</a>
 
@@ -58,10 +64,29 @@ export default function Index(props: Props) {
 						href="https://twitter.com/alistaiiiir"
 						target="_blank"
 						rel="noreferrer"
+						area-label="Twitter Profile"
 					>
-						<SiTwitter className="h-8 w-8 opacity-70 hover:opacity-100" />
+						<SiTwitter className="h-7 w-7" />
 						<span className="sr-only">Twitter Profile</span>
 					</a>
+
+					{lanyard && (
+						<p>
+							<a
+								target="_blank"
+								href={`https://search.alistair.sh/?q=!maps+${lanyard.kv.location}`}
+								rel="noreferrer"
+								className="flex items-center px-2 bg-gray-700 rounded-full text-white text-opacity-50 no-underline hover:bg-gray-800 transition-colors"
+							>
+								<span>
+									<HiOutlineLocationMarker className="inline text-white text-opacity-100" />
+									&nbsp;
+								</span>
+
+								<span className="-mb-0.5">{lanyard.kv.location}</span>
+							</a>
+						</p>
+					)}
 				</div>
 				<h1 className="text-3xl sm:text-4xl md:text-6xl font-bold">
 					Hey, I'm Alistair ✌️

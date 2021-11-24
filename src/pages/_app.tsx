@@ -65,11 +65,21 @@ export default function App({Component, pageProps, router}: AppProps) {
 		};
 	}, []);
 
+	const closeMenu = () => {
+		setMenuOpen(false);
+	};
+
 	const navLinks = (
 		<>
-			<NavLink href="/">/</NavLink>
-			<NavLink href="/about">/about</NavLink>
-			<NavLink href="/talk">/talk</NavLink>
+			<NavLink href="/" closeMenu={closeMenu}>
+				/
+			</NavLink>
+			<NavLink href="/about" closeMenu={closeMenu}>
+				/about
+			</NavLink>
+			<NavLink href="/talk" closeMenu={closeMenu}>
+				/talk
+			</NavLink>
 		</>
 	);
 
@@ -107,7 +117,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 					)}
 				</AnimatePresence>
 
-				<div className="sm:hidden h-32 sticky	 top-0 z-20 overflow-hidden transition-all">
+				<div className="sm:hidden h-32 sticky top-0 z-20 overflow-hidden transition-all">
 					<div
 						className={`${
 							hasScrolled || mobileMenuOpen ? 'mt-0' : 'mt-10 mx-5'
@@ -169,11 +179,18 @@ export default function App({Component, pageProps, router}: AppProps) {
 	);
 }
 
-function NavLink(props: {children: ReactNode; href: string}) {
+function NavLink(props: {
+	children: ReactNode;
+	href: string;
+	closeMenu?: () => void;
+}) {
 	return (
 		<li>
 			<Link href={props.href}>
-				<a className="block no-underline md:underline text-lg md:font-normal md:text-sm md:font-mono md:inline-block md:px-5 py-3 hover:text-white md:bg-white md:bg-opacity-0 md:hover:bg-opacity-10 rounded-md md:rounded-full">
+				<a
+					className="font-mono block no-underline sm:underline text-lg sm:font-normal sm:text-sm sm:inline-block sm:px-5 py-3 hover:text-white sm:bg-white sm:bg-opacity-0 sm:hover:bg-opacity-10 rounded-md sm:rounded-full"
+					onClick={props.closeMenu}
+				>
 					{props.children}
 				</a>
 			</Link>
