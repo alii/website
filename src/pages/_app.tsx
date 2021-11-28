@@ -32,6 +32,14 @@ export default function App({Component, pageProps, router}: AppProps) {
 	};
 
 	useEffect(() => {
+		if (mobileMenuOpen) {
+			document.body.style.overflow = 'hidden';
+			return;
+		}
+		document.body.style.overflow = 'unset';
+	}, [mobileMenuOpen]);
+
+	useEffect(() => {
 		if (typeof window === 'undefined' || !ballCanvas.current) {
 			return;
 		}
