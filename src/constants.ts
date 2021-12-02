@@ -1,3 +1,5 @@
+// Warning: this file should only be imported into a server file
+
 export const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK ?? '';
 
 if (!DISCORD_WEBHOOK) {

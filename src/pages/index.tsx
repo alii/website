@@ -33,6 +33,7 @@ import {PinnedRepo, useGitHubPinnedRepos} from '../hooks/github';
 import {mockPinnedRepos} from '../offline/mock';
 import {ListItem} from '../components/list-item';
 import {DISCORD_ID} from '../components/song';
+import {age} from '../util/time';
 
 interface Props {
 	pinnedRepos: PinnedRepo[];
@@ -76,14 +77,19 @@ export default function Index(props: Props) {
 								target="_blank"
 								href={`https://search.alistair.sh/?q=!maps+${lanyard.kv.location}`}
 								rel="noreferrer"
-								className="flex items-center px-2 bg-gray-700 rounded-full text-white text-opacity-50 no-underline hover:bg-gray-800 transition-colors"
+								className="flex items-center px-2 pr-3 bg-gray-700 rounded-full text-white text-opacity-50 no-underline hover:bg-gray-800 transition-colors"
 							>
 								<span>
 									<HiOutlineLocationMarker className="inline text-white text-opacity-100" />
 									&nbsp;
 								</span>
 
-								<span className="-mb-0.5">{lanyard.kv.location}</span>
+								<span className="-mb-0.5">
+									{lanyard.kv.location}
+									&nbsp;
+								</span>
+
+								<span className="h-[6px] w-[6px] ml-1 -mb-0.5 animate-pulse block bg-white rounded-full" />
 							</a>
 						</p>
 					)}
@@ -92,10 +98,9 @@ export default function Index(props: Props) {
 					Hey, I'm Alistair ✌️
 				</h1>
 				<p className="opacity-80">
-					I'm a 17 year old software engineer from the United Kingdom. I'm
-					interested in large scale frontend applications, performant and
-					responsive serverside code. I've recently delved into lower level
-					languages with the help of some friends 😃
+					I'm a ~{age.toPrecision(6)} year old software engineer from the United
+					Kingdom. I'm interested in large scale frontend applications and
+					performant and serverside code. I've worked with
 				</p>
 			</div>
 
