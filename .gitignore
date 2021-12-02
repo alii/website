@@ -25,3 +25,6 @@ out
 
 # bun
 *.bun
+
+# Cloud9 IDE files
+.c9

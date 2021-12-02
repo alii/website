@@ -1,4 +1,5 @@
 import {useRouter} from 'next/router';
+import {APIResponse} from 'nextkit';
 import React from 'react';
 import {toast} from 'react-hot-toast';
 import {HiOutlineMail} from 'react-icons/hi';
@@ -31,9 +32,9 @@ export default function Talk() {
 								new FormData(event.target as HTMLFormElement).entries(),
 							);
 
-							const promise = fetcher('/api/form', {
+							const promise = fetcher<APIResponse<{sent: true}>>('/api/form', {
 								headers: {'Content-Type': 'application/json'},
-								body: JSON.stringify({...values, is_json: true}),
+								body: JSON.stringify(values),
 								method: 'POST',
 							});
 
@@ -42,31 +43,47 @@ export default function Talk() {
 									success: 'Success!',
 									loading: 'Sending...',
 									error: (error: Error) =>
-										error.message ?? 'Something went wrong...',
+										error?.message ?? 'Something went wrong...',
 								})
 								.then(async () => router.push('/thanks'))
 								.catch(() => null);
 						}}
 					>
-						<input
-							required
-							type="email"
-							name="email"
-							className="bg-white text-lg block w-full font-sans bg-opacity-5 px-4 py-1 rounded-xl"
-							placeholder="Email Address"
-						/>
-						<textarea
-							rows={5}
-							name="body"
-							className="bg-white text-lg block w-full font-sans bg-opacity-5 px-4 py-1 rounded-xl resize-none"
-						/>
+						<label htmlFor="email" className="block">
+							<span className="text-white text-opacity-50 tracking-wide uppercase text-sm font-bold">
+								Email Address
+							</span>
 
-						<button
-							type="submit"
-							className="text-lg bg-white bg-opacity-5 rounded-full px-8 py-2 inline-flex space-x-2 items-center"
-						>
-							<span>Send</span> <RiSendPlane2Line />
-						</button>
+							<input
+								required
+								type="email"
+								name="email"
+								id="email"
+								className="bg-white text-lg block w-full font-sans bg-opacity-5 px-4 py-1 rounded-md focus:outline-none focus:ring"
+							/>
+						</label>
+
+						<label htmlFor="body" className="block">
+							<span className="text-white text-opacity-50 tracking-wide uppercase text-sm font-bold">
+								Your message
+							</span>
+
+							<textarea
+								rows={5}
+								name="body"
+								id="body"
+								className="bg-white text-lg block w-full font-sans bg-opacity-5 px-4 py-1 rounded-md resize-none focus:outline-none focus:ring"
+							/>
+						</label>
+
+						<div className="pt-2 block">
+							<button
+								type="submit"
+								className="text-lg bg-white bg-opacity-5 rounded-full px-8 py-2 inline-flex space-x-2 items-center hover:bg-opacity-10 focus:outline-none focus:ring"
+							>
+								<span>Send</span> <RiSendPlane2Line />
+							</button>
+						</div>
 					</form>
 				</div>
 

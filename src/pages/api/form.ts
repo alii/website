@@ -6,12 +6,11 @@ import {NextkitException} from 'nextkit';
 const schema = z.object({
 	email: z.string().email(),
 	body: z.string().max(500).min(3),
-	is_json: z.boolean().optional(),
 });
 
 export default api({
 	async POST({req}) {
-		const {is_json = false, ...body} = schema.parse(req.body);
+		const body = schema.parse(req.body);
 
 		const result = await fetch(DISCORD_WEBHOOK, {
 			method: 'POST',
@@ -42,7 +41,7 @@ export default api({
 			throw new NextkitException(result.status, 'Error sending notification');
 		}
 
-		if (is_json) {
+		if (req.headers['content-type'] === 'application/json') {
 			return {
 				sent: true,
 			};
