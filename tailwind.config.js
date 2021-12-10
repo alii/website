@@ -5,14 +5,10 @@ const defaults = require('tailwindcss/defaultTheme');
 
 /** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
 module.exports = {
-	purge: ['./src/**/*.{tsx,ts}'],
+	content: ['./src/**/*.{tsx,ts,css}'],
 	darkMode: 'class',
 	mode: 'jit',
 	theme: {
-		colors: {
-			...colors,
-			transparent: 'transparent',
-		},
 		extend: {
 			fontFamily: {
 				...defaults.fontFamily,
