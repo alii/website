@@ -100,7 +100,7 @@ export default function Index(props: Props) {
 				<p className="opacity-80">
 					I'm a ~{age.toPrecision(6)} year old software engineer from the United
 					Kingdom. I'm interested in large scale frontend applications and
-					performant and serverside code. I've worked with
+					performant and serverside code.
 				</p>
 			</div>
 

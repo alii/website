@@ -1,6 +1,5 @@
 /* eslint-disable unicorn/prefer-module */
 
-const colors = require('tailwindcss/colors');
 const defaults = require('tailwindcss/defaultTheme');
 
 /** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
