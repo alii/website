@@ -97,6 +97,7 @@ export default function Index(props: Props) {
 				<h1 className="text-3xl sm:text-4xl md:text-6xl font-bold">
 					Hey, I'm Alistair ✌️
 				</h1>
+
 				<p className="opacity-80">
 					I'm a ~{age.toPrecision(6)} year old software engineer from the United
 					Kingdom. I'm interested in large scale frontend applications and
