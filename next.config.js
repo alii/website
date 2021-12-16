@@ -1,4 +1,3 @@
-// eslint-disable-next-line unicorn/prefer-module
 /** @type {import('next').NextConfig} */
 module.exports = {
 	reactStrictMode: true,
