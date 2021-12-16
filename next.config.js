@@ -1,12 +1,7 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
 	reactStrictMode: true,
-	experimental: {
-		turboMode: true,
-	},
-	future: {
-		strictPostcssConfiguration: true,
-	},
+
 	images: {
 		domains: [
 			'source.unsplash.com',
@@ -14,6 +9,7 @@ module.exports = {
 			'cdn.discordapp.com',
 		],
 	},
+
 	async redirects() {
 		return [
 			{
