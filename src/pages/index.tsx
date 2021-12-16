@@ -65,7 +65,7 @@ export default function Index(props: Props) {
 						href="https://twitter.com/alistaiiiir"
 						target="_blank"
 						rel="noreferrer"
-						area-label="Twitter Profile"
+						aria-label="Twitter Profile"
 					>
 						<SiTwitter className="h-7 w-7" />
 						<span className="sr-only">Twitter Profile</span>
@@ -94,6 +94,7 @@ export default function Index(props: Props) {
 						</p>
 					)}
 				</div>
+
 				<h1 className="text-3xl sm:text-4xl md:text-6xl font-bold">
 					Hey, I'm Alistair ✌️
 				</h1>
