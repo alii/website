@@ -11,6 +11,7 @@ module.exports = {
 		'xo',
 		'xo-typescript',
 		'xo-react',
+		'plugin:tailwindcss/recommended',
 	],
 	parser: '@typescript-eslint/parser',
 	parserOptions: {
@@ -19,19 +20,26 @@ module.exports = {
 		sourceType: 'module',
 		project: './tsconfig.json',
 	},
-	plugins: ['react', '@typescript-eslint'],
+	plugins: ['react', '@typescript-eslint', 'tailwindcss'],
 	ignorePatterns: ['**/*.js'],
 	rules: {
+		// Next.js
 		'@typescript-eslint/triple-slash-reference': 'off',
+		'react/react-in-jsx-scope': 'off',
+
+		// Prettier handles these
+		'@typescript-eslint/comma-dangle': 'off',
 		'react/function-component-definition': 'off',
 		'react/jsx-tag-spacing': 'off',
-		'@typescript-eslint/comma-dangle': 'off',
 		'react/no-unescaped-entities': 'off',
 		'no-mixed-operators': 'off',
 		'operator-linebreak': 'off',
 		'@typescript-eslint/naming-convention': 'off',
-		'react/react-in-jsx-scope': 'off',
 		'quote-props': 'off',
 		'@typescript-eslint/quotes': 'off',
+		'react/jsx-curly-newline': 'off',
+
+		// Doesn't work with 3.0.0 jit
+		'tailwindcss/no-custom-classname': 'off',
 	},
 };

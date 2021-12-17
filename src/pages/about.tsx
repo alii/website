@@ -5,17 +5,17 @@ import Banner from '../../public/banner.jpg';
 export default function AboutPage() {
 	return (
 		<div className="space-y-8">
-			<h1 className="text-3xl block sm:text-4xl md:text-6xl font-bold">
+			<h1 className="block text-3xl sm:text-4xl md:text-6xl font-bold">
 				About
 			</h1>
-			<div className="text-opacity-20 text-white hover:text-opacity-100 transition-all">
+			<div className="text-white text-opacity-20 hover:text-opacity-100 transition-all">
 				<Image
 					alt="Some friends and I in London"
 					src={Banner}
 					width={1000}
 					height={400}
 					placeholder="blur"
-					className="rounded-xl block border-2 object-cover border-white"
+					className="block object-cover rounded-xl border-2 border-white"
 				/>
 				<span className="text-sm not-sr-only">
 					a trip to london with some friends

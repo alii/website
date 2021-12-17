@@ -18,9 +18,9 @@ export function Select<T>(props: {
 		<div className="w-24">
 			<Listbox value={selected} onChange={setSelected}>
 				<div className="relative mt-1">
-					<Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-black hover:bg-gray-800 rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
+					<Listbox.Button className="relative py-2 pr-10 pl-3 w-full sm:text-sm text-left bg-black hover:bg-gray-800 rounded-lg focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 shadow-md cursor-default focus:outline-none focus-visible:ring-offset-orange-300">
 						<span className="block truncate">{selected.name}</span>
-						<span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+						<span className="flex absolute inset-y-0 right-0 items-center pr-2 pointer-events-none">
 							<HiChevronDown
 								className="w-4 h-4 text-gray-400"
 								aria-hidden="true"
@@ -33,13 +33,14 @@ export function Select<T>(props: {
 						leaveFrom="opacity-100"
 						leaveTo="opacity-0"
 					>
-						<Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+						<Listbox.Options className="overflow-auto absolute py-1 mt-1 w-full max-h-60 text-base sm:text-sm bg-white rounded-md ring-1 ring-black ring-opacity-5 shadow-lg focus:outline-none">
 							{props.items.map(item => (
 								<Listbox.Option
 									key={item.name}
 									className={({active}) =>
 										`${active ? 'text-amber-900 bg-amber-100' : 'text-gray-900'}
-                          cursor-default select-none relative py-2 pl-10 pr-4`}
+                          cursor-default select-none relative py-2 pl-10 pr-4`
+									}
 									value={item}
 								>
 									{({selected, active}) => (

@@ -117,7 +117,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 							initial={{opacity: 0, y: -10}}
 							animate={{opacity: 1, y: 0}}
 							exit={{opacity: 0}}
-							className="inset-0 bg-gray-900 sm:hidden fixed z-10 px-8 py-24 space-y-2"
+							className="sm:hidden fixed inset-0 z-10 py-24 px-8 space-y-2 bg-gray-900"
 						>
 							<h1 className="text-4xl font-bold">Menu.</h1>
 
@@ -126,7 +126,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 					)}
 				</AnimatePresence>
 
-				<div className="sm:hidden h-32 sticky top-0 z-20 overflow-hidden transition-all">
+				<div className="sm:hidden overflow-hidden sticky top-0 z-20 h-32 transition-all">
 					<div
 						className={`${
 							hasScrolled || mobileMenuOpen ? 'mt-0' : 'mt-10 mx-5'
@@ -141,7 +141,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 						>
 							<button
 								type="button"
-								className="px-2 z-50 text-gray-500 relative block transition-all focus:ring"
+								className="block relative z-50 px-2 text-gray-500 focus:ring transition-all"
 								onClick={toggleMenu}
 							>
 								<Hamburger
@@ -158,10 +158,10 @@ export default function App({Component, pageProps, router}: AppProps) {
 					</div>
 				</div>
 
-				<div className="py-10 max-w-4xl px-5 mx-auto">
+				<div className="py-10 px-5 mx-auto max-w-4xl">
 					<div className="hidden sm:flex items-center space-x-2">
 						<nav className="flex-1">
-							<ul className="space-x-4 flex">{navLinks}</ul>
+							<ul className="flex space-x-4">{navLinks}</ul>
 						</nav>
 
 						<div className="overflow-hidden py-2 px-1">
@@ -169,11 +169,11 @@ export default function App({Component, pageProps, router}: AppProps) {
 						</div>
 					</div>
 
-					<div className="max-w-3xl mx-auto md:py-24 space-y-12">
+					<div className="md:py-24 mx-auto space-y-12 max-w-3xl">
 						<Component {...pageProps} />
 					</div>
 
-					<div className="max-w-3xl opacity-50 mx-auto p-4 py-10 mt-20 border-t-2 border-white border-opacity-10">
+					<div className="p-4 py-10 mx-auto mt-20 max-w-3xl border-t-2 border-white border-opacity-10 opacity-50">
 						<h1 className="text-3xl font-bold">Alistair Smith</h1>
 						<p>Software Engineer • {new Date().getFullYear()}</p>
 					</div>
@@ -181,7 +181,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 
 				<div
 					ref={ballCanvas}
-					className="opacity-0 fixed ball-transitions duration-200 pointer-events-none z-30 h-6 w-6 bg-transparent border border-white rounded-full shadow-md"
+					className="fixed z-30 w-6 h-6 bg-transparent rounded-full border border-white shadow-md opacity-0 duration-200 pointer-events-none ball-transitions"
 				/>
 			</SWRConfig>
 		</StrictMode>
@@ -197,7 +197,7 @@ function NavLink(props: {
 		<li>
 			<Link href={props.href}>
 				<a
-					className="font-mono block no-underline sm:underline text-lg sm:font-normal sm:text-sm sm:inline-block sm:px-5 py-3 hover:text-white sm:bg-white sm:bg-opacity-0 sm:hover:bg-opacity-10 rounded-md sm:rounded-full"
+					className="block sm:inline-block py-3 sm:px-5 font-mono text-lg sm:text-sm sm:font-normal hover:text-white no-underline sm:underline sm:bg-white sm:bg-opacity-0 sm:hover:bg-opacity-10 rounded-md sm:rounded-full"
 					onClick={props.closeMenu}
 				>
 					{props.children}

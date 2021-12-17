@@ -50,14 +50,14 @@ export default function Index(props: Props) {
 	return (
 		<>
 			<div className="space-y-4">
-				<div className="flex space-x-3 items-center">
+				<div className="flex items-center space-x-3">
 					<a
 						href="https://github.com/alii"
 						target="_blank"
 						rel="noreferrer"
 						aria-label="GitHub Profile"
 					>
-						<SiGithub className="h-7 w-7" />
+						<SiGithub className="w-7 h-7" />
 						<span className="sr-only">GitHub Profile</span>
 					</a>
 
@@ -67,7 +67,7 @@ export default function Index(props: Props) {
 						rel="noreferrer"
 						aria-label="Twitter Profile"
 					>
-						<SiTwitter className="h-7 w-7" />
+						<SiTwitter className="w-7 h-7" />
 						<span className="sr-only">Twitter Profile</span>
 					</a>
 
@@ -77,7 +77,7 @@ export default function Index(props: Props) {
 								target="_blank"
 								href={`https://search.alistair.sh/?q=!maps+${lanyard.kv.location}`}
 								rel="noreferrer"
-								className="flex items-center px-2 pr-3 bg-gray-700 rounded-full text-white text-opacity-50 no-underline hover:bg-gray-800 transition-colors"
+								className="flex items-center px-2 pr-3 text-white text-opacity-50 no-underline bg-gray-700 hover:bg-gray-800 rounded-full transition-colors"
 							>
 								<span>
 									<HiOutlineLocationMarker className="inline text-white text-opacity-100" />
@@ -89,7 +89,7 @@ export default function Index(props: Props) {
 									&nbsp;
 								</span>
 
-								<span className="h-[6px] w-[6px] ml-1 -mb-0.5 animate-pulse block bg-white rounded-full" />
+								<span className="block -mb-0.5 ml-1 w-[6px] h-[6px] bg-white rounded-full animate-pulse" />
 							</a>
 						</p>
 					)}
@@ -120,7 +120,7 @@ export default function Index(props: Props) {
 					)}{' '}
 					stars! Thank you! 💖
 				</p>
-				<div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-3 auto-cols-max">
+				<div className="grid grid-cols-1 sm:grid-cols-2 auto-cols-max gap-1 sm:gap-3">
 					{projects?.map(project => (
 						<ProjectCard key={project.repo} repo={project} />
 					))}
@@ -166,16 +166,16 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 	return (
 		<motion.div
 			animate={{height: isOpen ? 'auto' : '54px'}}
-			className="relative overflow-hidden flex flex-col bg-white no-underline bg-opacity-5 border border-white border-opacity-10 rounded-md md:rounded-lg hover:bg-opacity-10"
+			className="flex overflow-hidden relative flex-col no-underline bg-white bg-opacity-5 hover:bg-opacity-10 rounded-md md:rounded-lg border border-white border-opacity-10"
 		>
 			<button
 				type="button"
-				className="focus:outline-none select-none font-bold border-b border-white border-opacity-10 text-lg flex items-center space-x-2 px-5 py-4 cursor-pointer"
+				className="flex items-center py-4 px-5 space-x-2 text-lg font-bold border-b border-white border-opacity-10 cursor-pointer focus:outline-none select-none"
 				onClick={toggle}
 			>
-				<div className="flex-1 text-left flex items-center space-x-2">
+				<div className="flex flex-1 items-center space-x-2 text-left">
 					<span>{project.repo}</span>
-					<span className="text-xs flex items-center space-x-3">
+					<span className="flex items-center space-x-3 text-xs">
 						<span className="space-x-1">
 							<span>⭐</span>
 							<span>{project.stars}</span>
@@ -183,7 +183,7 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 						<span className="space-x-1">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								className="h-4 w-4 inline"
+								className="inline w-4 h-4"
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke="currentColor"
@@ -201,12 +201,12 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 				</div>
 				<div>
 					<motion.div
-						className="hover:bg-opacity-10 bg-white bg-opacity-0 rounded-full p-1"
+						className="p-1 bg-white bg-opacity-0 hover:bg-opacity-10 rounded-full"
 						animate={{rotate: isOpen ? 90 : 0}}
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							className="h-5 w-5"
+							className="w-5 h-5"
 							viewBox="0 0 20 20"
 							fill="currentColor"
 						>
@@ -226,9 +226,9 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 						initial={{opacity: 0}}
 						animate={{opacity: 1}}
 						exit={{opacity: 0}}
-						className="h-full flex"
+						className="flex h-full"
 					>
-						<div className="px-5 py-4 flex flex-col space-y-4">
+						<div className="flex flex-col py-4 px-5 space-y-4">
 							<p className="flex-1">{project.description}</p>
 
 							<div>
@@ -236,12 +236,12 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 									href={`https://github.com/${project.owner}/${project.repo}`}
 									target="_blank"
 									rel="noreferrer"
-									className="select-none inline-flex items-center space-x-2 no-underline bg-white bg-opacity-10 rounded-full px-6 py-2 transition-transform hover:scale-95 duration-500"
+									className="inline-flex items-center py-2 px-6 space-x-2 no-underline bg-white bg-opacity-10 rounded-full transition-transform duration-500 hover:scale-95 select-none"
 								>
 									<span>View Project</span>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
-										className="h-6 w-6"
+										className="w-6 h-6"
 										fill="none"
 										viewBox="0 0 24 24"
 										stroke="currentColor"
