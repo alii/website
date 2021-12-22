@@ -27,6 +27,7 @@ export function Select<T>(props: {
 							/>
 						</span>
 					</Listbox.Button>
+
 					<Transition
 						as={Fragment}
 						leave="transition ease-in duration-100"

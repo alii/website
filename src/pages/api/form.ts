@@ -1,6 +1,6 @@
 import {api} from '../../server/api';
 import {z} from 'zod';
-import {DISCORD_WEBHOOK} from '../../constants';
+import {DISCORD_WEBHOOK} from '../../server/constants';
 import {NextkitException} from 'nextkit';
 
 const schema = z.object({
