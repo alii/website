@@ -808,6 +808,7 @@ __metadata:
     swr: ^1.1.1
     tailwindcss: ^3.0.7
     typescript: ^4.5.4
+    urlcat: ^2.0.4
     use-lanyard: ^1.0.3
     zod: ^3.11.6
   languageName: unknown
@@ -5980,6 +5981,13 @@ resolve@^2.0.0-next.3:
   dependencies:
     punycode: ^2.1.0
   checksum: 7167432de6817fe8e9e0c9684f1d2de2bb688c94388f7569f7dbdb1587c9f4ca2a77962f134ec90be0cc4d004c939ff0d05acc9f34a0db39a3c797dada262633
+  languageName: node
+  linkType: hard
+
+"urlcat@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "urlcat@npm:2.0.4"
+  checksum: 9f09c87fc565445e0e79ac1c1e0c79526dff2b1bcd48a6c60c079f6b8ca32f54414721f94078ce18a433582762ef12da9306519beaf9b776864cd1a8057c535c
   languageName: node
   linkType: hard
 
