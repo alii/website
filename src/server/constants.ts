@@ -9,5 +9,6 @@ function env(key: string) {
 }
 
 export const DISCORD_WEBHOOK = env('DISCORD_WEBHOOK');
-export const LAST_FM_API_KEY = env('LAST_FM_API_KEY');
-export const LAST_FM_USERNAME = 'aabbccsmith';
+export const SPOTIFY_CLIENT_ID = env('SPOTIFY_CLIENT_ID');
+export const SPOTIFY_CLIENT_SECRET = env('SPOTIFY_CLIENT_SECRET');
+export const SPOTIFY_ACCESS_TOKEN = env('SPOTIFY_ACCESS_TOKEN');

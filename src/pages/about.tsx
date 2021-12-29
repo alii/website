@@ -1,12 +1,28 @@
 import Image from 'next/image';
 import Banner from '../../public/banner.jpg';
 import {GetStaticProps} from 'next';
-import {LastFM, TopTrack} from '../server/last-fm';
-import {LAST_FM_API_KEY, LAST_FM_USERNAME} from '../server/constants';
+import {
+	SPOTIFY_ACCESS_TOKEN,
+	SPOTIFY_CLIENT_ID,
+	SPOTIFY_CLIENT_SECRET,
+} from '../server/constants';
 import {rand} from '../util/types';
+import SpotifyWebAPI from 'spotify-web-api-node';
+import TrackObjectFull = SpotifyApi.TrackObjectFull;
+import {MdExplicit} from 'react-icons/md';
+import {Modal} from '../components/modal';
+import {useState} from 'react';
+import {SiSpotify} from 'react-icons/si';
+import {HiExternalLink} from 'react-icons/hi';
+import AlbumObjectFull = SpotifyApi.AlbumObjectFull;
+import dayjs from 'dayjs';
+import ms from 'ms';
+
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
 
 interface Props {
-	topTracks: TopTrack[];
+	topTracks: TrackObjectFull[];
 }
 
 export default function AboutPage({topTracks}: Props) {
@@ -52,52 +68,139 @@ export default function AboutPage({topTracks}: Props) {
 
 				<p>
 					I listen to a lot of music, in fact over the last 12 months, I've
-					streamed the song {randomTrack.name} by {randomTrack.artist.name}{' '}
-					exactly {randomTrack.playcount} times!
+					streamed the song {randomTrack.name} by{' '}
+					{randomTrack.artists.map(artist => artist.name).join('; ')} exactly{' '}
+					{randomTrack.popularity} times!
 				</p>
 
 				<p>
 					Below you can find an up-to-date collection of my favourite songs from
-					the past year, including how many times I've played each one.
+					the past year.
 				</p>
 			</div>
 
-			<div className="grid grid-cols-2 gap-4">
-				{topTracks.map(track => {
-					const foundImage = track.image.find(image => image.size === 'large');
-
-					if (!foundImage) {
-						return null;
-					}
-
-					const image = foundImage['#text'];
-
-					return (
-						<div key={track.url}>
-							<div className="w-full">
-								<Image
-									src={image}
-									alt={`Album cover art for ${track.name} by ${track.artist.name}`}
-									width={400}
-									height={400}
-								/>
-							</div>
-
-							<h2>{track.name}</h2>
-						</div>
-					);
-				})}
+			<div className="grid grid-cols-2 md:grid-cols-3 gap-4 gap-y-8">
+				{topTracks.map(track => (
+					<Track key={track.id} track={track} />
+				))}
 			</div>
 		</div>
 	);
 }
 
+function Track({track}: {track: TrackObjectFull}) {
+	const [statsOpen, setStatsOpen] = useState(false);
+
+	const image = track.album.images[0].url;
+	const artists = track.artists.map(artist => artist.name).join(', ');
+
+	const close = () => {
+		setStatsOpen(false);
+	};
+
+	const open = () => {
+		setStatsOpen(true);
+	};
+
+	const album = track.album as AlbumObjectFull;
+
+	return (
+		<button
+			key={track.id}
+			type="button"
+			className="group flex flex-col text-left no-underline align-top focus:ring focus:ring-offset-4 focus:ring-offset-gray-900 outline-none focus:outline-none"
+			aria-roledescription="Opens a stats modal"
+			onClick={open}
+		>
+			<Modal
+				isOpen={statsOpen}
+				setIsOpen={close}
+				title={<SiSpotify size={24} />}
+			>
+				<div className="space-y-4">
+					<div className="relative aspect-[3/1]">
+						<Image
+							src={image}
+							layout="fill"
+							alt={`Album cover art of ${track.album.name} by ${artists}`}
+							className="object-cover rounded-md"
+						/>
+					</div>
+
+					<a
+						href={track.external_urls.spotify}
+						className="group flex justify-between p-3 no-underline bg-gray-900 rounded-md"
+						target="_blank"
+						rel="noreferrer"
+					>
+						<div>
+							<h2 className="text-2xl font-bold group-hover:underline">
+								{track.name}
+							</h2>
+							<h3 className="text-sm italic text-gray-400">By {artists}</h3>
+						</div>
+
+						<div>
+							<HiExternalLink size={24} />
+						</div>
+					</a>
+
+					<div>
+						<p>
+							<span className="font-bold">Released:</span>&nbsp;
+							<span>
+								{dayjs(album.release_date).fromNow()} (
+								{dayjs(album.release_date).format('DD MMM YYYY')})
+							</span>
+						</p>
+
+						<p>
+							<span className="font-bold">Album:</span>&nbsp;
+							<span>{album.name}</span>
+						</p>
+
+						<p>
+							<span className="font-bold">Duration:</span>&nbsp;
+							<span>{ms(track.duration_ms, {long: true})}</span>
+						</p>
+					</div>
+				</div>
+			</Modal>
+
+			<div className="overflow-hidden w-full rounded-md">
+				<Image
+					src={image}
+					className="grayscale-[50%] group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+					alt={`Album cover art for ${track.name} by ${artists}`}
+					width={400}
+					height={400}
+				/>
+			</div>
+
+			<h2 className="py-0.5 px-2 text-lg">
+				<span className="font-bold">
+					{track.explicit && <MdExplicit className="inline -mt-1" />}{' '}
+					{track.name}
+				</span>{' '}
+				<span className="text-neutral-400">• {artists}</span>
+			</h2>
+		</button>
+	);
+}
+
 export const getStaticProps: GetStaticProps<Props> = async () => {
-	const api = new LastFM(LAST_FM_API_KEY);
-	const topTracks = await api.getTopTracks(LAST_FM_USERNAME, '12month');
+	const api = new SpotifyWebAPI({
+		clientId: SPOTIFY_CLIENT_ID,
+		clientSecret: SPOTIFY_CLIENT_SECRET,
+		accessToken: SPOTIFY_ACCESS_TOKEN,
+	});
+
+	const tracks = await api.getMyTopTracks({
+		time_range: 'long_term',
+	});
 
 	return {
-		props: {topTracks},
+		props: {topTracks: tracks.body.items},
 		revalidate: 120,
 	};
 };

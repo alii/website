@@ -71,3 +71,15 @@ img {
 .ball-transitions {
 	transition: opacity 0.2s, transform 0.1s;
 }
+
+.singlarity-hover > * {
+	@apply transition-all duration-500;
+}
+
+.singlarity-hover:hover > * {
+	@apply opacity-50;
+}
+
+.singlarity-hover > *:hover {
+	@apply opacity-100;
+}
