@@ -39,7 +39,7 @@ export function Modal({isOpen, ...props}: Props) {
 						leaveFrom="opacity-100"
 						leaveTo="opacity-0"
 					>
-						<Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-80" />
+						<Dialog.Overlay className="fixed inset-0 bg-black/80 backdrop-blur-md" />
 					</Transition.Child>
 
 					<span
@@ -58,7 +58,7 @@ export function Modal({isOpen, ...props}: Props) {
 						leaveFrom="opacity-100 scale-100"
 						leaveTo="opacity-0 scale-95"
 					>
-						<div className="inline-block overflow-hidden p-6 my-8 w-full max-w-xl text-left align-middle bg-gray-800 rounded-2xl shadow-xl transition-all">
+						<div className="inline-block overflow-hidden relative z-10 p-6 my-8 w-full max-w-xl text-left align-middle bg-gray-800 rounded-2xl shadow-xl transition-all">
 							<div className="relative">
 								<Dialog.Title as="h3" className="text-lg font-medium leading-6">
 									{props.title}
