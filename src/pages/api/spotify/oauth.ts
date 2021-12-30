@@ -74,7 +74,7 @@ export default api({
 
 		await redis.set(SPOTIFY_REDIS_KEYS.RefreshToken, auth.refresh_token);
 
-		redis.disconnect();
+		await redis.quit();
 
 		return user;
 	},

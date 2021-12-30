@@ -239,7 +239,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 		time_range: 'long_term',
 	});
 
-	redis.disconnect(false);
+	await redis.quit();
 
 	return {
 		props: {topTracks: tracks.body.items},
