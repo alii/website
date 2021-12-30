@@ -58,7 +58,7 @@ export function Modal({isOpen, ...props}: Props) {
 						leaveFrom="opacity-100 scale-100"
 						leaveTo="opacity-0 scale-95"
 					>
-						<div className="inline-block overflow-hidden p-6 my-8 w-full max-w-xl text-left align-middle bg-gray-800 rounded-2xl shadow-xl transition-all transform">
+						<div className="inline-block overflow-hidden p-6 my-8 w-full max-w-xl text-left align-middle bg-gray-800 rounded-2xl shadow-xl transition-all">
 							<div className="relative">
 								<Dialog.Title as="h3" className="text-lg font-medium leading-6">
 									{props.title}

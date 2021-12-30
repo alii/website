@@ -13,14 +13,14 @@ export default function Talk() {
 
 	return (
 		<div className="space-y-4">
-			<h1 className="text-2xl sm:text-3xl font-bold">Let's talk 💬</h1>
+			<h1 className="text-2xl font-bold sm:text-3xl">Let's talk 💬</h1>
 			<p>
 				Leave a message on the form below or get in touch through Discord,
 				Twitter or email.
 			</p>
 
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-				<div className="p-5 bg-white bg-opacity-5 rounded-lg">
+			<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+				<div className="p-5 bg-white rounded-lg bg-opacity-5">
 					<form
 						className="space-y-2"
 						action="/api/form"
@@ -50,7 +50,7 @@ export default function Talk() {
 						}}
 					>
 						<label htmlFor="email" className="block">
-							<span className="text-sm font-bold tracking-wide text-white text-opacity-50 uppercase select-none">
+							<span className="text-sm font-bold tracking-wide text-white uppercase select-none text-opacity-50">
 								Email Address
 							</span>
 
@@ -59,12 +59,12 @@ export default function Talk() {
 								type="email"
 								name="email"
 								id="email"
-								className="block py-1 px-4 w-full font-sans text-lg bg-white bg-opacity-5 rounded-md focus:ring focus:outline-none"
+								className="block py-1 px-4 w-full font-sans text-lg bg-white rounded-md focus:outline-none focus:ring bg-opacity-5"
 							/>
 						</label>
 
 						<label htmlFor="body" className="block">
-							<span className="text-sm font-bold tracking-wide text-white text-opacity-50 uppercase select-none">
+							<span className="text-sm font-bold tracking-wide text-white uppercase select-none text-opacity-50">
 								Your message
 							</span>
 
@@ -72,14 +72,14 @@ export default function Talk() {
 								rows={5}
 								name="body"
 								id="body"
-								className="block py-1 px-4 w-full font-sans text-lg bg-white bg-opacity-5 rounded-md focus:ring focus:outline-none resize-none"
+								className="block py-1 px-4 w-full font-sans text-lg bg-white rounded-md focus:outline-none focus:ring resize-none bg-opacity-5"
 							/>
 						</label>
 
 						<div className="block pt-2">
 							<button
 								type="submit"
-								className="inline-flex items-center py-2 px-8 space-x-2 text-lg bg-white bg-opacity-5 hover:bg-opacity-10 rounded-full focus:ring focus:outline-none"
+								className="inline-flex items-center py-2 px-8 space-x-2 text-lg bg-white rounded-full focus:outline-none focus:ring bg-opacity-5 hover:bg-opacity-10"
 							>
 								<span>Send</span> <RiSendPlane2Line />
 							</button>
