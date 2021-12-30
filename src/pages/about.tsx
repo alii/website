@@ -2,31 +2,36 @@ import Image from 'next/image';
 import Banner from '../../public/banner.jpg';
 import {GetStaticProps} from 'next';
 import {
+	LAST_FM_API_KEY,
 	REDIS_URL,
 	SPOTIFY_CLIENT_ID,
 	SPOTIFY_CLIENT_SECRET,
 	SPOTIFY_REDIS_KEYS,
 } from '../server/constants';
 import SpotifyWebAPI from 'spotify-web-api-node';
-import TrackObjectFull = SpotifyApi.TrackObjectFull;
 import {MdExplicit} from 'react-icons/md';
 import {Modal} from '../components/modal';
 import {useState} from 'react';
 import {SiSpotify} from 'react-icons/si';
 import {HiExternalLink} from 'react-icons/hi';
-import AlbumObjectFull = SpotifyApi.AlbumObjectFull;
 import dayjs from 'dayjs';
 import ms from 'ms';
 
+import TrackObjectFull = SpotifyApi.TrackObjectFull;
+import AlbumObjectFull = SpotifyApi.AlbumObjectFull;
+
 import relativeTime from 'dayjs/plugin/relativeTime';
 import IORedis from 'ioredis';
+import {LastFM, LastFMGetTrack} from '../server/last-fm';
+import {rand} from '../util/types';
 dayjs.extend(relativeTime);
 
 interface Props {
 	topTracks: TrackObjectFull[];
+	randomLastFMTrack: LastFMGetTrack;
 }
 
-export default function AboutPage({topTracks}: Props) {
+export default function AboutPage({topTracks, randomLastFMTrack}: Props) {
 	return (
 		<div className="space-y-8">
 			<h1 className="block text-3xl font-bold sm:text-4xl md:text-6xl">
@@ -68,8 +73,14 @@ export default function AboutPage({topTracks}: Props) {
 				<h2 className="text-3xl font-bold">Music</h2>
 
 				<p>
-					I really listen to a lot of music. Below you can find an up-to-date
-					collection of my favourite songs of all time based upon play count.
+					I listen to a lot of Spotify and have always had a passion for music
+					ever since . Over the last 12 months, I've played the song{' '}
+					<span className="font-bold">{randomLastFMTrack.name}</span> by{' '}
+					<span className="font-bold">{randomLastFMTrack.artist.name}</span>{' '}
+					exactly{' '}
+					<span className="font-bold">{randomLastFMTrack.playcount}</span>{' '}
+					times! Below you can find an up-to-date collection of my favourite
+					songs of all time.
 				</p>
 			</div>
 
@@ -235,8 +246,14 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
 	await redis.quit();
 
+	const lfm = new LastFM(LAST_FM_API_KEY);
+	const topLFMTracks = await lfm.getTopTracks('aabbccsmith', '12month');
+
 	return {
-		props: {topTracks: tracks.body.items},
+		props: {
+			topTracks: tracks.body.items,
+			randomLastFMTrack: rand(topLFMTracks),
+		},
 		revalidate: 120,
 	};
 };
