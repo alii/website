@@ -7,7 +7,6 @@ import {
 	SPOTIFY_CLIENT_SECRET,
 	SPOTIFY_REDIS_KEYS,
 } from '../server/constants';
-import {rand} from '../util/types';
 import SpotifyWebAPI from 'spotify-web-api-node';
 import TrackObjectFull = SpotifyApi.TrackObjectFull;
 import {MdExplicit} from 'react-icons/md';
@@ -28,8 +27,6 @@ interface Props {
 }
 
 export default function AboutPage({topTracks}: Props) {
-	const randomTrack = rand(topTracks);
-
 	return (
 		<div className="space-y-8">
 			<h1 className="block text-3xl font-bold sm:text-4xl md:text-6xl">
@@ -71,10 +68,7 @@ export default function AboutPage({topTracks}: Props) {
 				<h2 className="text-3xl font-bold">Music</h2>
 
 				<p>
-					I listen to a lot of music, in fact over the last 12 months, I've
-					streamed the song {randomTrack.name} by{' '}
-					{randomTrack.artists.map(artist => artist.name).join('; ')} exactly{' '}
-					{randomTrack.popularity} times! Below you can find an up-to-date
+					I really listen to a lot of music. Below you can find an up-to-date
 					collection of my favourite songs of all time based upon play count.
 				</p>
 			</div>
