@@ -77,7 +77,7 @@ export default function Index(props: Props) {
 								target="_blank"
 								href={`https://search.alistair.sh/?q=!maps+${lanyard.kv.location}`}
 								rel="noreferrer"
-								className="flex items-center px-2 pr-3 text-white text-opacity-50 no-underline bg-gray-700 hover:bg-gray-800 rounded-full transition-colors"
+								className="flex items-center px-2 pr-3 text-white no-underline bg-gray-700 hover:bg-gray-800 rounded-full transition-colors text-opacity-50"
 							>
 								<span>
 									<HiOutlineLocationMarker className="inline text-white text-opacity-100" />
@@ -95,19 +95,19 @@ export default function Index(props: Props) {
 					)}
 				</div>
 
-				<h1 className="text-3xl sm:text-4xl md:text-6xl font-bold">
+				<h1 className="text-3xl font-bold sm:text-4xl md:text-6xl">
 					Hey, I'm Alistair ✌️
 				</h1>
 
 				<p className="opacity-80">
 					I'm a ~{age.toPrecision(6)} year old software engineer from the United
-					Kingdom. I'm interested in large scale frontend applications and
-					performant serverside code.
+					Kingdom. I'm interested in full stack web development including large
+					scale frontend applications and performant serverside code.
 				</p>
 			</div>
 
 			<div className="space-y-4">
-				<h1 className="text-2xl sm:text-3xl font-bold">What do I do? 💭</h1>
+				<h1 className="text-2xl font-bold sm:text-3xl">What do I do? 💭</h1>
 				<p className="opacity-80">
 					Honestly, a few too many things to count on one hand... I'm currently
 					having a fantastic time working with Giggl - we're building a way to
@@ -120,7 +120,7 @@ export default function Index(props: Props) {
 					)}{' '}
 					stars! Thank you! 💖
 				</p>
-				<div className="grid grid-cols-1 sm:grid-cols-2 auto-cols-max gap-1 sm:gap-3">
+				<div className="grid grid-cols-1 auto-cols-max gap-1 sm:grid-cols-2 sm:gap-3">
 					{projects?.map(project => (
 						<ProjectCard key={project.repo} repo={project} />
 					))}
@@ -128,7 +128,7 @@ export default function Index(props: Props) {
 			</div>
 
 			<div className="space-y-4">
-				<h1 className="text-2xl sm:text-3xl font-bold">Technologies 💻</h1>
+				<h1 className="text-2xl font-bold sm:text-3xl">Technologies 💻</h1>
 				<p className="opacity-80">
 					I use a wide range of tools to tackle each hurdle in the most
 					efficient manner possible. I really love working with Docker and
@@ -136,7 +136,7 @@ export default function Index(props: Props) {
 					working in and scaling services in both production and development
 					environments.
 				</p>
-				<ul className="grid grid-cols-3 sm:grid-cols-4 gap-4">
+				<ul className="grid grid-cols-3 gap-4 sm:grid-cols-4">
 					<ListItem icon={SiDocker} text="Docker" />
 					<ListItem icon={SiRedis} text="Redis" />
 					<ListItem icon={SiPostgresql} text="Postgres" />
@@ -166,11 +166,11 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 	return (
 		<motion.div
 			animate={{height: isOpen ? 'auto' : '54px'}}
-			className="flex overflow-hidden relative flex-col no-underline bg-white bg-opacity-5 hover:bg-opacity-10 rounded-md md:rounded-lg border border-white border-opacity-10"
+			className="flex overflow-hidden relative flex-col no-underline bg-white/5 hover:bg-white/10 rounded-md border border-white/10 md:rounded-lg"
 		>
 			<button
 				type="button"
-				className="flex items-center py-4 px-5 space-x-2 text-lg font-bold border-b border-white border-opacity-10 cursor-pointer focus:outline-none select-none"
+				className="flex items-center py-4 px-5 space-x-2 text-lg font-bold border-b border-white focus:outline-none cursor-pointer select-none border-opacity-10"
 				onClick={toggle}
 			>
 				<div className="flex flex-1 items-center space-x-2 text-left">
@@ -201,7 +201,7 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 				</div>
 				<div>
 					<motion.div
-						className="p-1 bg-white bg-opacity-0 hover:bg-opacity-10 rounded-full"
+						className="p-1 bg-white/0 hover:bg-white/10 rounded-full"
 						animate={{rotate: isOpen ? 90 : 0}}
 					>
 						<svg
@@ -236,7 +236,7 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 									href={`https://github.com/${project.owner}/${project.repo}`}
 									target="_blank"
 									rel="noreferrer"
-									className="inline-flex items-center py-2 px-6 space-x-2 no-underline bg-white bg-opacity-10 rounded-full transition-transform duration-500 hover:scale-95 select-none"
+									className="inline-flex items-center py-2 px-6 space-x-2 no-underline bg-white/10 rounded-full transition-transform duration-500 hover:scale-95 select-none"
 								>
 									<span>View Project</span>
 									<svg

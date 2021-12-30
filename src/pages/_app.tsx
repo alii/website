@@ -117,7 +117,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 							initial={{opacity: 0, y: -10}}
 							animate={{opacity: 1, y: 0}}
 							exit={{opacity: 0}}
-							className="sm:hidden fixed inset-0 z-10 py-24 px-8 space-y-2 bg-gray-900"
+							className="fixed inset-0 z-10 py-24 px-8 space-y-2 bg-gray-900 sm:hidden"
 						>
 							<h1 className="text-4xl font-bold">Menu.</h1>
 
@@ -126,7 +126,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 					)}
 				</AnimatePresence>
 
-				<div className="sm:hidden overflow-hidden sticky top-0 z-20 h-32 transition-all">
+				<div className="overflow-hidden sticky top-0 z-20 h-32 transition-all sm:hidden">
 					<div
 						className={`${
 							hasScrolled || mobileMenuOpen ? 'mt-0' : 'mt-10 mx-5'
@@ -159,7 +159,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 				</div>
 
 				<div className="py-10 px-5 mx-auto max-w-4xl">
-					<div className="hidden sm:flex items-center space-x-2">
+					<div className="hidden items-center space-x-2 sm:flex">
 						<nav className="flex-1">
 							<ul className="flex space-x-4">{navLinks}</ul>
 						</nav>
@@ -169,11 +169,11 @@ export default function App({Component, pageProps, router}: AppProps) {
 						</div>
 					</div>
 
-					<div className="md:py-24 mx-auto space-y-12 max-w-3xl">
+					<div className="mx-auto space-y-12 max-w-3xl md:py-24">
 						<Component {...pageProps} />
 					</div>
 
-					<div className="p-4 py-10 mx-auto mt-20 max-w-3xl border-t-2 border-white border-opacity-10 opacity-50">
+					<div className="p-4 py-10 mx-auto mt-20 max-w-3xl border-t-2 border-white opacity-50 border-opacity-10">
 						<h1 className="text-3xl font-bold">Alistair Smith</h1>
 						<p>Software Engineer • {new Date().getFullYear()}</p>
 					</div>
@@ -197,7 +197,7 @@ function NavLink(props: {
 		<li>
 			<Link href={props.href}>
 				<a
-					className="block sm:inline-block py-3 sm:px-5 font-mono text-lg sm:text-sm sm:font-normal hover:text-white no-underline sm:underline sm:bg-white sm:bg-opacity-0 sm:hover:bg-opacity-10 rounded-md sm:rounded-full"
+					className="block py-3 font-mono text-lg hover:text-white no-underline rounded-md sm:inline-block sm:px-5 sm:text-sm sm:font-normal sm:underline sm:bg-white/0 sm:hover:bg-white/10 sm:rounded-full"
 					onClick={props.closeMenu}
 				>
 					{props.children}
