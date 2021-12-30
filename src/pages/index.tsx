@@ -166,7 +166,7 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 	return (
 		<motion.div
 			animate={{height: isOpen ? 'auto' : '54px'}}
-			className="flex overflow-hidden relative flex-col no-underline bg-white rounded-md border border-white md:rounded-lg bg-opacity-5 hover:bg-opacity-10 border-opacity-10"
+			className="flex overflow-hidden relative flex-col no-underline bg-white/5 hover:bg-white/10 rounded-md border border-white/10 md:rounded-lg"
 		>
 			<button
 				type="button"
@@ -236,7 +236,7 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 									href={`https://github.com/${project.owner}/${project.repo}`}
 									target="_blank"
 									rel="noreferrer"
-									className="inline-flex items-center py-2 px-6 space-x-2 no-underline bg-white rounded-full transition-transform duration-500 hover:scale-95 select-none bg-opacity-10"
+									className="inline-flex items-center py-2 px-6 space-x-2 no-underline bg-white/10 rounded-full transition-transform duration-500 hover:scale-95 select-none"
 								>
 									<span>View Project</span>
 									<svg
