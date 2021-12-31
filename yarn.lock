@@ -163,7 +163,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@headlessui/react@npm:^1.4.2":
+"@headlessui/react@npm:1.4.2":
   version: 1.4.2
   resolution: "@headlessui/react@npm:1.4.2"
   peerDependencies:
@@ -400,7 +400,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/typography@npm:^0.5.0":
+"@tailwindcss/typography@npm:0.5.0":
   version: 0.5.0
   resolution: "@tailwindcss/typography@npm:0.5.0"
   dependencies:
@@ -421,7 +421,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ioredis@npm:^4.28.5":
+"@types/ioredis@npm:4.28.5":
   version: 4.28.5
   resolution: "@types/ioredis@npm:4.28.5"
   dependencies:
@@ -444,7 +444,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ms@npm:^0.7.31":
+"@types/ms@npm:0.7.31":
   version: 0.7.31
   resolution: "@types/ms@npm:0.7.31"
   checksum: daadd354aedde024cce6f5aa873fefe7b71b22cd0e28632a69e8b677aeb48ae8caa1c60e5919bb781df040d116b01cb4316335167a3fc0ef6a63fa3614c0f6da
@@ -458,21 +458,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^17.0.5":
+"@types/node@npm:17.0.5":
   version: 17.0.5
   resolution: "@types/node@npm:17.0.5"
   checksum: 105535e78722515c26cfdc1b0cbf1b19f55fe53b814e2e90d8b1e653bc63136d4760c7efc102eca111c6d124a291e37d60d761d569a3f4afb3fba05bad5d9ade
   languageName: node
   linkType: hard
 
-"@types/nprogress@npm:^0.2.0":
+"@types/nprogress@npm:0.2.0":
   version: 0.2.0
   resolution: "@types/nprogress@npm:0.2.0"
   checksum: 561384775008ae58111f038f8f9468b3de8987cd753feef9bf6d07af0e1343390d492a078bb08a7b53ac7370208e31e06ac069cb852c435d49f5fe218e9769c4
   languageName: node
   linkType: hard
 
-"@types/number-to-words@npm:^1.2.1":
+"@types/number-to-words@npm:1.2.1":
   version: 1.2.1
   resolution: "@types/number-to-words@npm:1.2.1"
   checksum: 0179360924f1854ad42c1d61956af22f225105be3ed4ca261c2660c12f483c558df62d834b053491cd3153083f085f6545f1cf487b8227d21284c2bdb7169856
@@ -493,7 +493,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^17.0.11":
+"@types/react-dom@npm:17.0.11":
   version: 17.0.11
   resolution: "@types/react-dom@npm:17.0.11"
   dependencies:
@@ -513,7 +513,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^17.0.38":
+"@types/react@npm:17.0.38":
   version: 17.0.38
   resolution: "@types/react@npm:17.0.38"
   dependencies:
@@ -538,7 +538,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/spotify-web-api-node@npm:^5.0.4":
+"@types/spotify-web-api-node@npm:5.0.4":
   version: 5.0.4
   resolution: "@types/spotify-web-api-node@npm:5.0.4"
   dependencies:
@@ -547,14 +547,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/tailwindcss@npm:^3.0.0":
+"@types/tailwindcss@npm:3.0.0":
   version: 3.0.0
   resolution: "@types/tailwindcss@npm:3.0.0"
   checksum: b41c86137b6fa1d0a129748586c13e8a33e26c6e2d975770a19c26397203a72da53a604773153f7fa2b8c2da8f6dbf2f532ce41fb82787433965f7e3944ef934
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^5.8.1":
+"@typescript-eslint/eslint-plugin@npm:5.8.1":
   version: 5.8.1
   resolution: "@typescript-eslint/eslint-plugin@npm:5.8.1"
   dependencies:
@@ -806,50 +806,50 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "alistair@workspace:."
   dependencies:
-    "@headlessui/react": ^1.4.2
-    "@tailwindcss/typography": ^0.5.0
-    "@types/ioredis": ^4.28.5
-    "@types/ms": ^0.7.31
-    "@types/node": ^17.0.5
-    "@types/nprogress": ^0.2.0
-    "@types/number-to-words": ^1.2.1
-    "@types/react": ^17.0.38
-    "@types/react-dom": ^17.0.11
-    "@types/spotify-web-api-node": ^5.0.4
-    "@types/tailwindcss": ^3.0.0
-    "@typescript-eslint/eslint-plugin": ^5.8.1
-    autoprefixer: ^10.4.1
-    bun-framework-next: ^12.0.7
-    dayjs: ^1.10.7
-    eslint: ^8.5.0
-    eslint-config-next: ^12.0.7
-    eslint-config-xo: ^0.39.0
-    eslint-config-xo-react: ^0.25.0
-    eslint-config-xo-typescript: ^0.47.1
-    eslint-plugin-tailwindcss: ^3.0.2
-    framer-motion: ^5.5.5
-    hamburger-react: ^2.4.1
-    ioredis: ^4.28.2
-    ms: ^2.1.3
-    next: ^12.0.7
-    nextkit: ^2.1.0
-    nprogress: ^0.2.0
-    postcss: ^8.4.5
-    prettier: ^2.5.1
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    react-hot-toast: ^2.1.1
-    react-icons: ^4.3.1
-    react-tippy: ^1.4.0
-    sharp: ^0.29.3
-    spotify-web-api-node: ^5.0.2
-    swr: ^1.1.2
-    tailwindcss: ^3.0.8
-    typescript: ^4.5.4
-    typestr: ^0.0.10
-    urlcat: ^2.0.4
-    use-lanyard: ^1.0.3
-    zod: ^3.11.6
+    "@headlessui/react": 1.4.2
+    "@tailwindcss/typography": 0.5.0
+    "@types/ioredis": 4.28.5
+    "@types/ms": 0.7.31
+    "@types/node": 17.0.5
+    "@types/nprogress": 0.2.0
+    "@types/number-to-words": 1.2.1
+    "@types/react": 17.0.38
+    "@types/react-dom": 17.0.11
+    "@types/spotify-web-api-node": 5.0.4
+    "@types/tailwindcss": 3.0.0
+    "@typescript-eslint/eslint-plugin": 5.8.1
+    autoprefixer: 10.4.1
+    bun-framework-next: 12.0.7
+    dayjs: 1.10.7
+    eslint: 8.5.0
+    eslint-config-next: 12.0.7
+    eslint-config-xo: 0.39.0
+    eslint-config-xo-react: 0.25.0
+    eslint-config-xo-typescript: 0.47.1
+    eslint-plugin-tailwindcss: 3.0.2
+    framer-motion: 5.5.5
+    hamburger-react: 2.4.1
+    ioredis: 4.28.2
+    ms: 2.1.3
+    next: 12.0.7
+    nextkit: 2.1.0
+    nprogress: 0.2.0
+    postcss: 8.4.5
+    prettier: 2.5.1
+    react: 17.0.2
+    react-dom: 17.0.2
+    react-hot-toast: 2.1.1
+    react-icons: 4.3.1
+    react-tippy: 1.4.0
+    sharp: 0.29.3
+    spotify-web-api-node: 5.0.2
+    swr: 1.1.2
+    tailwindcss: 3.0.8
+    typescript: 4.5.4
+    typestr: 0.0.10
+    urlcat: 2.0.4
+    use-lanyard: 1.0.3
+    zod: 3.11.6
   languageName: unknown
   linkType: soft
 
@@ -1037,7 +1037,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:^10.4.1":
+"autoprefixer@npm:10.4.1":
   version: 10.4.1
   resolution: "autoprefixer@npm:10.4.1"
   dependencies:
@@ -1292,7 +1292,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bun-framework-next@npm:^12.0.7":
+"bun-framework-next@npm:12.0.7":
   version: 12.0.7
   resolution: "bun-framework-next@npm:12.0.7"
   dependencies:
@@ -1777,7 +1777,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.10.7":
+"dayjs@npm:1.10.7":
   version: 1.10.7
   resolution: "dayjs@npm:1.10.7"
   checksum: a0a4ca95abaa03d0702161dc2c35d16121188e342f5052b9c61cdf784dab68af766f477c04f87f71c6af666fd4d13db9b9853b87265850d6093b7b04e1bb1cd7
@@ -2164,7 +2164,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-next@npm:^12.0.7":
+"eslint-config-next@npm:12.0.7":
   version: 12.0.7
   resolution: "eslint-config-next@npm:12.0.7"
   dependencies:
@@ -2188,7 +2188,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-xo-react@npm:^0.25.0":
+"eslint-config-xo-react@npm:0.25.0":
   version: 0.25.0
   resolution: "eslint-config-xo-react@npm:0.25.0"
   peerDependencies:
@@ -2199,7 +2199,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-xo-typescript@npm:^0.47.1":
+"eslint-config-xo-typescript@npm:0.47.1":
   version: 0.47.1
   resolution: "eslint-config-xo-typescript@npm:0.47.1"
   peerDependencies:
@@ -2210,7 +2210,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-xo@npm:^0.39.0":
+"eslint-config-xo@npm:0.39.0":
   version: 0.39.0
   resolution: "eslint-config-xo@npm:0.39.0"
   dependencies:
@@ -2336,7 +2336,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-tailwindcss@npm:^3.0.2":
+"eslint-plugin-tailwindcss@npm:3.0.2":
   version: 3.0.2
   resolution: "eslint-plugin-tailwindcss@npm:3.0.2"
   dependencies:
@@ -2399,7 +2399,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.5.0":
+"eslint@npm:8.5.0":
   version: 8.5.0
   resolution: "eslint@npm:8.5.0"
   dependencies:
@@ -2683,7 +2683,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^5.5.5":
+"framer-motion@npm:5.5.5":
   version: 5.5.5
   resolution: "framer-motion@npm:5.5.5"
   dependencies:
@@ -2931,7 +2931,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hamburger-react@npm:^2.4.1":
+"hamburger-react@npm:2.4.1":
   version: 2.4.1
   resolution: "hamburger-react@npm:2.4.1"
   peerDependencies:
@@ -3232,7 +3232,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ioredis@npm:^4.28.2":
+"ioredis@npm:4.28.2":
   version: 4.28.2
   resolution: "ioredis@npm:4.28.2"
   dependencies:
@@ -3970,7 +3970,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ms@npm:^2.0.0, ms@npm:^2.1.1, ms@npm:^2.1.3":
+"ms@npm:2.1.3, ms@npm:^2.0.0, ms@npm:^2.1.1":
   version: 2.1.3
   resolution: "ms@npm:2.1.3"
   checksum: aa92de608021b242401676e35cfa5aa42dd70cbdc082b916da7fb925c542173e36bce97ea3e804923fe92c0ad991434e4a38327e15a1b5b5f945d66df615ae6d
@@ -4009,7 +4009,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:^12.0.7":
+"next@npm:12.0.7":
   version: 12.0.7
   resolution: "next@npm:12.0.7"
   dependencies:
@@ -4115,7 +4115,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nextkit@npm:^2.1.0":
+"nextkit@npm:2.1.0":
   version: 2.1.0
   resolution: "nextkit@npm:2.1.0"
   peerDependencies:
@@ -4229,7 +4229,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nprogress@npm:^0.2.0":
+"nprogress@npm:0.2.0":
   version: 0.2.0
   resolution: "nprogress@npm:0.2.0"
   checksum: 66b7bec5d563ecf2d1c3d2815e6d5eb74ed815eee8563e0afa63d3f185ab1b9cf2ddd97e1ded263b9995c5019d26d600320e849e50f3747984daa033744619dc
@@ -4677,6 +4677,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss@npm:8.4.5, postcss@npm:^8.4.4":
+  version: 8.4.5
+  resolution: "postcss@npm:8.4.5"
+  dependencies:
+    nanoid: ^3.1.30
+    picocolors: ^1.0.0
+    source-map-js: ^1.0.1
+  checksum: b78abdd89c10f7b48f4bdcd376104a19d6e9c7495ab521729bdb3df315af6c211360e9f06887ad3bc0ab0f61a04b91d68ea11462997c79cced58b9ccd66fac07
+  languageName: node
+  linkType: hard
+
 "postcss@npm:^8.1.6":
   version: 8.3.6
   resolution: "postcss@npm:8.3.6"
@@ -4685,17 +4696,6 @@ __metadata:
     nanoid: ^3.1.23
     source-map-js: ^0.6.2
   checksum: ff55b91bea21f42c2a94d77fd05c3f66dd15889c68506cf1dbb9cdee8c3b9e9d0e219bcbc6e61a107bd63e3cac0670176486e2a5794c106a4e1b9babceb79317
-  languageName: node
-  linkType: hard
-
-"postcss@npm:^8.4.4, postcss@npm:^8.4.5":
-  version: 8.4.5
-  resolution: "postcss@npm:8.4.5"
-  dependencies:
-    nanoid: ^3.1.30
-    picocolors: ^1.0.0
-    source-map-js: ^1.0.1
-  checksum: b78abdd89c10f7b48f4bdcd376104a19d6e9c7495ab521729bdb3df315af6c211360e9f06887ad3bc0ab0f61a04b91d68ea11462997c79cced58b9ccd66fac07
   languageName: node
   linkType: hard
 
@@ -4729,7 +4729,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.5.1":
+"prettier@npm:2.5.1":
   version: 2.5.1
   resolution: "prettier@npm:2.5.1"
   bin:
@@ -4902,7 +4902,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^17.0.2":
+"react-dom@npm:17.0.2":
   version: 17.0.2
   resolution: "react-dom@npm:17.0.2"
   dependencies:
@@ -4915,7 +4915,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hot-toast@npm:^2.1.1":
+"react-hot-toast@npm:2.1.1":
   version: 2.1.1
   resolution: "react-hot-toast@npm:2.1.1"
   dependencies:
@@ -4927,7 +4927,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-icons@npm:^4.3.1":
+"react-icons@npm:4.3.1":
   version: 4.3.1
   resolution: "react-icons@npm:4.3.1"
   peerDependencies:
@@ -4964,7 +4964,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-tippy@npm:^1.4.0":
+"react-tippy@npm:1.4.0":
   version: 1.4.0
   resolution: "react-tippy@npm:1.4.0"
   dependencies:
@@ -4985,7 +4985,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^17.0.2":
+"react@npm:17.0.2":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
   dependencies:
@@ -5275,7 +5275,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sharp@npm:^0.29.3":
+"sharp@npm:0.29.3":
   version: 0.29.3
   resolution: "sharp@npm:0.29.3"
   dependencies:
@@ -5432,7 +5432,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"spotify-web-api-node@npm:^5.0.2":
+"spotify-web-api-node@npm:5.0.2":
   version: 5.0.2
   resolution: "spotify-web-api-node@npm:5.0.2"
   dependencies:
@@ -5727,12 +5727,47 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"swr@npm:^1.1.2":
+"swr@npm:1.1.2":
   version: 1.1.2
   resolution: "swr@npm:1.1.2"
   peerDependencies:
     react: ^16.11.0 || ^17.0.0 || ^18.0.0
   checksum: 84bf222c667bf4f94bf9bcaf51f11443d69eb6feb82649c06ef8e576c51f52269872dbda4b926f267fd79cfeaf7bd84c6a62d519db25fe2af1fb811e75163e94
+  languageName: node
+  linkType: hard
+
+"tailwindcss@npm:3.0.8":
+  version: 3.0.8
+  resolution: "tailwindcss@npm:3.0.8"
+  dependencies:
+    arg: ^5.0.1
+    chalk: ^4.1.2
+    chokidar: ^3.5.2
+    color-name: ^1.1.4
+    cosmiconfig: ^7.0.1
+    detective: ^5.2.0
+    didyoumean: ^1.2.2
+    dlv: ^1.1.3
+    fast-glob: ^3.2.7
+    glob-parent: ^6.0.2
+    is-glob: ^4.0.3
+    normalize-path: ^3.0.0
+    object-hash: ^2.2.0
+    postcss-js: ^3.0.3
+    postcss-load-config: ^3.1.0
+    postcss-nested: 5.0.6
+    postcss-selector-parser: ^6.0.7
+    postcss-value-parser: ^4.2.0
+    quick-lru: ^5.1.1
+    resolve: ^1.20.0
+    tmp: ^0.2.1
+  peerDependencies:
+    autoprefixer: ^10.0.2
+    postcss: ^8.0.9
+  bin:
+    tailwind: lib/cli.js
+    tailwindcss: lib/cli.js
+  checksum: 7a3215e2d9e121d5cf465cede3204c02740792659200e87b0c0344fea3092415581eedf0ccf70e79bc9270396a8aac9e049566e372f10ce646e15e196273e35e
   languageName: node
   linkType: hard
 
@@ -5768,41 +5803,6 @@ resolve@^2.0.0-next.3:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
   checksum: 0b33d7c6a0860fae22bce9efbbd990ac635e1fc1a616eaca9ca5e7d3ed78c6efed5ca10ebcc186289cf731ece0769329eef715ca2cb641134550780e6ae39b39
-  languageName: node
-  linkType: hard
-
-"tailwindcss@npm:^3.0.8":
-  version: 3.0.8
-  resolution: "tailwindcss@npm:3.0.8"
-  dependencies:
-    arg: ^5.0.1
-    chalk: ^4.1.2
-    chokidar: ^3.5.2
-    color-name: ^1.1.4
-    cosmiconfig: ^7.0.1
-    detective: ^5.2.0
-    didyoumean: ^1.2.2
-    dlv: ^1.1.3
-    fast-glob: ^3.2.7
-    glob-parent: ^6.0.2
-    is-glob: ^4.0.3
-    normalize-path: ^3.0.0
-    object-hash: ^2.2.0
-    postcss-js: ^3.0.3
-    postcss-load-config: ^3.1.0
-    postcss-nested: 5.0.6
-    postcss-selector-parser: ^6.0.7
-    postcss-value-parser: ^4.2.0
-    quick-lru: ^5.1.1
-    resolve: ^1.20.0
-    tmp: ^0.2.1
-  peerDependencies:
-    autoprefixer: ^10.0.2
-    postcss: ^8.0.9
-  bin:
-    tailwind: lib/cli.js
-    tailwindcss: lib/cli.js
-  checksum: 7a3215e2d9e121d5cf465cede3204c02740792659200e87b0c0344fea3092415581eedf0ccf70e79bc9270396a8aac9e049566e372f10ce646e15e196273e35e
   languageName: node
   linkType: hard
 
@@ -5978,7 +5978,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.5.4":
+"typescript@npm:4.5.4":
   version: 4.5.4
   resolution: "typescript@npm:4.5.4"
   bin:
@@ -5988,7 +5988,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.5.4#~builtin<compat/typescript>":
+"typescript@patch:typescript@4.5.4#~builtin<compat/typescript>":
   version: 4.5.4
   resolution: "typescript@patch:typescript@npm%3A4.5.4#~builtin<compat/typescript>::version=4.5.4&hash=493e53"
   bin:
@@ -5998,7 +5998,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"typestr@npm:^0.0.10":
+"typestr@npm:0.0.10":
   version: 0.0.10
   resolution: "typestr@npm:0.0.10"
   checksum: 3f5f229ea4d54a268f79de34291480f0b9ef0bfb5a4e33ef292c68965e069ae9cbab160bede85e014d4b16d947dd5ff1d65702efede53681c5992da0b03c38a9
@@ -6051,14 +6051,14 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"urlcat@npm:^2.0.4":
+"urlcat@npm:2.0.4":
   version: 2.0.4
   resolution: "urlcat@npm:2.0.4"
   checksum: 9f09c87fc565445e0e79ac1c1e0c79526dff2b1bcd48a6c60c079f6b8ca32f54414721f94078ce18a433582762ef12da9306519beaf9b776864cd1a8057c535c
   languageName: node
   linkType: hard
 
-"use-lanyard@npm:^1.0.3":
+"use-lanyard@npm:1.0.3":
   version: 1.0.3
   resolution: "use-lanyard@npm:1.0.3"
   dependencies:
@@ -6233,7 +6233,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.11.6":
+"zod@npm:3.11.6":
   version: 3.11.6
   resolution: "zod@npm:3.11.6"
   checksum: 044ac416450f179a0c88240f27849d2886c777cebade42df10e5f04125b0265cec82d9bd741a7dcb11796b2ea88b32c86be7d36932a4bed6af57002560359db1
