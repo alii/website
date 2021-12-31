@@ -58,6 +58,7 @@
 		"@types/spotify-web-api-node": "5.0.4",
 		"@types/tailwindcss": "3.0.0",
 		"@typescript-eslint/eslint-plugin": "5.8.1",
+		"@typescript-eslint/parser": "^5.8.1",
 		"autoprefixer": "10.4.1",
 		"bun-framework-next": "12.0.7",
 		"eslint": "8.5.0",
