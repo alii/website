@@ -30,7 +30,6 @@ import {
 	LanyardResponse,
 } from 'use-lanyard';
 import {PinnedRepo, useGitHubPinnedRepos} from '../hooks/github';
-import {mockPinnedRepos} from '../offline/mock';
 import {ListItem} from '../components/list-item';
 import {DISCORD_ID} from '../components/song';
 import {age} from '../util/time';
@@ -266,16 +265,7 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 export const getStaticProps: GetStaticProps<Props> = async function () {
 	const pinnedRepos = await fetch(
 		'https://gh-pinned-repos.egoist.sh/?username=alii',
-	)
-		.then(async response => response.json() as Promise<PinnedRepo[]>)
-		.catch(error => {
-			if (process.env.NODE_ENV === 'development') {
-				return mockPinnedRepos;
-			}
-
-			// Something has probably gone wrong... (likely a network error)
-			throw error;
-		});
+	).then(async response => response.json() as Promise<PinnedRepo[]>);
 
 	const lanyard = await fetch(
 		`https://api.lanyard.rest/v1/users/${DISCORD_ID}`,
