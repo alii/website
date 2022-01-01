@@ -117,7 +117,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 							initial={{opacity: 0, y: -10}}
 							animate={{opacity: 1, y: 0}}
 							exit={{opacity: 0}}
-							className="fixed inset-0 z-10 py-24 px-8 space-y-2 bg-gray-900 sm:hidden"
+							className="fixed inset-0 z-10 py-24 px-8 space-y-2 bg-white dark:bg-gray-900 sm:hidden"
 						>
 							<h1 className="text-4xl font-bold">Menu.</h1>
 
@@ -130,13 +130,15 @@ export default function App({Component, pageProps, router}: AppProps) {
 					<div
 						className={`${
 							hasScrolled || mobileMenuOpen ? 'mt-0' : 'mt-10 mx-5'
-						} bg-gray-900 relative transition-all ${
+						} bg-gray-100 dark:bg-gray-900 relative transition-all ${
 							hasScrolled || mobileMenuOpen ? 'rounded-none' : 'rounded-lg'
 						}`}
 					>
 						<div
 							className={`pr-5 flex justify-between transition-colors space-x-2 ${
-								mobileMenuOpen ? 'bg-gray-800' : 'bg-transparent'
+								mobileMenuOpen
+									? 'bg-gray-100 dark:bg-gray-800'
+									: 'bg-transparent'
 							}`}
 						>
 							<button
