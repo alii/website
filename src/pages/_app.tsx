@@ -181,7 +181,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 
 				<div
 					ref={ballCanvas}
-					className="fixed z-30 w-6 h-6 bg-transparent rounded-full border border-white shadow-md opacity-0 duration-200 pointer-events-none ball-transitions"
+					className="fixed z-30 w-6 h-6 bg-transparent rounded-full border border-black dark:border-white shadow-md opacity-0 duration-200 pointer-events-none ball-transitions"
 				/>
 			</SWRConfig>
 		</StrictMode>

@@ -48,6 +48,10 @@ img {
 	-webkit-user-drag: none;
 }
 
+.image-span-block > span:first-child {
+	@apply !block;
+}
+
 .glass {
 	background: rgba(15, 17, 21, 0.5);
 	backdrop-filter: blur(7px);

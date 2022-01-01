@@ -114,7 +114,7 @@ function Track({track}: {track: TrackObjectFull}) {
 		<button
 			key={track.id}
 			type="button"
-			className="group flex flex-col text-left no-underline align-top outline-none focus:outline-none focus:ring focus:ring-offset-4 dark:focus:ring-offset-gray-900"
+			className="group flex flex-col space-y-2 text-left no-underline align-top outline-none focus:outline-none focus:ring focus:ring-offset-4 dark:focus:ring-offset-gray-900"
 			aria-roledescription="Opens a stats modal"
 			onClick={open}
 		>
@@ -177,7 +177,7 @@ function Track({track}: {track: TrackObjectFull}) {
 				</div>
 			</Modal>
 
-			<div className="overflow-hidden w-full rounded-md">
+			<div className="overflow-hidden w-full rounded-md image-span-block">
 				<Image
 					src={image}
 					className="grayscale-[50%] group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
@@ -187,7 +187,7 @@ function Track({track}: {track: TrackObjectFull}) {
 				/>
 			</div>
 
-			<h2 className="py-0.5 px-2 text-lg">
+			<h2 className="py-0.5 text-lg">
 				<span className="font-bold">
 					{track.explicit && <MdExplicit className="inline -mt-1" />}{' '}
 					{track.name}
