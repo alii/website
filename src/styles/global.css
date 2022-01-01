@@ -1,9 +1,10 @@
 html {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 400;
-	background: black;
 	font-size: 0.9rem;
 	height: 100%;
+
+	@apply bg-white dark:bg-black;
 }
 
 p {
@@ -18,9 +19,8 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 
 	min-height: 100%;
-	color: #ededed;
 
-	@apply bg-gradient-to-tr from-gray-900 to-black;
+	@apply bg-gradient-to-tr dark:from-gray-900 dark:to-black dark:text-neutral-100;
 
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -41,7 +41,7 @@ code {
 }
 
 a {
-	@apply text-white cursor-pointer underline;
+	@apply dark:text-white cursor-pointer underline;
 }
 
 img {

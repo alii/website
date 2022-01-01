@@ -40,6 +40,9 @@ module.exports = {
 		'react/jsx-curly-newline': 'off',
 		'@typescript-eslint/indent': 'off',
 
+		// Bruh
+		'@typescript-eslint/ban-types': 'off',
+
 		// Doesn't work with 3.0.0 jit
 		'tailwindcss/no-custom-classname': 'off',
 	},

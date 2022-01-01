@@ -169,14 +169,14 @@ export default function App({Component, pageProps, router}: AppProps) {
 						</div>
 					</div>
 
-					<div className="mx-auto space-y-12 max-w-3xl md:py-24">
+					<main className="mx-auto space-y-12 max-w-3xl md:py-24">
 						<Component {...pageProps} />
-					</div>
+					</main>
 
-					<div className="p-4 py-10 mx-auto mt-20 max-w-3xl border-t-2 border-white opacity-50 border-opacity-10">
+					<footer className="p-4 py-10 mx-auto mt-20 max-w-3xl border-t-2 border-gray-900 dark:border-white opacity-50 border-opacity-10">
 						<h1 className="text-3xl font-bold">Alistair Smith</h1>
 						<p>Software Engineer • {new Date().getFullYear()}</p>
-					</div>
+					</footer>
 				</div>
 
 				<div
@@ -197,7 +197,7 @@ function NavLink(props: {
 		<li>
 			<Link href={props.href}>
 				<a
-					className="block py-3 font-mono text-lg hover:text-white no-underline rounded-md sm:inline-block sm:px-5 sm:text-sm sm:font-normal sm:underline sm:bg-white/0 sm:hover:bg-white/10 sm:rounded-full"
+					className="block py-3 font-mono text-lg dark:hover:text-white no-underline dark:sm:hover:bg-white/10 rounded-md sm:inline-block sm:px-5 sm:text-sm sm:font-normal sm:underline sm:bg-white/0 sm:hover:bg-gray-900/5 sm:rounded-full"
 					onClick={props.closeMenu}
 				>
 					{props.children}

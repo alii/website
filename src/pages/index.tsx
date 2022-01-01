@@ -76,10 +76,10 @@ export default function Index(props: Props) {
 								target="_blank"
 								href={`https://search.alistair.sh/?q=!maps+${lanyard.kv.location}`}
 								rel="noreferrer"
-								className="flex items-center px-2 pr-3 text-white no-underline bg-gray-700 hover:bg-gray-800 rounded-full transition-colors text-opacity-50"
+								className="flex items-center px-2 pr-3 text-neutral-600 dark:text-white no-underline bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-800 rounded-full transition-colors dark:text-opacity-50"
 							>
 								<span>
-									<HiOutlineLocationMarker className="inline text-white text-opacity-100" />
+									<HiOutlineLocationMarker className="inline dark:text-white" />
 									&nbsp;
 								</span>
 
@@ -165,7 +165,7 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 	return (
 		<motion.div
 			animate={{height: isOpen ? 'auto' : '54px'}}
-			className="flex overflow-hidden relative flex-col no-underline bg-white/5 hover:bg-white/10 rounded-md border border-white/10 md:rounded-lg"
+			className="flex overflow-hidden relative flex-col no-underline bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 rounded-md dark:border border-white/10 md:rounded-lg"
 		>
 			<button
 				type="button"

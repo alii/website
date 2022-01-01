@@ -24,6 +24,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import IORedis from 'ioredis';
 import {LastFM, LastFMGetTrack} from '../server/last-fm';
 import {rand} from '../util/types';
+import {Details} from '../components/details';
 dayjs.extend(relativeTime);
 
 interface Props {
@@ -37,7 +38,7 @@ export default function AboutPage({topTracks, randomLastFMTrack}: Props) {
 			<h1 className="block text-3xl font-bold sm:text-4xl md:text-6xl">
 				About
 			</h1>
-			<div className="text-white transition-all text-opacity-20 hover:text-opacity-100">
+			<div className="text-gray-900/30 hover:text-gray-900 dark:text-white/20 dark:hover:text-white/100 transition-all">
 				<Image
 					alt="Some friends and I in London"
 					src={Banner}
@@ -51,7 +52,7 @@ export default function AboutPage({topTracks, randomLastFMTrack}: Props) {
 				</span>
 			</div>
 
-			<div className="space-y-8 text-neutral-300">
+			<div className="space-y-8">
 				<p>
 					Yo! I'm a full-stack engineer from the United Kingdom. I care about
 					performant, accessible code. I'm a huge fan of making, reading and
@@ -113,7 +114,7 @@ function Track({track}: {track: TrackObjectFull}) {
 		<button
 			key={track.id}
 			type="button"
-			className="group flex flex-col text-left no-underline align-top outline-none focus:outline-none focus:ring focus:ring-offset-4 focus:ring-offset-gray-900"
+			className="group flex flex-col text-left no-underline align-top outline-none focus:outline-none focus:ring focus:ring-offset-4 dark:focus:ring-offset-gray-900"
 			aria-roledescription="Opens a stats modal"
 			onClick={open}
 		>
@@ -134,7 +135,7 @@ function Track({track}: {track: TrackObjectFull}) {
 
 					<a
 						href={track.external_urls.spotify}
-						className="group flex justify-between p-3 no-underline bg-gray-900 rounded-md"
+						className="group flex justify-between p-3 no-underline bg-gray-100 dark:bg-gray-900 rounded-md border dark:border-0"
 						target="_blank"
 						rel="noreferrer"
 					>
@@ -151,23 +152,27 @@ function Track({track}: {track: TrackObjectFull}) {
 					</a>
 
 					<div>
-						<p>
-							<span className="font-bold">Released:</span>&nbsp;
-							<span>
-								{dayjs(album.release_date).fromNow()} (
-								{dayjs(album.release_date).format('DD MMM YYYY')})
-							</span>
-						</p>
-
-						<p>
-							<span className="font-bold">Album:</span>&nbsp;
-							<span>{album.name}</span>
-						</p>
-
-						<p>
-							<span className="font-bold">Duration:</span>&nbsp;
-							<span>{ms(track.duration_ms, {long: true})}</span>
-						</p>
+						<Details
+							details={[
+								{
+									name: 'Released:',
+									value: (
+										<span>
+											{dayjs(album.release_date).fromNow()} (
+											{dayjs(album.release_date).format('DD MMM YYYY')})
+										</span>
+									),
+								},
+								{
+									name: 'Album:',
+									value: album.name,
+								},
+								{
+									name: 'Duration:',
+									value: ms(track.duration_ms, {long: true}),
+								},
+							]}
+						/>
 					</div>
 				</div>
 			</Modal>
@@ -187,7 +192,9 @@ function Track({track}: {track: TrackObjectFull}) {
 					{track.explicit && <MdExplicit className="inline -mt-1" />}{' '}
 					{track.name}
 				</span>{' '}
-				<span className="text-neutral-400">• {artists}</span>
+				<span className="text-neutral-700 dark:text-neutral-400">
+					• {artists}
+				</span>
 			</h2>
 		</button>
 	);
