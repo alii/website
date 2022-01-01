@@ -5,11 +5,21 @@ import {toast} from 'react-hot-toast';
 import {HiOutlineMail} from 'react-icons/hi';
 import {RiSendPlane2Line, RiPhoneLine} from 'react-icons/ri';
 import {SiDiscord, SiTwitter} from 'react-icons/si';
+import {useLanyard} from 'use-lanyard';
 import {ListItem} from '../components/list-item';
+import {DISCORD_ID} from '../components/song';
 import {fetcher} from '../util/fetcher';
+
+const statusMap = {
+	online: 'bg-green-500',
+	idle: 'bg-yellow-500',
+	dnd: 'bg-red-500',
+	offline: 'bg-gray-500',
+};
 
 export default function Talk() {
 	const router = useRouter();
+	const {data: lanyard} = useLanyard(DISCORD_ID);
 
 	return (
 		<div className="space-y-4">
@@ -90,7 +100,27 @@ export default function Talk() {
 				<div>
 					<ul className="space-y-2 list-disc list-inside">
 						<ListItem icon={HiOutlineMail} text="hi@alistair.sh" />
-						<ListItem icon={SiDiscord} text="alistair#9999" />
+						<ListItem
+							icon={SiDiscord}
+							text={
+								lanyard ? (
+									<span className="flex items-center space-x-1">
+										<span>
+											{lanyard.discord_user.username}#
+											{lanyard.discord_user.discriminator}
+										</span>
+
+										<span
+											className={`${
+												statusMap[
+													lanyard.discord_status as keyof typeof statusMap
+												]
+											} h-2 w-2 inline-block rounded-full`}
+										/>
+									</span>
+								) : null
+							}
+						/>
 						<ListItem icon={SiTwitter} text="alistaiiiir" />
 						<ListItem icon={RiPhoneLine} text="+1 (424) 395-8523" />
 					</ul>
