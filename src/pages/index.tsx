@@ -20,6 +20,7 @@ import {
 	SiTypescript,
 	SiWebpack,
 	SiWebstorm,
+	SiMongodb,
 	SiYarn,
 } from 'react-icons/si';
 import {HiOutlineLocationMarker} from 'react-icons/hi';
@@ -76,10 +77,10 @@ export default function Index(props: Props) {
 								target="_blank"
 								href={`https://search.alistair.sh/?q=!maps+${lanyard.kv.location}`}
 								rel="noreferrer"
-								className="flex items-center px-2 pr-3 text-white no-underline bg-gray-700 hover:bg-gray-800 rounded-full transition-colors text-opacity-50"
+								className="flex items-center px-2 pr-3 text-neutral-600 dark:text-white no-underline bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-800 rounded-full transition-colors dark:text-opacity-50"
 							>
 								<span>
-									<HiOutlineLocationMarker className="inline text-white text-opacity-100" />
+									<HiOutlineLocationMarker className="inline dark:text-white" />
 									&nbsp;
 								</span>
 
@@ -88,18 +89,19 @@ export default function Index(props: Props) {
 									&nbsp;
 								</span>
 
-								<span className="block -mb-0.5 ml-1 w-[6px] h-[6px] bg-white rounded-full animate-pulse" />
+								<span className="block -mb-0.5 ml-1 w-[6px] h-[6px] bg-gray-600 dark:bg-white rounded-full animate-pulse" />
 							</a>
 						</p>
 					)}
 				</div>
 
 				<h1 className="text-3xl font-bold sm:text-4xl md:text-6xl">
-					Hey, I'm Alistair ✌️
+					Hey, I'm{' '}
+					<span className="text-blue-700 dark:text-white">Alistair</span> ✌️
 				</h1>
 
 				<p className="opacity-80">
-					I'm a ~{age.toPrecision(6)} year old software engineer from the United
+					I'm a ~{age.toPrecision(7)} year old software engineer from the United
 					Kingdom. I'm interested in full stack web development including large
 					scale frontend applications and performant serverside code.
 				</p>
@@ -153,6 +155,7 @@ export default function Index(props: Props) {
 					<ListItem icon={SiTailwindcss} text="TailwindCSS" />
 					<ListItem icon={SiGit} text="Git" />
 					<ListItem icon={SiStyledComponents} text="styled-components" />
+					<ListItem icon={SiMongodb} text="Mongo" />
 				</ul>
 			</div>
 		</>
@@ -165,7 +168,7 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 	return (
 		<motion.div
 			animate={{height: isOpen ? 'auto' : '54px'}}
-			className="flex overflow-hidden relative flex-col no-underline bg-white/5 hover:bg-white/10 rounded-md border border-white/10 md:rounded-lg"
+			className="flex overflow-hidden relative flex-col text-blue-900/80 dark:text-gray-100 no-underline dark:hover:bg-white/10 bg-gradient-to-tr from-blue-100 dark:from-white/5 to-blue-700/5 dark:to-white/5 rounded-md dark:border border-white/10 md:rounded-lg"
 		>
 			<button
 				type="button"
@@ -235,7 +238,7 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 									href={`https://github.com/${project.owner}/${project.repo}`}
 									target="_blank"
 									rel="noreferrer"
-									className="inline-flex items-center py-2 px-6 space-x-2 no-underline bg-white/10 rounded-full transition-transform duration-500 hover:scale-95 select-none"
+									className="inline-flex items-center py-2 px-6 space-x-2 text-white no-underline bg-blue-700 dark:bg-white/10 rounded-full transition-transform duration-500 hover:scale-95 select-none"
 								>
 									<span>View Project</span>
 									<svg
