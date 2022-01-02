@@ -846,7 +846,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": 5.8.1
     "@typescript-eslint/parser": 5.8.1
     autoprefixer: 10.4.1
-    bun-framework-next: 12.0.7
+    bun-framework-next: 12.0.8
     dayjs: 1.10.7
     eslint: 8.6.0
     eslint-config-next: 12.0.7
@@ -1319,14 +1319,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bun-framework-next@npm:12.0.7":
-  version: 12.0.7
-  resolution: "bun-framework-next@npm:12.0.7"
+"bun-framework-next@npm:12.0.8":
+  version: 12.0.8
+  resolution: "bun-framework-next@npm:12.0.8"
   dependencies:
     react-is: ^17.0.2
   peerDependencies:
     next: ^12.0.0
-  checksum: aab14bedff5cf1469b5fa0c13bb2a110c78109b7ddf382740ecec48bb26ccd6348aa4fdbd229c008b092d09bdb992c9fb2e6a82e6c483e5511d0008011df89f2
+  checksum: ef94fe25032b911814b6b29423f75bc1e022ea3ca4db908b9789d05410a3a7889dc4b71868d56bac6232ab7c39aac9c62fe4f1903959898e11c6a0061762aa95
   languageName: node
   linkType: hard
 
