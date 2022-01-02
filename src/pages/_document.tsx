@@ -12,7 +12,7 @@ export default class AlistairDocument extends Document {
 						type="image/png"
 						href="https://avatars3.githubusercontent.com/u/25351731?s=460&v=4"
 					/>
-					<meta name="theme-color" content="#000000" />
+					<meta name="theme-color" content="#ffffff" />
 					<meta
 						name="description"
 						content="Alistair Smith, Full–stack TypeScript engineer from the UK"
@@ -26,6 +26,7 @@ export default class AlistairDocument extends Document {
 				<body>
 					<Main />
 					<NextScript />
+					<script async src="/theme.js" />
 					<script async defer src="https://lab.alistair.cloud/latest.js" />
 				</body>
 			</Html>
