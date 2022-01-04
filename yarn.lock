@@ -853,7 +853,7 @@ __metadata:
     eslint-config-xo: 0.39.0
     eslint-config-xo-react: 0.25.0
     eslint-config-xo-typescript: 0.48.0
-    eslint-plugin-tailwindcss: 3.0.2
+    eslint-plugin-tailwindcss: 3.0.3
     framer-motion: 5.5.5
     hamburger-react: 2.4.1
     ioredis: 4.28.2
@@ -2363,14 +2363,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-tailwindcss@npm:3.0.2":
-  version: 3.0.2
-  resolution: "eslint-plugin-tailwindcss@npm:3.0.2"
+"eslint-plugin-tailwindcss@npm:3.0.3":
+  version: 3.0.3
+  resolution: "eslint-plugin-tailwindcss@npm:3.0.3"
   dependencies:
     fast-glob: ^3.2.5
     postcss: ^8.4.4
     tailwindcss: ^3.0.7
-  checksum: 13edc1d379f8267886adc4a7ebaccbfc7822fd65ed2eb2731bd9e60269e5e608da24282ad67507560ac909de0c6bed55282ad03f5aa732dfe8945bf80af1badf
+  checksum: 59ea2365f72e1dde98826b56507197faf007d7a19216fa70971ac8671605ee5c7681fd73aa55ae086b5dc6372ee56027be6694d45b3c08f1009b9ace8a736769
   languageName: node
   linkType: hard
 
