@@ -131,13 +131,14 @@ export default function Index(props: Props) {
 
 			<div className="space-y-4">
 				<h1 className="text-2xl font-bold sm:text-3xl">Technologies 💻</h1>
+
 				<p className="opacity-80">
 					I use a wide range of tools to tackle each hurdle in the most
-					efficient manner possible. I really love working with Docker and
-					containersation and it's proven to be a reliable bit of kit for
-					working in and scaling services in both production and development
-					environments.
+					efficient manner possible. I really love working with containersation,
+					especially Docker; it's proven to be a reliable bit of kit for both
+					production and development environments.
 				</p>
+
 				<ul className="grid grid-cols-3 gap-4 sm:grid-cols-4">
 					<ListItem icon={SiDocker} text="Docker" />
 					<ListItem icon={SiRedis} text="Redis" />
