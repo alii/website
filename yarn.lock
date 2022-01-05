@@ -888,7 +888,7 @@ __metadata:
     sharp: 0.29.3
     spotify-web-api-node: 5.0.2
     swr: 1.1.2
-    tailwindcss: 3.0.10
+    tailwindcss: 3.0.11
     typescript: 4.5.4
     typestr: 0.0.10
     urlcat: 2.0.4
@@ -4667,6 +4667,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss-js@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "postcss-js@npm:4.0.0"
+  dependencies:
+    camelcase-css: ^2.0.1
+  peerDependencies:
+    postcss: ^8.3.3
+  checksum: 14be8a58670b4c5d037d40f179240a4f736d53530db727e2635638fa296bc4bff18149ca860928398aace422e55d07c9f5729eeccd395340944985199cdc82a5
+  languageName: node
+  linkType: hard
+
 "postcss-load-config@npm:^3.1.0":
   version: 3.1.0
   resolution: "postcss-load-config@npm:3.1.0"
@@ -5791,9 +5802,9 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:3.0.10":
-  version: 3.0.10
-  resolution: "tailwindcss@npm:3.0.10"
+"tailwindcss@npm:3.0.11":
+  version: 3.0.11
+  resolution: "tailwindcss@npm:3.0.11"
   dependencies:
     arg: ^5.0.1
     chalk: ^4.1.2
@@ -5808,7 +5819,7 @@ resolve@^2.0.0-next.3:
     is-glob: ^4.0.3
     normalize-path: ^3.0.0
     object-hash: ^2.2.0
-    postcss-js: ^3.0.3
+    postcss-js: ^4.0.0
     postcss-load-config: ^3.1.0
     postcss-nested: 5.0.6
     postcss-selector-parser: ^6.0.7
@@ -5821,7 +5832,7 @@ resolve@^2.0.0-next.3:
   bin:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
-  checksum: 40e7515bdd957d7abbd47ab46e7b9d3530175b1f25e99af7dd2b5656d0f06ba61371f78faf5a8430219217b0e9db76fedd11a3a79ab5a635bd023b106445961e
+  checksum: 50bc9ce20509d9a3b262490cafbf741026362899bada64acfec296ce0de4101432f03102599dd0fe86e20199b5ebc6ff2dfc21dc6d5286c030527a182000a840
   languageName: node
   linkType: hard
 
