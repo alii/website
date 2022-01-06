@@ -458,10 +458,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:17.0.6":
-  version: 17.0.6
-  resolution: "@types/node@npm:17.0.6"
-  checksum: 36fda5555ec759132886721f59fa74333947f7148b7dcce3de0a78c36f37f57ec86a3d09fd38c835ba65c8de77905de6c01523ec99864d8cead83f404118a44a
+"@types/node@npm:17.0.8":
+  version: 17.0.8
+  resolution: "@types/node@npm:17.0.8"
+  checksum: f4cadeb9e602027520abc88c77142697e33cf6ac98bb02f8b595a398603cbd33df1f94d01c055c9f13cde0c8eaafc5e396ca72645458d42b4318b845bc7f1d0f
   languageName: node
   linkType: hard
 
@@ -853,7 +853,7 @@ __metadata:
     "@tailwindcss/typography": 0.5.0
     "@types/ioredis": 4.28.7
     "@types/ms": 0.7.31
-    "@types/node": 17.0.6
+    "@types/node": 17.0.8
     "@types/nprogress": 0.2.0
     "@types/number-to-words": 1.2.1
     "@types/react": 17.0.38
@@ -869,8 +869,8 @@ __metadata:
     eslint-config-next: 12.0.7
     eslint-config-xo: 0.39.0
     eslint-config-xo-react: 0.25.0
-    eslint-config-xo-typescript: 0.48.0
-    eslint-plugin-tailwindcss: 3.0.3
+    eslint-config-xo-typescript: 0.49.0
+    eslint-plugin-tailwindcss: 3.0.4
     framer-motion: 5.5.5
     hamburger-react: 2.4.1
     ioredis: 4.28.2
@@ -2243,14 +2243,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-xo-typescript@npm:0.48.0":
-  version: 0.48.0
-  resolution: "eslint-config-xo-typescript@npm:0.48.0"
+"eslint-config-xo-typescript@npm:0.49.0":
+  version: 0.49.0
+  resolution: "eslint-config-xo-typescript@npm:0.49.0"
   peerDependencies:
     "@typescript-eslint/eslint-plugin": ">=5.8.0"
     eslint: ">=8.0.0"
     typescript: ">=4.4"
-  checksum: a69f70612449d3e461d2b4d38a5ccae7a877c838ed1743c5e16cc677c0fa2f1e5fb1800c3b54fe5479b31b9c85362a9a7016908c516e4d0e3b4771114bb35e2a
+  checksum: 607b8ac8437f56389da6019e2a01bb2beefd257cbcbce999d2519f47f625d48b1d45d674ce986797930b8dfbf045823053be5e24ee182ec8eda2729cf25e24ca
   languageName: node
   linkType: hard
 
@@ -2380,14 +2380,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-tailwindcss@npm:3.0.3":
-  version: 3.0.3
-  resolution: "eslint-plugin-tailwindcss@npm:3.0.3"
+"eslint-plugin-tailwindcss@npm:3.0.4":
+  version: 3.0.4
+  resolution: "eslint-plugin-tailwindcss@npm:3.0.4"
   dependencies:
     fast-glob: ^3.2.5
     postcss: ^8.4.4
     tailwindcss: ^3.0.7
-  checksum: 59ea2365f72e1dde98826b56507197faf007d7a19216fa70971ac8671605ee5c7681fd73aa55ae086b5dc6372ee56027be6694d45b3c08f1009b9ace8a736769
+  checksum: 9ae7a0e8f540d609cf1ace63511b14973476ac592da495de14c11b6f2f9af65273e1cbbc496d7e8389c3dd85da2d61fab0b8161c34c8e05dea23e7ff386df98a
   languageName: node
   linkType: hard
 

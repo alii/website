@@ -123,7 +123,7 @@ export default function Index(props: Props) {
 				</p>
 
 				<div className="grid grid-cols-1 auto-cols-max gap-1 sm:grid-cols-2 sm:gap-3">
-					{projects?.map(project => (
+					{projects.map(project => (
 						<ProjectCard key={project.repo} repo={project} />
 					))}
 				</div>
