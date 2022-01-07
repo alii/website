@@ -547,10 +547,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/tailwindcss@npm:3.0.1":
-  version: 3.0.1
-  resolution: "@types/tailwindcss@npm:3.0.1"
-  checksum: 79a2cce1361c93e218d163c00a8c97c265b0d81d23c612f5aa1ca93c93fcbfabe0abc681d2d5bcfcc913f24c17f1efd4ae25ce5f60e6a5af6c7763ab4111f514
+"@types/tailwindcss@npm:3.0.2":
+  version: 3.0.2
+  resolution: "@types/tailwindcss@npm:3.0.2"
+  checksum: 2e5be8f465ee57407bda3b49d64bda3a801ef946a815ea9affbae506517968fc584996a17a3d9c8fb712e73e855e91375ad11ca17d0e099f6bab0013c246dce3
   languageName: node
   linkType: hard
 
@@ -859,7 +859,7 @@ __metadata:
     "@types/react": 17.0.38
     "@types/react-dom": 17.0.11
     "@types/spotify-web-api-node": 5.0.4
-    "@types/tailwindcss": 3.0.1
+    "@types/tailwindcss": 3.0.2
     "@typescript-eslint/eslint-plugin": 5.9.0
     "@typescript-eslint/parser": 5.9.0
     autoprefixer: 10.4.2
@@ -888,7 +888,7 @@ __metadata:
     sharp: 0.29.3
     spotify-web-api-node: 5.0.2
     swr: 1.1.2
-    tailwindcss: 3.0.11
+    tailwindcss: 3.0.12
     typescript: 4.5.4
     typestr: 0.0.10
     urlcat: 2.0.4
@@ -4732,6 +4732,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss-selector-parser@npm:^6.0.8":
+  version: 6.0.8
+  resolution: "postcss-selector-parser@npm:6.0.8"
+  dependencies:
+    cssesc: ^3.0.0
+    util-deprecate: ^1.0.2
+  checksum: 550351c8d04216106e259f7c433652aa6742dd7ddbedf7afdc313526963bb170589a6fefd1bc1fe6268a2cf9f5073d4ecb09bc7b5b4bef49edf80634300500af
+  languageName: node
+  linkType: hard
+
 "postcss-value-parser@npm:^4.2.0":
   version: 4.2.0
   resolution: "postcss-value-parser@npm:4.2.0"
@@ -5809,9 +5819,9 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:3.0.11":
-  version: 3.0.11
-  resolution: "tailwindcss@npm:3.0.11"
+"tailwindcss@npm:3.0.12":
+  version: 3.0.12
+  resolution: "tailwindcss@npm:3.0.12"
   dependencies:
     arg: ^5.0.1
     chalk: ^4.1.2
@@ -5829,7 +5839,7 @@ resolve@^2.0.0-next.3:
     postcss-js: ^4.0.0
     postcss-load-config: ^3.1.0
     postcss-nested: 5.0.6
-    postcss-selector-parser: ^6.0.7
+    postcss-selector-parser: ^6.0.8
     postcss-value-parser: ^4.2.0
     quick-lru: ^5.1.1
     resolve: ^1.20.0
@@ -5839,7 +5849,7 @@ resolve@^2.0.0-next.3:
   bin:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
-  checksum: 50bc9ce20509d9a3b262490cafbf741026362899bada64acfec296ce0de4101432f03102599dd0fe86e20199b5ebc6ff2dfc21dc6d5286c030527a182000a840
+  checksum: d7de0458419ca50409f295831926cf76d2be1385894781c185b8200d3c568b10c7af2c27460582e47d8d4f89eacc7808f67027c1e8bc3820ac285d9497b675bb
   languageName: node
   linkType: hard
 
