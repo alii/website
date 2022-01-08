@@ -9,6 +9,7 @@ import {
 	SiGithub,
 	SiGo,
 	SiJava,
+	SiMongodb,
 	SiNextdotjs as SiNextDotJs,
 	SiNodedotjs as SiNodeDotJs,
 	SiPostgresql,
@@ -20,15 +21,14 @@ import {
 	SiTypescript,
 	SiWebpack,
 	SiWebstorm,
-	SiMongodb,
 	SiYarn,
 } from 'react-icons/si';
 import {HiOutlineLocationMarker} from 'react-icons/hi';
 import {
-	useLanyard,
 	Data as LanyardData,
 	LanyardError,
 	LanyardResponse,
+	useLanyard,
 } from 'use-lanyard';
 import {PinnedRepo, useGitHubPinnedRepos} from '../hooks/github';
 import {ListItem} from '../components/list-item';

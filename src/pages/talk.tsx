@@ -3,7 +3,7 @@ import {APIResponse} from 'nextkit';
 import React from 'react';
 import {toast} from 'react-hot-toast';
 import {HiOutlineMail} from 'react-icons/hi';
-import {RiSendPlane2Line, RiPhoneLine} from 'react-icons/ri';
+import {RiPhoneLine, RiSendPlane2Line} from 'react-icons/ri';
 import {SiDiscord, SiTwitter} from 'react-icons/si';
 import {useLanyard} from 'use-lanyard';
 import {ListItem} from '../components/list-item';

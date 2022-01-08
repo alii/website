@@ -16,15 +16,14 @@ import {SiSpotify} from 'react-icons/si';
 import {HiExternalLink} from 'react-icons/hi';
 import dayjs from 'dayjs';
 import ms from 'ms';
-
-import TrackObjectFull = SpotifyApi.TrackObjectFull;
-import AlbumObjectFull = SpotifyApi.AlbumObjectFull;
-
 import relativeTime from 'dayjs/plugin/relativeTime';
 import IORedis from 'ioredis';
 import {LastFM, LastFMGetTrack} from '../server/last-fm';
 import {rand} from '../util/types';
 import {Details} from '../components/details';
+import TrackObjectFull = SpotifyApi.TrackObjectFull;
+import AlbumObjectFull = SpotifyApi.AlbumObjectFull;
+
 dayjs.extend(relativeTime);
 
 interface Props {
