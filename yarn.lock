@@ -868,7 +868,7 @@ __metadata:
     eslint: 8.6.0
     eslint-config-next: 12.0.7
     eslint-config-xo: 0.39.0
-    eslint-config-xo-react: 0.25.0
+    eslint-config-xo-react: 0.26.0
     eslint-config-xo-typescript: 0.49.0
     eslint-plugin-tailwindcss: 3.1.0
     framer-motion: 5.5.6
@@ -2239,14 +2239,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-xo-react@npm:0.25.0":
-  version: 0.25.0
-  resolution: "eslint-config-xo-react@npm:0.25.0"
+"eslint-config-xo-react@npm:0.26.0":
+  version: 0.26.0
+  resolution: "eslint-config-xo-react@npm:0.26.0"
   peerDependencies:
-    eslint: ">=7"
-    eslint-plugin-react: ">=7.22.0"
-    eslint-plugin-react-hooks: ">=4.2.0"
-  checksum: 14edd921d06077f864842d2d7a0b4bb2e4e5a9b2b7f76c778e5138330eb692f9068474a8593040930ffdae1beaf5092b3977767fc3d74c951bf2eb3667812223
+    eslint: ">=8.6.0"
+    eslint-plugin-react: ">=7.28.0"
+    eslint-plugin-react-hooks: ">=4.3.0"
+  checksum: 172763b96405ba32d19826fe28c8d069d0c96d1b3a912a6463673d9db16b6e33b8a8afa8a7ecbc8cca2cf963752896fc54dbb7d6a9917b026a07614268616dd6
   languageName: node
   linkType: hard
 
