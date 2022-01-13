@@ -9,4 +9,10 @@ export const api = createAPI({
 			message: error.message,
 		};
 	},
+
+	async getContext(req, res) {
+		return {
+			//
+		};
+	},
 });

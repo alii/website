@@ -1,21 +1,21 @@
-import {NextkitException} from 'nextkit';
+import {hasProp, NextkitException} from 'nextkit';
+import {throws} from './exceptions';
 
 export async function fetcher<T>(url: string, init?: RequestInit): Promise<T> {
-	const request = await fetch(url, init);
-	const json = (await request.json()) as unknown;
+	const response = await fetch(url, init);
+	const json = (await response.json()) as unknown;
 
-	if (request.status >= 400) {
-		let message: string;
+	if (response.status >= 400) {
+		let message = 'Something went wrong';
 
-		if (json && typeof json === 'object' && 'message' in json) {
-			// Safe to assert because of the ??= underneath this
-			message = (json as {message?: string}).message!;
+		if (hasProp(json, 'message') && typeof json.message === 'string') {
+			message = json.message;
 		}
 
-		message ??= 'Something went wrong';
-
-		throw new NextkitException(request.status, message);
+		throw new NextkitException(response.status, message);
 	}
 
 	return json as T;
 }
+
+export const safeFetcher = throws(fetcher, async () => null);
