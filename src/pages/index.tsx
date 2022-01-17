@@ -23,6 +23,7 @@ import {
 	SiWebstorm,
 	SiYarn,
 } from 'react-icons/si';
+import {GiSkateboard} from 'react-icons/gi';
 import {HiOutlineLocationMarker} from 'react-icons/hi';
 import {
 	Data as LanyardData,
@@ -34,6 +35,11 @@ import {PinnedRepo, useGitHubPinnedRepos} from '../hooks/github';
 import {ListItem} from '../components/list-item';
 import {DISCORD_ID} from '../components/song';
 import {age} from '../util/time';
+import dayjs from 'dayjs';
+
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(relativeTime);
 
 interface Props {
 	pinnedRepos: PinnedRepo[];
@@ -46,6 +52,10 @@ export default function Index(props: Props) {
 	const {data: lanyard} = useLanyard(DISCORD_ID, {
 		fallbackData: props.lanyard,
 	});
+
+	const boostedActivity = lanyard?.activities.find(
+		activity => activity.application_id === '932730208820265011',
+	);
 
 	return (
 		<>
@@ -72,7 +82,7 @@ export default function Index(props: Props) {
 					</a>
 
 					{lanyard && (
-						<p>
+						<p className="inline-flex items-center space-x-2">
 							<a
 								target="_blank"
 								href={`https://search.alistair.sh/?q=!maps+${lanyard.kv.location}`}
@@ -91,6 +101,23 @@ export default function Index(props: Props) {
 
 								<span className="block -mb-0.5 ml-1 w-[6px] h-[6px] bg-gray-600 dark:bg-white rounded-full animate-pulse" />
 							</a>
+
+							{boostedActivity?.timestamps && (
+								<p className="flex items-center px-2 pr-3 text-neutral-600 dark:text-white no-underline bg-gray-200 dark:bg-gray-700 rounded-full transition-colors dark:text-opacity-50">
+									<span>
+										<GiSkateboard className="inline dark:text-white" />
+										&nbsp;
+									</span>
+
+									<span className="-mb-0.5">
+										Boosted boarding for{' '}
+										{dayjs(boostedActivity.timestamps.start).fromNow(true)}
+										&nbsp;
+									</span>
+
+									<span className="block -mb-0.5 ml-1 w-[6px] h-[6px] bg-gray-600 dark:bg-white rounded-full animate-pulse" />
+								</p>
+							)}
 						</p>
 					)}
 				</div>
