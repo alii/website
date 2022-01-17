@@ -316,6 +316,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@stitches/react@npm:^1.2.1":
+  version: 1.2.6
+  resolution: "@stitches/react@npm:1.2.6"
+  peerDependencies:
+    react: ">= 16.3.0"
+  checksum: 416088cdde17a22d6cdb04cf1cf756c6e5fc291dd7e41f82ce422bb95432ad32b6d990e7264d996d367c40bbc674d61be087e4e1f7b23eea7f81ef6266373a9c
+  languageName: node
+  linkType: hard
+
 "@tailwindcss/typography@npm:0.5.0":
   version: 0.5.0
   resolution: "@tailwindcss/typography@npm:0.5.0"
@@ -799,7 +808,7 @@ __metadata:
     typescript: 4.5.4
     typestr: 0.0.10
     urlcat: 2.0.4
-    use-lanyard: 1.0.5
+    use-lanyard: 1.0.3
     zod: 3.11.6
   languageName: unknown
   linkType: soft
@@ -4728,7 +4737,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"swr@npm:1.1.2, swr@npm:^1.1.2":
+"swr@npm:1.1.2":
   version: 1.1.2
   resolution: "swr@npm:1.1.2"
   peerDependencies:
@@ -5012,14 +5021,15 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"use-lanyard@npm:1.0.5":
-  version: 1.0.5
-  resolution: "use-lanyard@npm:1.0.5"
+"use-lanyard@npm:1.0.3":
+  version: 1.0.3
+  resolution: "use-lanyard@npm:1.0.3"
   dependencies:
-    swr: ^1.1.2
+    "@stitches/react": ^1.2.1
   peerDependencies:
     react: ">=17"
-  checksum: 1a6b3c0703faa44432d7a786887167bc7421dbf369a8f190b27d7892b2a042b8b89e1ad99cf1da1640fc85477f9417c4bc70b55cb852ec7bdb90c42c69362238
+    swr: ^1.0.1
+  checksum: 5b317de41131151658e7908f8d62419f5925f08c9d14eccfad8a58072e06fe430e96ee26219de9ef5f12224cd4648331407d157495ad8a6409cf690a7276a8e8
   languageName: node
   linkType: hard
 
