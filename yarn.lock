@@ -783,7 +783,7 @@ __metadata:
     ioredis: 4.28.3
     ms: 2.1.3
     next: 12.0.8
-    nextkit: ^3.0.3
+    nextkit: ^3.0.4
     nprogress: 0.2.0
     postcss: 8.4.5
     prettier: 2.5.1
@@ -3356,14 +3356,14 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"nextkit@npm:^3.0.3":
-  version: 3.0.3
-  resolution: "nextkit@npm:3.0.3"
+"nextkit@npm:^3.0.4":
+  version: 3.0.4
+  resolution: "nextkit@npm:3.0.4"
   dependencies:
     urlcat: ^2.0.4
   peerDependencies:
     next: "*"
-  checksum: a158d6cf375355a9e4e74aa2d9eee3f2cf6300df08bfd8b7af1170f2735c6aff0dfc23b308b9fda22fa5593b56fdd5d59718b1ba6828e2e79c7566ae37b1d50e
+  checksum: b76e80456ca4bde146f422275b310030dd794e710628188c5d8c4529abc57a1bbbed365fe77f01243500dc5d303b95ef6e3bd9c760a5e8400d998a5c8f00ef88
   languageName: node
   linkType: hard
 
