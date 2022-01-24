@@ -1,5 +1,5 @@
 import {useRouter} from 'next/router';
-import {APIResponse} from 'nextkit';
+import type {APIResponse} from 'nextkit';
 import React from 'react';
 import {toast} from 'react-hot-toast';
 import {HiOutlineMail} from 'react-icons/hi';
@@ -81,6 +81,7 @@ export default function Talk() {
 							<textarea
 								rows={5}
 								name="body"
+								minLength={10}
 								id="body"
 								className="block py-1 px-4 w-full font-sans text-lg bg-gray-200 dark:bg-white/5 rounded-md focus:outline-none focus:ring resize-none"
 							/>

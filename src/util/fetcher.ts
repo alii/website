@@ -1,5 +1,6 @@
-import {hasProp, NextkitException} from 'nextkit';
+import {NextkitClientException} from 'nextkit/client';
 import {throws} from './exceptions';
+import {hasProp} from 'nextkit';
 
 export async function fetcher<T>(url: string, init?: RequestInit): Promise<T> {
 	const response = await fetch(url, init);
@@ -12,7 +13,7 @@ export async function fetcher<T>(url: string, init?: RequestInit): Promise<T> {
 			message = json.message;
 		}
 
-		throw new NextkitException(response.status, message);
+		throw new NextkitClientException(response.status, message);
 	}
 
 	return json as T;

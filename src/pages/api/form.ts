@@ -1,11 +1,11 @@
 import {api} from '../../server/api';
 import {z} from 'zod';
 import {DISCORD_WEBHOOK} from '../../server/constants';
-import {NextkitException} from 'nextkit';
+import {NextkitClientException} from 'nextkit/client';
 
 const schema = z.object({
 	email: z.string().email(),
-	body: z.string().max(500).min(3),
+	body: z.string().max(500).min(10),
 });
 
 export default api({
@@ -38,7 +38,10 @@ export default api({
 		});
 
 		if (result.status >= 400) {
-			throw new NextkitException(result.status, 'Error sending notification');
+			throw new NextkitClientException(
+				result.status,
+				'Error sending notification',
+			);
 		}
 
 		if (req.headers['content-type'] === 'application/json') {

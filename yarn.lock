@@ -374,10 +374,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:17.0.9":
-  version: 17.0.9
-  resolution: "@types/node@npm:17.0.9"
-  checksum: 64a1fa91979e3c37c5f42c6e7836b02aad333f2ed41114b8d975b4754e4f4a7fe3343e77ee4daceed6b5706c6662ade13ec1e955326cd1b1e8bf35800de5faf8
+"@types/node@npm:17.0.10":
+  version: 17.0.10
+  resolution: "@types/node@npm:17.0.10"
+  checksum: 979e83d642a2b4f18fa1a4233f884822c05abc7acd0836024aa964187f8446432b21f7913e72fe2b3927c4a811c27a0b6cd60ac7c4ac6a6762cfbab70782aa6a
   languageName: node
   linkType: hard
 
@@ -463,10 +463,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/tailwindcss@npm:3.0.2":
-  version: 3.0.2
-  resolution: "@types/tailwindcss@npm:3.0.2"
-  checksum: 2e5be8f465ee57407bda3b49d64bda3a801ef946a815ea9affbae506517968fc584996a17a3d9c8fb712e73e855e91375ad11ca17d0e099f6bab0013c246dce3
+"@types/tailwindcss@npm:3.0.3":
+  version: 3.0.3
+  resolution: "@types/tailwindcss@npm:3.0.3"
+  checksum: c49ad4f4fa0ac35403ce9fdef26107ce651af34b31941b5558960d7c5669a2d42db6c48623cc5511bcaf566cdf823bdcf4a88388c91d5d95b95dc7683ef54f34
   languageName: node
   linkType: hard
 
@@ -760,13 +760,13 @@ __metadata:
     "@tailwindcss/typography": 0.5.0
     "@types/ioredis": 4.28.7
     "@types/ms": 0.7.31
-    "@types/node": 17.0.9
+    "@types/node": 17.0.10
     "@types/nprogress": 0.2.0
     "@types/number-to-words": 1.2.1
     "@types/react": 17.0.38
     "@types/react-dom": 17.0.11
     "@types/spotify-web-api-node": 5.0.6
-    "@types/tailwindcss": 3.0.2
+    "@types/tailwindcss": 3.0.3
     "@typescript-eslint/eslint-plugin": 5.10.0
     "@typescript-eslint/parser": 5.10.0
     autoprefixer: 10.4.2
@@ -777,13 +777,13 @@ __metadata:
     eslint-config-xo: 0.39.0
     eslint-config-xo-react: 0.26.0
     eslint-config-xo-typescript: 0.49.0
-    eslint-plugin-tailwindcss: 3.2.1
-    framer-motion: 5.6.0
+    eslint-plugin-tailwindcss: 3.3.2
+    framer-motion: 6.2.1
     hamburger-react: 2.4.1
     ioredis: 4.28.3
     ms: 2.1.3
     next: 12.0.8
-    nextkit: 2.1.0
+    nextkit: ^3.0.3
     nprogress: 0.2.0
     postcss: 8.4.5
     prettier: 2.5.1
@@ -796,7 +796,7 @@ __metadata:
     spotify-web-api-node: 5.0.2
     swr: 1.1.2
     tailwindcss: 3.0.15
-    typescript: 4.5.4
+    typescript: 4.5.5
     typestr: 0.0.10
     urlcat: 2.0.4
     use-lanyard: 1.0.5
@@ -1402,13 +1402,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debounce@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "debounce@npm:1.2.1"
-  checksum: 682a89506d9e54fb109526f4da255c5546102fbb8e3ae75eef3b04effaf5d4853756aee97475cd4650641869794e44f410eeb20ace2b18ea592287ab2038519e
-  languageName: node
-  linkType: hard
-
 "debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2":
   version: 4.3.2
   resolution: "debug@npm:4.3.2"
@@ -1863,14 +1856,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-tailwindcss@npm:3.2.1":
-  version: 3.2.1
-  resolution: "eslint-plugin-tailwindcss@npm:3.2.1"
+"eslint-plugin-tailwindcss@npm:3.3.2":
+  version: 3.3.2
+  resolution: "eslint-plugin-tailwindcss@npm:3.3.2"
   dependencies:
     fast-glob: ^3.2.5
     postcss: ^8.4.4
     tailwindcss: ^3.0.7
-  checksum: b278eec0bd2b4446c41155dde14a8600c69b71e15b8c033fdcd485d076abea4db5af6ecea8c2cd24aaffd312f8c2422be6990045f84f94d3c2dd279ef3c20193
+  checksum: 3cc23bad8c1dbd0a3e480b3c17a7759941b15794388cd5f5779fd55e188cd76b3c9b3d06ed5162d72aafcabf66b09c606b9aa22831c311d479b2858f8dbf2092
   languageName: node
   linkType: hard
 
@@ -2172,32 +2165,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:5.6.0":
-  version: 5.6.0
-  resolution: "framer-motion@npm:5.6.0"
+"framer-motion@npm:6.2.1":
+  version: 6.2.1
+  resolution: "framer-motion@npm:6.2.1"
   dependencies:
     "@emotion/is-prop-valid": ^0.8.2
     framesync: 6.0.1
     hey-listen: ^1.0.8
     popmotion: 11.0.3
-    react-merge-refs: ^1.1.0
-    react-use-measure: ^2.1.1
     style-value-types: 5.0.0
     tslib: ^2.1.0
   peerDependencies:
-    "@react-three/fiber": "*"
     react: ">=16.8 || ^17.0.0"
     react-dom: ">=16.8 || ^17.0.0"
-    three: ^0.135.0
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  peerDependenciesMeta:
-    "@react-three/fiber":
-      optional: true
-    three:
-      optional: true
-  checksum: 384374bebda443ea2a149951337c4f82b9c3611e138e8dd8db6439bbccc4523968deb72dde83d5686223ec78be58f8ae1f51b9e34b585e4c50df15266e586a60
+  checksum: 7c00417de8b2d4c44c43ee6dbf7ea47d2b22617d563f23e4caabaf5451578b98c073668dd6b81fb0df82d46e7d2ea7ee11be86db9b261e22717790ef4a06a612
   languageName: node
   linkType: hard
 
@@ -3372,12 +3356,14 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"nextkit@npm:2.1.0":
-  version: 2.1.0
-  resolution: "nextkit@npm:2.1.0"
+"nextkit@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "nextkit@npm:3.0.3"
+  dependencies:
+    urlcat: ^2.0.4
   peerDependencies:
-    next: ^12.0.4
-  checksum: 7da56009af1d8ec4248cf6c5ee815d597aabb1dc253c22491a1a6c25a91b6d38f4e22210d9d18da4b76c4c97626488a0ed5457f4c675dc918c18d6b12f090b40
+    next: "*"
+  checksum: a158d6cf375355a9e4e74aa2d9eee3f2cf6300df08bfd8b7af1170f2735c6aff0dfc23b308b9fda22fa5593b56fdd5d59718b1ba6828e2e79c7566ae37b1d50e
   languageName: node
   linkType: hard
 
@@ -4023,13 +4009,6 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"react-merge-refs@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "react-merge-refs@npm:1.1.0"
-  checksum: 90884352999002d868ab9f1bcfe3222fb0f2178ed629f1da7e98e5a9b02a2c96b4aa72800db92aabd69d2483211b4be57a2088e89a11a0b660e7ada744d4ddf7
-  languageName: node
-  linkType: hard
-
 "react-refresh@npm:0.8.3":
   version: 0.8.3
   resolution: "react-refresh@npm:0.8.3"
@@ -4043,18 +4022,6 @@ fsevents@~2.3.2:
   dependencies:
     popper.js: ^1.11.1
   checksum: cbe3863ed896601a8dfd8068fb3220e8ffc95b83f63b13c19d1a46fe04e485043f9d2c52f6fcc85d55ab4616ff30e04e1952be8b30f8c70cd75dca68ee6f85ca
-  languageName: node
-  linkType: hard
-
-"react-use-measure@npm:^2.1.1":
-  version: 2.1.1
-  resolution: "react-use-measure@npm:2.1.1"
-  dependencies:
-    debounce: ^1.2.1
-  peerDependencies:
-    react: ">=16.13"
-    react-dom: ">=16.13"
-  checksum: b8e8939229d463c3c505f7b617925c0228efae0cd6f651371f463846417b06c9170be57df51293a61027c41770f8a090fdb8a08717c4e36290ccb496e0318f1f
   languageName: node
   linkType: hard
 
@@ -4939,23 +4906,23 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.5.4":
-  version: 4.5.4
-  resolution: "typescript@npm:4.5.4"
+"typescript@npm:4.5.5":
+  version: 4.5.5
+  resolution: "typescript@npm:4.5.5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 59f3243f9cd6fe3161e6150ff6bf795fc843b4234a655dbd938a310515e0d61afd1ac942799e7415e4334255e41c2c49b7dd5d9fd38a17acd25a6779ca7e0961
+  checksum: 506f4c919dc8aeaafa92068c997f1d213b9df4d9756d0fae1a1e7ab66b585ab3498050e236113a1c9e57ee08c21ec6814ca7a7f61378c058d79af50a4b1f5a5e
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.5.4#~builtin<compat/typescript>":
-  version: 4.5.4
-  resolution: "typescript@patch:typescript@npm%3A4.5.4#~builtin<compat/typescript>::version=4.5.4&hash=493e53"
+"typescript@patch:typescript@4.5.5#~builtin<compat/typescript>":
+  version: 4.5.5
+  resolution: "typescript@patch:typescript@npm%3A4.5.5#~builtin<compat/typescript>::version=4.5.5&hash=493e53"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 2e488dde7d2c4a2fa2e79cf2470600f8ce81bc0563c276b72df8ff412d74456ae532ba824650ae936ce207440c79720ddcfaa25e3cb4477572b8534fa4e34d49
+  checksum: c05c318d79c690f101d7ffb34cd6c7d6bbd884d3af9cefe7749ad0cd6be43c7082f098280982ca945dcba23fde34a08fed9602bb26540936baf8c0520727d3ba
   languageName: node
   linkType: hard
 
@@ -5005,7 +4972,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"urlcat@npm:2.0.4":
+"urlcat@npm:2.0.4, urlcat@npm:^2.0.4":
   version: 2.0.4
   resolution: "urlcat@npm:2.0.4"
   checksum: 9f09c87fc565445e0e79ac1c1e0c79526dff2b1bcd48a6c60c079f6b8ca32f54414721f94078ce18a433582762ef12da9306519beaf9b776864cd1a8057c535c

@@ -10,7 +10,7 @@ export const api = createAPI({
 		};
 	},
 
-	async getContext(req, res) {
+	async getContext() {
 		return {
 			//
 		};
