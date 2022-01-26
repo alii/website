@@ -794,7 +794,7 @@ __metadata:
     react-tippy: 1.4.0
     sharp: 0.29.3
     spotify-web-api-node: 5.0.2
-    swr: 1.1.2
+    swr: 1.2.0
     tailwindcss: 3.0.17
     typescript: 4.5.5
     typestr: 0.0.10
@@ -4727,7 +4727,16 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"swr@npm:1.1.2, swr@npm:^1.1.2":
+"swr@npm:1.2.0":
+  version: 1.2.0
+  resolution: "swr@npm:1.2.0"
+  peerDependencies:
+    react: ^16.11.0 || ^17.0.0 || ^18.0.0
+  checksum: 9858cbd1849fea5d4d9c63c90b8115ffdc27ddd5500d37f43d6fe58fc57777846fc8e9bf2b12a954b5e8328eac38ecccfa16c5a08afe00a48dfb828516e208f7
+  languageName: node
+  linkType: hard
+
+"swr@npm:^1.1.2":
   version: 1.1.2
   resolution: "swr@npm:1.1.2"
   peerDependencies:
