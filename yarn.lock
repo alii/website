@@ -413,12 +413,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/spotify-web-api-node@npm:5.0.6":
-  version: 5.0.6
-  resolution: "@types/spotify-web-api-node@npm:5.0.6"
+"@types/spotify-web-api-node@npm:5.0.7":
+  version: 5.0.7
+  resolution: "@types/spotify-web-api-node@npm:5.0.7"
   dependencies:
     "@types/spotify-api": "*"
-  checksum: aa7994b4d2358bc8f57141cc01fb2f769c5778f1db6c57a3a07eb6514d64a6d295a4d0882995418f9bf283b8d1b4f20ab2778e70da6dc60c33805530268159a0
+  checksum: fe8c1b2825cac1efe95ced64879bd2eaf96ae59732d1eddb7ea967d0e924f5aceccca635d4d7f1ad4c875cbe3ddecfb96844db27bbad3698689173e186bb0326
   languageName: node
   linkType: hard
 
@@ -724,7 +724,7 @@ __metadata:
     "@types/number-to-words": 1.2.1
     "@types/react": 17.0.38
     "@types/react-dom": 17.0.11
-    "@types/spotify-web-api-node": 5.0.6
+    "@types/spotify-web-api-node": 5.0.7
     "@types/tailwindcss": 3.0.3
     "@typescript-eslint/eslint-plugin": 5.10.1
     "@typescript-eslint/parser": 5.10.1
