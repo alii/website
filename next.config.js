@@ -18,6 +18,11 @@ module.exports = {
 				destination: 'https://www.youtube.com/watch?v=HeF11Av9WuU',
 				permanent: true,
 			},
+			{
+				source: '/desu',
+				destination: 'https://www.youtube.com/watch?v=HotGxCSas6A',
+				permanent: true,
+			},
 		];
 	},
 };
