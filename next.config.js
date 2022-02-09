@@ -23,6 +23,11 @@ module.exports = {
 				destination: 'https://www.youtube.com/watch?v=HotGxCSas6A',
 				permanent: true,
 			},
+			{
+				source: '/10',
+				destination: 'https://youtu.be/G5HcvgepK-I',
+				permanent: true,
+			},
 		];
 	},
 };
