@@ -753,7 +753,7 @@ __metadata:
     sharp: 0.30.0
     spotify-web-api-node: 5.0.2
     swr: 1.2.1
-    tailwindcss: 3.0.19
+    tailwindcss: 3.0.20
     typescript: 4.5.5
     typestr: 0.0.10
     urlcat: 2.0.4
@@ -3797,6 +3797,15 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
+"prettier-plugin-tailwindcss@npm:^0.1.7":
+  version: 0.1.7
+  resolution: "prettier-plugin-tailwindcss@npm:0.1.7"
+  peerDependencies:
+    prettier: ">=2.2.0"
+  checksum: a692a025a1c73bc95b0c1b2d1763ee47023908f95e83f120517e87f82bc4885a202ef5a0819f8b3c12bf71286b9ab6d4d014342983d84ba878bcef0e20a4e0d8
+  languageName: node
+  linkType: hard
+
 "prettier@npm:2.5.1":
   version: 2.5.1
   resolution: "prettier@npm:2.5.1"
@@ -4595,9 +4604,9 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:3.0.19":
-  version: 3.0.19
-  resolution: "tailwindcss@npm:3.0.19"
+"tailwindcss@npm:3.0.20":
+  version: 3.0.20
+  resolution: "tailwindcss@npm:3.0.20"
   dependencies:
     arg: ^5.0.1
     chalk: ^4.1.2
@@ -4617,6 +4626,7 @@ resolve@^2.0.0-next.3:
     postcss-nested: 5.0.6
     postcss-selector-parser: ^6.0.9
     postcss-value-parser: ^4.2.0
+    prettier-plugin-tailwindcss: ^0.1.7
     quick-lru: ^5.1.1
     resolve: ^1.22.0
   peerDependencies:
@@ -4625,7 +4635,7 @@ resolve@^2.0.0-next.3:
   bin:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
-  checksum: dbaf8a0c5ee07ee6ab7f460b1068e1bcb230f1a67458be767519a8d248b94846e4903fb43849e49b045be1e7a4503b5921f6179db47ca733b7c37a3ed953c5fa
+  checksum: 1b75b30a2556198a7dcfba12142a864fb6ede1cd50a385c51047a92a14a1a1e97c4e0faa12f9bd91b22564ad7a0ac8fa233078894e8c9c657499cf68e746fc00
   languageName: node
   linkType: hard
 
