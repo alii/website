@@ -80,7 +80,7 @@ export default function AboutPage({topTracks, randomLastFMTrack}: Props) {
 					exactly{' '}
 					<span className="font-bold">{randomLastFMTrack.playcount}</span>{' '}
 					times! Below you can find an up-to-date collection of my favourite
-					songs of all time.
+					songs from the past ~4 weeks.
 				</p>
 			</div>
 
@@ -247,7 +247,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	}
 
 	const tracks = await api.getMyTopTracks({
-		time_range: 'long_term',
+		time_range: 'short_term',
 	});
 
 	await redis.quit();
