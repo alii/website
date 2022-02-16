@@ -421,10 +421,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/tailwindcss@npm:3.0.7":
-  version: 3.0.7
-  resolution: "@types/tailwindcss@npm:3.0.7"
-  checksum: 240f9ae0f9c7314b453bc55cbbd00e7882234f51dc205296b56f8bc053a08bb7f8530844c5d5cfd05d1daa66a51a5b2965e77a666f9a0268f9b7a9384d0777c6
+"@types/tailwindcss@npm:3.0.8":
+  version: 3.0.8
+  resolution: "@types/tailwindcss@npm:3.0.8"
+  checksum: 627cf0863178e6ea592d72e388bf7abf110b2e9b0dd611084e9a0d8854ec2ac4cf83f792edf752445b63c0fd3d1db44318dc45a24ed31fdf8c4de14225695c5c
   languageName: node
   linkType: hard
 
@@ -715,7 +715,7 @@ __metadata:
     "@types/react": 17.0.39
     "@types/react-dom": 17.0.11
     "@types/spotify-web-api-node": 5.0.7
-    "@types/tailwindcss": 3.0.7
+    "@types/tailwindcss": 3.0.8
     "@typescript-eslint/eslint-plugin": 5.11.0
     "@typescript-eslint/parser": 5.11.0
     autoprefixer: 10.4.2
@@ -744,7 +744,7 @@ __metadata:
     sharp: 0.30.1
     spotify-web-api-node: 5.0.2
     swr: 1.2.1
-    tailwindcss: 3.0.22
+    tailwindcss: 3.0.23
     typescript: 4.5.5
     typestr: 0.0.10
     urlcat: 2.0.4
@@ -4568,9 +4568,9 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:3.0.22":
-  version: 3.0.22
-  resolution: "tailwindcss@npm:3.0.22"
+"tailwindcss@npm:3.0.23":
+  version: 3.0.23
+  resolution: "tailwindcss@npm:3.0.23"
   dependencies:
     arg: ^5.0.1
     chalk: ^4.1.2
@@ -4599,7 +4599,7 @@ resolve@^2.0.0-next.3:
   bin:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
-  checksum: 52ec8c4e635d65b708ce762e93d327b3bed9e100db43749bb515e19d4b1af4fe1b0752b57a09939074c265ff63e5ee3451b6ceb7ab7e0da9aa02584cb33eef29
+  checksum: 2e7fdd11561e619770f656821c4b6850fdef633777c1f56fc815e566fc3fe6ec707df0966e90764ef9f452be0d0ee54daa0541002918eada590def3788a30f08
   languageName: node
   linkType: hard
 
