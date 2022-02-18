@@ -4507,12 +4507,12 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"swr@npm:1.2.1":
-  version: 1.2.1
-  resolution: "swr@npm:1.2.1"
+"swr@npm:1.2.2":
+  version: 1.2.2
+  resolution: "swr@npm:1.2.2"
   peerDependencies:
     react: ^16.11.0 || ^17.0.0 || ^18.0.0
-  checksum: 87f6093f468dc76f31d7dc7bdd8f925cd9d8a8e8062eecaf6e17ba4ffeb4d5aebe01e73e0cf30ef0e913121f630c33e393eeff8aab6e5479cb3291cd7f2d7dca
+  checksum: 723747c7c263536d8c9ee8b38039462395ba09a7925508f22c8fc940a1ae72e1f05ef678767b2197ce337e170f4812563281bc4b5f9ad7e4eec895cd7139fb8e
   languageName: node
   linkType: hard
 
@@ -4873,7 +4873,7 @@ resolve@^2.0.0-next.3:
     react-tippy: 1.4.0
     sharp: 0.30.1
     spotify-web-api-node: 5.0.2
-    swr: 1.2.1
+    swr: 1.2.2
     tailwindcss: 3.0.23
     typescript: 4.5.5
     typestr: 0.0.10
