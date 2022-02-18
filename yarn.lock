@@ -701,6 +701,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"alistair@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "alistair@npm:1.0.1"
+  checksum: 9b15ba31b7ba8aae59b39091b71106cfc18ef8a6bbdb580afcb195b09f73e962dc06d036e9909d9157d22db21acdbe3fd155361ff4b26886433b06f7d24e8465
+  languageName: node
+  linkType: hard
+
 "alistair@workspace:.":
   version: 0.0.0-use.local
   resolution: "alistair@workspace:."
@@ -718,6 +725,7 @@ __metadata:
     "@types/tailwindcss": 3.0.8
     "@typescript-eslint/eslint-plugin": 5.12.0
     "@typescript-eslint/parser": 5.12.0
+    alistair: ^1.0.1
     autoprefixer: 10.4.2
     bun-framework-next: 12.0.8
     dayjs: 1.10.7
