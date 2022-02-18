@@ -701,7 +701,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"alistair@npm:^1.1.0":
+"alistair@npm:1.1.0":
   version: 1.1.0
   resolution: "alistair@npm:1.1.0"
   peerDependencies:
@@ -4847,7 +4847,7 @@ resolve@^2.0.0-next.3:
     "@types/tailwindcss": 3.0.8
     "@typescript-eslint/eslint-plugin": 5.12.0
     "@typescript-eslint/parser": 5.12.0
-    alistair: ^1.1.0
+    alistair: 1.1.0
     autoprefixer: 10.4.2
     bun-framework-next: 12.0.8
     dayjs: 1.10.7
