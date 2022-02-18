@@ -47,7 +47,7 @@ export default api({
 			redirectUri: SPOTIFY_REDIRECT_URI,
 		});
 
-		const auth = await api.authorizationCodeGrant(code).then(res => res.body);
+		const {body: auth} = await api.authorizationCodeGrant(code);
 
 		const userAPI = new SpotifyWebApi({
 			accessToken: auth.access_token,
@@ -73,7 +73,6 @@ export default api({
 		);
 
 		await redis.set(SPOTIFY_REDIS_KEYS.RefreshToken, auth.refresh_token);
-
 		await redis.quit();
 
 		return user;
