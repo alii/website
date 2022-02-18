@@ -1,5 +1,5 @@
 {
-	"name": "alistair",
+	"name": "website",
 	"version": "1.0.0",
 	"private": true,
 	"homepage": "https://github.com/alii/website",
@@ -9,7 +9,7 @@
 	},
 	"dependencies": {
 		"@headlessui/react": "1.4.3",
-		"alistair": "^1.0.1",
+		"alistair": "^1.0.5",
 		"dayjs": "1.10.7",
 		"framer-motion": "6.2.6",
 		"hamburger-react": "2.4.1",
