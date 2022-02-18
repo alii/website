@@ -18,7 +18,7 @@ export function Select<T>(props: {
 		<div className="w-24">
 			<Listbox value={selected} onChange={setSelected}>
 				<div className="relative mt-1">
-					<Listbox.Button className="relative py-2 pr-10 pl-3 w-full text-left bg-black hover:bg-gray-800 rounded-lg focus-visible:border-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 shadow-md cursor-default sm:text-sm focus-visible:ring-opacity-75">
+					<Listbox.Button className="relative py-2 pr-10 pl-3 w-full text-left bg-black hover:bg-gray-800 rounded-lg focus-visible:border-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 shadow-md cursor-default sm:text-sm">
 						<span className="block truncate">{selected.name}</span>
 						<span className="flex absolute inset-y-0 right-0 items-center pr-2 pointer-events-none">
 							<HiChevronDown
@@ -34,7 +34,7 @@ export function Select<T>(props: {
 						leaveFrom="opacity-100"
 						leaveTo="opacity-0"
 					>
-						<Listbox.Options className="overflow-auto absolute py-1 mt-1 w-full max-h-60 text-base bg-white rounded-md focus:outline-none ring-1 ring-black shadow-lg sm:text-sm ring-opacity-5">
+						<Listbox.Options className="overflow-auto absolute py-1 mt-1 w-full max-h-60 text-base bg-white rounded-md focus:outline-none ring-1 ring-black/5 shadow-lg sm:text-sm">
 							{props.items.map(item => (
 								<Listbox.Option
 									key={item.name}

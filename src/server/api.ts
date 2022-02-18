@@ -1,7 +1,7 @@
 import {createAPI} from 'nextkit';
 
 export const api = createAPI({
-	onError: async (req, res, error) => {
+	async onError(req, res, error) {
 		console.warn(error);
 
 		return {

@@ -201,7 +201,7 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 		>
 			<button
 				type="button"
-				className="flex items-center py-4 px-5 space-x-2 text-lg font-bold border-b border-white focus:outline-none cursor-pointer select-none border-opacity-10"
+				className="flex items-center py-4 px-5 space-x-2 text-lg font-bold border-b border-white/10 focus:outline-none cursor-pointer select-none"
 				onClick={toggle}
 			>
 				<div className="flex flex-1 items-center space-x-2 text-left">
