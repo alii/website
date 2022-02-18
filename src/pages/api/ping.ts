@@ -1,5 +1,4 @@
 import {api} from '../../server/api';
-
 import {id} from 'alistair/id';
 
 export default api({
