@@ -2,6 +2,11 @@
 	"name": "alistair",
 	"version": "1.0.0",
 	"private": true,
+	"homepage": "https://github.com/alii/website",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/alii/website"
+	},
 	"dependencies": {
 		"@headlessui/react": "1.4.3",
 		"dayjs": "1.10.7",

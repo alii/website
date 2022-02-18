@@ -1,4 +1,6 @@
-# `alistair`
+##### This repo recently moved FROM `alii/alistair` TO `alii/website`!!
+
+# `website`
 
 My personal site website written in Next.js using TypeScript.
 
