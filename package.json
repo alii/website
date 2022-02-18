@@ -8,7 +8,7 @@
 		"url": "https://github.com/alii/website"
 	},
 	"dependencies": {
-		"@headlessui/react": "1.4.3",
+		"@headlessui/react": "1.5.0",
 		"alistair": "1.1.0",
 		"dayjs": "1.10.7",
 		"framer-motion": "6.2.6",
