@@ -27,7 +27,7 @@
 		"spotify-web-api-node": "5.0.2",
 		"swr": "1.2.2",
 		"urlcat": "2.0.4",
-		"use-lanyard": "^1.1.0",
+		"use-lanyard": "^1.0.5",
 		"zod": "3.11.6"
 	},
 	"engines": {
