@@ -243,7 +243,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			accessToken: token,
 		});
 	} else {
-		throw new Error('No tokens available');
+		throw new Error(
+			'No Spotify tokens available! Please manually add them to the Redis store to allow tokens to refresh in the future.',
+		);
 	}
 
 	const tracks = await api.getMyTopTracks({

@@ -18,6 +18,7 @@ const scopes = [
 	'user-read-private',
 	'user-read-email',
 ] as const;
+
 const scope = join(scopes, ' ');
 
 const redirectUrl = urlcat('https://accounts.spotify.com/authorize', {
