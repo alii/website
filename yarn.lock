@@ -2069,9 +2069,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:6.2.6":
-  version: 6.2.6
-  resolution: "framer-motion@npm:6.2.6"
+"framer-motion@npm:6.2.7":
+  version: 6.2.7
+  resolution: "framer-motion@npm:6.2.7"
   dependencies:
     "@emotion/is-prop-valid": ^0.8.2
     framesync: 6.0.1
@@ -2085,7 +2085,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 84c0b0176c083a2d752b7a59f29d20c21ad9d6147366d0bf324bc75bcfd9cfaf2b9827e14df1e773e366a68c0277156bc0fabf62ac53aba7ab64afd0012a7efe
+  checksum: fe852f367de85dd5cf403a862ca8b26b14d76c3db27339c1b41eeb6732af5a23da4ede5491283a6e29a54b18e05703caf53869e9e0fc0131b0e405fee47aa68e
   languageName: node
   linkType: hard
 
@@ -4860,7 +4860,7 @@ resolve@^2.0.0-next.3:
     eslint-config-xo-react: 0.26.0
     eslint-config-xo-typescript: 0.50.0
     eslint-plugin-tailwindcss: 3.4.4
-    framer-motion: 6.2.6
+    framer-motion: 6.2.7
     hamburger-react: 2.4.1
     ioredis: 4.28.5
     ms: 2.1.3
