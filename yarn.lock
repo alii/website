@@ -708,12 +708,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"alistair@npm:1.2.0":
-  version: 1.2.0
-  resolution: "alistair@npm:1.2.0"
+"alistair@npm:1.3.0":
+  version: 1.3.0
+  resolution: "alistair@npm:1.3.0"
+  dependencies:
+    urlcat: ^2.0.4
   peerDependencies:
     react: "*"
-  checksum: 8f1918c9faad3ceee7db72434563e2c09b98f5741fa11f1aa4fbe7c6a37ad3f01084628077644d613290cf4b30209bdb3de6e657e50666129ae66ae875c8a6e7
+  checksum: 5c3e0b83852218ae9370b4acdf184ddf8779b9eb93fdef763c1d4f93e710540671a59c22592e1b30a153128cfe1a4b654ffa45af27173554eb524191044a77c9
   languageName: node
   linkType: hard
 
@@ -4848,7 +4850,7 @@ resolve@^2.0.0-next.3:
     "@types/tailwindcss": 3.0.8
     "@typescript-eslint/eslint-plugin": 5.12.0
     "@typescript-eslint/parser": 5.12.0
-    alistair: 1.2.0
+    alistair: 1.3.0
     autoprefixer: 10.4.2
     bun-framework-next: 12.0.8
     dayjs: 1.10.7
