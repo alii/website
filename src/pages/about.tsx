@@ -179,7 +179,7 @@ function Track({track}: {track: TrackObjectFull}) {
 			<div className="overflow-hidden w-full rounded-md image-span-block">
 				<Image
 					src={image}
-					className="brightness-75 rounded-md group-hover:brightness-100 transition-all duration-300 group-hover:scale-110"
+					className="rounded-md brightness-75 group-hover:brightness-100 transition-all duration-300 group-hover:scale-110"
 					alt={`Album cover art for ${track.name} by ${artists}`}
 					width={400}
 					height={400}
