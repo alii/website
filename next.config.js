@@ -31,7 +31,7 @@ module.exports = {
 				permanent: true,
 			},
 			{
-				source: 'lulzsec',
+				source: '/lulzsec',
 				destination: 'https://www.youtube.com/watch?v=DurOYPdXyF4',
 				permanent: true,
 			},
