@@ -30,6 +30,11 @@ module.exports = {
 				destination: 'https://youtu.be/G5HcvgepK-I',
 				permanent: true,
 			},
+			{
+				source: 'lulzsec',
+				destination: 'https://www.youtube.com/watch?v=DurOYPdXyF4',
+				permanent: true,
+			},
 		];
 	},
 };
