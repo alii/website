@@ -10,7 +10,7 @@
 	"dependencies": {
 		"@headlessui/react": "1.5.0",
 		"alistair": "1.3.1",
-		"dayjs": "1.10.7",
+		"dayjs": "1.10.8",
 		"framer-motion": "6.2.8",
 		"hamburger-react": "2.4.1",
 		"ioredis": "4.28.5",
