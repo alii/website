@@ -1313,10 +1313,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:1.10.7":
-  version: 1.10.7
-  resolution: "dayjs@npm:1.10.7"
-  checksum: a0a4ca95abaa03d0702161dc2c35d16121188e342f5052b9c61cdf784dab68af766f477c04f87f71c6af666fd4d13db9b9853b87265850d6093b7b04e1bb1cd7
+"dayjs@npm:1.10.8":
+  version: 1.10.8
+  resolution: "dayjs@npm:1.10.8"
+  checksum: 5a6b358a0646a780b7dbbec07b8c4400425143f88bf127f456bd2e75a854046f54808d65da2bf964c8267b82dbde0530e990376757ce7d961349d9cde8716a1d
   languageName: node
   linkType: hard
 
@@ -4873,7 +4873,7 @@ resolve@^2.0.0-next.3:
     alistair: 1.3.1
     autoprefixer: 10.4.2
     bun-framework-next: 12.1.0
-    dayjs: 1.10.7
+    dayjs: 1.10.8
     eslint: 8.10.0
     eslint-config-next: 12.1.0
     eslint-config-xo: 0.40.0
