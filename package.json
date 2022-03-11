@@ -67,7 +67,7 @@
 		"@typescript-eslint/parser": "5.14.0",
 		"autoprefixer": "10.4.2",
 		"bun-framework-next": "12.1.0",
-		"eslint": "8.10.0",
+		"eslint": "8.11.0",
 		"eslint-config-next": "12.1.0",
 		"eslint-config-xo": "0.40.0",
 		"eslint-config-xo-react": "0.26.0",
