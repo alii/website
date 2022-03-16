@@ -65,7 +65,7 @@
 		"@types/tailwindcss": "3.0.9",
 		"@typescript-eslint/eslint-plugin": "5.15.0",
 		"@typescript-eslint/parser": "5.15.0",
-		"autoprefixer": "10.4.3",
+		"autoprefixer": "10.4.4",
 		"bun-framework-next": "12.1.0",
 		"eslint": "8.11.0",
 		"eslint-config-next": "12.1.0",
