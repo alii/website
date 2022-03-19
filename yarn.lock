@@ -374,12 +374,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:17.0.13":
-  version: 17.0.13
-  resolution: "@types/react-dom@npm:17.0.13"
+"@types/react-dom@npm:17.0.14":
+  version: 17.0.14
+  resolution: "@types/react-dom@npm:17.0.14"
   dependencies:
     "@types/react": "*"
-  checksum: 62c42a54ac8961c23a0e74b9cdd8b0a78563757e462b1ab665b2aa365bfd8b86a73d3f6eafc09a4a80fb08659321db168f012aa597c41c0df36f645a94e9266b
+  checksum: b54cd0ef573236b3d87fe7493e6d1c36d8b4ca37a3b46364272a5c91ac178e3296b68ea1aeb299ce68f12ad663c5720ee890d0539b14881c6754bdcbdb0befa0
   languageName: node
   linkType: hard
 
@@ -4858,7 +4858,7 @@ resolve@^2.0.0-next.3:
     "@types/nprogress": 0.2.0
     "@types/number-to-words": 1.2.1
     "@types/react": 17.0.41
-    "@types/react-dom": 17.0.13
+    "@types/react-dom": 17.0.14
     "@types/spotify-web-api-node": 5.0.7
     "@types/tailwindcss": 3.0.9
     "@typescript-eslint/eslint-plugin": 5.15.0
