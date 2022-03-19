@@ -1617,14 +1617,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-xo-react@npm:0.26.0":
-  version: 0.26.0
-  resolution: "eslint-config-xo-react@npm:0.26.0"
+"eslint-config-xo-react@npm:0.27.0":
+  version: 0.27.0
+  resolution: "eslint-config-xo-react@npm:0.27.0"
   peerDependencies:
     eslint: ">=8.6.0"
-    eslint-plugin-react: ">=7.28.0"
+    eslint-plugin-react: ">=7.29.0"
     eslint-plugin-react-hooks: ">=4.3.0"
-  checksum: 172763b96405ba32d19826fe28c8d069d0c96d1b3a912a6463673d9db16b6e33b8a8afa8a7ecbc8cca2cf963752896fc54dbb7d6a9917b026a07614268616dd6
+  checksum: 187ad0e300b3093049be501da58d69eb42126abb3bf190b1d0eb2a3e64efea68c9de969724c350c0dcb21866a91c77c14e9a747592b75da1ad5a3210979f104a
   languageName: node
   linkType: hard
 
@@ -4870,7 +4870,7 @@ resolve@^2.0.0-next.3:
     eslint: 8.11.0
     eslint-config-next: 12.1.0
     eslint-config-xo: 0.40.0
-    eslint-config-xo-react: 0.26.0
+    eslint-config-xo-react: 0.27.0
     eslint-config-xo-typescript: 0.50.0
     eslint-plugin-tailwindcss: 3.5.0
     framer-motion: 6.2.8
