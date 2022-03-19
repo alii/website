@@ -302,12 +302,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ioredis@npm:4.28.8":
-  version: 4.28.8
-  resolution: "@types/ioredis@npm:4.28.8"
+"@types/ioredis@npm:4.28.10":
+  version: 4.28.10
+  resolution: "@types/ioredis@npm:4.28.10"
   dependencies:
     "@types/node": "*"
-  checksum: 6082208a2a05767bef8dcbeeb33db713f2aef00eddd7466463246bc48ad6960cc110a82704e4e36cf11be50fcac905c1371322f177fc50b68896541c444ac3e5
+  checksum: 0f2788cf25f490d3b345db8c5f8b8ce3f6c92cc99abcf744c8f974f02b9b3875233b3d22098614c462a0d6c41c523bd655509418ea88eb6249db6652290ce7cf
   languageName: node
   linkType: hard
 
@@ -4852,7 +4852,7 @@ resolve@^2.0.0-next.3:
   dependencies:
     "@headlessui/react": 1.5.0
     "@tailwindcss/typography": 0.5.2
-    "@types/ioredis": 4.28.8
+    "@types/ioredis": 4.28.10
     "@types/ms": 0.7.31
     "@types/node": 17.0.18
     "@types/nprogress": 0.2.0
