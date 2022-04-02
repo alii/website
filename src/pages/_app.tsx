@@ -89,7 +89,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 			<NavLink href="/talk" closeMenu={closeMenu}>
 				/talk
 			</NavLink>
-			<li>
+			<li className="flex-shrink-0">
 				<a
 					target="_blank"
 					href="https://alistair.blog"
@@ -201,7 +201,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 }
 
 const navlinkClassname =
-	'block py-3 font-mono text-lg dark:hover:text-white no-underline dark:sm:hover:bg-white/10 rounded-md sm:inline-block sm:px-5 sm:text-sm sm:font-normal sm:underline sm:bg-white/0 sm:hover:bg-gray-900/5 sm:rounded-full';
+	'block py-3 font-mono text-lg flex-shrink-0 dark:hover:text-white no-underline dark:sm:hover:bg-white/10 rounded-md sm:inline-block sm:px-5 sm:text-sm sm:font-normal sm:underline sm:bg-white/0 sm:hover:bg-gray-900/5 sm:rounded-full';
 
 function NavLink(props: {
 	children: ReactNode;
@@ -209,7 +209,7 @@ function NavLink(props: {
 	closeMenu?: () => void;
 }) {
 	return (
-		<li>
+		<li className="flex-shrink-0">
 			<Link href={props.href}>
 				<a className={navlinkClassname} onClick={props.closeMenu}>
 					{props.children}
