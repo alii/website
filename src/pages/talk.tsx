@@ -7,7 +7,7 @@ import {SiDiscord, SiTwitter} from 'react-icons/si';
 import {useLanyard} from 'use-lanyard';
 import {ListItem} from '../components/list-item';
 import {DISCORD_ID} from '../components/song';
-import {form} from '../util/client';
+import {sendForm} from '../util/client';
 
 const statusMap = {
 	online: 'bg-green-500',
@@ -41,13 +41,10 @@ export default function Talk() {
 								new FormData(event.target as HTMLFormElement).entries(),
 							);
 
-							const promise = form.post(
-								{},
-								{
-									headers: {'Content-Type': 'application/json'},
-									body: JSON.stringify(values),
-								},
-							);
+							const promise = sendForm({
+								headers: {'Content-Type': 'application/json'},
+								body: JSON.stringify(values),
+							});
 
 							await toast
 								.promise(promise, {

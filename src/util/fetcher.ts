@@ -1,4 +1,4 @@
-import {NextkitClientException} from 'nextkit/client';
+import {NextkitClientError} from 'nextkit/client';
 import {throws} from './exceptions';
 import {hasProp} from 'nextkit';
 
@@ -13,7 +13,7 @@ export async function fetcher<T>(url: string, init?: RequestInit): Promise<T> {
 			message = json.message;
 		}
 
-		throw new NextkitClientException(response.status, message);
+		throw new NextkitClientError(response.status, message);
 	}
 
 	return json as T;

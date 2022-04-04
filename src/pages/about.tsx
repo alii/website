@@ -223,7 +223,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 		await redis.set(
 			SPOTIFY_REDIS_KEYS.AccessToken,
 			result.body.access_token,
-			'ex',
+			'EX',
 
 			// Expires is in seconds as per https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
 			result.body.expires_in,

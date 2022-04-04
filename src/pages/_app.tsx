@@ -22,13 +22,13 @@ Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
 export default function App({Component, pageProps, router}: AppProps) {
-	const [mobileMenuOpen, setMenuOpen] = useState(false);
+	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const [hasScrolled, setHasScrolled] = useState(false);
 
 	const ballCanvas = useRef<HTMLDivElement>(null);
 
 	const toggleMenu = () => {
-		setMenuOpen(old => !old);
+		setMobileMenuOpen(old => !old);
 	};
 
 	useEffect(() => {
@@ -53,7 +53,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 			return;
 		}
 
-		setMenuOpen(false);
+		setMobileMenuOpen(false);
 
 		void new Audio('/pop.mp3').play().catch(() => null);
 	}, [router.pathname]);
@@ -75,7 +75,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 	}, []);
 
 	const closeMenu = () => {
-		setMenuOpen(false);
+		setMobileMenuOpen(false);
 	};
 
 	const navLinks = (
@@ -89,7 +89,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 			<NavLink href="/talk" closeMenu={closeMenu}>
 				/talk
 			</NavLink>
-			<li className="flex-shrink-0">
+			<li className="shrink-0">
 				<a
 					target="_blank"
 					href="https://alistair.blog"
@@ -209,7 +209,7 @@ function NavLink(props: {
 	closeMenu?: () => void;
 }) {
 	return (
-		<li className="flex-shrink-0">
+		<li className="shrink-0">
 			<Link href={props.href}>
 				<a className={navlinkClassname} onClick={props.closeMenu}>
 					{props.children}
