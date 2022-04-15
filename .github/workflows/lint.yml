@@ -38,3 +38,8 @@ jobs:
         run: yarn lint
         env:
           CI: true
+
+      - name: Danger
+        run: yarn danger ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.DANGER_TOKEN }}

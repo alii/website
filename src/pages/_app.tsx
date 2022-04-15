@@ -89,7 +89,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 			<NavLink href="/talk" closeMenu={closeMenu}>
 				/talk
 			</NavLink>
-			<li>
+			<li className="shrink-0">
 				<a
 					target="_blank"
 					href="https://alistair.blog"
@@ -209,7 +209,7 @@ function NavLink(props: {
 	closeMenu?: () => void;
 }) {
 	return (
-		<li>
+		<li className="shrink-0">
 			<Link href={props.href}>
 				<a className={navlinkClassname} onClick={props.closeMenu}>
 					{props.children}
