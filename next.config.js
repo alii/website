@@ -35,6 +35,11 @@ module.exports = {
 				destination: 'https://www.youtube.com/watch?v=DurOYPdXyF4',
 				permanent: true,
 			},
+			{
+				source: '/wheels',
+				destination: 'https://www.youtube.com/watch?v=9xRFN2i1cwQ',
+				permanent: true,
+			},
 		];
 	},
 };
