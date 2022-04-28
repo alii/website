@@ -147,11 +147,6 @@ export default function Index(props: Props) {
 						0,
 					)}{' '}
 					stars! Thank you! 💖
-
-
-					<div>
-						yo
-					</div>
 				</p>
 
 				<div className="grid grid-cols-1 auto-cols-max gap-1 sm:grid-cols-2 sm:gap-3">
