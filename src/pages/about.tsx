@@ -74,7 +74,7 @@ export default function AboutPage({topTracks, randomLastFMTrack}: Props) {
 
 				<p>
 					I listen to a lot of Spotify and have always had a passion for music
-					ever since . Over the last 12 months, I've played the song{' '}
+					ever since I was young. Over the last 12 months, I've played the song{' '}
 					<span className="font-bold">{randomLastFMTrack.name}</span> by{' '}
 					<span className="font-bold">{randomLastFMTrack.artist.name}</span>{' '}
 					exactly{' '}
