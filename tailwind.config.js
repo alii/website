@@ -1,6 +1,7 @@
 /* eslint-disable unicorn/prefer-module */
 
 const defaults = require('tailwindcss/defaultTheme');
+const colors = require('tailwindcss/colors');
 
 /** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
 module.exports = {
@@ -11,6 +12,10 @@ module.exports = {
 			fontFamily: {
 				...defaults.fontFamily,
 				sans: ['Roboto', ...defaults.fontFamily.sans],
+			},
+
+			colors: {
+				gray: colors.neutral,
 			},
 		},
 	},
