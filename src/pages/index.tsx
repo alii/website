@@ -138,10 +138,13 @@ export default function Index(props: Props) {
 				<h1 className="text-2xl font-bold sm:text-3xl">What do I do? 💭</h1>
 				<p className="opacity-80">
 					Honestly, a few too many things to count on one hand... I'm currently
-					having a fantastic time working with Giggl - we're building a way to
-					watch & browse the web, together. Below are some of the more popular
-					open source projects I've worked on. In total, the following repos
-					have earnt me{' '}
+					having a fantastic time working with{' '}
+					<a href="https://hop.io" target="_blank" rel="noreferrer">
+						Hop
+					</a>{' '}
+					- we're building an e2e realtime engine for video. Below are some of
+					the more popular open source projects I've worked on. In total, the
+					following repos have earnt me{' '}
 					{projects.reduce(
 						(acc, project) => acc + parseInt(project.stars, 10),
 						0,
