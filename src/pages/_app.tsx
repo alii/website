@@ -22,13 +22,13 @@ Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
 export default function App({Component, pageProps, router}: AppProps) {
-	const [mobileMenuOpen, setMenuOpen] = useState(false);
+	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const [hasScrolled, setHasScrolled] = useState(false);
 
 	const ballCanvas = useRef<HTMLDivElement>(null);
 
 	const toggleMenu = () => {
-		setMenuOpen(old => !old);
+		setMobileMenuOpen(old => !old);
 	};
 
 	useEffect(() => {
@@ -53,7 +53,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 			return;
 		}
 
-		setMenuOpen(false);
+		setMobileMenuOpen(false);
 
 		void new Audio('/pop.mp3').play().catch(() => null);
 	}, [router.pathname]);
@@ -75,7 +75,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 	}, []);
 
 	const closeMenu = () => {
-		setMenuOpen(false);
+		setMobileMenuOpen(false);
 	};
 
 	const navLinks = (

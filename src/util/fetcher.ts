@@ -1,6 +1,11 @@
-import {NextkitClientException} from 'nextkit/client';
 import {throws} from './exceptions';
-import {hasProp} from 'nextkit';
+import {hasProp, type NextkitError} from 'nextkit';
+
+export class FetcherError extends Error implements NextkitError {
+	constructor(public readonly code: number, message: string) {
+		super(message);
+	}
+}
 
 export async function fetcher<T>(url: string, init?: RequestInit): Promise<T> {
 	const response = await fetch(url, init);
@@ -13,7 +18,7 @@ export async function fetcher<T>(url: string, init?: RequestInit): Promise<T> {
 			message = json.message;
 		}
 
-		throw new NextkitClientException(response.status, message);
+		throw new FetcherError(response.status, message);
 	}
 
 	return json as T;

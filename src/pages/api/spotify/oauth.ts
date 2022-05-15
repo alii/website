@@ -1,5 +1,4 @@
 import IORedis from 'ioredis';
-import {NextkitException} from 'nextkit';
 import SpotifyWebApi from 'spotify-web-api-node';
 import urlcat from 'urlcat';
 import {z} from 'zod';
@@ -33,7 +32,7 @@ const schema = z.object({
 });
 
 export default api({
-	async GET({req}) {
+	async GET({req, res}) {
 		const {code} = schema.parse(req.query);
 
 		if (!code) {
@@ -58,10 +57,7 @@ export default api({
 		const {body: user} = await userAPI.getMe();
 
 		if (user.id !== 'alistairsmith01') {
-			throw new NextkitException(
-				403,
-				'You are not permitted to update OAuth keys!',
-			);
+			res.throw(403, 'You are not permitted to update OAuth keys!');
 		}
 
 		const redis = new IORedis(REDIS_URL);
@@ -69,7 +65,7 @@ export default api({
 		await redis.set(
 			SPOTIFY_REDIS_KEYS.AccessToken,
 			auth.access_token,
-			'ex',
+			'EX',
 			auth.expires_in,
 		);
 

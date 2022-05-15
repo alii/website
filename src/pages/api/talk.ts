@@ -1,7 +1,6 @@
 import {api} from '../../server/api';
 import {z} from 'zod';
 import {DISCORD_WEBHOOK} from '../../server/constants';
-import {NextkitClientException} from 'nextkit/client';
 
 const schema = z.object({
 	email: z.string().email(),
@@ -9,7 +8,7 @@ const schema = z.object({
 });
 
 export default api({
-	async POST({req}) {
+	async POST({req, res}) {
 		const body = schema.parse(req.body);
 
 		const result = await fetch(DISCORD_WEBHOOK, {
@@ -38,10 +37,7 @@ export default api({
 		});
 
 		if (result.status >= 400) {
-			throw new NextkitClientException(
-				result.status,
-				'Error sending notification',
-			);
+			res.throw(result.status, 'Error sending notification');
 		}
 
 		if (req.headers['content-type'] === 'application/json') {
