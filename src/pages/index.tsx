@@ -62,7 +62,7 @@ export default function Index(props: Props) {
 			<div className="space-y-4">
 				<div className="flex items-center space-x-3">
 					<a
-						href="https://github.com/alii"
+						href="https://github.com/alii/website"
 						target="_blank"
 						rel="noreferrer"
 						aria-label="GitHub Profile"
