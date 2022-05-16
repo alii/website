@@ -7,7 +7,7 @@ function coerce<AOut, ADef, AIn, TOut, BOut, BDef>(
 	a: z.Schema<AOut, ADef, AIn>,
 	transform: (value: AOut) => TOut,
 	b: z.Schema<BOut, BDef, TOut>,
-) {
+): z.ZodEffects<z.ZodType<AOut, ADef, AIn>, BOut, AIn> {
 	return a.transform(value => b.parse(transform(value)));
 }
 
