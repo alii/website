@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-
 import {z} from 'zod';
 import {api} from '../../server/api';
 
@@ -9,6 +7,13 @@ function coerce<AOut, ADef, AIn, TOut, BOut, BDef>(
 	b: z.Schema<BOut, BDef, TOut>,
 ): z.ZodEffects<z.ZodType<AOut, ADef, AIn>, BOut, AIn> {
 	return a.transform(value => b.parse(transform(value)));
+}
+
+function refine<AOut, ADef, AIn, BOut, BDef>(
+	a: z.Schema<AOut, ADef, AIn>,
+	b: z.Schema<BOut, BDef, AOut>,
+) {
+	return coerce(a, v => v, b);
 }
 
 const numeric = (apply?: (schema: z.ZodNumber) => z.ZodNumber) =>
@@ -24,11 +29,7 @@ const commaSeparated = coerce(
 	z.array(z.any()),
 );
 
-const commaSeparatedNums = coerce(
-	commaSeparated,
-	value => value,
-	z.array(numeric()),
-);
+const commaSeparatedNums = refine(commaSeparated, z.array(numeric()));
 
 const json = coerce(
 	z.string(),
