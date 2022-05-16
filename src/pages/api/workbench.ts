@@ -49,6 +49,8 @@ export default api({
 
 			stringOrNum1: stringOrNum.parse('1'),
 			stringOrNum2: stringOrNum.parse('2'),
+			stringOrNum11: stringOrNum.parse(1),
+			stringOrNum12: stringOrNum.parse(2),
 
 			optionalNumber: optionalNumber.parse('42'),
 			optionalNumber2: optionalNumber.parse(undefined),
