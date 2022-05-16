@@ -27,15 +27,36 @@ const optionalNumber = coerce(
 	z.number().min(20),
 );
 
+const numeric = (apply: (schema: z.ZodNumber) => z.ZodNumber) =>
+	coerce(
+		z.string().or(z.number()),
+		value => (typeof value === 'string' ? parseInt(value, 10) : value),
+		apply(z.number()),
+	);
+
+const numericSchema = numeric(s => s.min(2).max(14)).optional();
+
+const stringOrNum = z.transformer(z.string().or(z.number()), {
+	type: 'transform',
+	transform: value => (typeof value === 'string' ? parseInt(value, 10) : value),
+});
+
 export default api({
 	async GET() {
 		return {
-			cs: commaSeparated.safeParse('alistair,smith,alex,katt,colin,hacks'),
-			json: json.safeParse('{"a":1,"b":2}'),
-			optionalNumber: optionalNumber.safeParse('42'),
-			optionalNumber2: optionalNumber.safeParse(undefined),
+			cs: commaSeparated.parse('alistair,smith,alex,katt,colin,hacks'),
+			json: json.parse('{"a":1,"b":2}'),
+
+			stringOrNum1: stringOrNum.parse('1'),
+			stringOrNum2: stringOrNum.parse('2'),
+
+			optionalNumber: optionalNumber.parse('42'),
+			optionalNumber2: optionalNumber.parse(undefined),
 			optionalNumber3: optionalNumber.safeParse(null),
-			optionalNumber4: optionalNumber.safeParse(''),
+			optionalNumber4: optionalNumber.parse(''),
+
+			numeric2: numericSchema.parse('2'),
+			numeric3: numericSchema.parse('13'),
 		};
 	},
 });
