@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+
 import {z} from 'zod';
 import {api} from '../../server/api';
 
@@ -6,13 +8,26 @@ function coerce<AOut, ADef, AIn, TOut, BOut, BDef>(
 	transform: (value: AOut) => TOut,
 	b: z.Schema<BOut, BDef, TOut>,
 ) {
-	return a.transform(transform).transform(value => b.parse(value));
+	return a.transform(value => b.parse(transform(value)));
 }
+
+const numeric = (apply?: (schema: z.ZodNumber) => z.ZodNumber) =>
+	coerce(
+		z.string().or(z.number()),
+		value => (typeof value === 'string' ? parseInt(value, 10) : value),
+		apply ? apply(z.number()) : z.number(),
+	);
 
 const commaSeparated = coerce(
 	z.string(),
 	value => value.split(','),
-	z.array(z.string()),
+	z.array(z.any()),
+);
+
+const commaSeparatedNums = coerce(
+	commaSeparated,
+	value => value,
+	z.array(numeric()),
 );
 
 const json = coerce(
@@ -24,18 +39,13 @@ const json = coerce(
 const optionalNumber = coerce(
 	z.string().optional(),
 	value => (value ? parseInt(value, 10) : 20),
-	z.number().min(20),
+	z.number().min(20).optional(),
 );
-
-const numeric = (apply: (schema: z.ZodNumber) => z.ZodNumber) =>
-	coerce(
-		z.string().or(z.number()),
-		value => (typeof value === 'string' ? parseInt(value, 10) : value),
-		apply(z.number()),
-	);
 
 const numericSchema = numeric(s => s.min(2).max(14)).optional();
 
+// Poor because this is inferred to `string | number` when really it will *always* be a numerical output
+// this is because the transformer doesn't copy type information across
 const stringOrNum = z.transformer(z.string().or(z.number()), {
 	type: 'transform',
 	transform: value => (typeof value === 'string' ? parseInt(value, 10) : value),
@@ -44,7 +54,6 @@ const stringOrNum = z.transformer(z.string().or(z.number()), {
 export default api({
 	async GET() {
 		return {
-			cs: commaSeparated.parse('alistair,smith,alex,katt,colin,hacks'),
 			json: json.parse('{"a":1,"b":2}'),
 
 			stringOrNum1: stringOrNum.parse('1'),
@@ -59,6 +68,9 @@ export default api({
 
 			numeric2: numericSchema.parse('2'),
 			numeric3: numericSchema.parse('13'),
+
+			commaSeparated: commaSeparated.parse('10,100,1000,not a number,also not'),
+			commaSeparatedNums: commaSeparatedNums.parse('10,100,1000'),
 		};
 	},
 });
