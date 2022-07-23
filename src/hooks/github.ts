@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 
-interface User {
+type User = {
 	login: string;
 	id: number;
 	node_id: string;
@@ -33,7 +33,7 @@ interface User {
 	following: number;
 	created_at: string;
 	updated_at: string;
-}
+};
 
 /**
  * SWR wrapper that retusn a full github user object from the public api
@@ -44,7 +44,7 @@ export function useGitHubUser(username: string) {
 	return useSWR<User, Error>(`https://api.github.com/users/${username}`);
 }
 
-export interface PinnedRepo {
+export type PinnedRepo = {
 	owner: string;
 	repo: string;
 	description: string;
@@ -52,7 +52,7 @@ export interface PinnedRepo {
 	languageColor: string;
 	stars: string;
 	forks: string;
-}
+};
 
 /**
  * SWR wrapper that returns github repositories for a user

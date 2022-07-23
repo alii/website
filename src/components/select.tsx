@@ -18,11 +18,11 @@ export function Select<T>(props: {
 		<div className="w-24">
 			<Listbox value={selected} onChange={setSelected}>
 				<div className="relative mt-1">
-					<Listbox.Button className="relative py-2 pr-10 pl-3 w-full text-left bg-black hover:bg-gray-800 rounded-lg focus-visible:border-indigo-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 shadow-md cursor-default sm:text-sm">
+					<Listbox.Button className="relative w-full cursor-default rounded-lg bg-black py-2 pr-10 pl-3 text-left shadow-md hover:bg-gray-800 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
 						<span className="block truncate">{selected.name}</span>
-						<span className="flex absolute inset-y-0 right-0 items-center pr-2 pointer-events-none">
+						<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
 							<HiChevronDown
-								className="w-4 h-4 text-gray-400"
+								className="h-4 w-4 text-gray-400"
 								aria-hidden="true"
 							/>
 						</span>
@@ -34,7 +34,7 @@ export function Select<T>(props: {
 						leaveFrom="opacity-100"
 						leaveTo="opacity-0"
 					>
-						<Listbox.Options className="overflow-auto absolute py-1 mt-1 w-full max-h-60 text-base bg-white rounded-md focus:outline-none ring-1 ring-black/5 shadow-lg sm:text-sm">
+						<Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
 							{props.items.map(item => (
 								<Listbox.Option
 									key={item.name}
@@ -60,7 +60,7 @@ export function Select<T>(props: {
 													}
                                 absolute inset-y-0 left-0 flex items-center pl-3`}
 												>
-													<HiCheck className="w-5 h-5" aria-hidden="true" />
+													<HiCheck className="h-5 w-5" aria-hidden="true" />
 												</span>
 											)}
 										</>

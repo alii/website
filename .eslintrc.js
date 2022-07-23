@@ -39,12 +39,13 @@ module.exports = {
 		'@typescript-eslint/quotes': 'off',
 		'react/jsx-curly-newline': 'off',
 		'@typescript-eslint/indent': 'off',
-
-		// Broken rules :(
-		'@typescript-eslint/ban-types': 'off',
-		'@typescript-eslint/no-unnecessary-type-arguments': 'off',
+		'jsx-quotes': 'off',
 
 		// Doesn't work with 3.0.0 jit
 		'tailwindcss/no-custom-classname': 'off',
+
+		// Bad rule
+		'@typescript-eslint/parameter-properties': 'off',
+		'@typescript-eslint/ban-types': 'off',
 	},
 };

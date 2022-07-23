@@ -45,7 +45,7 @@ export class LastFM {
 	}
 }
 
-export interface LastFMGetTrack {
+export type LastFMGetTrack = {
 	'streamable': {
 		'fulltrack': string;
 		'#text': string;
@@ -67,9 +67,9 @@ export interface LastFMGetTrack {
 		rank: string;
 	};
 	'playcount': string;
-}
+};
 
-export interface GetTopTracks {
+export type GetTopTracks = {
 	toptracks: {
 		'track': LastFMGetTrack[];
 		'@attr': {
@@ -80,4 +80,4 @@ export interface GetTopTracks {
 			total: string;
 		};
 	};
-}
+};

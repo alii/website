@@ -127,7 +127,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 							initial={{opacity: 0, y: -10}}
 							animate={{opacity: 1, y: 0}}
 							exit={{opacity: 0}}
-							className="fixed inset-0 z-10 py-24 px-8 space-y-2 bg-white dark:bg-gray-900 sm:hidden"
+							className="fixed inset-0 z-10 space-y-2 bg-white py-24 px-8 dark:bg-gray-900 sm:hidden"
 						>
 							<h1 className="text-4xl font-bold">Menu.</h1>
 
@@ -136,16 +136,16 @@ export default function App({Component, pageProps, router}: AppProps) {
 					)}
 				</AnimatePresence>
 
-				<div className="overflow-hidden sticky top-0 z-20 h-32 transition-all sm:hidden">
+				<div className="sticky top-0 z-20 h-32 overflow-hidden transition-all sm:hidden">
 					<div
 						className={`${
-							hasScrolled || mobileMenuOpen ? 'mt-0' : 'mt-10 mx-5'
-						} bg-gray-100 dark:bg-gray-900 relative transition-all ${
+							hasScrolled || mobileMenuOpen ? 'mt-0' : 'mx-5 mt-10'
+						} relative bg-gray-100 transition-all dark:bg-gray-900 ${
 							hasScrolled || mobileMenuOpen ? 'rounded-none' : 'rounded-lg'
 						}`}
 					>
 						<div
-							className={`pr-5 flex justify-between transition-colors space-x-2 ${
+							className={`flex justify-between space-x-2 pr-5 transition-colors ${
 								mobileMenuOpen
 									? 'bg-gray-100 dark:bg-gray-800'
 									: 'bg-transparent'
@@ -153,7 +153,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 						>
 							<button
 								type="button"
-								className="block relative z-50 px-2 text-gray-500 focus:ring transition-all"
+								className="relative z-50 block px-2 text-gray-500 transition-all focus:ring"
 								onClick={toggleMenu}
 							>
 								<Hamburger
@@ -170,7 +170,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 					</div>
 				</div>
 
-				<div className="py-10 px-5 mx-auto max-w-4xl">
+				<div className="mx-auto max-w-4xl py-10 px-5">
 					<div className="hidden items-center space-x-2 sm:flex">
 						<nav className="flex-1">
 							<ul className="flex space-x-4">{navLinks}</ul>
@@ -181,11 +181,11 @@ export default function App({Component, pageProps, router}: AppProps) {
 						</div>
 					</div>
 
-					<main className="mx-auto space-y-12 max-w-3xl md:py-24">
+					<main className="mx-auto max-w-3xl space-y-12 md:py-24">
 						<Component {...pageProps} />
 					</main>
 
-					<footer className="p-4 py-10 mx-auto mt-20 max-w-3xl border-t-2 border-gray-900/10 dark:border-white/10 opacity-50">
+					<footer className="mx-auto mt-20 max-w-3xl border-t-2 border-gray-900/10 p-4 py-10 opacity-50 dark:border-white/10">
 						<h1 className="text-3xl font-bold">Alistair Smith</h1>
 						<p>Software Engineer • {new Date().getFullYear()}</p>
 					</footer>
@@ -193,7 +193,7 @@ export default function App({Component, pageProps, router}: AppProps) {
 
 				<div
 					ref={ballCanvas}
-					className="fixed z-30 w-6 h-6 bg-transparent rounded-full border border-black dark:border-white shadow-md opacity-0 duration-200 pointer-events-none ball-transitions"
+					className="ball-transitions pointer-events-none fixed z-30 h-6 w-6 rounded-full border border-black bg-transparent opacity-0 shadow-md duration-200 dark:border-white"
 				/>
 			</SWRConfig>
 		</StrictMode>

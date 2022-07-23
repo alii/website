@@ -41,10 +41,10 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 
 dayjs.extend(relativeTime);
 
-interface Props {
+type Props = {
 	pinnedRepos: PinnedRepo[];
 	lanyard: LanyardData;
-}
+};
 
 export default function Index(props: Props) {
 	const {data: projects = props.pinnedRepos} = useGitHubPinnedRepos('alii');
@@ -67,7 +67,7 @@ export default function Index(props: Props) {
 						rel="noreferrer"
 						aria-label="GitHub Profile"
 					>
-						<SiGithub className="w-7 h-7" />
+						<SiGithub className="h-7 w-7" />
 						<span className="sr-only">GitHub Profile</span>
 					</a>
 
@@ -77,7 +77,7 @@ export default function Index(props: Props) {
 						rel="noreferrer"
 						aria-label="Twitter Profile"
 					>
-						<SiTwitter className="w-7 h-7" />
+						<SiTwitter className="h-7 w-7" />
 						<span className="sr-only">Twitter Profile</span>
 					</a>
 
@@ -87,7 +87,7 @@ export default function Index(props: Props) {
 								target="_blank"
 								href={`https://search.alistair.sh/?q=!maps+${lanyard.kv.location}`}
 								rel="noreferrer"
-								className="flex items-center px-2 pr-3 text-neutral-600 dark:text-white no-underline bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-800 rounded-full transition-colors dark:text-opacity-50"
+								className="flex items-center rounded-full bg-gray-200 px-2 pr-3 text-neutral-600 no-underline transition-colors dark:bg-gray-700 dark:text-white dark:text-opacity-50 dark:hover:bg-gray-800"
 							>
 								<span>
 									<HiOutlineLocationMarker className="inline dark:text-white" />
@@ -99,11 +99,11 @@ export default function Index(props: Props) {
 									&nbsp;
 								</span>
 
-								<span className="block -mb-0.5 ml-1 w-[6px] h-[6px] bg-gray-600 dark:bg-white rounded-full animate-pulse" />
+								<span className="-mb-0.5 ml-1 block h-[6px] w-[6px] animate-pulse rounded-full bg-gray-600 dark:bg-white" />
 							</a>
 
 							{boostedActivity?.timestamps && (
-								<p className="flex items-center px-2 pr-3 text-neutral-600 dark:text-white no-underline bg-gray-200 dark:bg-gray-700 rounded-full transition-colors dark:text-opacity-50">
+								<p className="flex items-center rounded-full bg-gray-200 px-2 pr-3 text-neutral-600 no-underline transition-colors dark:bg-gray-700 dark:text-white dark:text-opacity-50">
 									<span>
 										<GiSkateboard className="inline dark:text-white" />
 										&nbsp;
@@ -115,7 +115,7 @@ export default function Index(props: Props) {
 										&nbsp;
 									</span>
 
-									<span className="block -mb-0.5 ml-1 w-[6px] h-[6px] bg-gray-600 dark:bg-white rounded-full animate-pulse" />
+									<span className="-mb-0.5 ml-1 block h-[6px] w-[6px] animate-pulse rounded-full bg-gray-600 dark:bg-white" />
 								</p>
 							)}
 						</p>
@@ -152,7 +152,7 @@ export default function Index(props: Props) {
 					stars! Thank you! 💖
 				</p>
 
-				<div className="grid grid-cols-1 auto-cols-max gap-1 sm:grid-cols-2 sm:gap-3">
+				<div className="grid auto-cols-max grid-cols-1 gap-1 sm:grid-cols-2 sm:gap-3">
 					{projects.map(project => (
 						<ProjectCard key={project.repo} repo={project} />
 					))}
@@ -200,11 +200,11 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 	return (
 		<motion.div
 			animate={{height: isOpen ? 'auto' : '54px'}}
-			className="flex overflow-hidden relative flex-col text-blue-900/80 dark:text-gray-100 no-underline dark:hover:bg-white/10 bg-gradient-to-tr from-blue-100 dark:from-white/5 to-blue-700/5 dark:to-white/5 rounded-md dark:border border-white/10 md:rounded-lg"
+			className="relative flex flex-col overflow-hidden rounded-md border-white/10 bg-gradient-to-tr from-blue-100 to-blue-700/5 text-blue-900/80 no-underline dark:border dark:from-white/5 dark:to-white/5 dark:text-gray-100 dark:hover:bg-white/10 md:rounded-lg"
 		>
 			<button
 				type="button"
-				className="flex items-center py-4 px-5 space-x-2 text-lg font-bold border-b border-white/10 focus:outline-none cursor-pointer select-none"
+				className="flex cursor-pointer select-none items-center space-x-2 border-b border-white/10 py-4 px-5 text-lg font-bold focus:outline-none"
 				onClick={toggle}
 			>
 				<div className="flex flex-1 items-center space-x-2 text-left">
@@ -217,7 +217,7 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 						<span className="space-x-1">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								className="inline w-4 h-4"
+								className="inline h-4 w-4"
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke="currentColor"
@@ -235,12 +235,12 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 				</div>
 				<div>
 					<motion.div
-						className="p-1 bg-white/0 hover:bg-white/10 rounded-full"
+						className="rounded-full bg-white/0 p-1 hover:bg-white/10"
 						animate={{rotate: isOpen ? 90 : 0}}
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							className="w-5 h-5"
+							className="h-5 w-5"
 							viewBox="0 0 20 20"
 							fill="currentColor"
 						>
@@ -262,7 +262,7 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 						exit={{opacity: 0}}
 						className="flex h-full"
 					>
-						<div className="flex flex-col py-4 px-5 space-y-4">
+						<div className="flex flex-col space-y-4 py-4 px-5">
 							<p className="flex-1">{project.description}</p>
 
 							<div>
@@ -270,12 +270,12 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 									href={`https://github.com/${project.owner}/${project.repo}`}
 									target="_blank"
 									rel="noreferrer"
-									className="inline-flex items-center py-2 px-6 space-x-2 text-white no-underline bg-blue-700 dark:bg-white/10 rounded-full transition-transform duration-500 hover:scale-95 select-none"
+									className="inline-flex select-none items-center space-x-2 rounded-full bg-blue-700 py-2 px-6 text-white no-underline transition-transform duration-500 hover:scale-95 dark:bg-white/10"
 								>
 									<span>View Project</span>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
-										className="w-6 h-6"
+										className="h-6 w-6"
 										fill="none"
 										viewBox="0 0 24 24"
 										stroke="currentColor"

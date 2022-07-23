@@ -29,7 +29,7 @@ export default function Talk() {
 			</p>
 
 			<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-				<div className="p-5 bg-gray-100 dark:bg-white/5 rounded-lg">
+				<div className="rounded-lg bg-gray-100 p-5 dark:bg-white/5">
 					<form
 						className="space-y-2"
 						action="/api/form"
@@ -59,7 +59,7 @@ export default function Talk() {
 						}}
 					>
 						<label htmlFor="email" className="block">
-							<span className="text-sm font-bold tracking-wide dark:text-white uppercase select-none text-opacity-50">
+							<span className="select-none text-sm font-bold uppercase tracking-wide text-opacity-50 dark:text-white">
 								Email Address
 							</span>
 
@@ -68,12 +68,12 @@ export default function Talk() {
 								type="email"
 								name="email"
 								id="email"
-								className="block py-1 px-4 w-full font-sans text-lg bg-gray-200 dark:bg-white/5 rounded-md focus:outline-none focus:ring"
+								className="block w-full rounded-md bg-gray-200 py-1 px-4 font-sans text-lg focus:outline-none focus:ring dark:bg-white/5"
 							/>
 						</label>
 
 						<label htmlFor="body" className="block">
-							<span className="text-sm font-bold tracking-wide dark:text-white uppercase select-none text-opacity-50">
+							<span className="select-none text-sm font-bold uppercase tracking-wide text-opacity-50 dark:text-white">
 								Your message
 							</span>
 
@@ -82,14 +82,14 @@ export default function Talk() {
 								name="body"
 								minLength={10}
 								id="body"
-								className="block py-1 px-4 w-full font-sans text-lg bg-gray-200 dark:bg-white/5 rounded-md focus:outline-none focus:ring resize-none"
+								className="block w-full resize-none rounded-md bg-gray-200 py-1 px-4 font-sans text-lg focus:outline-none focus:ring dark:bg-white/5"
 							/>
 						</label>
 
 						<div className="block pt-2">
 							<button
 								type="submit"
-								className="inline-flex items-center py-2 px-8 space-x-2 text-lg text-blue-100 dark:text-white bg-blue-700 dark:bg-white/5 dark:hover:bg-white/10 rounded-full focus:outline-none focus:ring"
+								className="inline-flex items-center space-x-2 rounded-full bg-blue-700 py-2 px-8 text-lg text-blue-100 focus:outline-none focus:ring dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
 							>
 								<span>Send</span> <RiSendPlane2Line />
 							</button>
@@ -98,7 +98,7 @@ export default function Talk() {
 				</div>
 
 				<div>
-					<ul className="space-y-2 list-disc list-inside">
+					<ul className="list-inside list-disc space-y-2">
 						<ListItem icon={HiOutlineMail} text="hi@alistair.sh" />
 						<ListItem
 							icon={SiDiscord}
@@ -115,7 +115,7 @@ export default function Talk() {
 												statusMap[
 													lanyard.discord_status as keyof typeof statusMap
 												]
-											} h-2 w-2 inline-block rounded-full`}
+											} inline-block h-2 w-2 rounded-full`}
 										/>
 									</span>
 								) : null

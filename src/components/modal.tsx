@@ -7,14 +7,14 @@ import React, {
 } from 'react';
 import {Dialog, Transition} from '@headlessui/react';
 
-interface Props {
+type Props = {
 	isOpen: boolean;
 	setIsOpen: Dispatch<SetStateAction<boolean>>;
 	title: ReactNode;
 	children: ReactNode;
 	focusRef?: MutableRefObject<HTMLElement | null>;
 	description?: string;
-}
+};
 
 export function Modal({isOpen, ...props}: Props) {
 	const close = () => {
@@ -25,11 +25,11 @@ export function Modal({isOpen, ...props}: Props) {
 		<Transition appear as={Fragment} show={isOpen}>
 			<Dialog
 				as="div"
-				className="overflow-y-auto fixed inset-0 z-10"
+				className="fixed inset-0 z-10 overflow-y-auto"
 				initialFocus={props.focusRef}
 				onClose={close}
 			>
-				<div className="px-4 min-h-screen text-center">
+				<div className="min-h-screen px-4 text-center">
 					<Transition.Child
 						as={Fragment}
 						enter="ease-out duration-300"
@@ -39,7 +39,7 @@ export function Modal({isOpen, ...props}: Props) {
 						leaveFrom="opacity-100"
 						leaveTo="opacity-0"
 					>
-						<Dialog.Overlay className="fixed inset-0 bg-black/30 dark:bg-black/80 backdrop-blur-md" />
+						<Dialog.Overlay className="fixed inset-0 bg-black/30 backdrop-blur-md dark:bg-black/80" />
 					</Transition.Child>
 
 					<span
@@ -58,7 +58,7 @@ export function Modal({isOpen, ...props}: Props) {
 						leaveFrom="opacity-100 scale-100"
 						leaveTo="opacity-0 scale-95"
 					>
-						<div className="inline-block overflow-hidden relative z-10 p-6 my-8 w-full max-w-xl text-left align-middle bg-white dark:bg-gray-800 rounded-2xl shadow-xl transition-all">
+						<div className="relative z-10 my-8 inline-block w-full max-w-xl overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-800">
 							<div className="relative">
 								<Dialog.Title as="h3" className="text-lg font-medium leading-6">
 									{props.title}

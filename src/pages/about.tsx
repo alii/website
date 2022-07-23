@@ -26,10 +26,10 @@ import AlbumObjectFull = SpotifyApi.AlbumObjectFull;
 
 dayjs.extend(relativeTime);
 
-interface Props {
+type Props = {
 	topTracks: TrackObjectFull[];
 	randomLastFMTrack: LastFMGetTrack;
-}
+};
 
 export default function AboutPage({topTracks, randomLastFMTrack}: Props) {
 	return (
@@ -37,16 +37,16 @@ export default function AboutPage({topTracks, randomLastFMTrack}: Props) {
 			<h1 className="block text-3xl font-bold sm:text-4xl md:text-6xl">
 				About
 			</h1>
-			<div className="text-gray-900/30 hover:text-gray-900 dark:text-white/20 dark:hover:text-white/100 transition-all">
+			<div className="text-gray-900/30 transition-all hover:text-gray-900 dark:text-white/20 dark:hover:text-white/100">
 				<Image
 					alt="Some friends and I in London"
 					src={Banner}
 					width={1000}
 					height={400}
 					placeholder="blur"
-					className="block object-cover rounded-xl border-2 border-white"
+					className="block rounded-xl border-2 border-white object-cover"
 				/>
-				<span className="text-sm not-sr-only">
+				<span className="not-sr-only text-sm">
 					a trip to london with some friends
 				</span>
 			</div>
@@ -113,7 +113,7 @@ function Track({track}: {track: TrackObjectFull}) {
 		<button
 			key={track.id}
 			type="button"
-			className="group flex flex-col space-y-2 text-left no-underline align-top outline-none focus:outline-none focus:ring focus:ring-offset-4 dark:focus:ring-offset-gray-900"
+			className="group flex flex-col space-y-2 text-left align-top no-underline outline-none focus:outline-none focus:ring focus:ring-offset-4 dark:focus:ring-offset-gray-900"
 			aria-roledescription="Opens a stats modal"
 			onClick={open}
 		>
@@ -123,18 +123,18 @@ function Track({track}: {track: TrackObjectFull}) {
 				title={<SiSpotify size={24} />}
 			>
 				<div className="space-y-4">
-					<div className="aspect-[3/1] relative">
+					<div className="relative aspect-[3/1]">
 						<Image
 							src={image}
 							layout="fill"
 							alt={`Album cover art of ${track.album.name} by ${artists}`}
-							className="object-cover rounded-md"
+							className="rounded-md object-cover"
 						/>
 					</div>
 
 					<a
 						href={track.external_urls.spotify}
-						className="group flex justify-between p-3 no-underline bg-gray-100 dark:bg-gray-900 rounded-md border dark:border-0"
+						className="group flex justify-between rounded-md border bg-gray-100 p-3 no-underline dark:border-0 dark:bg-gray-900"
 						target="_blank"
 						rel="noreferrer"
 					>
@@ -176,10 +176,10 @@ function Track({track}: {track: TrackObjectFull}) {
 				</div>
 			</Modal>
 
-			<div className="overflow-hidden w-full rounded-md image-span-block">
+			<div className="image-span-block w-full overflow-hidden rounded-md">
 				<Image
 					src={image}
-					className="rounded-md brightness-75 group-hover:brightness-100 transition-all duration-300 group-hover:scale-110"
+					className="rounded-md brightness-75 transition-all duration-300 group-hover:scale-110 group-hover:brightness-100"
 					alt={`Album cover art for ${track.name} by ${artists}`}
 					width={400}
 					height={400}
@@ -188,7 +188,7 @@ function Track({track}: {track: TrackObjectFull}) {
 
 			<h2 className="py-0.5 text-lg">
 				<span className="font-bold">
-					{track.explicit && <MdExplicit className="inline -mt-1" />}{' '}
+					{track.explicit && <MdExplicit className="-mt-1 inline" />}{' '}
 					{track.name}
 				</span>{' '}
 				<span className="text-neutral-700 dark:text-neutral-400">
