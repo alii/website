@@ -142,9 +142,9 @@ export default function Index(props: Props) {
 					<a href="https://hop.io" target="_blank" rel="noreferrer">
 						Hop
 					</a>{' '}
-					- we're building an e2e realtime engine for video. Below are some of
-					the more popular open source projects I've worked on. In total, the
-					following repos have earnt me{' '}
+					- we're building the e2e realtime engine. Below are some of the more
+					popular open source projects I've worked on. In total, the following
+					repos have earnt me{' '}
 					{projects.reduce(
 						(acc, project) => acc + parseInt(project.stars, 10),
 						0,
