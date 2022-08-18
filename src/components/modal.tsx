@@ -39,7 +39,7 @@ export function Modal({isOpen, ...props}: Props) {
 						leaveFrom="opacity-100"
 						leaveTo="opacity-0"
 					>
-						<Dialog.Overlay className="fixed inset-0 bg-black/30 backdrop-blur-md dark:bg-black/80" />
+						<Dialog.Overlay className="fixed inset-0 bg-black/30 backdrop-blur-[250px] dark:bg-black/80" />
 					</Transition.Child>
 
 					<span
