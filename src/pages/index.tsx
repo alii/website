@@ -302,18 +302,20 @@ export const getStaticProps: GetStaticProps<Props> = async function () {
 		'https://gh-pinned-repos.egoist.sh/?username=alii',
 	).then(async response => response.json() as Promise<PinnedRepo[]>);
 
-	const lanyard = await fetch(
+	const request = new Request(
 		`https://api.lanyard.rest/v1/users/${DISCORD_ID}`,
 	);
 
-	const lanyardBody = (await lanyard.json()) as LanyardResponse;
+	const response = await fetch(request);
 
-	if ('error' in lanyardBody) {
-		throw new LanyardError(lanyard.status, lanyardBody.error.message);
+	const body = (await response.json()) as LanyardResponse;
+
+	if ('error' in body) {
+		throw new LanyardError(request, response, body.error.message);
 	}
 
 	return {
-		props: {pinnedRepos, lanyard: lanyardBody.data},
+		props: {pinnedRepos, lanyard: body.data},
 		revalidate: 120,
 	};
 };
