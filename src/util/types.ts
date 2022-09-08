@@ -1,4 +1,4 @@
-import {Join, Utility} from 'typestr';
+import type {Join, Utility} from 'typestr';
 
 export function rand<T>(arr: T[]): T {
 	return arr[Math.floor(Math.random() * arr.length)];

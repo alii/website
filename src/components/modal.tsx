@@ -1,9 +1,10 @@
-import React, {
+import type {
 	Dispatch,
-	Fragment,
 	MutableRefObject,
 	ReactNode,
-	SetStateAction,
+	SetStateAction} from 'react';
+import React, {
+	Fragment
 } from 'react';
 import {Dialog, Transition} from '@headlessui/react';
 

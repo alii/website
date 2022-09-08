@@ -1,4 +1,4 @@
-import {ReactNode} from 'react';
+import type {ReactNode} from 'react';
 import type {IconType} from 'react-icons';
 
 export function ListItem({text, icon}: {text: ReactNode; icon: IconType}) {

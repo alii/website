@@ -1,5 +1,6 @@
-import React, {ReactNode, StrictMode, useEffect, useRef, useState} from 'react';
-import {AppProps} from 'next/app';
+import type {ReactNode} from 'react';
+import React, {StrictMode, useEffect, useRef, useState} from 'react';
+import type {AppProps} from 'next/app';
 import Head from 'next/head';
 import {Router} from 'next/router';
 import NProgress from 'nprogress';
@@ -21,7 +22,11 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-export default function App({Component, pageProps, router}: AppProps) {
+export default function App({
+	Component,
+	pageProps,
+	router,
+}: AppProps<{lanyard?: unknown; pinnedRepos?: unknown}>) {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const [hasScrolled, setHasScrolled] = useState(false);
 
@@ -108,9 +113,9 @@ export default function App({Component, pageProps, router}: AppProps) {
 				value={{
 					fallback: {
 						// SSR Lanyard's data
-						[`lanyard:${DISCORD_ID}`]: pageProps?.lanyard as unknown,
+						[`lanyard:${DISCORD_ID}`]: pageProps?.lanyard,
 						'https://gh-pinned-repos.egoist.sh/?username=alii':
-							pageProps?.pinnedRepos as unknown,
+							pageProps?.pinnedRepos,
 					},
 					fetcher,
 				}}

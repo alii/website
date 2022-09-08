@@ -1,6 +1,6 @@
 import React, {useReducer} from 'react';
 import {AnimatePresence, motion} from 'framer-motion';
-import {GetStaticProps} from 'next';
+import type {GetStaticProps} from 'next';
 import {
 	SiAmazonaws,
 	SiBabel,
@@ -25,13 +25,15 @@ import {
 } from 'react-icons/si';
 import {GiSkateboard} from 'react-icons/gi';
 import {HiOutlineLocationMarker} from 'react-icons/hi';
-import {
+import type {
 	Data as LanyardData,
+	LanyardResponse} from 'use-lanyard';
+import {
 	LanyardError,
-	LanyardResponse,
 	useLanyard,
 } from 'use-lanyard';
-import {PinnedRepo, useGitHubPinnedRepos} from '../hooks/github';
+import type {PinnedRepo} from '../hooks/github';
+import {useGitHubPinnedRepos} from '../hooks/github';
 import {ListItem} from '../components/list-item';
 import {DISCORD_ID} from '../components/song';
 import {age} from '../util/time';

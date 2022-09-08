@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Banner from '../../public/banner.jpg';
-import {GetStaticProps} from 'next';
+import type {GetStaticProps} from 'next';
 import {
 	LAST_FM_API_KEY,
 	REDIS_URL,
@@ -18,7 +18,8 @@ import dayjs from 'dayjs';
 import ms from 'ms';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import IORedis from 'ioredis';
-import {LastFM, LastFMGetTrack} from '../server/last-fm';
+import type {LastFMGetTrack} from '../server/last-fm';
+import {LastFM} from '../server/last-fm';
 import {rand} from '../util/types';
 import {Details} from '../components/details';
 import TrackObjectFull = SpotifyApi.TrackObjectFull;
