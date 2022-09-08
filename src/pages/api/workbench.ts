@@ -1,7 +1,14 @@
 import {z} from 'zod';
 import {api} from '../../server/api';
 
-function coerce<AOut, ADef, AIn, TOut, BOut, BDef>(
+function coerce<
+	AOut,
+	ADef extends z.ZodTypeDef,
+	AIn,
+	TOut,
+	BOut,
+	BDef extends z.ZodTypeDef,
+>(
 	a: z.Schema<AOut, ADef, AIn>,
 	transform: (value: AOut) => TOut,
 	b: z.Schema<BOut, BDef, TOut>,
@@ -9,10 +16,13 @@ function coerce<AOut, ADef, AIn, TOut, BOut, BDef>(
 	return a.transform(value => b.parse(transform(value)));
 }
 
-function refine<AOut, ADef, AIn, BOut, BDef>(
-	a: z.Schema<AOut, ADef, AIn>,
-	b: z.Schema<BOut, BDef, AOut>,
-) {
+function refine<
+	AOut,
+	ADef extends z.ZodTypeDef,
+	AIn,
+	BOut,
+	BDef extends z.ZodTypeDef,
+>(a: z.Schema<AOut, ADef, AIn>, b: z.Schema<BOut, BDef, AOut>) {
 	return coerce(a, v => v, b);
 }
 
