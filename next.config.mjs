@@ -1,5 +1,7 @@
+// @ts-check
+
 /** @type {import('next').NextConfig} */
-module.exports = {
+const config = {
 	reactStrictMode: true,
 
 	swcMinify: true,
@@ -40,6 +42,13 @@ module.exports = {
 				destination: 'https://www.youtube.com/watch?v=9xRFN2i1cwQ',
 				permanent: true,
 			},
+			{
+				source: '/strobe',
+				destination: 'https://open.spotify.com/track/7rHLdW9JCTxj7yIFafHqRo',
+				permanent: true,
+			},
 		];
 	},
 };
+
+export default config;
