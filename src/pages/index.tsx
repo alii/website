@@ -1,6 +1,9 @@
-import React, {useReducer} from 'react';
+import dayjs from 'dayjs';
 import {AnimatePresence, motion} from 'framer-motion';
 import type {GetStaticProps} from 'next';
+import {useReducer} from 'react';
+import {GiSkateboard} from 'react-icons/gi';
+import {HiOutlineLocationMarker} from 'react-icons/hi';
 import {
 	SiAmazonaws,
 	SiBabel,
@@ -23,21 +26,13 @@ import {
 	SiWebstorm,
 	SiYarn,
 } from 'react-icons/si';
-import {GiSkateboard} from 'react-icons/gi';
-import {HiOutlineLocationMarker} from 'react-icons/hi';
-import type {
-	Data as LanyardData,
-	LanyardResponse} from 'use-lanyard';
-import {
-	LanyardError,
-	useLanyard,
-} from 'use-lanyard';
-import type {PinnedRepo} from '../hooks/github';
-import {useGitHubPinnedRepos} from '../hooks/github';
+import type {Data as LanyardData, LanyardResponse} from 'use-lanyard';
+import {LanyardError, useLanyard} from 'use-lanyard';
 import {ListItem} from '../components/list-item';
 import {DISCORD_ID} from '../components/song';
+import type {PinnedRepo} from '../hooks/github';
+import {useGitHubPinnedRepos} from '../hooks/github';
 import {age} from '../util/time';
-import dayjs from 'dayjs';
 
 import relativeTime from 'dayjs/plugin/relativeTime';
 
@@ -144,9 +139,9 @@ export default function Index(props: Props) {
 					<a href="https://hop.io" target="_blank" rel="noreferrer">
 						Hop
 					</a>{' '}
-					- we're building the e2e realtime engine. Below are some of the more
-					popular open source projects I've worked on. In total, the following
-					repos have earnt me{' '}
+					- we're building an amazing modern cloud platform. Below are some of
+					the more popular open source projects I've worked on. In total, the
+					following repos have earnt me{' '}
 					{projects.reduce(
 						(acc, project) => acc + parseInt(project.stars, 10),
 						0,

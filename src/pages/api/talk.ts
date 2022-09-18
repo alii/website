@@ -1,5 +1,5 @@
-import {api} from '../../server/api';
 import {z} from 'zod';
+import {api} from '../../server/api';
 import {DISCORD_WEBHOOK} from '../../server/constants';
 
 const schema = z.object({

@@ -1,6 +1,17 @@
-import Image from 'next/image';
-import Banner from '../../public/banner.jpg';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import IORedis from 'ioredis';
+import ms from 'ms';
 import type {GetStaticProps} from 'next';
+import Image from 'next/image';
+import {useState} from 'react';
+import {HiExternalLink} from 'react-icons/hi';
+import {MdExplicit} from 'react-icons/md';
+import {SiSpotify} from 'react-icons/si';
+import SpotifyWebAPI from 'spotify-web-api-node';
+import Banner from '../../public/banner.jpg';
+import {Details} from '../components/details';
+import {Modal} from '../components/modal';
 import {
 	LAST_FM_API_KEY,
 	REDIS_URL,
@@ -8,20 +19,9 @@ import {
 	SPOTIFY_CLIENT_SECRET,
 	SPOTIFY_REDIS_KEYS,
 } from '../server/constants';
-import SpotifyWebAPI from 'spotify-web-api-node';
-import {MdExplicit} from 'react-icons/md';
-import {Modal} from '../components/modal';
-import {useState} from 'react';
-import {SiSpotify} from 'react-icons/si';
-import {HiExternalLink} from 'react-icons/hi';
-import dayjs from 'dayjs';
-import ms from 'ms';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import IORedis from 'ioredis';
 import type {LastFMGetTrack} from '../server/last-fm';
 import {LastFM} from '../server/last-fm';
 import {rand} from '../util/types';
-import {Details} from '../components/details';
 import TrackObjectFull = SpotifyApi.TrackObjectFull;
 import AlbumObjectFull = SpotifyApi.AlbumObjectFull;
 
@@ -40,16 +40,14 @@ export default function AboutPage({topTracks, randomLastFMTrack}: Props) {
 			</h1>
 			<div className="text-gray-900/30 transition-all hover:text-gray-900 dark:text-white/20 dark:hover:text-white/100">
 				<Image
-					alt="Some friends and I in London"
+					alt="A photo of me at my desk."
 					src={Banner}
 					width={1000}
 					height={400}
 					placeholder="blur"
 					className="block rounded-xl border-2 border-white object-cover"
 				/>
-				<span className="not-sr-only text-sm">
-					a trip to london with some friends
-				</span>
+				<span className="not-sr-only text-sm">me at my desk</span>
 			</div>
 
 			<div className="space-y-8">
@@ -64,11 +62,10 @@ export default function AboutPage({topTracks, randomLastFMTrack}: Props) {
 					>
 						sponsor me on GitHub
 					</a>
-					. Programming since seven, I've learned a lot about core programming
-					principles, scaling, and systems architecture. I always love to joke
-					around and I take my{' '}
-					<a href="https://twitter.com/alistaiiiir">Twitter</a> presence very
-					seriously...
+					{/**/}. Programming since seven, I've learned a lot about core
+					programming principles, scaling, and systems architecture. A large
+					proportion of my life is spent listening to all sorts of electronic
+					music, and below you can see what I've been enjoying recently...
 				</p>
 
 				<h2 className="text-3xl font-bold">Music</h2>
@@ -209,6 +206,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	);
 
 	let api: SpotifyWebAPI;
+	let revalidate = 120;
 
 	if (!token && refresh) {
 		// If we don't have a token but we do have a refresh token
@@ -229,6 +227,10 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			// Expires is in seconds as per https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
 			result.body.expires_in,
 		);
+
+		// We should revalidate when the token expires
+		// but we can do it slightly before
+		revalidate = result.body.expires_in - 30;
 
 		// If spotify wants us to use a new refresh token, we'll need to update it
 		if (result.body.refresh_token) {
@@ -263,6 +265,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			topTracks: tracks.body.items,
 			randomLastFMTrack: rand(topLFMTracks),
 		},
-		revalidate: 120,
+		revalidate,
 	};
 };

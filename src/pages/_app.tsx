@@ -1,32 +1,38 @@
-import type {ReactNode} from 'react';
-import React, {StrictMode, useEffect, useRef, useState} from 'react';
+import {Squash as Hamburger} from 'hamburger-react';
 import type {AppProps} from 'next/app';
 import Head from 'next/head';
+import Link from 'next/link';
 import {Router} from 'next/router';
 import NProgress from 'nprogress';
-import Link from 'next/link';
-import {SWRConfig} from 'swr';
+import type {ReactComponentElement, ReactNode} from 'react';
+import {StrictMode, useEffect, useRef, useState} from 'react';
 import {Toaster} from 'react-hot-toast';
-import {Squash as Hamburger} from 'hamburger-react';
-import {loadCursor} from '../util/cursor';
+import {SWRConfig} from 'swr';
 import {DISCORD_ID, Song} from '../components/song';
+import {loadCursor} from '../util/cursor';
 
+import {AnimatePresence, motion} from 'framer-motion';
+import 'nprogress/nprogress.css';
 import 'react-tippy/dist/tippy.css';
 import 'tailwindcss/tailwind.css';
 import '../styles/global.css';
-import 'nprogress/nprogress.css';
-import {AnimatePresence, motion} from 'framer-motion';
 import {fetcher} from '../util/fetcher';
+import type {JSXElementConstructor} from 'react';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
+type PageProps = {
+	lanyard?: unknown;
+	pinnedRepos?: unknown;
+};
+
 export default function App({
 	Component,
 	pageProps,
 	router,
-}: AppProps<{lanyard?: unknown; pinnedRepos?: unknown}>) {
+}: AppProps<PageProps>) {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const [hasScrolled, setHasScrolled] = useState(false);
 

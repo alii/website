@@ -1,5 +1,5 @@
-import {throws} from './exceptions';
 import {hasProp, type NextkitError} from 'nextkit';
+import {throws} from './exceptions';
 
 export class FetcherError extends Error implements NextkitError {
 	constructor(public readonly code: number, message: string) {

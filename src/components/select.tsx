@@ -1,5 +1,5 @@
-import {Fragment} from 'react';
 import {Listbox, Transition} from '@headlessui/react';
+import {Fragment} from 'react';
 import {HiCheck, HiChevronDown} from 'react-icons/hi';
 
 type Value<T> = {
