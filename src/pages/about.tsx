@@ -38,16 +38,17 @@ export default function AboutPage({topTracks, randomLastFMTrack}: Props) {
 			<h1 className="block text-3xl font-bold sm:text-4xl md:text-6xl">
 				About
 			</h1>
-			<div className="text-gray-900/30 transition-all hover:text-gray-900 dark:text-white/20 dark:hover:text-white/100">
+
+			<div className="text-gray-900/30 transition-all hover:text-gray-900 dark:text-white/20 dark:hover:text-white/100 lg:-mx-8">
 				<Image
 					alt="A photo of me at my desk."
 					src={Banner}
 					width={1000}
 					height={400}
 					placeholder="blur"
-					className="block rounded-xl border-2 border-white object-cover"
+					className="block rounded-xl object-cover shadow-xl shadow-neutral-300"
 				/>
-				<span className="not-sr-only text-sm">me at my desk</span>
+				<span className="sr-only text-sm">me at my desk</span>
 			</div>
 
 			<div className="space-y-8">
@@ -172,7 +173,7 @@ function Track({track}: {track: TrackObjectFull}) {
 			<button
 				key={track.id}
 				type="button"
-				className="group flex items-start text-left outline-none focus:outline-none focus:ring focus:ring-offset-4 dark:focus:ring-offset-gray-900"
+				className="group flex items-start rounded-lg p-4 text-left outline-none duration-300 focus:outline-none focus:ring focus:ring-offset-4 dark:focus:ring-offset-gray-900"
 				aria-roledescription="Opens a dialog with information about a song"
 				onClick={open}
 			>

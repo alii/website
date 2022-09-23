@@ -4,7 +4,7 @@ import {HiOutlineMail} from 'react-icons/hi';
 import {RiPhoneLine, RiSendPlane2Line} from 'react-icons/ri';
 import {SiDiscord, SiTwitter} from 'react-icons/si';
 import {useLanyard} from 'use-lanyard';
-import {ListItem} from '../components/list-item';
+import {ListItemReversed} from '../components/list-item';
 import {DISCORD_ID} from '../components/song';
 import {fetcher} from '../util/fetcher';
 
@@ -28,7 +28,7 @@ export default function Talk() {
 			</p>
 
 			<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-				<div className="rounded-lg bg-gray-100 p-5 dark:bg-white/5">
+				<div>
 					<form
 						className="space-y-2"
 						action="/api/form"
@@ -67,7 +67,7 @@ export default function Talk() {
 								type="email"
 								name="email"
 								id="email"
-								className="block w-full rounded-md bg-gray-200 py-1 px-4 font-sans text-lg focus:outline-none focus:ring dark:bg-white/5"
+								className="block w-full rounded-md bg-gray-200/50 py-1 px-4 font-sans text-lg focus:outline-none focus:ring dark:bg-white/5"
 							/>
 						</label>
 
@@ -81,7 +81,7 @@ export default function Talk() {
 								name="body"
 								minLength={10}
 								id="body"
-								className="block w-full resize-none rounded-md bg-gray-200 py-1 px-4 font-sans text-lg focus:outline-none focus:ring dark:bg-white/5"
+								className="block w-full resize-none rounded-md bg-gray-200/50 py-1 px-4 font-sans text-lg focus:outline-none focus:ring dark:bg-white/5"
 							/>
 						</label>
 
@@ -97,18 +97,13 @@ export default function Talk() {
 				</div>
 
 				<div>
-					<ul className="list-inside list-disc space-y-2">
-						<ListItem icon={HiOutlineMail} text="hi@alistair.sh" />
-						<ListItem
+					<ul className="list-inside list-disc space-y-2 pt-5 md:float-right">
+						<ListItemReversed icon={HiOutlineMail} text="hi@alistair.sh" />
+						<ListItemReversed
 							icon={SiDiscord}
 							text={
 								lanyard ? (
 									<span className="flex items-center space-x-1">
-										<span>
-											{lanyard.discord_user.username}#
-											{lanyard.discord_user.discriminator}
-										</span>
-
 										<span
 											className={`${
 												statusMap[
@@ -116,12 +111,17 @@ export default function Talk() {
 												]
 											} inline-block h-2 w-2 rounded-full`}
 										/>
+
+										<span>
+											{lanyard.discord_user.username}#
+											{lanyard.discord_user.discriminator}
+										</span>
 									</span>
 								) : null
 							}
 						/>
-						<ListItem icon={SiTwitter} text="alistaiiiir" />
-						<ListItem icon={RiPhoneLine} text="+1 (424) 395-8523" />
+						<ListItemReversed icon={SiTwitter} text="alistaiiiir" />
+						<ListItemReversed icon={RiPhoneLine} text="+1 (424) 395-8523" />
 					</ul>
 				</div>
 			</div>

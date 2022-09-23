@@ -23,7 +23,6 @@
 		"strictNullChecks": true,
 		"strictFunctionTypes": true,
 		"noStrictGenericChecks": false,
-		"noImplicitUseStrict": true,
 		"alwaysStrict": true,
 		"strictPropertyInitialization": true
 	},
