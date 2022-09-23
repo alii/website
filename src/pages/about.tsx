@@ -46,7 +46,7 @@ export default function AboutPage({topTracks, randomLastFMTrack}: Props) {
 					width={1000}
 					height={400}
 					placeholder="blur"
-					className="block rounded-xl object-cover shadow-xl shadow-neutral-300"
+					className="block rounded-xl object-cover shadow-xl shadow-neutral-300 dark:shadow-none"
 				/>
 				<span className="sr-only text-sm">me at my desk</span>
 			</div>
