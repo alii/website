@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import {Router} from 'next/router';
 import NProgress from 'nprogress';
-import type {ReactComponentElement, ReactNode} from 'react';
+import type {ReactNode} from 'react';
 import {StrictMode, useEffect, useRef, useState} from 'react';
 import {Toaster} from 'react-hot-toast';
 import {SWRConfig} from 'swr';
@@ -17,7 +17,6 @@ import 'react-tippy/dist/tippy.css';
 import 'tailwindcss/tailwind.css';
 import '../styles/global.css';
 import {fetcher} from '../util/fetcher';
-import type {JSXElementConstructor} from 'react';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());

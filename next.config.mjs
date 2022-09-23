@@ -47,6 +47,16 @@ const config = {
 				destination: 'https://open.spotify.com/track/7rHLdW9JCTxj7yIFafHqRo',
 				permanent: true,
 			},
+			{
+				source: '/40series',
+				destination: 'https://www.youtube.com/watch?v=GBYs4y1BtGg',
+				permanent: true,
+			},
+			{
+				source: '/mochip',
+				destination: 'https://alistair.blog/mochip',
+				permanent: true,
+			},
 		];
 	},
 };

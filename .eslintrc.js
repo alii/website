@@ -21,7 +21,7 @@ module.exports = {
 		project: './tsconfig.json',
 	},
 	plugins: ['react', '@typescript-eslint', 'tailwindcss'],
-	ignorePatterns: ['**/*.js'],
+	ignorePatterns: ['**/*.js', '**/*.mjs'],
 	rules: {
 		// Next.js
 		'@typescript-eslint/triple-slash-reference': 'off',
