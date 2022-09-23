@@ -5,6 +5,7 @@ const colors = require('tailwindcss/colors');
 module.exports = {
 	content: ['./src/**/*.{tsx,ts,css}'],
 	darkMode: 'media',
+
 	theme: {
 		extend: {
 			fontFamily: {
@@ -17,9 +18,11 @@ module.exports = {
 			},
 		},
 	},
+
 	variants: {
 		typography: ['dark'],
 		animation: ['motion-safe'],
 	},
+
 	plugins: [require('@tailwindcss/typography')],
 };

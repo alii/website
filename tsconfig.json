@@ -15,7 +15,17 @@
 		"jsx": "preserve",
 		"noFallthroughCasesInSwitch": true,
 		"allowSyntheticDefaultImports": true,
-		"incremental": true
+		"incremental": true,
+		"allowUnreachableCode": false,
+		"allowUmdGlobalAccess": false,
+		"allowUnusedLabels": false,
+		"strictBindCallApply": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"noStrictGenericChecks": false,
+		"noImplicitUseStrict": true,
+		"alwaysStrict": true,
+		"strictPropertyInitialization": true
 	},
 	"exclude": ["node_modules"],
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]

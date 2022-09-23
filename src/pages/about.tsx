@@ -3,7 +3,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import IORedis from 'ioredis';
 import ms from 'ms';
 import type {GetStaticProps} from 'next';
-import Image from 'next/image';
+import Image from 'next/future/image';
 import {useState} from 'react';
 import {HiExternalLink} from 'react-icons/hi';
 import {MdExplicit} from 'react-icons/md';
@@ -82,7 +82,7 @@ export default function AboutPage({topTracks, randomLastFMTrack}: Props) {
 				</p>
 			</div>
 
-			<div className="grid grid-cols-2 gap-4 gap-y-8 md:grid-cols-3">
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-8">
 				{topTracks.map(track => (
 					<Track key={track.id} track={track} />
 				))}
@@ -108,13 +108,7 @@ function Track({track}: {track: TrackObjectFull}) {
 	const album = track.album as AlbumObjectFull;
 
 	return (
-		<button
-			key={track.id}
-			type="button"
-			className="group flex flex-col space-y-2 text-left align-top no-underline outline-none focus:outline-none focus:ring focus:ring-offset-4 dark:focus:ring-offset-gray-900"
-			aria-roledescription="Opens a stats modal"
-			onClick={open}
-		>
+		<>
 			<Modal
 				isOpen={statsOpen}
 				setIsOpen={close}
@@ -123,8 +117,8 @@ function Track({track}: {track: TrackObjectFull}) {
 				<div className="space-y-4">
 					<div className="relative aspect-[3/1]">
 						<Image
+							fill
 							src={image}
-							layout="fill"
 							alt={`Album cover art of ${track.album.name} by ${artists}`}
 							className="rounded-md object-cover"
 						/>
@@ -140,6 +134,7 @@ function Track({track}: {track: TrackObjectFull}) {
 							<h2 className="text-2xl font-bold group-hover:underline">
 								{track.name}
 							</h2>
+
 							<h3 className="text-sm italic text-gray-400">By {artists}</h3>
 						</div>
 
@@ -174,26 +169,45 @@ function Track({track}: {track: TrackObjectFull}) {
 				</div>
 			</Modal>
 
-			<div className="image-span-block w-full overflow-hidden rounded-md">
-				<Image
-					src={image}
-					className="rounded-md brightness-75 transition-all duration-300 group-hover:scale-110 group-hover:brightness-100"
-					alt={`Album cover art for ${track.name} by ${artists}`}
-					width={400}
-					height={400}
-				/>
-			</div>
+			<button
+				key={track.id}
+				type="button"
+				className="group flex items-start text-left outline-none focus:outline-none focus:ring focus:ring-offset-4 dark:focus:ring-offset-gray-900"
+				aria-roledescription="Opens a dialog with information about a song"
+				onClick={open}
+			>
+				<div className="flex w-full space-x-4">
+					<div className="shrink-0">
+						<div className="aspect-square overflow-hidden rounded-md">
+							<Image
+								src={image}
+								className="block rounded-md brightness-75 transition-all duration-300 group-hover:scale-110 group-hover:brightness-100 md:hidden"
+								alt={`Album cover art for ${track.name} by ${artists}`}
+								width={56}
+								height={56}
+							/>
 
-			<h2 className="py-0.5 text-lg">
-				<span className="font-bold">
-					{track.explicit && <MdExplicit className="-mt-1 inline" />}{' '}
-					{track.name}
-				</span>{' '}
-				<span className="text-neutral-700 dark:text-neutral-400">
-					• {artists}
-				</span>
-			</h2>
-		</button>
+							<Image
+								src={image}
+								className="hidden rounded-md brightness-75 transition-all duration-300 group-hover:scale-110 group-hover:brightness-100 md:block"
+								alt={`Album cover art for ${track.name} by ${artists}`}
+								width={80}
+								height={80}
+							/>
+						</div>
+					</div>
+
+					<div className="my-auto w-full">
+						<h2 className="w-full overflow-hidden text-xl font-bold">
+							{track.explicit && <MdExplicit className="-mt-1 inline" />}{' '}
+							{track.name}
+						</h2>
+
+						<p className="text-neutral-700 dark:text-neutral-400">{artists}</p>
+					</div>
+				</div>
+			</button>
+		</>
 	);
 }
 

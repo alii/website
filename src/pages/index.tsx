@@ -142,7 +142,7 @@ export default function Index(props: Props) {
 					- we're building an amazing modern cloud platform. Below are some of
 					the more popular open source projects I've worked on. In total, the
 					following repos have earnt me{' '}
-					{projects.reduce(
+					{projects.reduce<number>(
 						(acc, project) => acc + parseInt(project.stars, 10),
 						0,
 					)}{' '}

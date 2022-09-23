@@ -58,6 +58,7 @@ export default api({
 
 		if (user.id !== 'alistairsmith01') {
 			res.throw(403, 'You are not permitted to update OAuth keys!');
+			console.log('bruh');
 		}
 
 		const redis = new IORedis(REDIS_URL);

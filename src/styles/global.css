@@ -1,10 +1,5 @@
 html {
-	font-family: 'Roboto', sans-serif;
-	font-weight: 400;
-	font-size: 0.9rem;
 	height: 100%;
-
-	@apply bg-white dark:bg-black;
 }
 
 p {
@@ -18,9 +13,13 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	font-size: 0.9rem;
+
 	min-height: 100%;
 
-	@apply bg-gradient-to-tr dark:from-gray-900 dark:to-black dark:text-neutral-100;
+	@apply bg-gradient-to-tr dark:from-gray-900 dark:to-black bg-white dark:bg-black dark:text-neutral-100;
 
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -46,10 +45,6 @@ a {
 
 img {
 	-webkit-user-drag: none;
-}
-
-.image-span-block > span:first-child {
-	@apply !block;
 }
 
 .glass {
