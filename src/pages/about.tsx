@@ -22,6 +22,7 @@ import {
 import type {LastFMGetTrack} from '../server/last-fm';
 import {LastFM} from '../server/last-fm';
 import {rand} from '../util/types';
+
 import TrackObjectFull = SpotifyApi.TrackObjectFull;
 import AlbumObjectFull = SpotifyApi.AlbumObjectFull;
 
@@ -83,7 +84,7 @@ export default function AboutPage({topTracks, randomLastFMTrack}: Props) {
 				</p>
 			</div>
 
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-8">
+			<div className="grid grid-cols-1 gap-y-2 gap-x-4 md:grid-cols-2">
 				{topTracks.map(track => (
 					<Track key={track.id} track={track} />
 				))}
@@ -198,11 +199,13 @@ function Track({track}: {track: TrackObjectFull}) {
 						</div>
 					</div>
 
-					<div className="my-auto w-full">
-						<h2 className="w-full overflow-hidden text-xl font-bold">
-							{track.explicit && <MdExplicit className="-mt-1 inline" />}{' '}
-							{track.name}
-						</h2>
+					<div className="my-auto">
+						<div className="table w-full table-fixed">
+							<h2 className="table-cell truncate text-xl font-bold">
+								{track.explicit && <MdExplicit className="-mt-1 inline" />}{' '}
+								{track.name}
+							</h2>
+						</div>
 
 						<p className="text-neutral-700 dark:text-neutral-400">{artists}</p>
 					</div>
