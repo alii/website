@@ -196,21 +196,23 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 
 	return (
 		<motion.div
-			animate={{height: isOpen ? 'auto' : '54px'}}
+			animate={{height: isOpen ? 'auto' : '60px'}}
 			className="relative flex flex-col overflow-hidden rounded-md border-white/10 bg-gradient-to-tr from-blue-100 to-blue-700/5 text-blue-900/80 no-underline dark:border dark:from-white/5 dark:to-white/5 dark:text-gray-100 dark:hover:bg-white/10 md:rounded-lg"
 		>
 			<button
 				type="button"
-				className="flex cursor-pointer select-none items-center space-x-2 border-b border-white/10 py-4 px-5 text-lg font-bold focus:outline-none"
+				className="flex cursor-pointer select-none items-center space-x-2 border-b border-white/10 px-5 text-lg font-bold focus:outline-none"
 				onClick={toggle}
 			>
 				<div className="flex flex-1 items-center space-x-2 text-left">
-					<span>{project.repo}</span>
+					<span className="my-auto py-5 leading-none">{project.repo}</span>
+
 					<span className="flex items-center space-x-3 text-xs">
 						<span className="space-x-1">
 							<span>⭐</span>
 							<span>{project.stars}</span>
 						</span>
+
 						<span className="space-x-1">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
