@@ -5410,10 +5410,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-lanyard@npm:1.3.5":
-  version: 1.3.5
-  resolution: "use-lanyard@npm:1.3.5"
-  checksum: af1c4194cda843fa1633d1dde6b6348f0ba803c19965a63caf864db28e4838ed1fd75ef3ecf2c9dbded067a84a3ec68232da28049a0a643ea1c81cc7418b5115
+"use-lanyard@npm:1.3.7":
+  version: 1.3.7
+  resolution: "use-lanyard@npm:1.3.7"
+  checksum: 4734370950e1caaa3518060acc6756170abd7c5c35bd87f75553177b018a73b3999cef837dd3f4334de026093d30c6b3d185adeb1b999182dab4ee7afe8f20f0
   languageName: node
   linkType: hard
 
@@ -5488,7 +5488,7 @@ __metadata:
     typescript: ^4.9.0-dev.20220926
     typestr: 0.0.10
     urlcat: 2.0.4
-    use-lanyard: 1.3.5
+    use-lanyard: 1.3.7
     zod: 3.19.1
   languageName: unknown
   linkType: soft
