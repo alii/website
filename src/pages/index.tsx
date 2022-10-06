@@ -47,7 +47,7 @@ export default function Index(props: Props) {
 	const {data: projects = props.pinnedRepos} = useGitHubPinnedRepos('alii');
 
 	const {data: lanyard} = useLanyard(DISCORD_ID, {
-		fallbackData: props.lanyard,
+		initialData: props.lanyard,
 	});
 
 	const boostedActivity = lanyard?.activities.find(
@@ -310,7 +310,7 @@ export const getStaticProps: GetStaticProps<Props> = async function () {
 	const body = (await response.json()) as LanyardResponse;
 
 	if ('error' in body) {
-		throw new LanyardError(request, response, body.error.message);
+		throw new LanyardError(request, response, body);
 	}
 
 	return {

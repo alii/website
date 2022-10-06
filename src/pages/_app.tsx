@@ -191,14 +191,23 @@ export default function App({
 						</div>
 					</div>
 
-					<main className="mx-auto max-w-3xl space-y-12 md:py-24">
-						<Component {...pageProps} />
-					</main>
+					<AnimatePresence mode="wait">
+						<motion.div
+							key={router.asPath}
+							initial={{opacity: 0}}
+							animate={{opacity: 1}}
+							exit={{opacity: 0}}
+						>
+							<main className="mx-auto max-w-3xl space-y-12 md:py-24">
+								<Component {...pageProps} />
+							</main>
 
-					<footer className="mx-auto mt-20 max-w-3xl border-t-2 border-gray-900/10 p-4 py-10 opacity-50 dark:border-white/10">
-						<h1 className="text-3xl font-bold">Alistair Smith</h1>
-						<p>Software Engineer • {new Date().getFullYear()}</p>
-					</footer>
+							<footer className="mx-auto mt-20 max-w-3xl border-t-2 border-gray-900/10 p-4 py-10 opacity-50 dark:border-white/10">
+								<h1 className="text-3xl font-bold">Alistair Smith</h1>
+								<p>Software Engineer • {new Date().getFullYear()}</p>
+							</footer>
+						</motion.div>
+					</AnimatePresence>
 				</div>
 
 				<div

@@ -3,12 +3,12 @@ import {toast} from 'react-hot-toast';
 import {HiOutlineMail} from 'react-icons/hi';
 import {RiPhoneLine, RiSendPlane2Line} from 'react-icons/ri';
 import {SiDiscord, SiTwitter} from 'react-icons/si';
-import {useLanyard} from 'use-lanyard';
+import {useLanyard, type Data} from 'use-lanyard';
 import {ListItemReversed} from '../components/list-item';
 import {DISCORD_ID} from '../components/song';
 import {fetcher} from '../util/fetcher';
 
-const statusMap = {
+const statusMap: Record<Data['discord_status'], string> = {
 	online: 'bg-green-500',
 	idle: 'bg-yellow-500',
 	dnd: 'bg-red-500',
@@ -106,9 +106,7 @@ export default function Talk() {
 									<span className="flex items-center space-x-1">
 										<span
 											className={`${
-												statusMap[
-													lanyard.discord_status as keyof typeof statusMap
-												]
+												statusMap[lanyard.discord_status]
 											} inline-block h-2 w-2 rounded-full`}
 										/>
 
