@@ -8,7 +8,7 @@ import type {ReactNode} from 'react';
 import {StrictMode, useEffect, useRef, useState} from 'react';
 import {Toaster} from 'react-hot-toast';
 import {SWRConfig} from 'swr';
-import {DISCORD_ID, Song} from '../components/song';
+import {Song} from '../components/song';
 import {loadCursor} from '../util/cursor';
 
 import {AnimatePresence, motion} from 'framer-motion';
@@ -117,8 +117,6 @@ export default function App({
 			<SWRConfig
 				value={{
 					fallback: {
-						// SSR Lanyard's data
-						[`lanyard:${DISCORD_ID}`]: pageProps?.lanyard,
 						'https://gh-pinned-repos.egoist.sh/?username=alii':
 							pageProps?.pinnedRepos,
 					},
@@ -137,7 +135,7 @@ export default function App({
 							initial={{opacity: 0, y: -10}}
 							animate={{opacity: 1, y: 0}}
 							exit={{opacity: 0}}
-							className="fixed inset-0 z-10 space-y-2 bg-white py-24 px-8 dark:bg-gray-900 sm:hidden"
+							className="fixed inset-0 z-10 space-y-2 bg-white py-24 px-8 dark:bg-neutral-900 sm:hidden"
 						>
 							<h1 className="text-4xl font-bold">Menu.</h1>
 
@@ -150,20 +148,20 @@ export default function App({
 					<div
 						className={`${
 							hasScrolled || mobileMenuOpen ? 'mt-0' : 'mx-5 mt-10'
-						} relative bg-gray-100 transition-all dark:bg-gray-900 ${
+						} relative bg-neutral-100 transition-all dark:bg-neutral-900 ${
 							hasScrolled || mobileMenuOpen ? 'rounded-none' : 'rounded-lg'
 						}`}
 					>
 						<div
 							className={`flex justify-between space-x-2 pr-5 transition-colors ${
 								mobileMenuOpen
-									? 'bg-gray-100 dark:bg-gray-800'
+									? 'bg-neutral-100 dark:bg-neutral-800'
 									: 'bg-transparent'
 							}`}
 						>
 							<button
 								type="button"
-								className="relative z-50 block px-2 text-gray-500 transition-all focus:ring"
+								className="relative z-50 block px-2 text-neutral-500 transition-all focus:ring"
 								onClick={toggleMenu}
 							>
 								<Hamburger
@@ -202,7 +200,7 @@ export default function App({
 								<Component {...pageProps} />
 							</main>
 
-							<footer className="mx-auto mt-20 max-w-3xl border-t-2 border-gray-900/10 p-4 py-10 opacity-50 dark:border-white/10">
+							<footer className="mx-auto mt-20 max-w-3xl border-t-2 border-neutral-900/10 p-4 py-10 opacity-50 dark:border-white/10">
 								<h1 className="text-3xl font-bold">Alistair Smith</h1>
 								<p>Software Engineer • {new Date().getFullYear()}</p>
 							</footer>
@@ -220,7 +218,7 @@ export default function App({
 }
 
 const navlinkClassname =
-	'block py-3 font-mono text-lg dark:hover:text-white no-underline dark:sm:hover:bg-white/10 rounded-md sm:inline-block sm:px-5 sm:text-sm sm:font-normal sm:underline sm:bg-white/0 sm:hover:bg-gray-900/5 sm:rounded-full';
+	'block py-3 font-mono text-lg dark:hover:text-white no-underline dark:sm:hover:bg-white/10 rounded-md sm:inline-block sm:px-5 sm:text-sm sm:font-normal sm:underline sm:bg-white/0 sm:hover:bg-neutral-900/5 sm:rounded-full';
 
 function NavLink(props: {
 	children: ReactNode;

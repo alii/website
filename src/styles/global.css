@@ -1,7 +1,7 @@
 html {
 	min-height: 100%;
 
-	@apply bg-gradient-to-tr dark:from-gray-900 dark:to-black bg-white dark:text-neutral-100;
+	@apply bg-gradient-to-tr dark:from-neutral-900 dark:to-black bg-white dark:text-neutral-100;
 }
 
 p {
@@ -15,7 +15,6 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
-	font-family: 'Roboto', sans-serif;
 	font-weight: 400;
 	font-size: 0.9rem;
 

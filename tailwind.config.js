@@ -1,28 +1,18 @@
+// @ts-check
+
 const defaults = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors');
 
-/** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
+/** @type {import("tailwindcss").Config } */
 module.exports = {
 	content: ['./src/**/*.{tsx,ts,css}'],
-	darkMode: 'media',
 
 	theme: {
-		extend: {
-			fontFamily: {
-				...defaults.fontFamily,
-				sans: ['Roboto', ...defaults.fontFamily.sans],
-			},
-
-			colors: {
-				gray: colors.neutral,
-			},
+		fontFamily: {
+			mono: ['"JetBrains Mono"', ...defaults.fontFamily.mono],
+			sans: ['Satoshi', ...defaults.fontFamily.sans],
 		},
 	},
 
-	variants: {
-		typography: ['dark'],
-		animation: ['motion-safe'],
-	},
-
-	plugins: [require('@tailwindcss/typography')],
+	plugins: [],
 };

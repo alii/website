@@ -40,7 +40,7 @@ export default function AboutPage({topTracks, randomLastFMTrack}: Props) {
 				About
 			</h1>
 
-			<div className="text-gray-900/30 transition-all hover:text-gray-900 dark:text-white/20 dark:hover:text-white/100 lg:-mx-8">
+			<div className="text-neutral-900/30 transition-all hover:text-neutral-900 dark:text-white/20 dark:hover:text-white/100 lg:-mx-8">
 				<Image
 					alt="A photo of me at my desk."
 					src={Banner}
@@ -128,7 +128,7 @@ function Track({track}: {track: TrackObjectFull}) {
 
 					<a
 						href={track.external_urls.spotify}
-						className="group flex justify-between rounded-md border bg-gray-100 p-3 no-underline dark:border-0 dark:bg-gray-900"
+						className="group flex justify-between rounded-md border bg-neutral-100 p-3 no-underline dark:border-0 dark:bg-neutral-900"
 						target="_blank"
 						rel="noreferrer"
 					>
@@ -137,7 +137,7 @@ function Track({track}: {track: TrackObjectFull}) {
 								{track.name}
 							</h2>
 
-							<h3 className="text-sm italic text-gray-400">By {artists}</h3>
+							<h3 className="text-sm italic text-neutral-400">By {artists}</h3>
 						</div>
 
 						<div>
@@ -174,7 +174,7 @@ function Track({track}: {track: TrackObjectFull}) {
 			<button
 				key={track.id}
 				type="button"
-				className="group flex items-start rounded-lg p-4 text-left outline-none duration-300 focus:outline-none focus:ring focus:ring-offset-4 dark:focus:ring-offset-gray-900"
+				className="group flex items-start rounded-lg p-4 text-left outline-none duration-300 focus:outline-none focus:ring focus:ring-offset-4 dark:focus:ring-offset-neutral-900"
 				aria-roledescription="Opens a dialog with information about a song"
 				onClick={open}
 			>

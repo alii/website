@@ -84,7 +84,7 @@ export default function Index(props: Props) {
 								target="_blank"
 								href={`https://search.alistair.sh/?q=!maps+${lanyard.kv.location}`}
 								rel="noreferrer"
-								className="flex items-center rounded-full bg-gray-200 px-2 pr-3 text-neutral-600 no-underline transition-colors dark:bg-gray-700 dark:text-white dark:text-opacity-50 dark:hover:bg-gray-800"
+								className="flex items-center rounded-full bg-neutral-200 px-2 pr-3 text-neutral-600 no-underline transition-colors dark:bg-neutral-700 dark:text-white dark:text-opacity-50 dark:hover:bg-neutral-800"
 							>
 								<span>
 									<HiOutlineLocationMarker className="inline dark:text-white" />
@@ -96,11 +96,11 @@ export default function Index(props: Props) {
 									&nbsp;
 								</span>
 
-								<span className="-mb-0.5 ml-1 block h-[6px] w-[6px] animate-pulse rounded-full bg-gray-600 dark:bg-white" />
+								<span className="-mb-0.5 ml-1 block h-[6px] w-[6px] animate-pulse rounded-full bg-neutral-600 dark:bg-white" />
 							</a>
 
 							{boostedActivity?.timestamps && (
-								<p className="flex items-center rounded-full bg-gray-200 px-2 pr-3 text-neutral-600 no-underline transition-colors dark:bg-gray-700 dark:text-white dark:text-opacity-50">
+								<p className="flex items-center rounded-full bg-neutral-200 px-2 pr-3 text-neutral-600 no-underline transition-colors dark:bg-neutral-700 dark:text-white dark:text-opacity-50">
 									<span>
 										<GiSkateboard className="inline dark:text-white" />
 										&nbsp;
@@ -112,7 +112,7 @@ export default function Index(props: Props) {
 										&nbsp;
 									</span>
 
-									<span className="-mb-0.5 ml-1 block h-[6px] w-[6px] animate-pulse rounded-full bg-gray-600 dark:bg-white" />
+									<span className="-mb-0.5 ml-1 block h-[6px] w-[6px] animate-pulse rounded-full bg-neutral-600 dark:bg-white" />
 								</p>
 							)}
 						</p>
@@ -197,7 +197,7 @@ function ProjectCard({repo: project}: {repo: PinnedRepo}) {
 	return (
 		<motion.div
 			animate={{height: isOpen ? 'auto' : '60px'}}
-			className="relative flex flex-col overflow-hidden rounded-md border-white/10 bg-gradient-to-tr from-blue-100 to-blue-700/5 text-blue-900/80 no-underline dark:border dark:from-white/5 dark:to-white/5 dark:text-gray-100 dark:hover:bg-white/10 md:rounded-lg"
+			className="relative flex flex-col overflow-hidden rounded-md border-white/10 bg-gradient-to-tr from-blue-100 to-blue-700/5 text-blue-900/80 no-underline dark:border dark:from-white/5 dark:to-white/5 dark:text-neutral-100 dark:hover:bg-white/10 md:rounded-lg"
 		>
 			<button
 				type="button"

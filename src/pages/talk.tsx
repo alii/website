@@ -12,7 +12,7 @@ const statusMap: Record<Data['discord_status'], string> = {
 	online: 'bg-green-500',
 	idle: 'bg-yellow-500',
 	dnd: 'bg-red-500',
-	offline: 'bg-gray-500',
+	offline: 'bg-neutral-500',
 };
 
 export default function Talk() {
@@ -67,7 +67,7 @@ export default function Talk() {
 								type="email"
 								name="email"
 								id="email"
-								className="block w-full rounded-md bg-gray-200/50 py-1 px-4 font-sans text-lg focus:outline-none focus:ring dark:bg-white/5"
+								className="block w-full rounded-md bg-neutral-200/50 py-1 px-4 font-sans text-lg focus:outline-none focus:ring dark:bg-white/5"
 							/>
 						</label>
 
@@ -81,7 +81,7 @@ export default function Talk() {
 								name="body"
 								minLength={10}
 								id="body"
-								className="block w-full resize-none rounded-md bg-gray-200/50 py-1 px-4 font-sans text-lg focus:outline-none focus:ring dark:bg-white/5"
+								className="block w-full resize-none rounded-md bg-neutral-200/50 py-1 px-4 font-sans text-lg focus:outline-none focus:ring dark:bg-white/5"
 							/>
 						</label>
 
