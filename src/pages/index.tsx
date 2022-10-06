@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import {AnimatePresence, motion} from 'framer-motion';
 import type {GetStaticProps} from 'next';
-import {useReducer} from 'react';
+import {Fragment, useReducer} from 'react';
 import {GiSkateboard} from 'react-icons/gi';
 import {HiOutlineLocationMarker} from 'react-icons/hi';
 import {
@@ -125,9 +125,10 @@ export default function Index(props: Props) {
 				</h1>
 
 				<p className="opacity-80">
-					I'm a ~{age.toPrecision(7)} year old software engineer from the United
-					Kingdom. I'm interested in full stack web development including large
-					scale frontend applications and performant serverside code.
+					I'm a <span suppressHydrationWarning>~{age.toPrecision(7)}</span> year
+					old software engineer from the United Kingdom. I'm interested in full
+					stack web development including large scale frontend applications and
+					performant serverside code.
 				</p>
 			</div>
 
