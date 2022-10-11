@@ -16,10 +16,6 @@ export default class AlistairDocument extends Document {
 						name="description"
 						content="Alistair Smith, Full–stack TypeScript engineer from the UK"
 					/>
-					<link
-						href="https://api.fontshare.com/v2/css?f[]=satoshi@1,2&display=swap"
-						rel="stylesheet"
-					/>
 					<link rel="preconnect" href="https://fonts.googleapis.com" />
 					<link rel="preconnect" href="https://fonts.gstatic.com" />
 					<link
