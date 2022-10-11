@@ -889,14 +889,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vercel/og@npm:^0.0.15":
-  version: 0.0.15
-  resolution: "@vercel/og@npm:0.0.15"
+"@vercel/og@npm:^0.0.16":
+  version: 0.0.16
+  resolution: "@vercel/og@npm:0.0.16"
   dependencies:
     "@resvg/resvg-wasm": 2.0.0-alpha.4
     satori: 0.0.38
     yoga-wasm-web: 0.1.2
-  checksum: 4dbc5af8b7ea2a8b19ed7fa54ed790f7b2531d027a5bec494b3e12adf868150751b980034e70c1cb85437feb9dee24a5b5b52ed99190e844eb0b4e969446ccf2
+  checksum: 1d31fdb44d955595f6d108ed38fd45e7e35674462c60ef048509200740ba3f86bcd0fdc39db91fb5a42af9aacb61cb06e54c17fc9ad8360c6a43949cb1bcbca3
   languageName: node
   linkType: hard
 
@@ -5532,7 +5532,7 @@ __metadata:
     "@types/tailwindcss": 3.0.11
     "@typescript-eslint/eslint-plugin": 5.40.0
     "@typescript-eslint/parser": 5.40.0
-    "@vercel/og": ^0.0.15
+    "@vercel/og": ^0.0.16
     alistair: 1.4.3
     autoprefixer: 10.4.12
     danger: ^11.1.4

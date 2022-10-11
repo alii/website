@@ -9,7 +9,7 @@
 	},
 	"dependencies": {
 		"@headlessui/react": "1.7.3",
-		"@vercel/og": "^0.0.15",
+		"@vercel/og": "^0.0.16",
 		"alistair": "1.4.3",
 		"dayjs": "1.11.5",
 		"framer-motion": "^7.5.3",
