@@ -10,7 +10,7 @@ module.exports = {
 	theme: {
 		fontFamily: {
 			mono: ['"JetBrains Mono"', ...defaults.fontFamily.mono],
-			sans: ['Satoshi', ...defaults.fontFamily.sans],
+			sans: ['"GeneralSans-Variable"', ...defaults.fontFamily.sans],
 		},
 	},
 

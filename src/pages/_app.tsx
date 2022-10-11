@@ -1,3 +1,9 @@
+import 'nprogress/nprogress.css';
+import 'react-tippy/dist/tippy.css';
+import 'tailwindcss/tailwind.css';
+import '../styles/global.css';
+import '../../public/fonts/general-sans/css/general-sans.css';
+
 import {Squash as Hamburger} from 'hamburger-react';
 import type {AppProps} from 'next/app';
 import Head from 'next/head';
@@ -12,10 +18,6 @@ import {Song} from '../components/song';
 import {loadCursor} from '../util/cursor';
 
 import {AnimatePresence, motion} from 'framer-motion';
-import 'nprogress/nprogress.css';
-import 'react-tippy/dist/tippy.css';
-import 'tailwindcss/tailwind.css';
-import '../styles/global.css';
 import {fetcher} from '../util/fetcher';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
