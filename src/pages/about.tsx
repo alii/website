@@ -226,9 +226,15 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	let api: SpotifyWebAPI;
 	let revalidate = 120;
 
-	if (!token && refresh) {
-		// If we don't have a token but we do have a refresh token
-
+	if (token) {
+		// We have a token, so no need to care about refreshing it
+		api = new SpotifyWebAPI({
+			clientId: SPOTIFY_CLIENT_ID,
+			clientSecret: SPOTIFY_CLIENT_SECRET,
+			accessToken: token,
+		});
+	} else if (refresh) {
+		// No token, but we have a refresh token, so we can refresh it
 		api = new SpotifyWebAPI({
 			clientId: SPOTIFY_CLIENT_ID,
 			clientSecret: SPOTIFY_CLIENT_SECRET,
@@ -257,12 +263,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 				result.body.refresh_token,
 			);
 		}
-	} else if (token) {
-		api = new SpotifyWebAPI({
-			clientId: SPOTIFY_CLIENT_ID,
-			clientSecret: SPOTIFY_CLIENT_SECRET,
-			accessToken: token,
-		});
 	} else {
 		throw new Error(
 			'No Spotify tokens available! Please manually add them to the Redis store to allow tokens to refresh in the future.',
