@@ -243,21 +243,22 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
 		const result = await api.refreshAccessToken();
 
+		// Expires is in seconds as per https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
+		const expiration = result.body.expires_in - 30;
+
 		await redis.set(
 			SPOTIFY_REDIS_KEYS.AccessToken,
 			result.body.access_token,
 			'EX',
-
-			// Expires is in seconds as per https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
-			result.body.expires_in,
+			expiration,
 		);
 
 		// We should revalidate when the token expires
-		// but we can do it slightly before
-		revalidate = result.body.expires_in - 30;
+		// but we can do it slightly before (30 seconds before)
+		revalidate = expiration;
 
-		// If spotify wants us to use a new refresh token, we'll need to update it
 		if (result.body.refresh_token) {
+			// If spotify wants us to use a new refresh token, we'll need to update it
 			await redis.set(
 				SPOTIFY_REDIS_KEYS.RefreshToken,
 				result.body.refresh_token,
@@ -265,10 +266,12 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 		}
 	} else {
 		throw new Error(
-			'No Spotify tokens available! Please manually add them to the Redis store to allow tokens to refresh in the future.',
+			'No Spotify tokens available. Please visit http://localhost:3000/api/spotify/oauth to generate keys.',
 		);
 	}
 
+	// API reference for getting top tracks:
+	// https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-top-artists-and-tracks
 	const tracks = await api.getMyTopTracks({
 		time_range: 'short_term',
 	});
