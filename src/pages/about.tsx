@@ -243,6 +243,8 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
 		const result = await api.refreshAccessToken();
 
+		api.setAccessToken(result.body.access_token);
+
 		// Expires is in seconds as per https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
 		const expiration = result.body.expires_in - 30;
 
