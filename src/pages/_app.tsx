@@ -229,10 +229,12 @@ function NavLink(props: {
 }) {
 	return (
 		<li className="shrink-0">
-			<Link href={props.href}>
-				<a className={navlinkClassname} onClick={props.closeMenu}>
-					{props.children}
-				</a>
+			<Link
+				href={props.href}
+				className={navlinkClassname}
+				onClick={props.closeMenu}
+			>
+				{props.children}
 			</Link>
 		</li>
 	);

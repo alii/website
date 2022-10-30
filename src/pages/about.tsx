@@ -3,7 +3,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import IORedis from 'ioredis';
 import ms from 'ms';
 import type {GetStaticProps} from 'next';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import {useState} from 'react';
 import {HiExternalLink} from 'react-icons/hi';
 import {MdExplicit} from 'react-icons/md';
