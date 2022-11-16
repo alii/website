@@ -61,7 +61,7 @@ export type PinnedRepo = {
  */
 export function useGitHubPinnedRepos(username: string) {
 	const resp = useSWR<PinnedRepo[], Error>(
-		`https://gh-pinned-repos.egoist.sh/?username=${username}`,
+		`https://gh-pinned.nxl.sh/api/user/${username}`,
 	);
 
 	return {
