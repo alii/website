@@ -118,7 +118,7 @@ export default function Talk() {
 								) : null
 							}
 						/>
-						<ListItemReversed icon={SiTwitter} text="alistaiiiir" />
+						<ListItemReversed icon={SiTwitter} text="alistaiir" />
 						<ListItemReversed icon={RiPhoneLine} text="+1 (424) 395-8523" />
 					</ul>
 				</div>
