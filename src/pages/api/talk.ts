@@ -1,3 +1,4 @@
+import {NextkitError} from 'nextkit';
 import {z} from 'zod';
 import {api} from '../../server/api';
 import {DISCORD_WEBHOOK} from '../../server/constants';
@@ -5,11 +6,23 @@ import {DISCORD_WEBHOOK} from '../../server/constants';
 const schema = z.object({
 	email: z.string().email(),
 	body: z.string().max(500).min(10),
+	turnstile: z.string(),
 });
 
 export default api({
-	async POST({req, res}) {
+	async POST({req, res, ctx}) {
 		const body = schema.parse(req.body);
+
+		const ip =
+			(req.headers['x-forwarded-for'] as string) ??
+			req.socket.remoteAddress ??
+			null;
+
+		const outcome = await ctx.turnstile(body.turnstile, ip);
+
+		if (!outcome.success) {
+			throw new NextkitError(400, 'Invalid turnstile token, robot!');
+		}
 
 		const result = await fetch(DISCORD_WEBHOOK, {
 			method: 'POST',
@@ -25,10 +38,7 @@ export default api({
 						fields: [
 							{
 								name: 'ip',
-								value:
-									req.headers['x-forwarded-for'] ??
-									req.connection.remoteAddress ??
-									'unknown!?',
+								value: ip ?? 'unknown!?',
 							},
 						],
 					},

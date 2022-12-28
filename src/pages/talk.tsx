@@ -1,3 +1,4 @@
+import {Turnstile} from '@marsidev/react-turnstile';
 import {useRouter} from 'next/router';
 import {toast} from 'react-hot-toast';
 import {HiOutlineMail} from 'react-icons/hi';
@@ -8,12 +9,12 @@ import {ListItemReversed} from '../components/list-item';
 import {DISCORD_ID} from '../components/song';
 import {fetcher} from '../util/fetcher';
 
-const statusMap: Record<Data['discord_status'], string> = {
+const statusMap = {
 	online: 'bg-green-500',
 	idle: 'bg-yellow-500',
 	dnd: 'bg-red-500',
 	offline: 'bg-neutral-500',
-};
+} satisfies Record<Data['discord_status'], string>;
 
 export default function Talk() {
 	const router = useRouter();
@@ -31,7 +32,7 @@ export default function Talk() {
 				<div>
 					<form
 						className="space-y-2"
-						action="/api/form"
+						action="/api/talk"
 						method="POST"
 						onSubmit={async event => {
 							event.preventDefault();
@@ -84,6 +85,11 @@ export default function Talk() {
 								className="block w-full resize-none rounded-md bg-neutral-200/50 py-1 px-4 font-sans text-lg focus:outline-none focus:ring dark:bg-white/5"
 							/>
 						</label>
+
+						<Turnstile
+							options={{responseFieldName: 'turnstile'}}
+							siteKey="0x4AAAAAAABwxsgAijQAi5FS"
+						/>
 
 						<div className="block pt-2">
 							<button

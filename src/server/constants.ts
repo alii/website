@@ -13,6 +13,7 @@ export const DISCORD_WEBHOOK = env('DISCORD_WEBHOOK');
 export const LAST_FM_API_KEY = env('LAST_FM_API_KEY');
 export const SPOTIFY_CLIENT_ID = env('SPOTIFY_CLIENT_ID');
 export const SPOTIFY_CLIENT_SECRET = env('SPOTIFY_CLIENT_SECRET');
+export const TURNSTILE_SECRET_KEY = env('TURNSTILE_SECRET_KEY');
 
 // Whilst I use upstash, I didn't want anybody else
 // using this to be locked into using upstash.
