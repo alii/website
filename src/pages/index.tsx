@@ -69,7 +69,7 @@ export default function Index(props: Props) {
 					</a>
 
 					<a
-						href="https://twitter.com/alistaiiiir"
+						href="https://twitter.com/alistaiir"
 						target="_blank"
 						rel="noreferrer"
 						aria-label="Twitter Profile"
