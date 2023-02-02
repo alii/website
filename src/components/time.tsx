@@ -1,10 +1,10 @@
 'use client';
 
 import {useEffect, useRef, useState} from 'react';
-import {UKTimeFormatter, daysUntilBirthday, timeInUK} from '../utils/constants';
+import {UKTimeFormatter, daysUntilBirthday} from '../utils/constants';
 
 export function Time() {
-	const [time, setTime] = useState(() => timeInUK);
+	const [time, setTime] = useState(() => new Date());
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
 	useEffect(() => {
@@ -32,7 +32,7 @@ export function Time() {
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setTime(UKTimeFormatter.format(new Date()));
+			setTime(new Date());
 		}, 1000);
 
 		return () => clearInterval(interval);
@@ -45,7 +45,7 @@ export function Time() {
 
 				<div className="text-center">
 					<h2 className="font-title text-2xl glow-sky-200 dark:glow-sky-500" suppressHydrationWarning>
-						{time}
+						{UKTimeFormatter.format(time)}
 					</h2>
 
 					<p className="text-xs font-light glow-sky-200 dark:glow-sky-500">in the uk</p>
