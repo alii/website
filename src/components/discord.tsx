@@ -22,7 +22,7 @@ export function Discord(props: Props) {
 				}[status],
 			)}
 		>
-			<div className="-rotate-[8deg] scale-[1.1] space-y-1 text-center md:scale-[1.2]">
+			<div className="-rotate-[8deg] scale-[1] space-y-1 text-center md:scale-[1.2]">
 				<p>
 					<SiDiscord className="inline" /> <span>{status}</span>
 				</p>
