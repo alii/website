@@ -252,12 +252,7 @@ export default async function Home() {
 				</Link>
 			)}
 
-			<div
-				className={clsx(
-					'group relative col-span-2 flex h-full  min-h-[13rem] flex-shrink-0 overflow-hidden rounded-2xl md:col-span-3',
-					hoverClassName,
-				)}
-			>
+			<div className="group relative col-span-2 flex h-full  min-h-[13rem] flex-shrink-0 overflow-hidden rounded-2xl md:col-span-3">
 				<Image src={map} className="bg-black" fill alt="Album cover art" objectFit="cover" />
 
 				<div className="absolute top-1/2 left-1/2 z-10 flex w-full flex-shrink-0 -translate-x-1/2 -translate-y-1/2 flex-col items-center space-y-2">
