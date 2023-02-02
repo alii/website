@@ -36,6 +36,8 @@ import {age, discordId} from '../utils/constants';
 import {Discord} from '../components/discord';
 import {ContactForm} from '../components/contact-form';
 import {Time} from '../components/time';
+import Balancer from 'react-wrap-balancer';
+import {env} from '../server/env';
 
 export const revalidate = 60;
 
@@ -48,7 +50,7 @@ export default async function Home() {
 		throw new Error('Lanyard API failed');
 	}
 
-	const location = lanyard.data.kv.location ?? 'London, UK';
+	const location = lanyard.data.kv.location ?? env.DEFAULT_LOCATION;
 
 	const map = getMapURL(location);
 
@@ -59,19 +61,29 @@ export default async function Home() {
 					<Image
 						src={me}
 						placeholder="blur"
-						height={80}
-						width={80}
-						className="h-20 w-20 rounded-full border border-pink-500 object-cover"
+						height={96}
+						width={96}
+						className="h-24 w-24 rounded-full border border-pink-500 object-cover"
 						alt="Photo of me"
 					/>
 
-					<div className="space-y-1">
-						<h1 className="text-center font-title text-2xl font-bold tracking-tighter text-pink-900 dark:text-pink-300 dark:text-glow-pink-500 sm:text-4xl md:text-left">
-							alistair smith
-						</h1>
+					<div className="space-y-2">
+						<div className="space-y-1">
+							<h1 className="text-center font-title text-2xl font-bold tracking-tighter text-pink-900 dark:text-pink-300 dark:text-glow-pink-500 sm:text-4xl md:text-left">
+								alistair smith
+							</h1>
 
-						<p className="text-center text-pink-800 dark:text-pink-300/95 dark:text-glow-pink-500/50 md:text-left">
-							{age} y/o full stack TypeScript engineer 🪄
+							<p className="text-center text-pink-800 dark:text-pink-300/95 dark:text-glow-pink-500/50 md:text-left">
+								{age} y/o full stack TypeScript engineer 🪄
+							</p>
+						</div>
+
+						<hr className="hidden border-t border-t-pink-800 dark:border-t-pink-300/50 md:block" />
+
+						<p className="text-center text-pink-800 dark:text-pink-300/80 dark:text-glow-pink-500/30 md:text-left">
+							<Link href="https://alistair.blog" target="_blank" rel="noopener noreferrer">
+								blog ↗️
+							</Link>
 						</p>
 					</div>
 				</div>
