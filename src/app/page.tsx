@@ -142,12 +142,16 @@ export default async function Home() {
 				<Image src={map} className="bg-black" fill alt="Album cover art" style={{objectFit: 'cover'}} />
 
 				<div className="absolute top-1/2 left-1/2 z-10 flex w-full flex-shrink-0 -translate-x-1/2 -translate-y-1/2 flex-col items-center space-y-2">
+					<div aria-hidden className="absolute translate-y-[14px]">
+						<span className="block h-12 w-12 animate-ping rounded-full bg-lime-500 duration-1000" />
+					</div>
+
 					<Image
 						src={me}
-						alt="me again"
+						alt="Photo of me above a map of my current location"
 						height={60}
 						width={60}
-						className="h-15 w-15 rounded-full border-2 border-black transition-transform duration-150 group-hover:-rotate-[10deg] group-hover:scale-110"
+						className="h-15 w-15 z-20 rounded-full border-2 border-black transition-transform duration-150 group-hover:-rotate-[10deg] group-hover:scale-110"
 					/>
 
 					<p className="rounded-full bg-white/10 pl-2.5 pr-3 font-bold text-white/95 backdrop-blur-md">📌 {location}</p>
