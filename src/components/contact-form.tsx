@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 export function ContactForm() {
 	const [submitted, setSubmitted] = useState(false);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 
 	if (submitted) {
 		return (
