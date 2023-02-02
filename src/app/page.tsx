@@ -134,7 +134,9 @@ export default async function Home() {
 					<span className="block text-sm">my open source work &amp; contributions</span>
 				</span>
 			</Link>
+
 			<Spotify lanyard={lanyard.data} />
+
 			<div className="group relative col-span-2 flex h-full  min-h-[13rem] flex-shrink-0 overflow-hidden rounded-2xl md:col-span-3">
 				<Image src={map} className="bg-black" fill alt="Album cover art" objectFit="cover" />
 
@@ -144,12 +146,13 @@ export default async function Home() {
 						alt="me again"
 						height={60}
 						width={60}
-						className="h-15 w-15 rounded-full border-2 border-black"
+						className="h-15 w-15 rounded-full border-2 border-black transition-transform duration-150 group-hover:-rotate-[10deg] group-hover:scale-110"
 					/>
 
 					<p className="rounded-full bg-white/10 pl-2.5 pr-3 font-bold text-white/95 backdrop-blur-md">📌 {location}</p>
 				</div>
 			</div>
+
 			<div className="col-span-2 flex items-center justify-center rounded-2xl bg-fuchsia-700 p-6 text-fuchsia-100">
 				<div className="grid w-full grid-cols-4 grid-rows-4 gap-4 [&>svg]:w-full [&>svg]:text-center">
 					<SiTypescript size={24} />
