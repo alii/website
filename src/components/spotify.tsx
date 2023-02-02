@@ -64,8 +64,8 @@ export function Spotify(props: Props) {
 		>
 			<span className="absolute inset-0 -z-10">
 				<Image
-					suppressHydrationWarning
-					src={lanyard.spotify?.album_art_url}
+					key={lanyard.spotify.album_art_url}
+					src={lanyard.spotify.album_art_url}
 					className="bg-black brightness-50 transition-transform group-hover:-rotate-[1deg] group-hover:scale-105"
 					fill
 					alt="Album cover art"
