@@ -1,36 +1,34 @@
+import clsx from 'clsx';
+import Image from 'next/image';
+import Link from 'next/link';
+import {HiOutlineExternalLink} from 'react-icons/hi';
 import {
-	SiTwitter,
+	SiAmazonaws,
+	SiBabel,
 	SiDiscord,
-	SiGithub,
-	SiSpotify,
 	SiDocker,
-	SiRedis,
-	SiPostgresql,
-	SiReact,
-	SiNodedotjs,
-	SiTypescript,
+	SiGit,
+	SiGithub,
 	SiGo,
 	SiJavascript,
-	SiAmazonaws,
-	SiWebstorm,
-	SiNextdotjs,
-	SiTailwindcss,
-	SiWebpack,
-	SiBabel,
-	SiYarn,
-	SiGit,
-	SiStyledcomponents,
 	SiMongodb,
-	SiApple,
+	SiNextdotjs,
+	SiNodedotjs,
+	SiPostgresql,
+	SiReact,
+	SiRedis,
+	SiSpotify,
+	SiTailwindcss,
+	SiTwitter,
+	SiTypescript,
 	SiVisualstudiocode,
+	SiWebpack,
+	SiWebstorm,
+	SiYarn,
 } from 'react-icons/si';
-import Image from 'next/image';
-import me from '../images/me.jpg';
-import Link from 'next/link';
 import {LanyardResponse} from 'use-lanyard';
-import clsx from 'clsx';
 import matrix from '../images/matrix.gif';
-import {HiOutlineExternalLink} from 'react-icons/hi';
+import me from '../images/me.jpg';
 import {getMapURL} from '../server/apple-maps';
 
 const UKTimeFormatter = new Intl.DateTimeFormat(undefined, {

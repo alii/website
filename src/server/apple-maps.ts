@@ -3,8 +3,6 @@ import {env} from './env';
 
 const es256 = jwa('ES256');
 
-console.log(env.APPLE_PRIV_KEY);
-
 export function getMapURL(center: string) {
 	const params = new URLSearchParams({
 		center,
