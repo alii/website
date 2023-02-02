@@ -22,6 +22,7 @@ import {
 	SiStyledcomponents,
 	SiMongodb,
 	SiApple,
+	SiVisualstudiocode,
 } from 'react-icons/si';
 import Image from 'next/image';
 import me from '../images/me.jpg';
@@ -135,7 +136,7 @@ export default async function Home() {
 				</span>
 			</Link>
 
-			<div className="grid grid-cols-1 gap-6">
+			<div className="col-span-2 grid grid-cols-1 gap-6 md:col-span-1">
 				<div className="flex items-center justify-center rounded-2xl bg-sky-900 text-white dark:bg-sky-100 dark:text-sky-900">
 					<div className="text-center">
 						<h2 className="font-title text-2xl glow-sky-200 dark:glow-sky-500">{timeInUK}</h2>
@@ -159,7 +160,7 @@ export default async function Home() {
 				target="_blank"
 				rel="noopener noreferrer"
 				className={clsx(
-					'group relative col-span-3 flex flex-col justify-between overflow-hidden rounded-2xl text-white',
+					'group relative col-span-2 flex flex-col justify-between overflow-hidden rounded-2xl text-white md:col-span-3',
 					hoverClassName,
 				)}
 			>
@@ -186,7 +187,10 @@ export default async function Home() {
 					href={`https://open.spotify.com/track/${lanyard.data.spotify.track_id}`}
 					target="_blank"
 					rel="noopener noreferrer"
-					className={clsx('group relative col-span-3 flex h-52 overflow-hidden rounded-2xl', hoverClassName)}
+					className={clsx(
+						'group relative col-span-2 flex h-52 overflow-hidden rounded-2xl md:col-span-3',
+						hoverClassName,
+					)}
 				>
 					<span className="absolute inset-0 -z-10">
 						<Image
@@ -221,7 +225,10 @@ export default async function Home() {
 					href="https://open.spotify.com/playlist/18R9Cntl2PZEaGMLz4cyX2"
 					target="_blank"
 					rel="noopener noreferrer"
-					className={clsx('group relative col-span-3 flex h-52 overflow-hidden rounded-2xl', hoverClassName)}
+					className={clsx(
+						'group relative col-span-2 flex h-52 overflow-hidden rounded-2xl md:col-span-3',
+						hoverClassName,
+					)}
 				>
 					<span className="absolute inset-0 -z-10">
 						<Image
@@ -247,7 +254,12 @@ export default async function Home() {
 				</Link>
 			)}
 
-			<div className={clsx('group relative col-span-3 flex h-52 overflow-hidden rounded-2xl', hoverClassName)}>
+			<div
+				className={clsx(
+					'group relative col-span-2 flex h-full  min-h-[13rem] flex-shrink-0 overflow-hidden rounded-2xl md:col-span-3',
+					hoverClassName,
+				)}
+			>
 				<Image src={map} className="bg-black" fill alt="Album cover art" objectFit="cover" />
 
 				<div className="absolute top-1/2 left-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center space-y-2">
@@ -265,7 +277,7 @@ export default async function Home() {
 				</div>
 			</div>
 
-			<div className="col-span-2 flex items-center justify-center rounded-2xl bg-fuchsia-700 p-6">
+			<div className="col-span-2 flex items-center justify-center rounded-2xl bg-fuchsia-700 p-6 text-fuchsia-100">
 				<div className="grid w-full grid-cols-4 grid-rows-4 gap-4 [&>svg]:w-full [&>svg]:text-center">
 					<SiTypescript size={24} />
 					<SiDocker size={24} />
@@ -283,9 +295,9 @@ export default async function Home() {
 					<SiBabel size={24} />
 					<SiYarn size={24} />
 					<SiGit size={24} />
-					<SiStyledcomponents size={24} />
+					<SiSpotify size={24} />
 					<SiMongodb size={24} />
-					<SiApple size={24} />
+					<SiVisualstudiocode size={24} />
 					<SiDiscord size={24} />
 				</div>
 			</div>
