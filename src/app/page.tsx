@@ -118,7 +118,7 @@ export default async function Home() {
 				)}
 			>
 				<span aria-hidden className="pointer-events-none absolute inset-0 -z-20">
-					<Image src={matrix} alt="matrix" fill objectFit="cover" />
+					<Image src={matrix} alt="matrix" fill style={{objectFit: 'cover'}} />
 					<span className="absolute inset-0 bg-neutral-900/50" />
 				</span>
 
@@ -138,7 +138,7 @@ export default async function Home() {
 			<Spotify lanyard={lanyard.data} />
 
 			<div className="group relative col-span-2 flex h-full  min-h-[13rem] flex-shrink-0 overflow-hidden rounded-2xl md:col-span-3">
-				<Image src={map} className="bg-black" fill alt="Album cover art" objectFit="cover" />
+				<Image src={map} className="bg-black" fill alt="Album cover art" style={{objectFit: 'cover'}} />
 
 				<div className="absolute top-1/2 left-1/2 z-10 flex w-full flex-shrink-0 -translate-x-1/2 -translate-y-1/2 flex-col items-center space-y-2">
 					<Image
