@@ -1830,6 +1830,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"es-urlcat@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "es-urlcat@npm:1.0.0"
+  dependencies:
+    qs: ^6.9.4
+  checksum: e646f8510f80e11951602178168d2348fcbc39ed12cc80b0c93d592224a4692c155250e136c05cae4f9a4325ba5f991554d94623b2ebbb431d6064119a2acacf
+  languageName: node
+  linkType: hard
+
 "escalade@npm:^3.1.1":
   version: 3.1.1
   resolution: "escalade@npm:3.1.1"
@@ -4391,6 +4400,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"qs@npm:^6.9.4":
+  version: 6.11.0
+  resolution: "qs@npm:6.11.0"
+  dependencies:
+    side-channel: ^1.0.4
+  checksum: 6e1f29dd5385f7488ec74ac7b6c92f4d09a90408882d0c208414a34dd33badc1a621019d4c799a3df15ab9b1d0292f97c1dd71dc7c045e69f81a8064e5af7297
+  languageName: node
+  linkType: hard
+
 "query-string@npm:^6.12.1":
   version: 6.14.1
   resolution: "query-string@npm:6.14.1"
@@ -5332,6 +5350,7 @@ __metadata:
     danger: ^11.2.3
     dotenv: ^16.0.3
     envsafe: ^2.0.3
+    es-urlcat: ^1.0.0
     eslint: 8.33.0
     eslint-config-next: 13.1.6
     framer-motion: ^9.0.1
