@@ -260,7 +260,7 @@ export default async function Home() {
 			>
 				<Image src={map} className="bg-black" fill alt="Album cover art" objectFit="cover" />
 
-				<div className="absolute top-1/2 left-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center space-y-2">
+				<div className="absolute top-1/2 left-1/2 z-10 flex w-full flex-shrink-0 -translate-x-1/2 -translate-y-1/2 flex-col items-center space-y-2">
 					<Image
 						src={me}
 						alt="me again"
@@ -269,7 +269,7 @@ export default async function Home() {
 						className="h-15 w-15 rounded-full border-2 border-black"
 					/>
 
-					<p className="rounded-full bg-white/50 px-2 font-bold text-neutral-700 backdrop-blur-md">
+					<p className="rounded-full bg-white/50 px-2.5 font-bold text-neutral-700 backdrop-blur-md">
 						📌 {lanyard.data.kv.location ?? 'in the clouds'}
 					</p>
 				</div>
