@@ -153,7 +153,7 @@ export default async function Home() {
 						className="h-15 w-15 z-20 rounded-full border-2 border-black transition-transform duration-500 group-hover:-rotate-[10deg] group-hover:scale-110"
 					/>
 
-					<p className="rounded-full bg-white/10 pl-2.5 pr-3 font-bold text-white/95 backdrop-blur-md">📌 {location}</p>
+					<p className="rounded-full bg-white/10 pl-2.5 pr-3 font-bold text-white/95 backdrop-blur-md">📍 {location}</p>
 				</div>
 			</div>
 
