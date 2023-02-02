@@ -2,6 +2,7 @@ import {NextkitError} from 'nextkit';
 import {z} from 'zod';
 import {api} from '../../server/api';
 import {env} from '../../server/env';
+import {codeblock} from '../../utils/discord';
 
 const schema = z.object({
 	email: z.string().email(),
@@ -32,6 +33,11 @@ export default api({
 						author: {name: body.email},
 						fields: [{name: 'ip', value: ip ?? 'unknown!?'}],
 					},
+
+					{
+						title: 'turnstile',
+						description: codeblock(JSON.stringify(outcome, null, 2), 'json'),
+					},
 				],
 			}),
 		});
@@ -41,9 +47,7 @@ export default api({
 		}
 
 		if (req.headers['content-type'] === 'application/json') {
-			return {
-				sent: true,
-			};
+			return {sent: true};
 		}
 
 		return {

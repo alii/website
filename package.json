@@ -12,6 +12,7 @@
 	},
 	"devDependencies": {
 		"@tailwindcss/forms": "^0.5.3",
+		"@types/common-tags": "^1.8.1",
 		"@types/jwa": "^2.0.0",
 		"@types/react": "^18.0.27",
 		"@types/react-dom": "^18.0.10",
@@ -28,6 +29,7 @@
 		"@marsidev/react-turnstile": "^0.0.7",
 		"@next/font": "^13.1.6",
 		"clsx": "^1.2.1",
+		"common-tags": "^1.8.2",
 		"dotenv": "^16.0.3",
 		"envsafe": "^2.0.3",
 		"jwa": "^2.0.0",

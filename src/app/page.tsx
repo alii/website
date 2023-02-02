@@ -32,9 +32,10 @@ import {Spotify} from '../components/spotify';
 import matrix from '../images/matrix.gif';
 import me from '../images/me.jpg';
 import {getMapURL} from '../server/apple-maps';
-import {age, daysUntilBirthday, discordId, timeInUK} from '../utils/constants';
+import {age, discordId} from '../utils/constants';
 import {Discord} from '../components/discord';
 import {ContactForm} from '../components/contact-form';
+import {Time} from '../components/time';
 
 export const revalidate = 60;
 
@@ -75,6 +76,7 @@ export default async function Home() {
 					</div>
 				</div>
 			</div>
+
 			<Link
 				href="https://twitter.com/alistaiir"
 				target="_blank"
@@ -84,6 +86,7 @@ export default async function Home() {
 					hoverClassName,
 				)}
 			>
+				<span className="sr-only">Twitter</span>
 				<span className="transform-gpu transition group-hover:-rotate-[10deg] group-hover:scale-[1.3]">
 					<SiTwitter />
 				</span>
@@ -91,24 +94,8 @@ export default async function Home() {
 
 			<Discord lanyard={lanyard.data} />
 
-			<div className="col-span-2 grid grid-cols-1 gap-6 md:col-span-1">
-				<div className="flex items-center justify-center rounded-2xl bg-sky-900 text-white dark:bg-sky-100 dark:text-sky-900">
-					<div className="text-center">
-						<h2 className="font-title text-2xl glow-sky-200 dark:glow-sky-500">{timeInUK}</h2>
-						<p className="text-xs font-light glow-sky-200 dark:glow-sky-500">in the uk</p>
-					</div>
-				</div>
+			<Time />
 
-				<div className="flex items-center justify-center rounded-2xl border  border-indigo-400 bg-indigo-100 text-indigo-500 dark:bg-indigo-900 dark:bg-indigo-900/50 dark:text-indigo-400">
-					<div className="text-center">
-						<p className="text-xs font-light">
-							<span className="font-title text-xl">{daysUntilBirthday}</span> days
-							<br />
-							until birthday
-						</p>
-					</div>
-				</div>
-			</div>
 			<Link
 				href="https://github.com/alii"
 				target="_blank"
@@ -126,12 +113,13 @@ export default async function Home() {
 				<span aria-hidden className="px-6 pt-6">
 					<span className="flex justify-between">
 						<SiGithub className="text-3xl" />
-						<HiOutlineExternalLink className="text-xl opacity-50 transition duration-150 group-hover:opacity-100" />
+						<HiOutlineExternalLink className="text-xl opacity-50 transition duration-500 group-hover:opacity-100" />
 					</span>
 				</span>
 
-				<span className="px-6 pb-6">
+				<span className="space-y-0.5 px-6 pb-6">
 					<span className="block font-title font-bold">github</span>
+
 					<span className="block text-sm">my open source work &amp; contributions</span>
 				</span>
 			</Link>
@@ -151,7 +139,7 @@ export default async function Home() {
 						alt="Photo of me above a map of my current location"
 						height={60}
 						width={60}
-						className="h-15 w-15 z-20 rounded-full border-2 border-black transition-transform duration-150 group-hover:-rotate-[10deg] group-hover:scale-110"
+						className="h-15 w-15 z-20 rounded-full border-2 border-black transition-transform duration-500 group-hover:-rotate-[10deg] group-hover:scale-110"
 					/>
 
 					<p className="rounded-full bg-white/10 pl-2.5 pr-3 font-bold text-white/95 backdrop-blur-md">📌 {location}</p>

@@ -14,7 +14,7 @@ export const api = createAPI({
 	async getContext() {
 		return {
 			async turnstile(token: string, ip: string | null) {
-				const formData = new FormData();
+				const formData = new URLSearchParams();
 
 				formData.append('secret', env.TURNSTILE_SECRET_KEY);
 				formData.append('response', token);

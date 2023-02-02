@@ -40,11 +40,14 @@ export function Spotify(props: Props) {
 				<span className="flex flex-1 flex-col justify-between p-6 text-white">
 					<span className="flex justify-between">
 						<SiSpotify className="text-2xl" />
-						<HiOutlineExternalLink className="text-xl opacity-50 transition duration-150 group-hover:opacity-100" />
+						<HiOutlineExternalLink className="text-xl opacity-50 transition duration-500 group-hover:opacity-100" />
 					</span>
 
-					<div>
-						<h2 className="font-title">early travel</h2>
+					<div className="space-y-0.5">
+						<h2 className="font-title font-bold">
+							<span className="font-medium">playlist:</span>early travel
+						</h2>
+
 						<p className="text-sm">because you had to get a 3 hour bus journey in the early hours</p>
 					</div>
 				</span>
@@ -62,7 +65,7 @@ export function Spotify(props: Props) {
 			<span className="absolute inset-0 -z-10">
 				<Image
 					src={lanyard.spotify?.album_art_url}
-					className="bg-black blur-0 brightness-50 transition-[filter] group-hover:blur-md"
+					className="bg-black brightness-50 transition-transform group-hover:-rotate-[1deg] group-hover:scale-105"
 					fill
 					alt="Album cover art"
 					style={{objectFit: 'cover'}}
@@ -72,7 +75,7 @@ export function Spotify(props: Props) {
 			<span className="flex flex-1 flex-col justify-between p-6 text-white">
 				<span className="flex justify-between">
 					<SiSpotify className="text-2xl" />
-					<HiOutlineExternalLink className="text-xl opacity-50 transition duration-150 group-hover:opacity-100" />
+					<HiOutlineExternalLink className="text-xl opacity-50 transition duration-500 group-hover:opacity-100" />
 				</span>
 
 				<span>

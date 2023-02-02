@@ -3,6 +3,7 @@ import './globals.css';
 import clsx from 'clsx';
 import {Space_Mono, Inter_Tight} from '@next/font/google';
 import {AppToaster} from '../components/toaster';
+import {Wipe} from '../components/wipe';
 
 const title = Space_Mono({
 	subsets: ['latin'],
@@ -22,6 +23,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
 			<body>
 				{children}
 
+				<Wipe />
 				<AppToaster />
 			</body>
 		</html>

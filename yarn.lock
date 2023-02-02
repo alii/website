@@ -396,6 +396,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/common-tags@npm:^1.8.1":
+  version: 1.8.1
+  resolution: "@types/common-tags@npm:1.8.1"
+  checksum: bec6f68c8c434834380abd1dc057aa6ba26661bb0c65c700b65049e9b104d7be96a987d93dbe8726be68554a23a52514a6967d8903fdb51fb8c78cf909d1e4c1
+  languageName: node
+  linkType: hard
+
 "@types/http-cache-semantics@npm:*":
   version: 4.0.1
   resolution: "@types/http-cache-semantics@npm:4.0.1"
@@ -932,6 +939,13 @@ __metadata:
   version: 2.20.3
   resolution: "commander@npm:2.20.3"
   checksum: ab8c07884e42c3a8dbc5dd9592c606176c7eb5c1ca5ff274bcf907039b2c41de3626f684ea75ccf4d361ba004bbaff1f577d5384c155f3871e456bdf27becf9e
+  languageName: node
+  linkType: hard
+
+"common-tags@npm:^1.8.2":
+  version: 1.8.2
+  resolution: "common-tags@npm:1.8.2"
+  checksum: 767a6255a84bbc47df49a60ab583053bb29a7d9687066a18500a516188a062c4e4cd52de341f22de0b07062e699b1b8fe3cfa1cb55b241cb9301aeb4f45b4dff
   languageName: node
   linkType: hard
 
@@ -3334,11 +3348,13 @@ __metadata:
     "@marsidev/react-turnstile": ^0.0.7
     "@next/font": ^13.1.6
     "@tailwindcss/forms": ^0.5.3
+    "@types/common-tags": ^1.8.1
     "@types/jwa": ^2.0.0
     "@types/react": ^18.0.27
     "@types/react-dom": ^18.0.10
     autoprefixer: ^10.4.13
     clsx: ^1.2.1
+    common-tags: ^1.8.2
     danger: ^11.2.3
     dotenv: ^16.0.3
     envsafe: ^2.0.3
