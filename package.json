@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"repository": "git@github.com:alii/website.git",
 	"author": "Alistair Smith <hi@alistair.sh>",
-	"license": "MIT",
+	"license": "Apache-2.0",
 	"packageManager": "yarn@3.4.1",
 	"scripts": {
 		"dev": "next dev",
