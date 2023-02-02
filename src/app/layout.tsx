@@ -1,7 +1,8 @@
-import clsx from 'clsx';
 import './globals.css';
 
+import clsx from 'clsx';
 import {Space_Mono, Inter_Tight} from '@next/font/google';
+import {AppToaster} from '../components/toaster';
 
 const title = Space_Mono({
 	subsets: ['latin'],
@@ -18,8 +19,11 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
 	return (
 		<html lang="en" className={clsx(inter.variable, title.variable)}>
 			<head />
+			<body>
+				{children}
 
-			<body>{children}</body>
+				<AppToaster />
+			</body>
 		</html>
 	);
 }

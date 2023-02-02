@@ -11,6 +11,7 @@
 		"start": "next start"
 	},
 	"devDependencies": {
+		"@tailwindcss/forms": "^0.5.3",
 		"@types/jwa": "^2.0.0",
 		"@types/react": "^18.0.27",
 		"@types/react-dom": "^18.0.10",
@@ -24,15 +25,19 @@
 		"typescript": "next"
 	},
 	"dependencies": {
+		"@marsidev/react-turnstile": "^0.0.7",
 		"@next/font": "^13.1.6",
 		"clsx": "^1.2.1",
 		"dotenv": "^16.0.3",
 		"envsafe": "^2.0.3",
 		"jwa": "^2.0.0",
 		"next": "^13.1.6",
+		"nextkit": "^3.4.3",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
+		"react-hot-toast": "^2.4.0",
 		"react-icons": "^4.7.1",
-		"use-lanyard": "^1.4.2"
+		"use-lanyard": "^1.4.2",
+		"zod": "^3.20.2"
 	}
 }

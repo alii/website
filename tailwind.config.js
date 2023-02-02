@@ -18,6 +18,7 @@ module.exports = {
 		},
 	},
 	plugins: [
+		require('@tailwindcss/forms'),
 		{
 			handler: tw => {
 				tw.matchComponents(

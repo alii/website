@@ -34,6 +34,7 @@ import me from '../images/me.jpg';
 import {getMapURL} from '../server/apple-maps';
 import {age, daysUntilBirthday, discordId, timeInUK} from '../utils/constants';
 import {Discord} from '../components/discord';
+import {ContactForm} from '../components/contact-form';
 
 export const revalidate = 60;
 
@@ -51,7 +52,7 @@ export default async function Home() {
 	const map = getMapURL(location);
 
 	return (
-		<main className="mx-auto grid max-w-3xl grid-cols-4 gap-6 py-16 px-6 md:grid-cols-6">
+		<main className="mx-auto grid max-w-3xl grid-cols-4 gap-6 px-6 pb-40 pt-16 md:grid-cols-6">
 			<div className="p-200 col-span-2 flex items-center justify-center overflow-hidden rounded-2xl border border-pink-800 bg-pink-200 dark:border-pink-500 dark:bg-pink-500/20 dark:backdrop-blur-2xl md:col-span-4 md:h-52">
 				<div className="flex flex-col items-center space-y-4 py-8 px-6 md:flex-row md:space-y-0 md:space-x-4">
 					<Image
@@ -177,6 +178,7 @@ export default async function Home() {
 					<SiDiscord size={24} />
 				</div>
 			</div>
+
 			<div className="col-span-4 space-y-2 rounded-2xl bg-yellow-200 p-6 dark:bg-indigo-800">
 				<h2 className="font-title text-xl font-bold">
 					hello world <span className="inline dark:hidden">🌻</span>
@@ -196,6 +198,10 @@ export default async function Home() {
 					Beyond programming, I'm really interested in music production, and you can often find me spending time messing
 					with DJ decks and my Maschine.
 				</p>
+			</div>
+
+			<div className="col-span-4 space-y-4 rounded-2xl bg-lime-400 p-6 text-black md:col-span-6">
+				<ContactForm />
 			</div>
 		</main>
 	);
