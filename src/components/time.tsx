@@ -44,7 +44,10 @@ export function Time() {
 				<canvas ref={canvasRef} className="absolute inset-0" />
 
 				<div className="text-center">
-					<h2 className="font-title text-2xl glow-sky-200 dark:glow-sky-500">{time}</h2>
+					<h2 className="font-title text-2xl glow-sky-200 dark:glow-sky-500" suppressHydrationWarning>
+						{time}
+					</h2>
+
 					<p className="text-xs font-light glow-sky-200 dark:glow-sky-500">in the uk</p>
 				</div>
 			</div>

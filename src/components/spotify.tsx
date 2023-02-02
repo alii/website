@@ -64,6 +64,7 @@ export function Spotify(props: Props) {
 		>
 			<span className="absolute inset-0 -z-10">
 				<Image
+					suppressHydrationWarning
 					src={lanyard.spotify?.album_art_url}
 					className="bg-black brightness-50 transition-transform group-hover:-rotate-[1deg] group-hover:scale-105"
 					fill
@@ -81,8 +82,15 @@ export function Spotify(props: Props) {
 				<span>
 					<h2>
 						<span className="mb-0.5 mr-1 inline-block h-2 w-2 animate-pulse rounded-full bg-green-500" aria-hidden />{' '}
-						Listening to <span className="font-bold">{lanyard.spotify.song}</span> by{' '}
-						<span className="font-bold">{lanyard.spotify.artist}</span>.
+						Listening to{' '}
+						<span className="font-bold" suppressHydrationWarning>
+							{lanyard.spotify.song}
+						</span>{' '}
+						by{' '}
+						<span className="font-bold" suppressHydrationWarning>
+							{lanyard.spotify.artist}
+						</span>
+						.
 					</h2>
 				</span>
 			</span>
