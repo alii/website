@@ -22,9 +22,17 @@ export function Discord(props: Props) {
 				}[status],
 			)}
 		>
-			<p className="flex -rotate-[8deg] scale-[1.2] items-center space-x-4 font-bold">
-				<SiDiscord /> <span>{status}</span>
-			</p>
+			<div className="-rotate-[8deg] scale-[1.2] space-y-1 text-center">
+				<p>
+					<SiDiscord className="inline" /> <span>{status}</span>
+				</p>
+
+				{lanyard && (
+					<p className="text-base text-white/80">
+						{lanyard.discord_user.username}#{lanyard.discord_user.discriminator}
+					</p>
+				)}
+			</div>
 		</div>
 	);
 }
