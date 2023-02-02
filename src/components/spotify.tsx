@@ -57,6 +57,7 @@ export function Spotify(props: Props) {
 
 	return (
 		<Link
+			suppressHydrationWarning
 			href={`https://open.spotify.com/track/${lanyard.spotify.track_id}`}
 			target="_blank"
 			rel="noopener noreferrer"

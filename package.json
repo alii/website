@@ -32,6 +32,7 @@
 		"common-tags": "^1.8.2",
 		"dotenv": "^16.0.3",
 		"envsafe": "^2.0.3",
+		"framer-motion": "^9.0.1",
 		"jwa": "^2.0.0",
 		"next": "^13.1.6",
 		"nextkit": "^3.4.3",
