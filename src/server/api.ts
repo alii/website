@@ -1,8 +1,8 @@
 import {createAPI} from 'nextkit';
-import {TURNSTILE_SECRET_KEY} from './constants';
+import {env} from './env';
 
 export const api = createAPI({
-	async onError(req, res, error) {
+	async onError(_req, _res, error) {
 		console.warn(error);
 
 		return {
@@ -16,7 +16,7 @@ export const api = createAPI({
 			async turnstile(token: string, ip: string | null) {
 				const formData = new FormData();
 
-				formData.append('secret', TURNSTILE_SECRET_KEY);
+				formData.append('secret', env.TURNSTILE_SECRET_KEY);
 				formData.append('response', token);
 
 				if (ip) {

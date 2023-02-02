@@ -12,9 +12,7 @@ export function ContactForm() {
 		return (
 			<div className="text-center">
 				<h2 className="text-2xl font-bold">Thanks!</h2>
-				<p className="text-black/80">
-					I'll get back to you as soon as possible.
-				</p>
+				<p className="text-black/80">I'll get back to you as soon as possible.</p>
 			</div>
 		);
 	}
@@ -23,18 +21,14 @@ export function ContactForm() {
 		<>
 			<div className="space-y-1">
 				<h2 className="font-title text-lg font-bold">Let's talk</h2>
-				<p>
-					Drop me a message with the form below, I'll get back to the non-spam
-				</p>
+				<p>Drop me a message with the form below, I'll get back to the non-spam</p>
 			</div>
 
 			<form
 				onSubmit={async event => {
 					event.preventDefault();
 
-					const values = Object.fromEntries(
-						new FormData(event.target as HTMLFormElement).entries(),
-					);
+					const values = Object.fromEntries(new FormData(event.target as HTMLFormElement).entries());
 
 					setLoading(true);
 
@@ -48,8 +42,7 @@ export function ContactForm() {
 						.promise(promise, {
 							success: 'Success!',
 							loading: 'Sending...',
-							error: (error: Error) =>
-								error?.message ?? 'Something went wrong...',
+							error: (error: Error) => error?.message ?? 'Something went wrong...',
 						})
 						.then(async () => {
 							setSubmitted(true);
@@ -64,25 +57,11 @@ export function ContactForm() {
 				className="space-y-2 [&>label]:block [&_input]:rounded-md [&_textarea]:rounded-md"
 			>
 				<label htmlFor="email">
-					<input
-						type="email"
-						name="email"
-						id="email"
-						required
-						placeholder="hi@alistair.sh"
-						className="w-full"
-					/>
+					<input type="email" name="email" id="email" required placeholder="hi@alistair.sh" className="w-full" />
 				</label>
 
 				<label htmlFor="body">
-					<textarea
-						id="body"
-						name="body"
-						rows={5}
-						required
-						placeholder="Your message"
-						className="w-full resize-y"
-					/>
+					<textarea id="body" name="body" rows={5} required placeholder="Your message" className="w-full resize-y" />
 				</label>
 
 				<Turnstile
