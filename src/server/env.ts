@@ -9,5 +9,4 @@ export const env = envsafe({
 	DEFAULT_LOCATION: str({
 		default: 'London, UK',
 	}),
-	INGEST_TOKEN: str(),
 });
