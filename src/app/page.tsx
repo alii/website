@@ -54,7 +54,7 @@ export default async function Home() {
 
 	return (
 		<main className="mx-auto grid max-w-3xl grid-cols-4 gap-6 px-6 pb-40 pt-16 md:grid-cols-6">
-			<div className="p-200 col-span-2 flex items-center justify-center overflow-hidden rounded-2xl border border-pink-800 bg-pink-200 dark:border-pink-500 dark:bg-pink-500/20 dark:backdrop-blur-2xl md:col-span-4 md:h-52">
+			<div className="p-200 col-span-2 flex items-center justify-center overflow-hidden rounded-2xl bg-pink-200 dark:border-pink-500 dark:bg-pink-500/20 dark:backdrop-blur-2xl md:col-span-4 md:h-52">
 				<div className="flex flex-col items-center space-y-4 py-8 px-6 md:flex-row md:space-y-0 md:space-x-4">
 					<Image
 						src={me}
