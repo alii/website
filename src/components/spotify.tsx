@@ -33,7 +33,7 @@ export function Spotify(props: Props) {
 						className="bg-black brightness-50"
 						fill
 						alt="Album cover art"
-						objectFit="cover"
+						style={{objectFit: 'cover'}}
 					/>
 				</span>
 
@@ -65,7 +65,7 @@ export function Spotify(props: Props) {
 					className="bg-black blur-0 brightness-50 transition-[filter] group-hover:blur-md"
 					fill
 					alt="Album cover art"
-					objectFit="cover"
+					style={{objectFit: 'cover'}}
 				/>
 			</span>
 
