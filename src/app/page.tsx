@@ -36,7 +36,6 @@ import {age, discordId} from '../utils/constants';
 import {Discord} from '../components/discord';
 import {ContactForm} from '../components/contact-form';
 import {Time} from '../components/time';
-import Balancer from 'react-wrap-balancer';
 import {env} from '../server/env';
 
 export const revalidate = 60;
