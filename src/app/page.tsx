@@ -84,7 +84,7 @@ export default async function Home() {
 
 	return (
 		<main className="mx-auto grid max-w-3xl grid-cols-4 gap-6 py-16 px-6 md:grid-cols-6">
-			<div className="p-200 col-span-2 flex items-center justify-center overflow-hidden rounded-2xl border border-neutral-300 bg-neutral-200 dark:border-pink-500 dark:bg-pink-500/20 dark:backdrop-blur-2xl md:col-span-4 md:h-52">
+			<div className="p-200 col-span-2 flex items-center justify-center overflow-hidden rounded-2xl border border-pink-800 bg-pink-200 dark:border-pink-500 dark:bg-pink-500/20 dark:backdrop-blur-2xl md:col-span-4 md:h-52">
 				<div className="flex flex-col items-center space-y-4 py-8 px-6 md:flex-row md:space-y-0 md:space-x-4">
 					<Image
 						src={me}
@@ -95,12 +95,12 @@ export default async function Home() {
 						alt="Photo of me"
 					/>
 
-					<div className="space-y-1 text-neutral-600 dark:text-neutral-300">
-						<h1 className="text-center font-title text-2xl font-bold tracking-tighter dark:text-pink-300 sm:text-4xl md:text-left">
+					<div className="space-y-1">
+						<h1 className="text-center font-title text-2xl font-bold tracking-tighter text-pink-900 dark:text-pink-300 dark:text-glow-pink-500 sm:text-4xl md:text-left">
 							alistair smith
 						</h1>
 
-						<p className="text-center dark:text-pink-300/95 md:text-left">
+						<p className="text-center text-pink-800 dark:text-pink-300/95 dark:text-glow-pink-500/50 md:text-left">
 							{age} y/o full stack TypeScript engineer 🪄
 						</p>
 					</div>
@@ -302,11 +302,12 @@ export default async function Home() {
 				</div>
 			</div>
 
-			<div className="col-span-4 space-y-2 rounded-2xl bg-red-200 p-6 dark:bg-indigo-800">
+			<div className="col-span-4 space-y-2 rounded-2xl bg-yellow-200 p-6 dark:bg-indigo-800">
 				<h2 className="font-title text-xl font-bold">
 					hello world <span className="inline dark:hidden">🌻</span>
 					<span className="hidden dark:inline">⭐</span>
 				</h2>
+
 				<p>
 					My name is alistair, I'm a software engineer from the United Kingdom. I've been programming for as long as I
 					can remember, and I'm currently spending my time with the wonderful people at{' '}
@@ -314,6 +315,11 @@ export default async function Home() {
 						Hop
 					</Link>
 					.
+				</p>
+
+				<p>
+					Beyond programming, I'm really interested in music production, and you can often find me spending time messing
+					with DJ decks and my Maschine.
 				</p>
 			</div>
 		</main>
