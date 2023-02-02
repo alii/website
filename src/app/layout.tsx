@@ -23,6 +23,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
 				{children}
 
 				<AppToaster />
+				<script async defer src="https://lab.alistair.cloud/latest.js" />
 			</body>
 		</html>
 	);
