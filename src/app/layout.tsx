@@ -1,14 +1,15 @@
 import clsx from 'clsx';
 import './globals.css';
 
-import {JetBrains_Mono, Inter} from '@next/font/google';
+import {Space_Mono, Inter_Tight} from '@next/font/google';
 
-const title = JetBrains_Mono({
+const title = Space_Mono({
 	subsets: ['latin'],
 	variable: '--font-title',
+	weight: ['400', '700'],
 });
 
-const inter = Inter({
+const inter = Inter_Tight({
 	subsets: ['latin'],
 	variable: '--font-inter',
 });

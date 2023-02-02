@@ -20,15 +20,21 @@ module.exports = {
 	plugins: [
 		{
 			handler: tw => {
-				tw.addComponents({
-					'.bg-grid': {
-						backgroundSize: '30px 30px',
-						backgroundImage: `
-							linear-gradient(to right, #ffffff20 1px, transparent 1px),
-    						linear-gradient(to bottom, #ffffff20 1px, transparent 1px)
-						`,
+				tw.matchComponents(
+					{
+						'bg-grid': value => ({
+							backgroundSize: '90px 90px',
+							backgroundImage: `
+								linear-gradient(to right, ${value} 1px, transparent 1px),
+								linear-gradient(to bottom, ${value} 1px, transparent 1px)
+							`,
+						}),
 					},
-				});
+					{
+						values: flattenColorPalette(tw.theme('colors')),
+						type: 'color',
+					},
+				);
 
 				tw.matchUtilities(
 					{
