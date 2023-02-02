@@ -1,4 +1,28 @@
-import {SiTwitter, SiDiscord, SiGithub} from 'react-icons/si';
+import {
+	SiTwitter,
+	SiDiscord,
+	SiGithub,
+	SiSpotify,
+	SiDocker,
+	SiRedis,
+	SiPostgresql,
+	SiReact,
+	SiNodedotjs,
+	SiTypescript,
+	SiGo,
+	SiJavascript,
+	SiAmazonaws,
+	SiWebstorm,
+	SiNextdotjs,
+	SiTailwindcss,
+	SiWebpack,
+	SiBabel,
+	SiYarn,
+	SiGit,
+	SiStyledcomponents,
+	SiMongodb,
+	SiApple,
+} from 'react-icons/si';
 import Image from 'next/image';
 import me from '../images/me.jpg';
 import Link from 'next/link';
@@ -6,6 +30,7 @@ import {LanyardResponse} from 'use-lanyard';
 import clsx from 'clsx';
 import matrix from '../images/matrix.gif';
 import {HiOutlineExternalLink} from 'react-icons/hi';
+import {getMapURL} from '../server/apple-maps';
 
 const UKTimeFormatter = new Intl.DateTimeFormat(undefined, {
 	timeZone: 'Europe/London',
@@ -33,10 +58,10 @@ const daysUntilBirthday = RelativeTimeFormatter.formatToParts(
 
 const hoverClassName = clsx(
 	'transform-gpu transition duration-150 will-change-transform hover:scale-95 active:scale-100',
-	'border-4 border-transparent hover:border-black/25 dark:hover:border-white/40',
+	'border-4 border-transparent hover:border-black/25 dark:hover:white/10',
 );
 
-export const revalidate = 10;
+export const revalidate = 60;
 
 const statusMap = {
 	online: 'bg-green-500 text-white hover:bg-green-600',
@@ -53,6 +78,8 @@ export default async function Home() {
 	if (!lanyard.success) {
 		return null;
 	}
+
+	const map = getMapURL(lanyard.data.kv.location ?? 'London, UK');
 
 	return (
 		<main className="mx-auto grid max-w-3xl grid-cols-4 gap-6 py-16 px-6 md:grid-cols-6">
@@ -72,7 +99,9 @@ export default async function Home() {
 							alistair smith
 						</h1>
 
-						<p className="text-center dark:text-pink-300/95 md:text-left">{age} y/o full stack TypeScript engineer</p>
+						<p className="text-center dark:text-pink-300/95 md:text-left">
+							{age} y/o full stack TypeScript engineer 🪄
+						</p>
 					</div>
 				</div>
 			</div>
@@ -151,6 +180,130 @@ export default async function Home() {
 					<span className="block text-sm">my open source work &amp; contributions</span>
 				</span>
 			</Link>
+
+			{lanyard.data.spotify && lanyard.data.spotify.album_art_url ? (
+				<Link
+					href={`https://open.spotify.com/track/${lanyard.data.spotify.track_id}`}
+					target="_blank"
+					rel="noopener noreferrer"
+					className={clsx('group relative col-span-3 flex h-52 overflow-hidden rounded-2xl', hoverClassName)}
+				>
+					<span className="absolute inset-0 -z-10">
+						<Image
+							src={lanyard.data.spotify?.album_art_url}
+							className="bg-black blur-0 brightness-50 transition-[filter] group-hover:blur-md"
+							fill
+							alt="Album cover art"
+							objectFit="cover"
+						/>
+					</span>
+
+					<span className="flex flex-1 flex-col justify-between p-6 text-white">
+						<span className="flex justify-between">
+							<SiSpotify className="text-2xl" />
+							<HiOutlineExternalLink className="text-xl opacity-50 transition duration-150 group-hover:opacity-100" />
+						</span>
+
+						<span>
+							<h2>
+								<span
+									className="mb-0.5 mr-1 inline-block h-2 w-2 animate-pulse rounded-full bg-green-500"
+									aria-hidden
+								/>{' '}
+								Listening to <span className="font-bold">{lanyard.data.spotify.song}</span> by{' '}
+								<span className="font-bold">{lanyard.data.spotify.artist}</span>.
+							</h2>
+						</span>
+					</span>
+				</Link>
+			) : (
+				<Link
+					href="https://open.spotify.com/playlist/18R9Cntl2PZEaGMLz4cyX2"
+					target="_blank"
+					rel="noopener noreferrer"
+					className={clsx('group relative col-span-3 flex h-52 overflow-hidden rounded-2xl', hoverClassName)}
+				>
+					<span className="absolute inset-0 -z-10">
+						<Image
+							src={'https://i.scdn.co/image/ab67706c0000da84e581815a92946c295b02b936'}
+							className="bg-black brightness-50"
+							fill
+							alt="Album cover art"
+							objectFit="cover"
+						/>
+					</span>
+
+					<span className="flex flex-1 flex-col justify-between p-6 text-white">
+						<span className="flex justify-between">
+							<SiSpotify className="text-2xl" />
+							<HiOutlineExternalLink className="text-xl opacity-50 transition duration-150 group-hover:opacity-100" />
+						</span>
+
+						<div>
+							<h2 className="font-title">early travel</h2>
+							<p className="text-sm">because you had to get a 3 hour bus journey in the early hours</p>
+						</div>
+					</span>
+				</Link>
+			)}
+
+			<div className={clsx('group relative col-span-3 flex h-52 overflow-hidden rounded-2xl', hoverClassName)}>
+				<Image src={map} className="bg-black" fill alt="Album cover art" objectFit="cover" />
+
+				<div className="absolute top-1/2 left-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center space-y-2">
+					<Image
+						src={me}
+						alt="me again"
+						height={60}
+						width={60}
+						className="h-15 w-15 rounded-full border-2 border-black"
+					/>
+
+					<p className="rounded-full bg-white/50 px-2 font-bold text-neutral-700 backdrop-blur-md">
+						📌 {lanyard.data.kv.location ?? 'in the clouds'}
+					</p>
+				</div>
+			</div>
+
+			<div className="col-span-2 flex items-center justify-center rounded-2xl bg-fuchsia-700 p-6">
+				<div className="grid w-full grid-cols-4 grid-rows-4 gap-4 [&>svg]:w-full [&>svg]:text-center">
+					<SiTypescript size={24} />
+					<SiDocker size={24} />
+					<SiNextdotjs size={24} />
+					<SiRedis size={24} />
+					<SiPostgresql size={24} />
+					<SiReact size={24} />
+					<SiTailwindcss size={24} />
+					<SiNodedotjs size={24} />
+					<SiGo size={24} />
+					<SiJavascript size={24} />
+					<SiAmazonaws size={24} />
+					<SiWebstorm size={24} />
+					<SiWebpack size={24} />
+					<SiBabel size={24} />
+					<SiYarn size={24} />
+					<SiGit size={24} />
+					<SiStyledcomponents size={24} />
+					<SiMongodb size={24} />
+					<SiApple size={24} />
+					<SiDiscord size={24} />
+				</div>
+			</div>
+
+			<div className="col-span-4 space-y-2 rounded-2xl bg-red-200 p-6 dark:bg-indigo-800">
+				<h2 className="font-title text-xl font-bold">
+					hello world <span className="inline dark:hidden">🌻</span>
+					<span className="hidden dark:inline">⭐</span>
+				</h2>
+				<p>
+					My name is alistair, I'm a software engineer from the United Kingdom. I've been programming for as long as I
+					can remember, and I'm currently spending my time with the wonderful people at{' '}
+					<Link className="underline" href="https://hop.io">
+						Hop
+					</Link>
+					.
+				</p>
+			</div>
 		</main>
 	);
 }
