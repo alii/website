@@ -9,6 +9,7 @@ const UKTimeFormatter = new Intl.DateTimeFormat(undefined, {
 	timeZone: 'Europe/London',
 	hour: 'numeric',
 	minute: 'numeric',
+	hour12: false,
 });
 
 const RelativeTimeFormatter = new Intl.RelativeTimeFormat('en', {
@@ -97,8 +98,8 @@ export default async function Home() {
 			<div className="grid grid-cols-1 gap-6">
 				<div className="flex items-center justify-center rounded-2xl bg-sky-900 text-white dark:bg-sky-100 dark:text-sky-900">
 					<div className="text-center">
-						<h2 className="font-title text-2xl">{timeInUK}</h2>
-						<p className="text-xs font-light">in the uk</p>
+						<h2 className="font-title text-2xl glow-sky-200 dark:glow-sky-500">{timeInUK}</h2>
+						<p className="text-xs font-light glow-sky-200 dark:glow-sky-500">in the uk</p>
 					</div>
 				</div>
 
