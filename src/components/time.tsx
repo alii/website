@@ -103,7 +103,7 @@ function Day({time}: {time: Date}) {
 export function Time() {
 	const [time, setTime] = useState(() => new Date());
 
-	const isNight = time.getHours() >= 15 || time.getHours() < 6;
+	const isNight = time.getHours() >= 17 || time.getHours() < 6;
 
 	useEffect(() => {
 		const interval = setInterval(() => {
