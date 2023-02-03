@@ -1,5 +1,3 @@
-'use client';
-
 import {Turnstile} from '@marsidev/react-turnstile';
 import {useState} from 'react';
 import toast from 'react-hot-toast';

@@ -1,5 +1,3 @@
-'use client';
-
 import {useEffect, useRef, useState} from 'react';
 import {UKTimeFormatter, daysUntilBirthday} from '../utils/constants';
 import clsx from 'clsx';

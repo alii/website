@@ -5215,22 +5215,22 @@ __metadata:
   linkType: hard
 
 "typescript@npm:next":
-  version: 5.0.0-dev.20230201
-  resolution: "typescript@npm:5.0.0-dev.20230201"
+  version: 5.0.0-dev.20230202
+  resolution: "typescript@npm:5.0.0-dev.20230202"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 891406247f63dbf0e4897810cbb79ab417231c0dbf3057afb6f9acd73a95362d30bad22114150f16df25ecea0d28f816a3625455e98ea43861fac79d1ded74ce
+  checksum: a33e730a716502c4d3e6e65e7659444d319c8e7fe867e84c3c8457ab336cbc5702167f514b96aa39a2eea3d5545ad7a00cd30d589207a1126eba7d77b10d454a
   languageName: node
   linkType: hard
 
 "typescript@patch:typescript@next#~builtin<compat/typescript>":
-  version: 5.0.0-dev.20230201
-  resolution: "typescript@patch:typescript@npm%3A5.0.0-dev.20230201#~builtin<compat/typescript>::version=5.0.0-dev.20230201&hash=1f5320"
+  version: 5.0.0-dev.20230202
+  resolution: "typescript@patch:typescript@npm%3A5.0.0-dev.20230202#~builtin<compat/typescript>::version=5.0.0-dev.20230202&hash=1f5320"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: aa102183f51daa08f90d570ae4d0ce361b269419d9a58bf96deeab7835d8322cdb75cc4398257ac37e940592479175d16fb5e88f76955cb25ec5a3ba90c0414d
+  checksum: 66ec0d75c6e25c989adb52ec92e6af0ddca96f4ff4580c3f28060e3da65fbf4f66931350f670351490093e7f72d93bcde844e750f86fc79feb325c1cfcb6f39e
   languageName: node
   linkType: hard
 

@@ -4,9 +4,6 @@ import {config as dotenv} from 'dotenv';
 
 /** @type {import("next").NextConfig} */
 const config = {
-	experimental: {
-		appDir: true,
-	},
 	images: {
 		remotePatterns: [
 			{
