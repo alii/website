@@ -1,7 +1,7 @@
-import {useEffect, useRef, useState} from 'react';
-import {UKTimeFormatter, daysUntilBirthday} from '../utils/constants';
 import clsx from 'clsx';
 import {motion} from 'framer-motion';
+import {useEffect, useRef, useState} from 'react';
+import {daysUntilBirthday, UKTimeFormatter} from '../utils/constants';
 
 function Night({time}: {time: Date}) {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
