@@ -12,11 +12,7 @@
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"jsx": "preserve",
-		"plugins": [
-			{
-				"name": "next"
-			}
-		],
+		"plugins": [{"name": "next"}],
 		"target": "ESNext",
 		"useUnknownInCatchVariables": true,
 		"noImplicitOverride": true,
@@ -26,8 +22,8 @@
 		"exactOptionalPropertyTypes": true,
 		"noImplicitReturns": true,
 		"noUncheckedIndexedAccess": true,
-		"allowImportingTsExtensions": true,
-		"isolatedModules": true
+		"isolatedModules": true,
+		"importsNotUsedAsValues": "error"
 	},
 	"include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
 	"exclude": ["node_modules"]

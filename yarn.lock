@@ -5214,23 +5214,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:next":
-  version: 5.0.0-dev.20230202
-  resolution: "typescript@npm:5.0.0-dev.20230202"
+"typescript@npm:^4.9.5":
+  version: 4.9.5
+  resolution: "typescript@npm:4.9.5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: a33e730a716502c4d3e6e65e7659444d319c8e7fe867e84c3c8457ab336cbc5702167f514b96aa39a2eea3d5545ad7a00cd30d589207a1126eba7d77b10d454a
+  checksum: ee000bc26848147ad423b581bd250075662a354d84f0e06eb76d3b892328d8d4440b7487b5a83e851b12b255f55d71835b008a66cbf8f255a11e4400159237db
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@next#~builtin<compat/typescript>":
-  version: 5.0.0-dev.20230202
-  resolution: "typescript@patch:typescript@npm%3A5.0.0-dev.20230202#~builtin<compat/typescript>::version=5.0.0-dev.20230202&hash=1f5320"
+"typescript@patch:typescript@^4.9.5#~builtin<compat/typescript>":
+  version: 4.9.5
+  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 66ec0d75c6e25c989adb52ec92e6af0ddca96f4ff4580c3f28060e3da65fbf4f66931350f670351490093e7f72d93bcde844e750f86fc79feb325c1cfcb6f39e
+  checksum: ab417a2f398380c90a6cf5a5f74badd17866adf57f1165617d6a551f059c3ba0a3e4da0d147b3ac5681db9ac76a303c5876394b13b3de75fdd5b1eaa06181c9d
   languageName: node
   linkType: hard
 
@@ -5347,7 +5347,7 @@ __metadata:
     react-icons: ^4.7.1
     sharp: ^0.31.3
     tailwindcss: ^3.2.4
-    typescript: next
+    typescript: ^4.9.5
     use-lanyard: ^1.4.2
     zod: ^3.20.2
   languageName: unknown

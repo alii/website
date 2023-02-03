@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import {PropsWithChildren} from 'react';
+import type {PropsWithChildren} from 'react';
 
 export const hoverClassName =
 	'transform-gpu transition-all duration-500 will-change-[outline,_transform] group-hover:scale-95 active:scale-100';

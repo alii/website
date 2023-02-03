@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import {GetStaticProps} from 'next';
+import type {GetStaticProps} from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import {HiOutlineExternalLink} from 'react-icons/hi';
@@ -27,7 +27,7 @@ import {
 	SiWebstorm,
 	SiYarn,
 } from 'react-icons/si';
-import {Data, LanyardResponse} from 'use-lanyard';
+import type {Data, LanyardResponse} from 'use-lanyard';
 import {ContactForm} from '../components/contact-form';
 import {CardHoverEffect, hoverClassName} from '../components/hover-card';
 import {Time} from '../components/time';
@@ -218,6 +218,7 @@ export default function Home(props: Props) {
 					</Link>
 				) : (
 					<Link
+						key={lanyard.spotify.track_id}
 						suppressHydrationWarning
 						href={`https://open.spotify.com/track/${lanyard.spotify.track_id}`}
 						target="_blank"

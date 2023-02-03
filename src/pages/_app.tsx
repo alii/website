@@ -1,7 +1,7 @@
 import '../globals.css';
 
 import {Inter_Tight, Overpass_Mono} from '@next/font/google';
-import {AppProps} from 'next/app';
+import type {AppProps} from 'next/app';
 import Head from 'next/head';
 import {Toaster} from 'react-hot-toast';
 
