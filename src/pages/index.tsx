@@ -76,8 +76,8 @@ export default function Home(props: Props) {
 	const status = lanyard.discord_status ?? 'offline';
 
 	return (
-		<main className="mx-auto grid max-w-3xl grid-cols-4 gap-6 px-6 pb-40 pt-16 md:grid-cols-6">
-			<div className="p-200 col-span-2 flex items-center justify-center overflow-hidden rounded-2xl bg-pink-200 dark:border-pink-500 dark:bg-pink-500/20 dark:backdrop-blur-2xl md:col-span-4 md:h-52">
+		<main className="mx-auto grid max-w-3xl grid-cols-6 gap-6 px-6 pb-40 pt-16">
+			<div className="p-200 col-span-4 flex items-center justify-center overflow-hidden rounded-2xl bg-pink-200 dark:border-pink-500 dark:bg-pink-500/20 dark:backdrop-blur-2xl md:col-span-4 md:h-52">
 				<div className="flex flex-col items-center space-y-4 py-8 px-6 md:flex-row md:space-y-0 md:space-x-4">
 					<Image
 						src={me}
@@ -125,7 +125,7 @@ export default function Home(props: Props) {
 
 			<div
 				className={clsx(
-					'col-span-2 flex h-52 items-center justify-center rounded-2xl text-4xl',
+					'col-span-3 flex h-52 items-center justify-center rounded-2xl text-4xl md:col-span-2',
 					{
 						online: 'bg-green-500 text-green-50',
 						idle: 'bg-orange-400 text-orange-50 ',
@@ -147,7 +147,7 @@ export default function Home(props: Props) {
 
 			<Time />
 
-			<CardHoverEffect className="col-span-2 h-full md:col-span-3">
+			<CardHoverEffect className="col-span-3 h-full md:col-span-3">
 				<Link
 					href="https://github.com/alii"
 					target="_blank"
@@ -183,7 +183,7 @@ export default function Home(props: Props) {
 				</Link>
 			</CardHoverEffect>
 
-			<CardHoverEffect className="col-span-2 h-52 md:col-span-3">
+			<CardHoverEffect className="col-span-3 h-52">
 				{!lanyard?.spotify || !lanyard.spotify.album_art_url ? (
 					<Link
 						href="https://open.spotify.com/playlist/18R9Cntl2PZEaGMLz4cyX2"
@@ -263,7 +263,7 @@ export default function Home(props: Props) {
 				)}
 			</CardHoverEffect>
 
-			<div className="group relative col-span-2 flex h-full  min-h-[13rem] flex-shrink-0 overflow-hidden rounded-2xl md:col-span-3">
+			<div className="group relative col-span-3 flex h-full min-h-[13rem] flex-shrink-0 overflow-hidden rounded-2xl">
 				<Image
 					src={props.map}
 					className="bg-black"
@@ -291,7 +291,7 @@ export default function Home(props: Props) {
 				</div>
 			</div>
 
-			<div className="col-span-2 flex items-center justify-center rounded-2xl bg-fuchsia-700 p-6 text-fuchsia-100">
+			<div className="col-span-3 flex items-center justify-center rounded-2xl bg-fuchsia-700 p-6 text-fuchsia-100 md:col-span-2">
 				<div className="grid w-full grid-cols-4 grid-rows-4 gap-4 [&>svg]:w-full [&>svg]:text-center">
 					<SiTypescript size={24} />
 					<SiDocker size={24} />
@@ -316,7 +316,7 @@ export default function Home(props: Props) {
 				</div>
 			</div>
 
-			<div className="col-span-4 space-y-2 rounded-2xl bg-yellow-200 p-6 dark:bg-indigo-800">
+			<div className="col-span-6 space-y-2 rounded-2xl bg-yellow-200 p-6 dark:bg-indigo-800 md:col-span-4">
 				<h2 className="font-title text-xl font-bold">
 					hello world <span className="inline dark:hidden">🌻</span>
 					<span className="hidden dark:inline">⭐</span>
@@ -337,7 +337,7 @@ export default function Home(props: Props) {
 				</p>
 			</div>
 
-			<div className="col-span-4 space-y-4 rounded-2xl bg-lime-400 p-6 text-black md:col-span-6">
+			<div className="col-span-6 space-y-4 rounded-2xl bg-lime-400 p-6 text-black md:col-span-6">
 				<ContactForm />
 			</div>
 		</main>

@@ -114,7 +114,7 @@ export function Time() {
 	}, []);
 
 	return (
-		<div className="col-span-2 grid grid-cols-1 gap-6 md:col-span-1">
+		<div className="col-span-3 grid grid-cols-1 gap-6 md:col-span-1">
 			{isNight ? <Night time={time} /> : <Day time={time} />}
 
 			<div className="flex items-center justify-center rounded-2xl bg-indigo-100 text-indigo-500 dark:bg-[#23224c] dark:text-indigo-400">
