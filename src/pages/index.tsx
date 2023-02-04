@@ -39,8 +39,6 @@ import {env} from '../server/env';
 import {age, discordId} from '../utils/constants';
 import {formatList} from '../utils/lists';
 
-export const revalidate = 60;
-
 export interface Props {
 	lanyard: Data;
 	map: string;
