@@ -27,7 +27,7 @@ import {
 	SiWebstorm,
 	SiYarn,
 } from 'react-icons/si';
-import type {Data, LanyardResponse} from 'use-lanyard';
+import type {Data} from 'use-lanyard';
 import {ContactForm} from '../components/contact-form';
 import {CardHoverEffect, hoverClassName} from '../components/hover-card';
 import {Time} from '../components/time';
@@ -36,6 +36,7 @@ import matrix from '../images/matrix.gif';
 import me from '../images/me.jpg';
 import {getMapURL} from '../server/apple-maps';
 import {env} from '../server/env';
+import {getLanyard} from '../server/lanyard';
 import {age, discordId} from '../utils/constants';
 import {formatList} from '../utils/lists';
 
@@ -46,25 +47,14 @@ export interface Props {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-	const lanyard = await fetch(`https://api.lanyard.rest/v1/users/${discordId}`).then(
-		res => res.json() as Promise<LanyardResponse>,
-	);
-
-	if (!lanyard.success) {
-		throw new Error('Lanyard API failed');
-	}
-
-	const location = lanyard.data.kv.location ?? env.DEFAULT_LOCATION;
+	const lanyard = await getLanyard(discordId);
+	const location = lanyard.kv.location ?? env.DEFAULT_LOCATION;
 
 	const map = getMapURL(location);
 
 	return {
-		revalidate: 60,
-		props: {
-			map,
-			location,
-			lanyard: lanyard.data,
-		},
+		revalidate: 10,
+		props: {map, location, lanyard},
 	};
 };
 
