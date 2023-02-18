@@ -16,17 +16,17 @@
 		"@tailwindcss/forms": "^0.5.3",
 		"@types/common-tags": "^1.8.1",
 		"@types/jwa": "^2.0.0",
-		"@types/react": "^18.0.27",
-		"@types/react-dom": "^18.0.10",
+		"@types/react": "^18.0.28",
+		"@types/react-dom": "^18.0.11",
 		"autoprefixer": "^10.4.13",
 		"danger": "^11.2.3",
-		"eslint": "8.33.0",
+		"eslint": "8.34.0",
 		"eslint-config-next": "13.1.6",
 		"postcss": "^8.4.21",
-		"prettier": "^2.8.3",
-		"prettier-plugin-tailwindcss": "^0.2.2",
+		"prettier": "^2.8.4",
+		"prettier-plugin-tailwindcss": "^0.2.3",
 		"sharp": "^0.31.3",
-		"tailwindcss": "^3.2.4",
+		"tailwindcss": "^3.2.7",
 		"typescript": "^4.9.5"
 	},
 	"dependencies": {
@@ -36,7 +36,7 @@
 		"common-tags": "^1.8.2",
 		"dotenv": "^16.0.3",
 		"envsafe": "^2.0.3",
-		"framer-motion": "^9.0.1",
+		"framer-motion": "^9.0.4",
 		"jwa": "^2.0.0",
 		"next": "^13.1.6",
 		"nextkit": "^3.4.3",
@@ -45,6 +45,6 @@
 		"react-hot-toast": "^2.4.0",
 		"react-icons": "^4.7.1",
 		"use-lanyard": "^1.4.2",
-		"zod": "^3.20.2"
+		"zod": "^3.20.6"
 	}
 }

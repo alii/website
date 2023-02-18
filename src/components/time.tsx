@@ -33,7 +33,11 @@ function Night({time}: {time: Date}) {
 		<div
 			className={clsx('relative flex items-center justify-center overflow-hidden rounded-2xl', 'bg-sky-900 text-white')}
 		>
-			<canvas ref={canvasRef} aria-hidden className="pointer-events-none absolute inset-0 h-full w-full" />
+			<canvas
+				ref={canvasRef}
+				aria-hidden
+				className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden rounded-2xl"
+			/>
 
 			<div className="z-10 text-center">
 				<h2

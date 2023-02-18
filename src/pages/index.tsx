@@ -321,8 +321,8 @@ export default function Home(props: Props) {
 				</p>
 
 				<p>
-					Beyond programming, I'm really interested in music production, and you can often find me spending time messing
-					with DJ decks and my Maschine.
+					Beyond programming, I'm really interested in music production and you can often catch spending time messing
+					with DJ decks and my Maschine. Either that or I'll be out riding my Boosted Board 🛹
 				</p>
 			</div>
 
