@@ -183,7 +183,7 @@ export default function Home(props: Props) {
 							{/* eslint-disable-next-line @next/next/no-img-element */}
 							<img
 								src={'https://i.scdn.co/image/ab67706c0000da84e581815a92946c295b02b936'}
-								className="bg-black object-cover brightness-50"
+								className="absolute inset-0 h-full w-full bg-black  object-cover object-center brightness-50"
 								alt="Album cover art"
 							/>
 						</span>
