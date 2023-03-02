@@ -180,12 +180,11 @@ export default function Home(props: Props) {
 						className={clsx('group relative flex h-full overflow-hidden rounded-2xl', hoverClassName)}
 					>
 						<span className="absolute inset-0 -z-10">
-							<Image
+							{/* eslint-disable-next-line @next/next/no-img-element */}
+							<img
 								src={'https://i.scdn.co/image/ab67706c0000da84e581815a92946c295b02b936'}
-								className="bg-black brightness-50"
-								fill
+								className="bg-black object-cover brightness-50"
 								alt="Album cover art"
-								style={{objectFit: 'cover'}}
 							/>
 						</span>
 
@@ -206,21 +205,17 @@ export default function Home(props: Props) {
 					</Link>
 				) : (
 					<Link
-						key={lanyard.spotify.track_id}
-						suppressHydrationWarning
 						href={`https://open.spotify.com/track/${lanyard.spotify.track_id}`}
 						target="_blank"
 						rel="noopener noreferrer"
 						className={clsx('group relative flex h-full overflow-hidden rounded-2xl', hoverClassName)}
 					>
 						<span className="absolute inset-0 -z-10">
-							<Image
-								suppressHydrationWarning
-								src={lanyard.spotify.album_art_url}
-								className="bg-black brightness-50 transition-all duration-500 will-change-[transform,_filter] group-hover:scale-[1.15] group-hover:brightness-[0.4] group-hover:saturate-0"
-								fill
+							{/* eslint-disable-next-line @next/next/no-img-element */}
+							<img
+								src={`${lanyard.spotify.album_art_url}?cache=${Date.now()}`}
+								className="absolute inset-0 h-full w-full bg-black object-cover object-center brightness-50 transition-all duration-500 will-change-[transform,_filter] group-hover:scale-[1.15] group-hover:brightness-[0.4]"
 								alt="Album cover art"
-								style={{objectFit: 'cover'}}
 							/>
 						</span>
 
