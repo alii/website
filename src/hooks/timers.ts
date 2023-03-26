@@ -1,4 +1,4 @@
-import {DependencyList, useEffect} from 'react';
+import {type DependencyList, useEffect} from 'react';
 
 export function useInterval(ms: number, options: {callback: () => void; deps: DependencyList}) {
 	useEffect(() => {
