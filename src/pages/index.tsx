@@ -78,7 +78,7 @@ export default function Home(props: Props) {
 
 					<div className="space-y-1">
 						<h1 className="text-center font-title text-xl font-bold tracking-tighter text-pink-900 dark:text-pink-300 dark:text-glow-pink-500/50 md:text-left">
-							alistair smith
+							Alistair Smith
 						</h1>
 
 						<p className="text-center text-pink-800 dark:text-pink-300/95 dark:text-glow-pink-500/50 md:text-left">
@@ -307,7 +307,7 @@ export default function Home(props: Props) {
 				</h2>
 
 				<p>
-					My name is alistair, I'm a software engineer from the United Kingdom. I've been programming for as long as I
+					My name is Alistair, I'm a software engineer from the United Kingdom. I've been programming for as long as I
 					can remember, and I'm currently spending my time with the wonderful people at{' '}
 					<Link className="underline" href="https://hop.io">
 						Hop
