@@ -52,6 +52,8 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
 	const map = getMapURL(location);
 
+	console.log(lanyard.spotify?.album_art_url);
+
 	return {
 		revalidate: 10,
 		props: {map, location, lanyard},
@@ -67,8 +69,8 @@ export default function Home(props: Props) {
 		<main className="mx-auto grid max-w-3xl grid-cols-6 gap-6 px-6 pb-40 pt-16">
 			<div className="p-200 col-span-4 flex items-center justify-center overflow-hidden rounded-2xl bg-pink-200 dark:border-pink-500 dark:bg-pink-500/20 dark:backdrop-blur-2xl md:col-span-4 md:h-52">
 				<div className="flex flex-col items-center space-y-4 py-8 px-6 md:flex-row md:space-y-0 md:space-x-4">
-					<Image
-						src={me}
+					<img
+						src={me.src}
 						placeholder="blur"
 						height={96}
 						width={96}
@@ -146,12 +148,11 @@ export default function Home(props: Props) {
 					)}
 				>
 					<span aria-hidden className="pointer-events-none absolute inset-0 -z-20">
-						<Image
-							src={matrix}
+						<img
+							src={matrix.src}
 							alt="The Matrix scrolling characters effect"
-							fill
 							style={{objectFit: 'cover'}}
-							className="brightness-[0.7]"
+							className="absolute inset-0 brightness-[0.7]"
 						/>
 						<span className="absolute inset-0 bg-neutral-900/50" />
 					</span>
@@ -211,9 +212,8 @@ export default function Home(props: Props) {
 						className={clsx('group relative flex h-full overflow-hidden rounded-2xl', hoverClassName)}
 					>
 						<span className="absolute inset-0 -z-10">
-							{/* eslint-disable-next-line @next/next/no-img-element */}
 							<img
-								src={`${lanyard.spotify.album_art_url}?cache=${Date.now()}`}
+								src={lanyard.spotify.album_art_url}
 								className="absolute inset-0 h-full w-full bg-black object-cover object-center brightness-50 transition-all duration-500 will-change-[transform,_filter] group-hover:scale-[1.15] group-hover:brightness-[0.4]"
 								alt="Album cover art"
 							/>
@@ -248,10 +248,9 @@ export default function Home(props: Props) {
 			</CardHoverEffect>
 
 			<div className="group relative col-span-3 flex h-full min-h-[13rem] flex-shrink-0 overflow-hidden rounded-2xl">
-				<Image
+				<img
 					src={props.map}
-					className="bg-black"
-					fill
+					className="absolute inset-0 bg-black"
 					alt="A map locating roughly where I am right now"
 					style={{objectFit: 'cover'}}
 				/>
@@ -261,8 +260,8 @@ export default function Home(props: Props) {
 						<span className="block h-12 w-12 animate-ping rounded-full bg-lime-500 duration-1000" />
 					</div>
 
-					<Image
-						src={me}
+					<img
+						src={me.src}
 						alt="Photo of me above a map of my current location"
 						height={60}
 						width={60}

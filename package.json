@@ -31,7 +31,6 @@
 	},
 	"dependencies": {
 		"@marsidev/react-turnstile": "^0.1.0",
-		"@next/font": "^13.2.4",
 		"clsx": "^1.2.1",
 		"common-tags": "^1.8.2",
 		"dotenv": "^16.0.3",
