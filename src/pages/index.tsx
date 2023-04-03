@@ -52,8 +52,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
 	const map = getMapURL(location);
 
-	console.log(lanyard.spotify?.album_art_url);
-
 	return {
 		revalidate: 10,
 		props: {map, location, lanyard},
