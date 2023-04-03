@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import type {GetStaticProps} from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import {HiOutlineExternalLink} from 'react-icons/hi';
 import {
