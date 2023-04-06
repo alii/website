@@ -180,7 +180,7 @@ export default function Home(props: Props) {
 						<span className="absolute inset-0 -z-10">
 							{/* eslint-disable-next-line @next/next/no-img-element */}
 							<img
-								src={'https://i.scdn.co/image/ab67706c0000da840584b32e2374f241f46ce2fc'}
+								src={'https://i.scdn.co/image/ab67706c0000da84ede0db7eb64b033f135a492c'}
 								className="absolute inset-0 h-full w-full bg-black  object-cover object-center brightness-50"
 								alt="Album cover art"
 							/>
