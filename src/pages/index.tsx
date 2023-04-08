@@ -247,9 +247,8 @@ export default function Home(props: Props) {
 			<div className="group relative col-span-3 flex h-full min-h-[13rem] flex-shrink-0 overflow-hidden rounded-2xl">
 				<img
 					src={props.map}
-					className="absolute inset-0 bg-black"
+					className="absolute inset-0 h-full w-full bg-black object-cover object-center"
 					alt="A map locating roughly where I am right now"
-					style={{objectFit: 'cover'}}
 				/>
 
 				<div className="absolute top-1/2 left-1/2 z-10 flex w-full flex-shrink-0 -translate-x-1/2 -translate-y-1/2 flex-col items-center space-y-2">
