@@ -65,7 +65,7 @@ export default function Home(props: Props) {
 	return (
 		<main className="mx-auto grid max-w-3xl grid-cols-6 gap-6 px-6 pb-40 pt-16">
 			<div className="p-200 col-span-4 flex items-center justify-center overflow-hidden rounded-2xl bg-pink-200 dark:border-pink-500 dark:bg-pink-500/20 dark:backdrop-blur-2xl md:col-span-4 md:h-52">
-				<div className="flex flex-col items-center space-y-4 py-8 px-6 md:flex-row md:space-y-0 md:space-x-4">
+				<div className="flex flex-col items-center space-y-4 px-6 py-8 md:flex-row md:space-x-4 md:space-y-0">
 					<img
 						src={me.src}
 						placeholder="blur"
@@ -251,7 +251,7 @@ export default function Home(props: Props) {
 					alt="A map locating roughly where I am right now"
 				/>
 
-				<div className="absolute top-1/2 left-1/2 z-10 flex w-full flex-shrink-0 -translate-x-1/2 -translate-y-1/2 flex-col items-center space-y-2">
+				<div className="absolute left-1/2 top-1/2 z-10 flex w-full flex-shrink-0 -translate-x-1/2 -translate-y-1/2 flex-col items-center space-y-2">
 					<div aria-hidden className="absolute translate-y-[14px]">
 						<span className="block h-12 w-12 animate-ping rounded-full bg-lime-500 duration-1000" />
 					</div>
@@ -311,7 +311,7 @@ export default function Home(props: Props) {
 				</p>
 
 				<p>
-					Beyond programming, I'm really interested in music production and you can often catch spending time messing
+					Beyond programming, I'm really interested in music production and you can often catch me spending time messing
 					with DJ decks and my Maschine. Either that or I'll be out riding my Boosted Board 🛹
 				</p>
 			</div>
