@@ -4,7 +4,7 @@ import {config as dotenv} from 'dotenv';
 
 /** @type {import("next").NextConfig} */
 const config = {
-	env: dotenv(),
+	env: dotenv().parsed,
 
 	images: {
 		remotePatterns: [
