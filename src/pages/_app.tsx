@@ -1,18 +1,29 @@
 import '../globals.css';
 
-import {Inter_Tight, Overpass_Mono} from "next/font/google";
 import type {AppProps} from 'next/app';
+import font from 'next/font/local';
 import Head from 'next/head';
 import {Toaster} from 'react-hot-toast';
 
-const title = Overpass_Mono({
-	subsets: ['latin'],
-	weight: 'variable',
+const title = font({
+	src: [
+		{
+			path: '../fonts/peachi-medium.otf',
+			weight: '500',
+		},
+		{
+			path: '../fonts/peachi-bold.otf',
+			weight: '700',
+		},
+		{
+			path: '../fonts/peachi-black.otf',
+			weight: '900',
+		},
+	],
 });
 
-const inter = Inter_Tight({
-	subsets: ['latin'],
-	weight: 'variable',
+const body = font({
+	src: '../fonts/roobert-variable.woff2',
 });
 
 export default function App({Component, pageProps}: AppProps) {
@@ -22,7 +33,7 @@ export default function App({Component, pageProps}: AppProps) {
 				{`
 					:root {
 						--font-title: ${title.style.fontFamily};
-						--font-inter: ${inter.style.fontFamily};
+						--font-body: ${body.style.fontFamily};
 					}
 				`}
 			</style>

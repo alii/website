@@ -76,7 +76,7 @@ export default function Home(props: Props) {
 					/>
 
 					<div className="space-y-1">
-						<h1 className="text-center font-title text-xl font-bold tracking-tighter text-pink-900 dark:text-pink-300 dark:text-glow-pink-500/50 md:text-left">
+						<h1 className="text-center font-title text-xl font-bold text-pink-900 dark:text-pink-300 dark:text-glow-pink-500/50 md:text-left">
 							Alistair Smith
 						</h1>
 
@@ -84,11 +84,16 @@ export default function Home(props: Props) {
 							{age} y/o full stack TypeScript engineer 🪄
 						</p>
 
-						<p className="text-center text-pink-800 dark:text-pink-300/80 dark:text-glow-pink-500/30 md:text-left">
-							<Link href="https://alistair.blog" target="_blank" rel="noopener noreferrer">
+						<div className="flex">
+							<Link
+								className="flex items-center justify-center rounded-full bg-pink-500 px-2 py-0.5"
+								href="https://alistair.blog"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
 								blog ↗️
 							</Link>
-						</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -114,9 +119,9 @@ export default function Home(props: Props) {
 				className={clsx(
 					'col-span-3 flex h-52 items-center justify-center rounded-2xl text-4xl md:col-span-2',
 					{
-						online: 'bg-green-500 text-green-50',
+						online: 'bg-green-500 text-green-50 dark:bg-green-600',
 						idle: 'bg-orange-400 text-orange-50 ',
-						dnd: 'bg-red-500 text-red-50',
+						dnd: 'bg-red-500 text-red-100 dark:bg-red-600',
 						offline: 'bg-blurple text-white/90',
 					}[status],
 				)}
@@ -149,8 +154,9 @@ export default function Home(props: Props) {
 							src={matrix.src}
 							alt="The Matrix scrolling characters effect"
 							style={{objectFit: 'cover'}}
-							className="absolute inset-0 brightness-[0.7]"
+							className="absolute inset-0 h-full w-full object-cover object-center brightness-[0.7]"
 						/>
+
 						<span className="absolute inset-0 bg-neutral-900/50" />
 					</span>
 
@@ -181,7 +187,7 @@ export default function Home(props: Props) {
 							{/* eslint-disable-next-line @next/next/no-img-element */}
 							<img
 								src={'https://i.scdn.co/image/ab67706c0000da84ede0db7eb64b033f135a492c'}
-								className="absolute inset-0 h-full w-full bg-black  object-cover object-center brightness-50"
+								className="absolute inset-0 h-full w-full bg-black object-cover object-center brightness-50"
 								alt="Album cover art"
 							/>
 						</span>

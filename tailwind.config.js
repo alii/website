@@ -8,7 +8,7 @@ module.exports = {
 	content: ['./{src,app}/**/*.{ts,tsx}'],
 	theme: {
 		fontFamily: {
-			sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans],
+			sans: ['var(--font-body)', ...defaultTheme.fontFamily.sans],
 			title: ['var(--font-title)', ...defaultTheme.fontFamily.serif],
 		},
 		extend: {
