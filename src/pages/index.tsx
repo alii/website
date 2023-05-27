@@ -64,7 +64,7 @@ export default function Home(props: Props) {
 
 	return (
 		<main className="mx-auto grid max-w-3xl grid-cols-6 gap-6 px-6 pb-40 pt-16">
-			<div className="p-200 col-span-4 flex items-center justify-center overflow-hidden rounded-2xl bg-pink-200 dark:border-pink-500 dark:bg-pink-500/20 dark:backdrop-blur-2xl md:col-span-4 md:h-52">
+			<div className="col-span-4 flex items-center justify-center overflow-hidden rounded-2xl bg-pink-200 dark:border-pink-500 dark:bg-pink-500/20 dark:shadow-none dark:backdrop-blur-2xl md:col-span-4 md:h-52">
 				<div className="flex flex-col items-center space-y-4 px-6 py-8 md:flex-row md:space-x-4 md:space-y-0">
 					<img
 						src={me.src}
@@ -84,7 +84,7 @@ export default function Home(props: Props) {
 							{age} y/o full stack TypeScript engineer 🪄
 						</p>
 
-						<div className="flex">
+						{/* <div className="flex">
 							<Link
 								className="flex items-center justify-center rounded-full bg-pink-500 px-2 py-0.5"
 								href="https://alistair.blog"
@@ -93,7 +93,7 @@ export default function Home(props: Props) {
 							>
 								blog ↗️
 							</Link>
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>
@@ -109,7 +109,7 @@ export default function Home(props: Props) {
 					)}
 				>
 					<span className="sr-only">Twitter</span>
-					<span className="transform-gpu transition group-hover:-rotate-[10deg] group-hover:scale-[1.3]">
+					<span className="transform-gpu transition duration-500 group-hover:scale-[1.3]">
 						<SiTwitter />
 					</span>
 				</Link>
@@ -119,7 +119,7 @@ export default function Home(props: Props) {
 				className={clsx(
 					'col-span-3 flex h-52 items-center justify-center rounded-2xl text-4xl md:col-span-2',
 					{
-						online: 'bg-green-500 text-green-50 dark:bg-green-600',
+						online: 'bg-green-400 text-green-900 dark:bg-green-600 dark:text-green-50',
 						idle: 'bg-orange-400 text-orange-50 ',
 						dnd: 'bg-red-500 text-red-100 dark:bg-red-600',
 						offline: 'bg-blurple text-white/90',
@@ -132,7 +132,9 @@ export default function Home(props: Props) {
 					</h2>
 
 					<p className="text-base">
-						{lanyard.discord_user.username}#{lanyard.discord_user.discriminator}
+						<span>
+							{lanyard.discord_user.username}#{lanyard.discord_user.discriminator}
+						</span>
 					</p>
 				</div>
 			</div>
@@ -153,11 +155,13 @@ export default function Home(props: Props) {
 						<img
 							src={matrix.src}
 							alt="The Matrix scrolling characters effect"
-							style={{objectFit: 'cover'}}
-							className="absolute inset-0 h-full w-full object-cover object-center brightness-[0.7]"
+							className="absolute inset-0 h-full w-full object-cover object-center invert dark:brightness-[0.7] dark:invert-0"
 						/>
 
-						<span className="absolute inset-0 bg-neutral-900/50" />
+						<span
+							aria-hidden
+							className="absolute inset-0 bg-gradient-to-t from-neutral-900/60 to-neutral-900/20 dark:bg-neutral-900/50"
+						/>
 					</span>
 
 					<span aria-hidden className="px-6 pt-6">
@@ -168,9 +172,9 @@ export default function Home(props: Props) {
 					</span>
 
 					<span className="space-y-0.5 px-6 pb-6">
-						<span className="block font-title font-bold">github</span>
+						<span className="block font-title font-bold">GitHub</span>
 
-						<span className="block text-sm">my open source work &amp; contributions</span>
+						<span className="block text-sm">My open source work &amp; contributions.</span>
 					</span>
 				</Link>
 			</CardHoverEffect>
@@ -178,7 +182,7 @@ export default function Home(props: Props) {
 			<CardHoverEffect className="col-span-3 h-52">
 				{!lanyard?.spotify || !lanyard.spotify.album_art_url ? (
 					<Link
-						href="https://open.spotify.com/playlist/18R9Cntl2PZEaGMLz4cyX2"
+						href="https://open.spotify.com/playlist/15bl4PuutD4aS2GVsJGUk9"
 						target="_blank"
 						rel="noopener noreferrer"
 						className={clsx('group relative flex h-full overflow-hidden rounded-2xl', hoverClassName)}
@@ -186,7 +190,7 @@ export default function Home(props: Props) {
 						<span className="absolute inset-0 -z-10">
 							{/* eslint-disable-next-line @next/next/no-img-element */}
 							<img
-								src={'https://i.scdn.co/image/ab67706c0000da84ede0db7eb64b033f135a492c'}
+								src="https://i.scdn.co/image/ab67706c0000da84a15b50aca103257f2c7f4797"
 								className="absolute inset-0 h-full w-full bg-black object-cover object-center brightness-50"
 								alt="Album cover art"
 							/>
@@ -200,10 +204,10 @@ export default function Home(props: Props) {
 
 							<div className="space-y-0.5">
 								<h2 className="font-title font-bold">
-									<span className="font-medium">playlist:</span>early travel
+									<span className="font-medium">playlist:</span> bedtime dnb
 								</h2>
 
-								<p className="text-sm">because you had to get a 3 hour bus journey in the early hours</p>
+								<p className="text-sm">Drum and bass to send you to sleep, or host afters with.</p>
 							</div>
 						</span>
 					</Link>
@@ -303,7 +307,7 @@ export default function Home(props: Props) {
 
 			<div className="col-span-6 space-y-2 rounded-2xl bg-yellow-200 p-6 dark:bg-indigo-800 md:col-span-4">
 				<h2 className="font-title text-xl font-bold">
-					hello world <span className="inline dark:hidden">🌻</span>
+					Hello world <span className="inline dark:hidden">🌻</span>
 					<span className="hidden dark:inline">⭐</span>
 				</h2>
 
@@ -322,7 +326,7 @@ export default function Home(props: Props) {
 				</p>
 			</div>
 
-			<div className="col-span-6 space-y-4 rounded-2xl bg-lime-400 p-6 text-black md:col-span-6">
+			<div className="col-span-6 space-y-4 rounded-2xl bg-lime-400 p-6 text-black dark:bg-lime-500 md:col-span-6">
 				<ContactForm />
 			</div>
 		</main>

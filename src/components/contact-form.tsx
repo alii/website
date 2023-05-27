@@ -18,7 +18,7 @@ export function ContactForm() {
 	return (
 		<>
 			<div className="space-y-1">
-				<h2 className="font-title text-lg font-bold">Let's talk</h2>
+				<h2 className="font-title text-lg font-bold">Let's talk 📬</h2>
 				<p>Drop me a message with the form below, I'll get back to the non-spam</p>
 			</div>
 
