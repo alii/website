@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import dayjs from 'dayjs';
 import type {GetStaticProps} from 'next';
 import Link from 'next/link';
 import {HiOutlineExternalLink} from 'react-icons/hi';
@@ -34,6 +35,7 @@ import {useUpdatingLanyard} from '../hooks/lanyard';
 import matrix from '../images/matrix.gif';
 import me from '../images/me.jpg';
 import {getMapURL} from '../server/apple-maps';
+import {PartialBlogPost, getRecentBlogPosts} from '../server/blog';
 import {env} from '../server/env';
 import {getLanyard} from '../server/lanyard';
 import {age, discordId} from '../utils/constants';
@@ -43,6 +45,7 @@ export interface Props {
 	lanyard: Data;
 	map: string;
 	location: string;
+	recentBlogPosts: PartialBlogPost[];
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
@@ -51,9 +54,17 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
 	const map = getMapURL(location);
 
+	const allBlogPosts = await getRecentBlogPosts();
+	const recentBlogPosts = allBlogPosts.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix()).slice(0, 3);
+
 	return {
 		revalidate: 10,
-		props: {map, location, lanyard},
+		props: {
+			map,
+			location,
+			lanyard,
+			recentBlogPosts,
+		},
 	};
 };
 
@@ -324,6 +335,31 @@ export default function Home(props: Props) {
 					Beyond programming, I'm really interested in music production and you can often catch me spending time messing
 					with DJ decks and my Maschine. Either that or I'll be out riding my Boosted Board 🛹
 				</p>
+			</div>
+
+			<div className="col-span-6 space-y-4 rounded-2xl bg-yellow-500 p-6 text-black md:col-span-6">
+				<h1 className="font-title text-xl">
+					Recent Blog Posts{' '}
+					<span className="text-yellow-800">
+						<Link href="https://alistair.blog">— alistair.blog</Link>
+					</span>
+				</h1>
+
+				<div className="space-y-2 pt-2">
+					{props.recentBlogPosts.slice(0, 3).map(post => {
+						return (
+							<Link
+								className="-mx-6 block px-6 py-2 hover:bg-yellow-600/50"
+								key={post.slug}
+								href={`https://alistair.blog/${post.slug}`}
+							>
+								<h2 className="font-title text-xl font-bold">{post.name}</h2>
+
+								<p className="line-clamp-2">{post.excerpt}</p>
+							</Link>
+						);
+					})}
+				</div>
 			</div>
 
 			<div className="col-span-6 space-y-4 rounded-2xl bg-lime-400 p-6 text-black dark:bg-lime-500 md:col-span-6">
