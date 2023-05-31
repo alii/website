@@ -35,7 +35,7 @@ function generateNewState(oldState: Partial<BoxState>): BoxState {
 		left: Math.ceil(Math.random() * LIMITS.LEFT),
 		scale: Math.ceil(Math.random() * LIMITS.SCALE),
 
-		borderRadius: Math.random() > 0.5 ? '50%' : '3px',
+		borderRadius: random ? '0px' : Math.random() > 0.5 ? '50%' : '3px',
 		background: random ? '#595959' : randomColor(),
 
 		clipped: random,
@@ -63,7 +63,7 @@ function Box() {
 				position: 'fixed',
 				top,
 				left,
-				borderRadius: clipped ? 0 : borderRadius,
+				borderRadius,
 				background,
 				height: '50px',
 				width: '50px',
