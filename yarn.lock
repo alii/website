@@ -1107,10 +1107,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bwitch@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "bwitch@npm:0.1.1"
-  checksum: 4d4c67618b576a148ffb87a72316f5af506834104cb4a24161d4031b6fad502dd7c80a5007cc684c4bfa555d9f786eac0788ed6edf07031c5e6562fd7dd0928b
+"bwitch@npm:^0.1.3":
+  version: 0.1.3
+  resolution: "bwitch@npm:0.1.3"
+  checksum: f309233920e30f63aa6b9e34de33e5fb184cb9077cc8399645d2468d5845749001297fece9b29814d6b2abc4f87ff29e09c5ca392f6e26069d7c8cc63376974e
   languageName: node
   linkType: hard
 
@@ -5608,7 +5608,7 @@ __metadata:
     "@types/react-dom": ^18.2.4
     "@types/uuid": ^9.0.1
     autoprefixer: ^10.4.14
-    bwitch: ^0.1.1
+    bwitch: ^0.1.3
     clsx: ^1.2.1
     common-tags: ^1.8.2
     danger: ^11.2.6
