@@ -5,7 +5,7 @@
 	"author": "Alistair Smith <hi@alistair.sh>",
 	"license": "Apache-2.0",
 	"private": true,
-	"packageManager": "yarn@3.5.1",
+	"packageManager": "yarn@3.6.0",
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
@@ -32,6 +32,7 @@
 	},
 	"dependencies": {
 		"@marsidev/react-turnstile": "^0.2.1",
+		"@studio-freight/lenis": "^1.0.14",
 		"bwitch": "^0.1.3",
 		"clsx": "^1.2.1",
 		"common-tags": "^1.8.2",

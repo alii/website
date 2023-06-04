@@ -491,6 +491,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@studio-freight/lenis@npm:^1.0.14":
+  version: 1.0.14
+  resolution: "@studio-freight/lenis@npm:1.0.14"
+  checksum: 49ba896ac7e93d2379840c1a5334a2fbfe841ecbf0f65028e4f1ba06d33ccca38781eb61a03d97d38051a44e1c3ef4b5de122b09b0d54cd5656bdcfe285c880f
+  languageName: node
+  linkType: hard
+
 "@swc/helpers@npm:0.5.1":
   version: 0.5.1
   resolution: "@swc/helpers@npm:0.5.1"
@@ -5608,6 +5615,7 @@ __metadata:
   resolution: "website@workspace:."
   dependencies:
     "@marsidev/react-turnstile": ^0.2.1
+    "@studio-freight/lenis": ^1.0.14
     "@tailwindcss/forms": ^0.5.3
     "@types/common-tags": ^1.8.1
     "@types/jwa": ^2.0.0
