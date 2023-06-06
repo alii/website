@@ -2,26 +2,16 @@ import '../globals.css';
 
 import Lenis from '@studio-freight/lenis';
 import type {AppProps} from 'next/app';
+import {Playfair_Display} from 'next/font/google';
 import font from 'next/font/local';
 import Head from 'next/head';
 import {useEffect} from 'react';
 import {Toaster} from 'react-hot-toast';
 
-const title = font({
-	src: [
-		{
-			path: '../fonts/peachi-medium.otf',
-			weight: '500',
-		},
-		{
-			path: '../fonts/peachi-bold.otf',
-			weight: '700',
-		},
-		{
-			path: '../fonts/peachi-black.otf',
-			weight: '900',
-		},
-	],
+const title = Playfair_Display({
+	subsets: ['latin'],
+	weight: '400',
+	fallback: ['serif'],
 });
 
 const body = font({
