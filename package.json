@@ -47,7 +47,7 @@
 		"react-dom": "^18.2.0",
 		"react-hot-toast": "^2.4.1",
 		"react-icons": "^4.9.0",
-		"use-lanyard": "^1.4.3",
+		"use-lanyard": "^1.4.4",
 		"uuid": "^9.0.0",
 		"zod": "^3.21.4"
 	}

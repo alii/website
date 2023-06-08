@@ -2,13 +2,13 @@ import '../globals.css';
 
 import Lenis from '@studio-freight/lenis';
 import type {AppProps} from 'next/app';
-import {Playfair_Display} from 'next/font/google';
+import {Nanum_Myeongjo} from 'next/font/google';
 import font from 'next/font/local';
 import Head from 'next/head';
 import {useEffect} from 'react';
 import {Toaster} from 'react-hot-toast';
 
-const title = Playfair_Display({
+const title = Nanum_Myeongjo({
 	subsets: ['latin'],
 	weight: '400',
 	fallback: ['serif'],

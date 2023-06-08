@@ -143,9 +143,7 @@ export default function Home(props: Props) {
 					</h2>
 
 					<p className="text-base">
-						<span>
-							{lanyard.discord_user.username}#{lanyard.discord_user.discriminator}
-						</span>
+						<span>@{lanyard.discord_user.global_name}</span>
 					</p>
 				</div>
 			</div>
