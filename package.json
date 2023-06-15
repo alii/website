@@ -32,7 +32,6 @@
 	},
 	"dependencies": {
 		"@marsidev/react-turnstile": "^0.2.1",
-		"@studio-freight/lenis": "^1.0.14",
 		"bwitch": "^0.1.3",
 		"clsx": "^1.2.1",
 		"common-tags": "^1.8.2",
