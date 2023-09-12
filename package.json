@@ -5,7 +5,7 @@
 	"author": "Alistair Smith <hi@alistair.sh>",
 	"license": "Apache-2.0",
 	"private": true,
-	"packageManager": "yarn@3.6.3",
+	"packageManager": "bun@1.0.0",
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
