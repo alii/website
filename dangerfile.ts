@@ -1,5 +1,5 @@
-import { message, danger } from "danger";
+import {message, danger} from 'danger';
 
-const modifiedMD = danger.git.modified_files.join("\n- ");
+const modifiedMD = danger.git.modified_files.join('\n- ');
 
-message("Changed Files in this PR: \n - " + modifiedMD);
+message('Changed Files in this PR: \n - ' + modifiedMD);

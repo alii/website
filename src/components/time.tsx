@@ -80,11 +80,11 @@ function Day({time}: {time: Date}) {
 					repeat: Infinity,
 					repeatType: 'reverse',
 				}}
-				className="pointer-events-none absolute bottom-0 right-0 rounded-tl-full bg-white/10 pt-2 pl-2 md:pt-4 md:pl-4"
+				className="pointer-events-none absolute bottom-0 right-0 rounded-tl-full bg-white/10 pl-2 pt-2 md:pl-4 md:pt-4"
 			>
 				<motion.div>
-					<div className="bottom-0 right-0 rounded-tl-full bg-white/20 pt-2 pl-2 md:pt-4 md:pl-4">
-						<div className="bottom-0 right-0 rounded-tl-full bg-white/20 pt-2 pl-2 md:pt-4 md:pl-4">
+					<div className="bottom-0 right-0 rounded-tl-full bg-white/20 pl-2 pt-2 md:pl-4 md:pt-4">
+						<div className="bottom-0 right-0 rounded-tl-full bg-white/20 pl-2 pt-2 md:pl-4 md:pt-4">
 							<motion.div
 								initial={false}
 								animate={{scale: [1, 0.8, 1.1, 1, 1, 1, 2]}}
