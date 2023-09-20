@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import type {GetStaticProps} from 'next';
+import type { GetStaticProps } from 'next';
 import Link from 'next/link';
-import {HiOutlineExternalLink} from 'react-icons/hi';
+import { HiOutlineExternalLink } from 'react-icons/hi';
 import {
 	SiAmazonaws,
 	SiBabel,
@@ -20,26 +20,26 @@ import {
 	SiRedis,
 	SiSpotify,
 	SiTailwindcss,
-	SiTwitter,
 	SiTypescript,
 	SiVisualstudiocode,
 	SiWebpack,
 	SiWebstorm,
-	SiYarn,
+	SiX,
+	SiYarn
 } from 'react-icons/si';
-import type {Data} from 'use-lanyard';
-import {ContactForm} from '../components/contact-form';
-import {CardHoverEffect, hoverClassName} from '../components/hover-card';
-import {Time} from '../components/time';
-import {useUpdatingLanyard} from '../hooks/lanyard';
+import type { Data } from 'use-lanyard';
+import { ContactForm } from '../components/contact-form';
+import { CardHoverEffect, hoverClassName } from '../components/hover-card';
+import { Time } from '../components/time';
+import { useUpdatingLanyard } from '../hooks/lanyard';
 import matrix from '../images/matrix.gif';
 import me from '../images/me.jpg';
-import {getMapURL} from '../server/apple-maps';
-import {PartialBlogPost, getRecentBlogPosts} from '../server/blog';
-import {env} from '../server/env';
-import {getLanyard} from '../server/lanyard';
-import {age, discordId} from '../utils/constants';
-import {formatList} from '../utils/lists';
+import { getMapURL } from '../server/apple-maps';
+import { PartialBlogPost, getRecentBlogPosts } from '../server/blog';
+import { env } from '../server/env';
+import { getLanyard } from '../server/lanyard';
+import { age, discordId } from '../utils/constants';
+import { formatList } from '../utils/lists';
 
 export interface Props {
 	lanyard: Data;
@@ -75,36 +75,27 @@ export default function Home(props: Props) {
 
 	return (
 		<main className="mx-auto grid max-w-3xl grid-cols-6 gap-6 px-6 pb-40 pt-16">
-			<div className="col-span-4 flex items-center justify-center overflow-hidden rounded-2xl bg-pink-200 dark:border-pink-500 dark:bg-pink-500/20 dark:shadow-none dark:backdrop-blur-2xl md:col-span-4 md:h-52">
-				<div className="flex flex-col items-center space-y-4 px-6 py-8 md:flex-row md:space-x-4 md:space-y-0">
-					<img
-						src={me.src}
-						placeholder="blur"
-						height={96}
-						width={96}
-						className="h-24 w-24 rounded-full border border-pink-500 object-cover"
-						alt="Photo of me"
-					/>
+			<div className="col-span-4 flex flex-col justify-between overflow-hidden rounded-2xl bg-pink-200 px-8 py-8 dark:border-pink-500 dark:bg-pink-500/20 dark:shadow-none dark:backdrop-blur-2xl md:col-span-4 h-52">
+				<div className="flex">
+					<Link
+						className="flex items-center justify-center rounded-full bg-pink-300 dark:bg-pink-500/25 px-2 py-0.5"
+						href="https://alistair.blog"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						writing ↗️
+					</Link>
+				</div>
 
-					<div className="space-y-1">
-						<h1 className="text-center font-title text-xl font-bold text-pink-900 dark:text-pink-300 dark:text-glow-pink-500/50 md:text-left">
+				<div className="space-y-4">
+					<div>
+						<h1 className="text-xl text-pink-900 dark:text-pink-300 dark:text-glow-pink-500/50">
 							Alistair Smith
 						</h1>
 
-						<p className="text-center text-pink-800 dark:text-pink-300/95 dark:text-glow-pink-500/50 md:text-left">
-							{age} y/o full stack TypeScript engineer 🪄
+						<p className="text-pink-600 dark:text-pink-300/80 dark:text-glow-pink-500/50">
+							{age} y/o full stack typescript engineer
 						</p>
-
-						{/* <div className="flex">
-							<Link
-								className="flex items-center justify-center rounded-full bg-pink-500 px-2 py-0.5"
-								href="https://alistair.blog"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								blog ↗️
-							</Link>
-						</div> */}
 					</div>
 				</div>
 			</div>
@@ -115,13 +106,13 @@ export default function Home(props: Props) {
 					target="_blank"
 					rel="noopener noreferrer"
 					className={clsx(
-						'flex h-full items-center justify-center rounded-2xl bg-sky-500 text-4xl text-white',
+						'flex h-full items-center justify-center rounded-2xl bg-neutral-200 dark:bg-neutral-800 text-4xl text-black dark:text-white',
 						hoverClassName,
 					)}
 				>
 					<span className="sr-only">Twitter</span>
 					<span className="transform-gpu transition duration-500 group-hover:scale-[1.3]">
-						<SiTwitter />
+						<SiX />
 					</span>
 				</Link>
 			</CardHoverEffect>
@@ -181,7 +172,7 @@ export default function Home(props: Props) {
 					</span>
 
 					<span className="space-y-0.5 px-6 pb-6">
-						<span className="block font-title font-bold">GitHub</span>
+						<span className="block font-semibold">GitHub</span>
 
 						<span className="block text-sm">My open source work &amp; contributions.</span>
 					</span>
@@ -230,7 +221,7 @@ export default function Home(props: Props) {
 						<span className="absolute inset-0 -z-10">
 							<img
 								src={lanyard.spotify.album_art_url}
-								className="absolute inset-0 h-full w-full bg-black object-cover object-center brightness-50 transition-all duration-500 will-change-[transform,_filter] group-hover:scale-[1.15] group-hover:brightness-[0.4]"
+								className="absolute inset-0 h-full w-full bg-black object-cover object-center brightness-50 transition-all duration-500 will-change-[transform,_filter] scale-[1.15] group-hover:scale-[1.35] group-hover:brightness-[0.4]"
 								alt="Album cover art"
 							/>
 						</span>
@@ -266,7 +257,7 @@ export default function Home(props: Props) {
 			<div className="group relative col-span-3 flex h-full min-h-[13rem] flex-shrink-0 overflow-hidden rounded-2xl">
 				<img
 					src={props.map}
-					className="absolute inset-0 h-full w-full bg-black object-cover object-center"
+					className="absolute scale-[1.25] inset-0 h-full w-full bg-black object-cover object-center"
 					alt="A map locating roughly where I am right now"
 				/>
 
@@ -315,7 +306,7 @@ export default function Home(props: Props) {
 			</div>
 
 			<div className="col-span-6 space-y-2 rounded-2xl bg-yellow-200 p-6 dark:bg-indigo-800 md:col-span-4">
-				<h2 className="font-title text-xl font-bold">
+				<h2 className="font-semibold">
 					Hello world <span className="inline dark:hidden">🌻</span>
 					<span className="hidden dark:inline">⭐</span>
 				</h2>
@@ -331,12 +322,12 @@ export default function Home(props: Props) {
 
 				<p>
 					Beyond programming, I'm really interested in music production and you can often catch me spending time messing
-					with DJ decks and my Maschine. Either that or I'll be out riding my Boosted Board 🛹
+					with DJ decks and my Maschine. Either that or I'll be out riding my Boosted Board.
 				</p>
 			</div>
 
-			<div className="col-span-6 space-y-4 rounded-2xl bg-yellow-500 p-6 text-black md:col-span-6">
-				<h1 className="font-title text-xl">
+			<div className="col-span-6 space-y-1 rounded-2xl bg-yellow-500 p-6 text-black md:col-span-6">
+				<h1 className="font-semibold text-black/70">
 					Recent Blog Posts{' '}
 					<span className="text-yellow-800">
 						<Link href="https://alistair.blog">— alistair.blog</Link>
@@ -351,9 +342,8 @@ export default function Home(props: Props) {
 								key={post.slug}
 								href={`https://alistair.blog/${post.slug}`}
 							>
-								<h2 className="font-title text-xl font-bold">{post.name}</h2>
-
-								<p className="line-clamp-2">{post.excerpt}</p>
+								<h2 className="text-black">{post.name}</h2>
+								<p className="line-clamp-2 text-black/80">{post.excerpt}</p>
 							</Link>
 						);
 					})}

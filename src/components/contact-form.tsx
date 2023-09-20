@@ -1,5 +1,5 @@
-import {Turnstile} from '@marsidev/react-turnstile';
-import {useState} from 'react';
+import { Turnstile } from '@marsidev/react-turnstile';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 export function ContactForm() {
@@ -8,9 +8,9 @@ export function ContactForm() {
 
 	if (submitted) {
 		return (
-			<div className="text-center">
-				<h2 className="text-2xl font-bold">Thanks!</h2>
-				<p className="text-black/80">I'll get back to you as soon as possible.</p>
+			<div>
+				<h2 className="text-2xl">Message received</h2>
+				<p className="text-black/80">I'll get back to you as soon as possible</p>
 			</div>
 		);
 	}
@@ -18,8 +18,8 @@ export function ContactForm() {
 	return (
 		<>
 			<div className="space-y-1">
-				<h2 className="font-title text-lg font-bold">Let's talk 📬</h2>
-				<p>Drop me a message with the form below, I'll get back to the non-spam</p>
+				<h2 className="font-semibold">Let's talk 📬</h2>
+				<p className="text-black/75">Drop me a message with the form below, I'll get back to the non-spam</p>
 			</div>
 
 			<form
@@ -59,7 +59,7 @@ export function ContactForm() {
 				</label>
 
 				<label htmlFor="body">
-					<textarea id="body" name="body" rows={5} required placeholder="Your message" className="w-full resize-y" />
+					<textarea id="body" name="body" rows={5} minLength={10} required placeholder="Your message" className="w-full resize-y" />
 				</label>
 
 				<Turnstile
