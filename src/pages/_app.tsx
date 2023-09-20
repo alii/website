@@ -8,7 +8,7 @@ import {Toaster} from 'react-hot-toast';
 
 const title = Newsreader({
 	subsets: ['latin'],
-	weight: '200',
+	weight: ['400', '200'],
 	style: 'italic',
 	fallback: ['serif'],
 });

@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import type {GetStaticProps} from 'next';
 import Link from 'next/link';
-import {HiOutlineExternalLink} from 'react-icons/hi';
+import {FiArrowUpRight} from 'react-icons/fi';
 import {
 	SiAmazonaws,
 	SiBabel,
@@ -78,12 +78,15 @@ export default function Home(props: Props) {
 			<div className="col-span-4 flex h-52 flex-col justify-between overflow-hidden rounded-2xl bg-pink-200 px-8 py-8 dark:border-pink-500 dark:bg-pink-500/20 dark:shadow-none dark:backdrop-blur-2xl md:col-span-4">
 				<div className="flex">
 					<Link
-						className="flex items-center justify-center rounded-full bg-pink-300 px-2 py-0.5 dark:bg-pink-500/25"
+						className="flex items-center justify-center space-x-1.5 rounded-full bg-pink-300 px-2 py-0.5 font-title dark:bg-pink-500/25"
 						href="https://alistair.blog"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						writing ↗️
+						<span>writing</span>
+						<span>
+							<FiArrowUpRight />
+						</span>
 					</Link>
 				</div>
 
@@ -165,7 +168,7 @@ export default function Home(props: Props) {
 					<span aria-hidden className="px-6 pt-6">
 						<span className="flex justify-between">
 							<SiGithub className="text-3xl" />
-							<HiOutlineExternalLink className="text-xl opacity-50 transition duration-500 group-hover:opacity-100" />
+							<FiArrowUpRight className="text-xl opacity-50 transition duration-500 group-hover:opacity-100" />
 						</span>
 					</span>
 
@@ -197,7 +200,7 @@ export default function Home(props: Props) {
 						<span className="flex flex-1 flex-col justify-between p-6 text-white">
 							<span className="flex justify-between">
 								<SiSpotify className="text-2xl" />
-								<HiOutlineExternalLink className="text-xl opacity-50 transition duration-500 group-hover:opacity-100" />
+								<FiArrowUpRight className="text-xl opacity-50 transition duration-500 group-hover:opacity-100" />
 							</span>
 
 							<div className="space-y-0.5">
@@ -227,7 +230,7 @@ export default function Home(props: Props) {
 						<span className="flex flex-1 flex-col justify-between p-6 text-white">
 							<span className="flex justify-between">
 								<SiSpotify className="text-2xl" />
-								<HiOutlineExternalLink className="text-xl opacity-50 transition duration-500 group-hover:opacity-100" />
+								<FiArrowUpRight className="text-xl opacity-50 transition duration-500 group-hover:opacity-100" />
 							</span>
 
 							<span>
