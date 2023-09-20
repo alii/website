@@ -1,7 +1,7 @@
 import clsx from 'clsx';
-import { motion } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
-import { UKTimeFormatter, daysUntilBirthday } from '../utils/constants';
+import {motion} from 'framer-motion';
+import {useEffect, useRef, useState} from 'react';
+import {UKTimeFormatter, daysUntilBirthday} from '../utils/constants';
 
 function Night({time}: {time: Date}) {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -40,10 +40,7 @@ function Night({time}: {time: Date}) {
 			/>
 
 			<div className="z-10 text-center">
-				<h2
-					className={clsx('text-2xl font-light text-glow-sky-900 dark:text-glow-sky-500')}
-					suppressHydrationWarning
-				>
+				<h2 className={clsx('text-2xl font-light text-glow-sky-900 dark:text-glow-sky-500')} suppressHydrationWarning>
 					{UKTimeFormatter.format(time)}
 				</h2>
 
@@ -59,8 +56,8 @@ function Day({time}: {time: Date}) {
 			<div className="flex w-full items-center justify-center">
 				<div className="opacity-85 flex items-baseline space-x-1 md:space-x-2">
 					<div className="flex flex-col">
-						<h2 className="font-light text-2xl text-white">{UKTimeFormatter.format(time)}</h2>
-						
+						<h2 className="text-2xl font-light text-white">{UKTimeFormatter.format(time)}</h2>
+
 						<p
 							className={clsx('text-center text-xs font-light', 'text-white text-glow-sky-900 dark:text-glow-sky-500')}
 						>
@@ -119,7 +116,7 @@ export function Time() {
 	}, []);
 
 	return (
-		<div className="col-span-3 grid grid-cols-1 gap-6 md:col-span-1 shrink-0 [&_>_div]:shrink-0">
+		<div className="col-span-3 grid shrink-0 grid-cols-1 gap-6 md:col-span-1 [&_>_div]:shrink-0">
 			{isNight ? <Night time={time} /> : <Day time={time} />}
 
 			<div className="flex items-center justify-center rounded-2xl bg-indigo-100 text-indigo-500 dark:bg-[#23224c] dark:text-indigo-400">

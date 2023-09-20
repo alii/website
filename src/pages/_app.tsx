@@ -1,10 +1,10 @@
 import '../globals.css';
 
-import type { AppProps } from 'next/app';
-import { Newsreader } from 'next/font/google';
+import type {AppProps} from 'next/app';
+import {Newsreader} from 'next/font/google';
 import font from 'next/font/local';
 import Head from 'next/head';
-import { Toaster } from 'react-hot-toast';
+import {Toaster} from 'react-hot-toast';
 
 const title = Newsreader({
 	subsets: ['latin'],

@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import type { GetStaticProps } from 'next';
+import type {GetStaticProps} from 'next';
 import Link from 'next/link';
-import { HiOutlineExternalLink } from 'react-icons/hi';
+import {HiOutlineExternalLink} from 'react-icons/hi';
 import {
 	SiAmazonaws,
 	SiBabel,
@@ -25,21 +25,21 @@ import {
 	SiWebpack,
 	SiWebstorm,
 	SiX,
-	SiYarn
+	SiYarn,
 } from 'react-icons/si';
-import type { Data } from 'use-lanyard';
-import { ContactForm } from '../components/contact-form';
-import { CardHoverEffect, hoverClassName } from '../components/hover-card';
-import { Time } from '../components/time';
-import { useUpdatingLanyard } from '../hooks/lanyard';
+import type {Data} from 'use-lanyard';
+import {ContactForm} from '../components/contact-form';
+import {CardHoverEffect, hoverClassName} from '../components/hover-card';
+import {Time} from '../components/time';
+import {useUpdatingLanyard} from '../hooks/lanyard';
 import matrix from '../images/matrix.gif';
 import me from '../images/me.jpg';
-import { getMapURL } from '../server/apple-maps';
-import { PartialBlogPost, getRecentBlogPosts } from '../server/blog';
-import { env } from '../server/env';
-import { getLanyard } from '../server/lanyard';
-import { age, discordId } from '../utils/constants';
-import { formatList } from '../utils/lists';
+import {getMapURL} from '../server/apple-maps';
+import {PartialBlogPost, getRecentBlogPosts} from '../server/blog';
+import {env} from '../server/env';
+import {getLanyard} from '../server/lanyard';
+import {age, discordId} from '../utils/constants';
+import {formatList} from '../utils/lists';
 
 export interface Props {
 	lanyard: Data;
@@ -75,10 +75,10 @@ export default function Home(props: Props) {
 
 	return (
 		<main className="mx-auto grid max-w-3xl grid-cols-6 gap-6 px-6 pb-40 pt-16">
-			<div className="col-span-4 flex flex-col justify-between overflow-hidden rounded-2xl bg-pink-200 px-8 py-8 dark:border-pink-500 dark:bg-pink-500/20 dark:shadow-none dark:backdrop-blur-2xl md:col-span-4 h-52">
+			<div className="col-span-4 flex h-52 flex-col justify-between overflow-hidden rounded-2xl bg-pink-200 px-8 py-8 dark:border-pink-500 dark:bg-pink-500/20 dark:shadow-none dark:backdrop-blur-2xl md:col-span-4">
 				<div className="flex">
 					<Link
-						className="flex items-center justify-center rounded-full bg-pink-300 dark:bg-pink-500/25 px-2 py-0.5"
+						className="flex items-center justify-center rounded-full bg-pink-300 px-2 py-0.5 dark:bg-pink-500/25"
 						href="https://alistair.blog"
 						target="_blank"
 						rel="noopener noreferrer"
@@ -89,9 +89,7 @@ export default function Home(props: Props) {
 
 				<div className="space-y-4">
 					<div>
-						<h1 className="text-xl text-pink-900 dark:text-pink-300 dark:text-glow-pink-500/50">
-							Alistair Smith
-						</h1>
+						<h1 className="text-xl text-pink-900 dark:text-pink-300 dark:text-glow-pink-500/50">Alistair Smith</h1>
 
 						<p className="text-pink-600 dark:text-pink-300/80 dark:text-glow-pink-500/50">
 							{age} y/o full stack typescript engineer
@@ -106,7 +104,7 @@ export default function Home(props: Props) {
 					target="_blank"
 					rel="noopener noreferrer"
 					className={clsx(
-						'flex h-full items-center justify-center rounded-2xl bg-neutral-200 dark:bg-neutral-800 text-4xl text-black dark:text-white',
+						'flex h-full items-center justify-center rounded-2xl bg-neutral-200 text-4xl text-black dark:bg-neutral-800 dark:text-white',
 						hoverClassName,
 					)}
 				>
@@ -221,7 +219,7 @@ export default function Home(props: Props) {
 						<span className="absolute inset-0 -z-10">
 							<img
 								src={lanyard.spotify.album_art_url}
-								className="absolute inset-0 h-full w-full bg-black object-cover object-center brightness-50 transition-all duration-500 will-change-[transform,_filter] scale-[1.15] group-hover:scale-[1.35] group-hover:brightness-[0.4]"
+								className="absolute inset-0 h-full w-full scale-[1.15] bg-black object-cover object-center brightness-50 transition-all duration-500 will-change-[transform,_filter] group-hover:scale-[1.35] group-hover:brightness-[0.4]"
 								alt="Album cover art"
 							/>
 						</span>
@@ -257,7 +255,7 @@ export default function Home(props: Props) {
 			<div className="group relative col-span-3 flex h-full min-h-[13rem] flex-shrink-0 overflow-hidden rounded-2xl">
 				<img
 					src={props.map}
-					className="absolute scale-[1.25] inset-0 h-full w-full bg-black object-cover object-center"
+					className="absolute inset-0 h-full w-full scale-[1.25] bg-black object-cover object-center"
 					alt="A map locating roughly where I am right now"
 				/>
 
