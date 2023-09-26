@@ -49,6 +49,11 @@ const config = {
 				destination: 'https://www.youtube.com/watch?v=9xRFN2i1cwQ',
 				permanent: true,
 			},
+			{
+				source: '/letterone',
+				destination: 'https://distrokid.com/hyperfollow/alistair6/letter100-2',
+				permanent: true,
+			},
 		];
 	},
 };
