@@ -51,7 +51,7 @@ const config = {
 			},
 			{
 				source: '/letterone',
-				destination: 'https://distrokid.com/hyperfollow/alistair6/letter100-2',
+				destination: 'https://distrokid.com/hyperfollow/alistair6/letter100-3',
 				permanent: true,
 			},
 		];
