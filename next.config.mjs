@@ -49,6 +49,11 @@ const config = {
 				destination: 'https://www.youtube.com/watch?v=9xRFN2i1cwQ',
 				permanent: true,
 			},
+			{
+				source: '/letterone',
+				destination: 'https://hyperfollow.com/alistair6/letter100-3',
+				permanent: true,
+			},
 		];
 	},
 };
