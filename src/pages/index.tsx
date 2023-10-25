@@ -55,7 +55,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	const map = getMapURL(location);
 
 	const allBlogPosts = await getRecentBlogPosts();
-	const recentBlogPosts = allBlogPosts.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix()).slice(0, 3);
+	const recentBlogPosts = allBlogPosts
+		.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix())
+		.slice(0, 3);
 
 	return {
 		revalidate: 10,
@@ -92,7 +94,9 @@ export default function Home(props: Props) {
 
 				<div className="space-y-4">
 					<div>
-						<h1 className="text-xl text-pink-900 dark:text-pink-300 dark:text-glow-pink-500/50">Alistair Smith</h1>
+						<h1 className="text-xl text-pink-900 dark:text-pink-300 dark:text-glow-pink-500/50">
+							Alistair Smith
+						</h1>
 
 						<p className="text-pink-600 dark:text-pink-300/80 dark:text-glow-pink-500/50">
 							{age} y/o full stack typescript engineer
@@ -186,7 +190,10 @@ export default function Home(props: Props) {
 						href="https://open.spotify.com/playlist/15bl4PuutD4aS2GVsJGUk9"
 						target="_blank"
 						rel="noopener noreferrer"
-						className={clsx('group relative flex h-full overflow-hidden rounded-2xl', hoverClassName)}
+						className={clsx(
+							'group relative flex h-full overflow-hidden rounded-2xl',
+							hoverClassName,
+						)}
 					>
 						<span className="absolute inset-0 -z-10">
 							{/* eslint-disable-next-line @next/next/no-img-element */}
@@ -217,7 +224,10 @@ export default function Home(props: Props) {
 						href={`https://open.spotify.com/track/${lanyard.spotify.track_id}`}
 						target="_blank"
 						rel="noopener noreferrer"
-						className={clsx('group relative flex h-full overflow-hidden rounded-2xl', hoverClassName)}
+						className={clsx(
+							'group relative flex h-full overflow-hidden rounded-2xl',
+							hoverClassName,
+						)}
 					>
 						<span className="absolute inset-0 -z-10">
 							<img
@@ -313,8 +323,9 @@ export default function Home(props: Props) {
 				</h2>
 
 				<p>
-					My name is Alistair, I'm a software engineer from the United Kingdom. I've been programming for as long as I
-					can remember, and I'm currently spending my time with the wonderful people at{' '}
+					My name is Alistair, I'm a software engineer from the United Kingdom. I've been
+					programming for as long as I can remember, and I'm currently spending my time with the
+					wonderful people at{' '}
 					<Link className="underline" href="https://hop.io">
 						Hop
 					</Link>
@@ -322,8 +333,9 @@ export default function Home(props: Props) {
 				</p>
 
 				<p>
-					Beyond programming, I'm really interested in music production and you can often catch me spending time messing
-					with DJ decks and my Maschine. Either that or I'll be out riding my Boosted Board.
+					Beyond programming, I'm really interested in music production and you can often catch me
+					spending time messing with DJ decks and my Maschine. Either that or I'll be out riding my
+					Boosted Board.
 				</p>
 			</div>
 

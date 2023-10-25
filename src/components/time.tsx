@@ -24,14 +24,23 @@ function Night({time}: {time: Date}) {
 		for (let i = 0; i < 50; i++) {
 			ctx.fillStyle = 'white';
 			ctx.beginPath();
-			ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 2, 0, Math.PI * 2);
+			ctx.arc(
+				Math.random() * canvas.width,
+				Math.random() * canvas.height,
+				Math.random() * 2,
+				0,
+				Math.PI * 2,
+			);
 			ctx.fill();
 		}
 	}, [canvasRef]);
 
 	return (
 		<div
-			className={clsx('relative flex items-center justify-center overflow-hidden rounded-2xl', 'bg-sky-900 text-white')}
+			className={clsx(
+				'relative flex items-center justify-center overflow-hidden rounded-2xl',
+				'bg-sky-900 text-white',
+			)}
 		>
 			<canvas
 				ref={canvasRef}
@@ -40,11 +49,16 @@ function Night({time}: {time: Date}) {
 			/>
 
 			<div className="z-10 text-center">
-				<h2 className={clsx('text-2xl font-light text-glow-sky-900 dark:text-glow-sky-500')} suppressHydrationWarning>
+				<h2
+					className={clsx('text-2xl font-light text-glow-sky-900 dark:text-glow-sky-500')}
+					suppressHydrationWarning
+				>
 					{UKTimeFormatter.format(time)}
 				</h2>
 
-				<p className={clsx('text-xs font-light', 'text-glow-sky-900 dark:text-glow-sky-500')}>in the uk</p>
+				<p className={clsx('text-xs font-light', 'text-glow-sky-900 dark:text-glow-sky-500')}>
+					in the uk
+				</p>
 			</div>
 		</div>
 	);
@@ -59,7 +73,10 @@ function Day({time}: {time: Date}) {
 						<h2 className="text-2xl font-light text-white">{UKTimeFormatter.format(time)}</h2>
 
 						<p
-							className={clsx('text-center text-xs font-light', 'text-white text-glow-sky-900 dark:text-glow-sky-500')}
+							className={clsx(
+								'text-center text-xs font-light',
+								'text-white text-glow-sky-900 dark:text-glow-sky-500',
+							)}
 						>
 							in the uk
 						</p>

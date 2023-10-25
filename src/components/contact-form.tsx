@@ -19,14 +19,18 @@ export function ContactForm() {
 		<>
 			<div className="space-y-1">
 				<h2 className="font-semibold">Let's talk 📬</h2>
-				<p className="text-black/75">Drop me a message with the form below, I'll get back to the non-spam</p>
+				<p className="text-black/75">
+					Drop me a message with the form below, I'll get back to the non-spam
+				</p>
 			</div>
 
 			<form
 				onSubmit={async event => {
 					event.preventDefault();
 
-					const values = Object.fromEntries(new FormData(event.target as HTMLFormElement).entries());
+					const values = Object.fromEntries(
+						new FormData(event.target as HTMLFormElement).entries(),
+					);
 
 					setLoading(true);
 
@@ -55,7 +59,14 @@ export function ContactForm() {
 				className="space-y-2 [&>label]:block [&_input]:rounded-md [&_textarea]:rounded-md"
 			>
 				<label htmlFor="email">
-					<input type="email" name="email" id="email" required placeholder="hi@alistair.sh" className="w-full" />
+					<input
+						type="email"
+						name="email"
+						id="email"
+						required
+						placeholder="hi@alistair.sh"
+						className="w-full"
+					/>
 				</label>
 
 				<label htmlFor="body">

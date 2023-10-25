@@ -71,7 +71,9 @@ function Box() {
 				transition: `all ${delay}s cubic-bezier(1, 0.1, 0, 0.9)`,
 				zIndex: -1,
 
-				clipPath: clipped ? 'polygon(50% 0, 50% 0, 100% 100%, 0% 100%)' : 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)',
+				clipPath: clipped
+					? 'polygon(50% 0, 50% 0, 100% 100%, 0% 100%)'
+					: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)',
 			}}
 		/>
 	);
