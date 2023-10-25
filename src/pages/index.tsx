@@ -27,11 +27,10 @@ import {
 	SiX,
 	SiYarn,
 } from 'react-icons/si';
-import type {Data} from 'use-lanyard';
+import {useLanyardWS, type Data} from 'use-lanyard';
 import {ContactForm} from '../components/contact-form';
 import {CardHoverEffect, hoverClassName} from '../components/hover-card';
 import {Time} from '../components/time';
-import {useUpdatingLanyard} from '../hooks/lanyard';
 import matrix from '../images/matrix.gif';
 import me from '../images/me.jpg';
 import {getMapURL} from '../server/apple-maps';
@@ -71,7 +70,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 };
 
 export default function Home(props: Props) {
-	const {data: lanyard} = useUpdatingLanyard(discordId, props.lanyard);
+	const lanyard = useLanyardWS(discordId, {
+		initialData: props.lanyard,
+	})!;
 
 	const status = lanyard.discord_status ?? 'offline';
 
