@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@marsidev/react-turnstile": "^0.3.1",
+    "@otters/monzo": "^2.0.1",
     "alistair": "^1.5.3",
     "bwitch": "^0.1.3",
     "clsx": "^2.0.0",
