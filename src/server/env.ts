@@ -19,11 +19,12 @@ export const env = z
 
 				return `https://${value}`;
 			}),
-		DEFAULT_LOCATION: z.string().default('London, UK'),
+		DEFAULT_LOCATION: z.string().default('London'),
 		MONZO_CLIENT_ID: z
 			.string()
 			.refine((id): id is Id<'oauth2client'> => validateId(id, 'oauth2client')),
 		MONZO_CLIENT_SECRET: z.string(),
+		JWT_SIGNING_SECRET: z.string(),
 	})
 	.transform(result => {
 		const {VERCEL_URL, ...rest} = result;

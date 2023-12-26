@@ -2,10 +2,7 @@ import {z} from 'zod';
 import {api} from '../../../../server/api';
 import {monzoOAuthAPI} from '../../../../server/monzo';
 
-const toRedirectUrlSchema = z.union([
-	z.literal('monzo').transform(() => monzoOAuthAPI.getOAuthURL().url),
-	z.literal('example').transform(() => 'https://example.com'),
-]);
+const toRedirectUrlSchema = z.literal('monzo').transform(() => monzoOAuthAPI.getOAuthURL());
 
 const urlSchema = z
 	.object({
@@ -24,7 +21,7 @@ export default api({
 		}
 
 		return {
-			_redirect: result.data,
+			_redirect: result.data.url,
 		};
 	},
 });

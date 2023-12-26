@@ -12,6 +12,7 @@
 		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
 		"jsx": "preserve",
+		"verbatimModuleSyntax": true,
 		"plugins": [
 			{
 				"name": "next"
