@@ -9,13 +9,13 @@ type Props =
 			data: {
 				accounts: Array<
 					Models.Account & {
-						balance?: Models.Balance;
-						pots?: Models.Pot[];
+						balance?: Models.Balance | null;
+						pots?: Models.Pot[] | null;
 						webhooks?: Array<{
 							id: Id<'webhook'>;
 							account_id: Models.Account['id'];
 							url: string;
-						}>;
+						}> | null;
 					}
 				>;
 			};
@@ -198,9 +198,9 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({req}) => {
 				}
 
 				const [balance, webhooks, pots] = await Promise.all([
-					monzo.getBalance(account.id),
-					monzo.listWebhooks(account.id),
-					monzo.getPots(account.id),
+					monzo.getBalance(account.id).catch(() => null),
+					monzo.listWebhooks(account.id).catch(() => null),
+					monzo.getPots(account.id).catch(() => null),
 				]);
 
 				return {
