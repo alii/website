@@ -15,31 +15,29 @@ jobs:
       - name: Begin CI...
         uses: actions/checkout@v2
 
-      - name: Use Node 18
-        uses: actions/setup-node@v2
+      - uses: oven-sh/setup-bun@v1
         with:
-          node-version: 18.x
-          registry-url: 'https://registry.npmjs.org'
+          bun-version: latest
 
       - name: Use cached node_modules
         uses: actions/cache@v2
         with:
           path: node_modules
-          key: nodeModules-${{ hashFiles('**/yarn.lock') }}
+          key: nodeModules-${{ hashFiles('**/bun.lockb') }}
           restore-keys: |
             nodeModules-
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: bun install
         env:
           CI: true
 
       - name: Lint
-        run: yarn lint
+        run: bun lint
         env:
           CI: true
 
       - name: Danger
-        run: yarn danger ci
+        run: bun danger ci
         env:
           GITHUB_TOKEN: ${{ secrets.DANGER_TOKEN }}
