@@ -1,4 +1,4 @@
-import {APIResponse} from 'nextkit';
+import {type APIResponse} from 'nextkit';
 
 export interface PartialBlogPost {
 	name: string;
