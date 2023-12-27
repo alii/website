@@ -1,4 +1,4 @@
-import {AppCredentials, MonzoOAuthAPI} from '@otters/monzo';
+import {MonzoOAuthAPI, type AppCredentials} from '@otters/monzo';
 import {env} from './env';
 
 export const monzoAppCredentials: AppCredentials = {
