@@ -10,7 +10,6 @@ export const env = z
 		TURNSTILE_SECRET_KEY: z.string(),
 		VERCEL_URL: z
 			.string()
-			.url()
 			.default('localhost:3000')
 			.transform(value => {
 				if (value === 'localhost:3000') {
