@@ -42,7 +42,7 @@ export default function MonzoDashboard(props: Props) {
 	const {data} = props;
 
 	return (
-		<div className="mx-auto my-16 max-w-2xl space-y-8 border border-neutral-800 bg-neutral-900 p-10">
+		<div className="mx-auto my-16 max-w-2xl space-y-8 border border-neutral-800 bg-neutral-900 p-10 shadow-2xl shadow-black/25">
 			<div className="space-y-4">
 				<h1 className="text-xl font-bold">Accounts</h1>
 				{data.accounts
@@ -95,8 +95,10 @@ export default function MonzoDashboard(props: Props) {
 									<>
 										<hr className="border-neutral-800" />
 
-										<div className="space-y-2 py-2.5">
-											<p className="px-2.5">Pots</p>
+										<div className="space-y-1.5 pb-2.5 pt-1.5">
+											<div>
+												<p className="px-2.5 font-bold text-neutral-200">Pots</p>
+											</div>
 
 											<div className="flex w-full space-x-2.5 overflow-x-auto px-2.5">
 												{[...acct.pots]
