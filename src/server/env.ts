@@ -17,7 +17,8 @@ export const env = z
 				}
 
 				return `https://${value}`;
-			}),
+			})
+			.pipe(z.string().url()),
 		DEFAULT_LOCATION: z.string().default('London'),
 		MONZO_CLIENT_ID: z
 			.string()
