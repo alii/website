@@ -325,18 +325,16 @@ export default function Home(props: Props) {
 
 				<p>
 					My name is Alistair, I'm a software engineer from the United Kingdom. I've been
-					programming for as long as I can remember, and I'm currently spending my time with the
-					wonderful people at{' '}
-					<Link className="underline" href="https://hop.io">
-						Hop
+					programming for as long as I can remember. I am currently working on
+					<Link className="underline" href="https://cubby.nyc">
+						Cubby
 					</Link>
 					.
 				</p>
 
 				<p>
-					Beyond programming, I'm really interested in music production and you can often catch me
-					spending time messing with DJ decks and my Maschine. Either that or I'll be out riding my
-					Boosted Board.
+					Beyond programming, I'm really into drum &amp; bass, and you can often catch me
+					DJing or in Ableton. Either that or I'll be out riding my Boosted Board.
 				</p>
 			</div>
 
