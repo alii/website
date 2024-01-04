@@ -325,7 +325,7 @@ export default function Home(props: Props) {
 
 				<p>
 					My name is Alistair, I'm a software engineer from the United Kingdom. I've been
-					programming for as long as I can remember. I am currently working on
+					programming for as long as I can remember. I am currently working on{' '}
 					<Link className="underline" href="https://cubby.nyc">
 						Cubby
 					</Link>
