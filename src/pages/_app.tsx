@@ -4,7 +4,9 @@ import type {AppProps} from 'next/app';
 import {Newsreader} from 'next/font/google';
 import font from 'next/font/local';
 import Head from 'next/head';
+import {useEffect} from 'react';
 import {Toaster} from 'react-hot-toast';
+import {useFirstEverLoad, useVisitCounts} from '../hooks/use-first-ever-load';
 
 const title = Newsreader({
 	subsets: ['latin'],
@@ -18,6 +20,14 @@ const body = font({
 });
 
 export default function App({Component, pageProps}: AppProps) {
+	useFirstEverLoad();
+
+	const [_, set] = useVisitCounts();
+
+	useEffect(() => {
+		set(x => x + 1);
+	}, [set]);
+
 	return (
 		<>
 			<style jsx global>
@@ -36,6 +46,7 @@ export default function App({Component, pageProps}: AppProps) {
 			</Head>
 
 			<Component {...pageProps} />
+
 			<Toaster />
 		</>
 	);
