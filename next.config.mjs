@@ -54,6 +54,11 @@ const config = {
 				destination: 'https://hyperfollow.com/alistair6/letter100-3',
 				permanent: true,
 			},
+{
+				source: '/live-25-01-2024',
+				destination: 'https://drive.google.com/file/d/19lp0wiGQpJ59_mUBKukfzcOcFjUe0q8t/view?usp=drive_link',
+				permanent: true,
+			},
 		];
 	},
 };
