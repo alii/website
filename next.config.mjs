@@ -56,7 +56,7 @@ const config = {
 			},
 {
 				source: '/live-25-01-2024',
-				destination: 'https://drive.google.com/file/d/19lp0wiGQpJ59_mUBKukfzcOcFjUe0q8t/view?usp=drive_link',
+				destination: 'https://www.youtube.com/watch?v=OvTy9xYH7LA',
 				permanent: true,
 			},
 		];
