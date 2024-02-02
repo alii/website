@@ -61,7 +61,7 @@ const config = {
 			},
 			{
 				source: '/live-02-02-2024',
-				destination: 'https://drive.google.com/file/d/1SH6fezEnrAhQQmzEN5rPctWsKauWnPkz/view?usp=drive_link',
+				destination: 'https://youtube.com/watch?v=zEoTeUEElZc',
 				permanent: true,
 			},
 		];
