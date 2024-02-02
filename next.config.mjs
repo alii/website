@@ -59,6 +59,11 @@ const config = {
 				destination: 'https://www.youtube.com/watch?v=OvTy9xYH7LA',
 				permanent: true,
 			},
+			{
+				source: '/live-02-02-2024',
+				destination: 'https://drive.google.com/file/d/1SH6fezEnrAhQQmzEN5rPctWsKauWnPkz/view?usp=drive_link',
+				permanent: true,
+			},
 		];
 	},
 };
