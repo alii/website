@@ -1,5 +1,23 @@
 import {useState} from 'react';
 
+function parseTitleAndArtist(title: string, artist: string) {
+	if (artist === '') {
+		const [actualTitle, actualArtist] = title.split('-');
+
+		if (actualTitle && actualArtist) {
+			return {
+				title: actualTitle.trim(),
+				artist: actualArtist.trim(),
+			};
+		}
+	}
+
+	return {
+		title,
+		artist,
+	};
+}
+
 export default function RekordboxHistoryParser() {
 	const [state, setState] = useState('');
 
@@ -18,9 +36,11 @@ export default function RekordboxHistoryParser() {
 				string,
 			];
 
+			const {title: actualTitle, artist: actualArtist} = parseTitleAndArtist(title, artist);
+
 			return {
-				title,
-				artist,
+				title: actualTitle,
+				artist: actualArtist,
 				album,
 				bpm,
 				time,
