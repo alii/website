@@ -27,7 +27,13 @@ export default function RekordboxHistoryParser() {
 				key,
 			};
 		})
-		.map(l => `${l.title} - ${l.artist}`)
+		.map(l => {
+			if (l.artist === '') {
+				return l.title;
+			}
+
+			return `${l.title} - ${l.artist}`;
+		})
 		.join('\n');
 
 	return (
