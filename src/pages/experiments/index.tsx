@@ -20,6 +20,14 @@ export default function ExperimentsList() {
 						requires me to manually add users, so if you want access, contact me.
 					</p>
 				</li>
+
+				<li>
+					<Link href="/experiments/rekordbox-history-parser">Rekordbox History Parser</Link>
+					<p className="text-sm">
+						Rekordbox exports history in a format not so useful for copy pasting. This is a tiny
+						tool to fix that
+					</p>
+				</li>
 			</ul>
 		</div>
 	);

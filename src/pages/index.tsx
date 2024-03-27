@@ -79,7 +79,7 @@ export default function Home(props: Props) {
 	return (
 		<div className="space-y-6">
 			<main className="mx-auto grid max-w-3xl grid-cols-6 gap-6 px-6 pt-16">
-				<div className="col-span-4 flex h-52 flex-col justify-between overflow-hidden rounded-2xl bg-pink-200 px-8 py-8 dark:border-pink-500 dark:bg-pink-500/20 dark:shadow-none dark:backdrop-blur-2xl md:col-span-4">
+				<div className="col-span-4 flex h-52 flex-col justify-between overflow-hidden rounded-2xl bg-pink-200 px-8 py-8 md:col-span-4 dark:border-pink-500 dark:bg-pink-500/20 dark:shadow-none dark:backdrop-blur-2xl">
 					<div className="flex">
 						<Link
 							className="flex items-center justify-center space-x-1.5 rounded-full bg-pink-300 px-2 py-0.5 font-title dark:bg-pink-500/25"
@@ -320,7 +320,7 @@ export default function Home(props: Props) {
 					</div>
 				</div>
 
-				<div className="col-span-6 space-y-2 rounded-2xl bg-yellow-200 p-6 dark:bg-indigo-800 md:col-span-4">
+				<div className="col-span-6 space-y-2 rounded-2xl bg-yellow-200 p-6 md:col-span-4 dark:bg-indigo-800">
 					<h2 className="font-semibold">
 						Introduction <span className="inline dark:hidden">🌻</span>
 						<span className="hidden dark:inline">⭐</span>
@@ -365,7 +365,7 @@ export default function Home(props: Props) {
 					</div>
 				</div>
 
-				<div className="col-span-6 space-y-4 rounded-2xl bg-lime-400 p-6 text-black dark:bg-lime-500 md:col-span-6">
+				<div className="col-span-6 space-y-4 rounded-2xl bg-lime-400 p-6 text-black md:col-span-6 dark:bg-lime-500">
 					<ContactForm />
 				</div>
 			</main>
