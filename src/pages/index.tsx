@@ -101,7 +101,7 @@ export default function Home(props: Props) {
 							</h1>
 
 							<p className="text-pink-600 dark:text-pink-300/80 dark:text-glow-pink-500/50">
-								{age} y/o full stack typescript engineer
+								software engineer &amp; dj
 							</p>
 						</div>
 					</div>
