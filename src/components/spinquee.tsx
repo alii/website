@@ -1,5 +1,5 @@
 import {MotionValue, motion, useSpring, useTransform} from 'framer-motion';
-import {useEffect, useState, type PropsWithChildren} from 'react';
+import {useCallback, useEffect, useState, type PropsWithChildren} from 'react';
 
 export interface SpinqueeProps {
 	children: React.ReactNode[];
@@ -46,11 +46,24 @@ export function Spinquee({children, size}: SpinqueeProps) {
 
 	const [container, setContainer] = useState<HTMLDivElement | null>(null);
 
+	const duplicatedChildren = duplicateChildren(children, 10);
+
+	const snapToNearest = useCallback(() => {
+		const currentAngle = angle.get();
+		const anglePerItem = 360 / duplicatedChildren.length;
+		const nearestIndex = Math.round(currentAngle / anglePerItem);
+		const nearestAngle = nearestIndex * anglePerItem;
+		angle.set(nearestAngle);
+	}, [angle, duplicatedChildren.length]);
+
 	useEffect(() => {
 		if (!container) return;
 
+		let timeout: NodeJS.Timeout;
 		const wheel = (e: WheelEvent) => {
 			angle.set(angle.get() + e.deltaY / 10);
+			clearTimeout(timeout);
+			timeout = setTimeout(snapToNearest, 150); // Adjust delay as needed
 		};
 
 		container.addEventListener('wheel', wheel);
@@ -58,9 +71,7 @@ export function Spinquee({children, size}: SpinqueeProps) {
 		return () => {
 			container.removeEventListener('wheel', wheel);
 		};
-	}, [container, angle]);
-
-	const duplicatedChildren = duplicateChildren(children, 10);
+	}, [container, angle, snapToNearest]);
 
 	return (
 		<div ref={setContainer} className="h-full w-full">
