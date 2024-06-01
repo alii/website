@@ -16,10 +16,19 @@ function Item({
 	angle,
 	total,
 	size,
-}: PropsWithChildren<{index: number; angle: MotionValue<number>; total: number; size: number}>) {
+	activeIndex,
+}: PropsWithChildren<{
+	index: number;
+	angle: MotionValue<number>;
+	total: number;
+	size: number;
+	activeIndex: number;
+}>) {
+	const isActive = index % total === activeIndex;
+
 	return (
 		<motion.div
-			className="absolute top-1/2"
+			className={`absolute top-1/2 ${isActive ? 'highlight-class' : ''}`} // Add your highlight class here
 			style={{
 				rotate: useTransform(angle, value => value + index * (360 / total)),
 			}}
@@ -43,7 +52,7 @@ export function Spinquee({children, size}: SpinqueeProps) {
 		damping: 30,
 		mass: 0.05,
 	});
-
+	const [activeIndex, setActiveIndex] = useState(0);
 	const [container, setContainer] = useState<HTMLDivElement | null>(null);
 
 	const duplicatedChildren = duplicateChildren(children, 10);
@@ -51,9 +60,10 @@ export function Spinquee({children, size}: SpinqueeProps) {
 	const snapToNearest = useCallback(() => {
 		const currentAngle = angle.get();
 		const anglePerItem = 360 / duplicatedChildren.length;
-		const nearestIndex = Math.round(currentAngle / anglePerItem);
+		const nearestIndex = Math.round(currentAngle / anglePerItem) % duplicatedChildren.length;
 		const nearestAngle = nearestIndex * anglePerItem;
 		angle.set(nearestAngle);
+		setActiveIndex(nearestIndex);
 	}, [angle, duplicatedChildren.length]);
 
 	useEffect(() => {
@@ -83,6 +93,7 @@ export function Spinquee({children, size}: SpinqueeProps) {
 						index={index}
 						angle={angle}
 						total={duplicatedChildren.length}
+						activeIndex={activeIndex}
 					>
 						{child}
 					</Item>
