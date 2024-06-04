@@ -72,7 +72,7 @@ export function MessageGroup({messages}: MessageGroupProps) {
 				alt="Me standing in front of some tents"
 			/>
 
-			<div className="space-y-2">
+			<div className="space-y-1">
 				{messages.map(({key: id, content}, i) => (
 					<MessageBubble
 						key={id}
