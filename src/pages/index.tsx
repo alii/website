@@ -65,7 +65,8 @@ export default function Home(props: Props) {
 							key: 'intro',
 							content: (
 								<>
-									Hi there, I'm <span className="font-serif">Alistair</span> 👋
+									Hi there, I'm <span className="font-serif">Alistair</span>. I'm a software
+									engineer
 								</>
 							),
 						},
@@ -73,7 +74,7 @@ export default function Home(props: Props) {
 							key: 'work',
 							content: (
 								<>
-									I am currently super busy working on{' '}
+									Currently I'm working on{' '}
 									<Link
 										target="_blank"
 										href="https://cubby.nyc"
@@ -81,7 +82,8 @@ export default function Home(props: Props) {
 									>
 										Cubby
 									</Link>
-									. It's a private workspace for researching all types of content &amp; media
+									. It's a powerful private workspace for researching all types of content &amp;
+									media
 								</>
 							),
 						},
