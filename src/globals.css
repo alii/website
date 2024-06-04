@@ -13,5 +13,6 @@ body {
 #__next::before {
 	content: '';
 	background: url(/grain.jpeg) repeat center center;
-	@apply absolute inset-0 -z-10 opacity-[0.01];
+	background-size: 80%;
+	@apply fixed inset-0 -z-10 opacity-[0.01];
 }
