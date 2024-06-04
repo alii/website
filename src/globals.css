@@ -3,5 +3,15 @@
 @tailwind utilities;
 
 body {
-	@apply bg-grid-neutral-200/40 overscroll-none bg-neutral-100 text-neutral-900 antialiased dark:bg-grid-neutral-700/50 dark:bg-neutral-800 dark:text-neutral-100;
+	@apply overscroll-none bg-[#fefefe] text-neutral-900 antialiased dark:bg-[#040404] dark:text-neutral-100;
+}
+
+#__next {
+	@apply absolute inset-0;
+}
+
+#__next::before {
+	content: '';
+	background: url(/grain.jpeg) repeat center center;
+	@apply absolute inset-0 -z-10 opacity-[0.01];
 }

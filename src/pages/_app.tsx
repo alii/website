@@ -1,22 +1,21 @@
 import '../globals.css';
 
 import type {AppProps} from 'next/app';
-import {Newsreader} from 'next/font/google';
-import font from 'next/font/local';
+import {Inter, Newsreader} from 'next/font/google';
 import Head from 'next/head';
 import {useEffect} from 'react';
 import {Toaster} from 'react-hot-toast';
 import {useFirstEverLoad, useVisitCounts} from '../hooks/use-first-ever-load';
 
-const title = Newsreader({
+const serif = Newsreader({
 	subsets: ['latin'],
 	weight: ['400', '200'],
 	style: 'italic',
 	fallback: ['serif'],
 });
 
-const body = font({
-	src: '../fonts/roobert-variable.woff2',
+const body = Inter({
+	subsets: ['latin'],
 });
 
 export default function App({Component, pageProps}: AppProps) {
@@ -33,7 +32,7 @@ export default function App({Component, pageProps}: AppProps) {
 			<style jsx global>
 				{`
 					:root {
-						--font-title: ${title.style.fontFamily};
+						--font-serif: ${serif.style.fontFamily};
 						--font-body: ${body.style.fontFamily};
 					}
 				`}

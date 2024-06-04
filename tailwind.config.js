@@ -9,7 +9,7 @@ module.exports = {
 	theme: {
 		fontFamily: {
 			sans: ['var(--font-body)', ...defaultTheme.fontFamily.sans],
-			title: ['var(--font-title)', ...defaultTheme.fontFamily.serif],
+			serif: ['var(--font-serif)', ...defaultTheme.fontFamily.serif],
 		},
 		extend: {
 			colors: {
@@ -44,6 +44,28 @@ module.exports = {
 						}),
 						'glow': value => ({
 							filter: `drop-shadow(0px 0px 7px ${value})`,
+						}),
+					},
+					{
+						values: flattenColorPalette(tw.theme('colors')),
+						type: 'color',
+					},
+				);
+
+				tw.matchUtilities(
+					{
+						'nice-underline': value => ({
+							'position': 'relative',
+							'zIndex': '0',
+							'&:before': {
+								'zIndex': '-1',
+								'content': "''",
+								'position': 'absolute',
+								'bottom': '0.4px',
+								'left': '1.5px',
+								'right': '1.5px',
+								'border-bottom': `1.8px solid ${value}`,
+							},
 						}),
 					},
 					{

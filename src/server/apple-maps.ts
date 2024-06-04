@@ -3,13 +3,13 @@ import {env} from './env';
 
 const es256 = jwa('ES256');
 
-export function getMapURL(center: string) {
+export function getMapURL(center: string, theme: 'light' | 'dark') {
 	const params = new URLSearchParams({
 		center,
 		teamId: env.APPLE_TEAM_ID,
 		keyId: env.APPLE_KEY_ID,
 		z: '13',
-		colorScheme: 'dark',
+		colorScheme: theme,
 		size: '340x200',
 		scale: '2',
 		t: 'mutedStandard',
