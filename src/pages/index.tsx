@@ -154,10 +154,10 @@ export default function Home(props: Props) {
 
 												<Link
 													href={`https://open.spotify.com/track/${lanyard.spotify.track_id}`}
-													className="group relative !mb-1 block w-fit min-w-[300px] overflow-hidden rounded-lg rounded-bl-md p-3"
+													className="group relative !mb-1 block w-fit min-w-[300px] overflow-hidden rounded-xl rounded-bl-md p-3"
 													target="_blank"
 												>
-													<div className="absolute -inset-[1px] z-20 rounded-lg rounded-bl-md border-[3px] border-black/10 dark:border-white/20"></div>
+													<div className="absolute -inset-[1px] z-20 rounded-xl rounded-bl-md border-[3px] border-black/10 dark:border-white/20"></div>
 
 													<div className="absolute inset-0">
 														<div className="absolute inset-0 z-10 bg-white/70 group-hover:bg-white/80 dark:bg-neutral-800/80 dark:group-hover:bg-neutral-800/90"></div>
@@ -173,7 +173,7 @@ export default function Home(props: Props) {
 														<img
 															src={lanyard.spotify.album_art_url ?? album.src}
 															alt="Album art"
-															className="size-12 rounded-md"
+															className="size-12 rounded-md border-2"
 														/>
 
 														<div className="space-y-1">
