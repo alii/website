@@ -1,5 +1,7 @@
 import {createAPI} from 'nextkit';
+import {discordId} from '../utils/constants';
 import {env} from './env';
+import {getLanyard} from './lanyard';
 
 export const api = createAPI({
 	async onError(_req, _res, error) {
@@ -13,6 +15,10 @@ export const api = createAPI({
 
 	async getContext() {
 		return {
+			lanyard: {
+				get: async () => getLanyard(discordId),
+			},
+
 			async turnstile(token: string, ip: string | null) {
 				const formData = new URLSearchParams();
 

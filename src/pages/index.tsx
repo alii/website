@@ -14,7 +14,7 @@ import {discordId} from '../utils/constants';
 
 export interface Props {
 	lanyard: Data;
-	map: [string, string];
+	map: {light: string; dark: string};
 	location: string;
 	recentBlogPosts: PartialBlogPost[];
 }
@@ -31,7 +31,10 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	return {
 		revalidate: 10,
 		props: {
-			map: [getMapURL(location, 'light'), getMapURL(location, 'dark')],
+			map: {
+				dark: getMapURL(location, 'dark'),
+				light: getMapURL(location, 'light'),
+			},
 			location,
 			lanyard,
 			recentBlogPosts,
@@ -43,8 +46,6 @@ export default function Home(props: Props) {
 	const lanyard = useLanyardWS(discordId, {
 		initialData: props.lanyard,
 	})!;
-
-	const [mapLight, mapDark] = props.map;
 
 	const status = lanyard.discord_status ?? 'offline';
 
@@ -248,12 +249,12 @@ export default function Home(props: Props) {
 								<div className="relative my-1 h-[150px] w-[300px]">
 									<div className="absolute inset-0 overflow-hidden rounded-t-lg rounded-bl-md rounded-br-lg">
 										<img
-											src={mapLight}
+											src={`/api/map?location=${lanyard.kv.location}&theme=light`}
 											alt="Map"
 											className="absolute inset-0 h-full w-full scale-125 object-cover dark:hidden"
 										/>
 										<img
-											src={mapDark}
+											src={`/api/map?location=${lanyard.kv.location}&theme=dark`}
 											alt="Map"
 											className="absolute inset-0 hidden h-full w-full scale-125 object-cover dark:block"
 										/>
@@ -275,11 +276,11 @@ export default function Home(props: Props) {
 								<p>
 									Right now I am in{' '}
 									<Link
-										href={`https://maps.apple.com/?q=${props.location}`}
+										href={`https://maps.apple.com/?q=${lanyard.kv.location}`}
 										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
 										target="_blank"
 									>
-										{props.location}
+										{lanyard.kv.location}
 									</Link>{' '}
 									📍
 								</p>
