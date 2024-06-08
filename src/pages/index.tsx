@@ -3,18 +3,16 @@ import {motion} from 'framer-motion';
 import type {GetStaticProps} from 'next';
 import Link from 'next/link';
 import {SiSpotify} from 'react-icons/si';
-import {useLanyardWS, type Data} from 'use-lanyard';
+import {useLanyardWS, type Data as LanyardData} from 'use-lanyard';
 import album from '../../public/album.png';
 import {MessageGroup} from '../components/message';
-import {getMapURL} from '../server/apple-maps';
 import {getRecentBlogPosts, type PartialBlogPost} from '../server/blog';
 import {env} from '../server/env';
 import {getLanyard} from '../server/lanyard';
 import {discordId} from '../utils/constants';
 
 export interface Props {
-	lanyard: Data;
-	map: {light: string; dark: string};
+	lanyard: LanyardData;
 	location: string;
 	recentBlogPosts: PartialBlogPost[];
 }
@@ -31,10 +29,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	return {
 		revalidate: 10,
 		props: {
-			map: {
-				dark: getMapURL(location, 'dark'),
-				light: getMapURL(location, 'light'),
-			},
 			location,
 			lanyard,
 			recentBlogPosts,
@@ -333,7 +327,7 @@ export default function Home(props: Props) {
 								<>
 									Otherwise, I'm available on{' '}
 									<Link
-										href="https://twitter.com/alistaiir"
+										href="https://x.com/alistaiir"
 										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
 										target="_blank"
 									>
