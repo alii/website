@@ -36,8 +36,3 @@ jobs:
         run: bun lint
         env:
           CI: true
-
-      - name: Danger
-        run: bun danger ci
-        env:
-          GITHUB_TOKEN: ${{ secrets.DANGER_TOKEN }}
