@@ -204,7 +204,7 @@ export default function Home(props: Props) {
 												realtime. In the meantime, you can check out my favourite set of all time{' '}
 												<Link
 													href="https://www.youtube.com/watch?v=1c4DFNy2t9E"
-													className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
+													className="inline-block nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
 													target="_blank"
 												>
 													on YouTube
@@ -339,6 +339,37 @@ export default function Home(props: Props) {
 									>
 										Twitter/X
 									</Link>
+								</>
+							),
+						},
+					]}
+				/>
+
+				<MessageGroup
+					messages={[
+						{
+							key: 'experiments',
+							content: (
+								<>
+									I have some fun experiments on this site, some are functional things I use, others
+									are just me messing around.{' '}
+									<Link
+										href="/experiments"
+										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
+									>
+										Click here to see them
+									</Link>
+									.
+								</>
+							),
+						},
+						{
+							key: 'finally',
+							content: (
+								<>
+									Finally, this site is a recently started WIP. If you have any cool
+									ideas/interactions I should add, reach out! Would love to hear some creative
+									ideas.
 								</>
 							),
 						},
