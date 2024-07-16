@@ -1,4 +1,4 @@
-import {config as dotenv} from 'dotenv';
+import { config as dotenv } from 'dotenv';
 
 // @ts-check
 
@@ -62,6 +62,11 @@ const config = {
 			{
 				source: '/live-02-02-2024',
 				destination: 'https://youtube.com/watch?v=zEoTeUEElZc',
+				permanent: true,
+			},
+			{
+				source: '/live-04-07-2024',
+				destination: 'https://youtube.com/watch?v=-XsKN44b7ho',
 				permanent: true,
 			},
 		];

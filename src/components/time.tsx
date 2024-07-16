@@ -68,7 +68,7 @@ function Day({time}: {time: Date}) {
 	return (
 		<div className="relative flex overflow-hidden rounded-2xl bg-gradient-to-br from-[#0A8DFF] to-[#98CFFF] first-letter:w-full">
 			<div className="flex w-full items-center justify-center">
-				<div className="opacity-85 flex items-baseline space-x-1 md:space-x-2">
+				<div className="flex items-baseline space-x-1 opacity-85 md:space-x-2">
 					<div className="flex flex-col">
 						<h2 className="text-2xl font-light text-white">{UKTimeFormatter.format(time)}</h2>
 
