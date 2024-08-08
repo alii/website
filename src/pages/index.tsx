@@ -82,18 +82,6 @@ export default function Home(props: Props) {
 								</>
 							),
 						},
-						{
-							key: 'upsell-lol',
-							content: (
-								<>
-									<span className="italic">
-										(if you're a content creator or do any form of research, you should definitely
-										check out what we're building
-									</span>{' '}
-									😉<span className="italic">)</span>
-								</>
-							),
-						},
 					]}
 				/>
 
