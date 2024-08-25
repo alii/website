@@ -71,7 +71,7 @@ export default function BlogList() {
                       gallium ai - my first failed startup (WIP)
                     </Link>
                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                      sometimes you have to fail to succeed
+                      marina bay sands will make you try to start random companies
                     </p>
                   </>
                 ),
@@ -84,7 +84,7 @@ export default function BlogList() {
                       why i chose to study engineering - my why of life
                     </Link>
                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                      i don't know what i want to do with my life, and i don't know if i will ever figure it out
+                      i don't know what i want to do with my life, and i don't know if i will ever figure it out - and that's okay
                     </p>
                   </>
                 ),
