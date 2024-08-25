@@ -32,7 +32,6 @@
 		"typescript": "^5.5.4"
 	},
 	"dependencies": {
-		"@marsidev/react-turnstile": "^0.7.2",
 		"@otters/monzo": "^2.1.2",
 		"alistair": "^1.11.0",
 		"bwitch": "^0.3.0",

@@ -1,6 +1,5 @@
 import {createAPI} from 'nextkit';
 import {discordId} from '../utils/constants';
-import {env} from './env';
 import {getLanyard} from './lanyard';
 
 export const api = createAPI({
@@ -17,38 +16,6 @@ export const api = createAPI({
 		return {
 			lanyard: {
 				get: async () => getLanyard(discordId),
-			},
-
-			async turnstile(token: string, ip: string | null) {
-				const formData = new URLSearchParams();
-
-				formData.append('secret', env.TURNSTILE_SECRET_KEY);
-				formData.append('response', token);
-
-				if (ip) {
-					formData.append('remoteip', ip);
-				}
-
-				const url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
-
-				const result = await fetch(url, {
-					body: formData,
-					method: 'POST',
-				});
-
-				return (await result.json()) as
-					| {
-							'success': true;
-							'challenge_ts': string;
-							'hostname': string;
-							'error-codes': string[];
-							'action': string;
-							'cdata': string;
-					  }
-					| {
-							'success': false;
-							'error-codes': [string, ...string[]];
-					  };
 			},
 		};
 	},
