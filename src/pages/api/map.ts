@@ -17,8 +17,10 @@ export default api({
 
 		const {theme} = querySchema.parse(req.query);
 
-		return {
-			_redirect: getMapURL(lanyard.kv.location, theme),
-		};
+		const mapURL = getMapURL(lanyard.kv.location, theme);
+
+		return new Response(await fetch(mapURL).then(res => res.arrayBuffer()), {
+			headers: {'Content-Type': 'image/png'},
+		});
 	},
 });

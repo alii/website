@@ -5,11 +5,31 @@ import Link from 'next/link';
 import {SiSpotify} from 'react-icons/si';
 import {useLanyardWS, type Data as LanyardData} from 'use-lanyard';
 import album from '../../public/album.png';
+import benny from '../../public/benny.png';
 import {MessageGroup} from '../components/message';
 import {getRecentBlogPosts, type PartialBlogPost} from '../server/blog';
 import {env} from '../server/env';
 import {getLanyard} from '../server/lanyard';
 import {discordId} from '../utils/constants';
+import {UKTimeFormatter} from '../utils/constants';
+import dynamic from 'next/dynamic';
+
+const DynamicStats = dynamic(() => import('../components/stats').then(mod => mod.Stats), {
+  ssr: false
+});
+
+// Add this function at the top of the file, outside of the component
+function getTimeOfDayMessage(hour: number): string {
+  if (hour >= 5 && hour < 12) {
+    return "i'm probably having my coffee and getting ready for the day. 🌅";
+  } else if (hour >= 12 && hour < 17) {
+    return "i'm likely in the middle of my workday, or working out. 🌞";
+  } else if (hour >= 17 && hour < 21) {
+    return "i might be wrapping up work or enjoying some downtime. 🌇";
+  } else {
+    return "it's nighttime here. i'm either winding down for the day or up late working on a project. 🌙";
+  }
+}
 
 export interface Props {
 	lanyard: LanyardData;
@@ -43,6 +63,9 @@ export default function Home(props: Props) {
 
 	const status = lanyard.discord_status ?? 'offline';
 
+	const currentHour = new Date().getHours();
+	const timeOfDayMessage = getTimeOfDayMessage(currentHour);
+
 	return (
 		<main className="mx-auto max-w-xl px-3 pb-16 pt-24">
 			<motion.ul
@@ -60,66 +83,45 @@ export default function Home(props: Props) {
 							key: 'intro',
 							content: (
 								<>
-									Hi there, I'm <span className="font-serif">Alistair</span>. I'm a software
-									engineer
+									👋 hi there, i'm <strong>cole</strong>. i'm an engineering student at the university of guelph. 📚
 								</>
 							),
 						},
 						{
-							key: 'work',
+							key: 'karrierone',
 							content: (
 								<>
-									Currently I'm working on{' '}
+									currently i'm working with{' '}
 									<Link
 										target="_blank"
-										href="https://cubby.nyc"
+										href="https://karrier.one/"
 										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
 									>
-										Cubby
+										karrier one
 									</Link>
-									. It's a powerful private workspace for researching all types of content &amp;
-									media
+									. we use blockchain technology to decentralize telecommunications. 📡
 								</>
 							),
 						},
-					]}
-				/>
-
-				<MessageGroup
-					messages={[
 						{
-							key: 'blog-intro',
+							key: 'gambit',
 							content: (
 								<>
-									I try to write a blog post every now and then. I do OK at that. Everything is on{' '}
+									i'm also working with{' '}
 									<Link
+										target="_blank"
+										href="https://gambitco.io/"
 										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
-										href="https://alistair.blog"
 									>
-										alistair.blog
+										gambit technologies
 									</Link>
-									, but the most recent three are below
+									. we create lifelike ai to captivate customers for businesses. 🤖
 								</>
 							),
 						},
-
-						...props.recentBlogPosts.map(post => ({
-							key: post.slug,
-							content: (
-								<Link
-									href={`https://alistair.blog/${post.slug}`}
-									key={post.slug}
-									className="group block w-fit min-w-[300px] overflow-hidden"
-								>
-									<h2 className="font-serif text-base group-hover:text-lime-600 dark:group-hover:text-lime-400">
-										{post.name}
-									</h2>
-									<p>{post.excerpt}</p>
-								</Link>
-							),
-						})),
 					]}
 				/>
+
 
 				<MessageGroup
 					messages={[
@@ -130,8 +132,7 @@ export default function Home(props: Props) {
 										content: (
 											<div className="space-y-3">
 												<p>
-													I listen to a lot of music. Mostly I love all/anything electronic, but I'm
-													especially into Drum & Bass. Currently listening to this on Spotify:
+													💿 i listen to a lot of music. i'm currently listening to this on spotify:
 												</p>
 
 												<Link
@@ -181,42 +182,41 @@ export default function Home(props: Props) {
 										key: 'music',
 										content: (
 											<p>
-												I listen to a lot of music, and I really love my Drum & Bass. If you come
-												back to this page later, you might see what I'm listening to on Spotify, in
-												realtime. In the meantime, you can check out my favourite set of all time{' '}
-												<Link
-													href="https://www.youtube.com/watch?v=1c4DFNy2t9E"
-													className="inline-block nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
-													target="_blank"
-												>
-													on YouTube
-												</Link>
+												💿 i listen to a lot of music. if you come 
+												back to this page later, you might see what i'm listening to on spotify, in
+												realtime.
 											</p>
 										),
 									},
 								]),
+					]}
+				/>
+
+				<MessageGroup
+					messages={[
 						{
 							key: 'not-music',
 							content: (
 								<>
-									In the rare case I'm not listening to anything, you can usually find me out and
-									about riding my{' '}
-									<Link
-										href="https://www.youtube.com/watch?v=LBx-JCj-7Y8"
-										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
-										target="_blank"
-									>
-										Evolve skateboard
-									</Link>
-									,{' '}
-									<Link
-										href="https://www.youtube.com/watch?v=x6vlL9Sscmw"
-										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
-										target="_blank"
-									>
-										DJing (on YouTube)
-									</Link>{' '}
-									or trying my hardest to figure out Ableton Live
+									in the rare case i'm not listening to anything, you can usually find me working out,
+									relaxing in the sauna, or playing with my dog. {' '}
+								</>
+							),
+						},
+						{
+							key: 'benny-photo',
+							content: (
+								<>
+									<div className="mt-2 flex justify-center">
+										<img
+											src={benny.src}
+											alt="Benny, my Shiba Inu"
+											className="rounded-lg shadow-md w-64 h-auto"
+										/>
+									</div>
+									<p className="mt-2 text-left text-sm">
+										meet benny!
+									</p>
 								</>
 							),
 						},
@@ -226,45 +226,23 @@ export default function Home(props: Props) {
 				<MessageGroup
 					messages={[
 						{
-							key: 'location',
-							content: (
-								<div className="relative my-1 h-[150px] w-[300px]">
-									<div className="absolute inset-0 overflow-hidden rounded-t-lg rounded-bl-md rounded-br-lg">
-										<img
-											src={`/api/map?location=${lanyard.kv.location}&theme=light`}
-											alt="Map"
-											className="absolute inset-0 h-full w-full scale-125 object-cover dark:hidden"
-										/>
-										<img
-											src={`/api/map?location=${lanyard.kv.location}&theme=dark`}
-											alt="Map"
-											className="absolute inset-0 hidden h-full w-full scale-125 object-cover dark:block"
-										/>
-									</div>
-
-									<span className="absolute left-1/2 top-1/2 z-10 -ml-7 -mt-7 block size-14 animate-ping rounded-full bg-lime-500 duration-1000" />
-
-									<img
-										src={`https://cdn.discordapp.com/avatars/${lanyard.discord_user.id}/${lanyard.discord_user.avatar}.webp?size=160`}
-										alt="Avatar"
-										className="absolute left-1/2 top-1/2 z-10 size-16 -translate-x-1/2 -translate-y-1/2 rounded-full border-2"
-									/>
-								</div>
-							),
-						},
-						{
 							key: 'location-caption',
 							content: (
 								<p>
-									Right now I am in{' '}
-									<Link
-										href={`https://maps.apple.com/?q=${lanyard.kv.location}`}
-										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
-										target="_blank"
-									>
-										{lanyard.kv.location}
-									</Link>{' '}
-									📍
+									📍 right now, i'm in 
+									south korea, but i will be back in canada soon. 🇰🇷
+								</p>
+							),
+						},
+						{
+							key: 'local-time',
+							content: (
+								<p>
+									the current time for me is{' '}
+									<span className="font-semibold">
+										{UKTimeFormatter.format(new Date())}
+									</span>
+									. <span>{timeOfDayMessage.toLowerCase()}</span>
 								</p>
 							),
 						},
@@ -277,8 +255,7 @@ export default function Home(props: Props) {
 							key: 'chat-1',
 							content: (
 								<>
-									Want to reach me? I'd love to chat, whether you want to pitch an idea, or just say
-									hi
+									💬 want to reach out to me? i'd love to chat.
 								</>
 							),
 						},
@@ -286,7 +263,7 @@ export default function Home(props: Props) {
 							key: 'discord',
 							content: (
 								<>
-									My Discord is <code>@alistaiir</code> - I'm currently{' '}
+									my discord is <code>@snoooozle</code> - i'm currently{' '}
 									<span
 										className={
 											{
@@ -299,7 +276,7 @@ export default function Home(props: Props) {
 									>
 										{
 											{
-												dnd: 'in dnd',
+												dnd: 'on dnd',
 												idle: 'idle',
 												online: 'online',
 												offline: 'offline',
@@ -313,13 +290,29 @@ export default function Home(props: Props) {
 							key: 'chat-2',
 							content: (
 								<>
-									Otherwise, I'm available on{' '}
+									otherwise, i'm available on{' '}
 									<Link
-										href="https://x.com/alistaiir"
+										href="https://x.com/maykessj"
 										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
 										target="_blank"
 									>
-										Twitter/X
+										twitter/x
+									</Link>
+									.
+								</>
+							),
+						},
+						{
+							key: 'chat-3',
+							content: (
+								<>
+									also, i'd love to connect on {' '}
+									<Link
+										href="https://www.linkedin.com/in/colemayke/"
+										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
+										target="_blank"
+									>
+										linkedin.
 									</Link>
 								</>
 							),
@@ -330,28 +323,23 @@ export default function Home(props: Props) {
 				<MessageGroup
 					messages={[
 						{
-							key: 'experiments',
-							content: (
-								<>
-									I have some fun experiments on this site, some are functional things I use, others
-									are just me messing around.{' '}
-									<Link
-										href="/experiments"
-										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
-									>
-										Click here to see them
-									</Link>
-									.
-								</>
-							),
-						},
-						{
 							key: 'finally',
 							content: (
 								<>
-									Finally, this site is a recently started WIP. If you have any cool
-									ideas/interactions I should add, reach out! Would love to hear some creative
-									ideas.
+									thanks for visiting my website! 🙏 
+								</>
+							),
+						},
+					]}
+				/>
+
+				<MessageGroup
+					messages={[
+						{
+							key: 'stats',
+							content: (
+								<>
+									<DynamicStats />
 								</>
 							),
 						},

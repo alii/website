@@ -1,17 +1,17 @@
 export const UKTimeFormatter = new Intl.DateTimeFormat(undefined, {
-	timeZone: 'Europe/London',
+	timeZone: 'Asia/Seoul',
 	hour: 'numeric',
 	minute: 'numeric',
-	hour12: false,
+	hour12: true,
 });
 
 export const RelativeTimeFormatter = new Intl.RelativeTimeFormat('en', {
 	style: 'long',
 });
 
-export const discordId = '268798547439255572';
+export const discordId = '213736218754678784';
 
-export const dob = new Date('2004-11-02');
+export const dob = new Date('2002-10-23');
 export const age = new Date(Date.now() - dob.getTime()).getUTCFullYear() - 1970;
 export const hasHadBirthdayThisYear =
 	new Date().getMonth() >= dob.getMonth() && new Date().getDate() >= dob.getDate();

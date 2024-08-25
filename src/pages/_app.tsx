@@ -39,7 +39,7 @@ export default function App({Component, pageProps}: AppProps) {
 			</style>
 
 			<Head>
-				<title>Alistair Smith</title>
+				<title>Cole Mayke</title>
 				<meta content="width=device-width, initial-scale=1" name="viewport" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>

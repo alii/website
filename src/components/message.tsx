@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import {motion} from 'framer-motion';
 import type {ReactNode} from 'react';
-import alistair from '../../public/alistair.jpeg';
+import profile2 from '../../public/profile2.jpg';
 
 export interface MessageGroupProps {
 	messages: Array<{key: string; content: ReactNode}>;
@@ -67,7 +67,7 @@ export function MessageGroup({messages}: MessageGroupProps) {
 			className="flex items-end space-x-2"
 		>
 			<img
-				src={alistair.src}
+				src={profile2.src}
 				className="size-8 rounded-full"
 				alt="Me standing in front of some tents"
 			/>

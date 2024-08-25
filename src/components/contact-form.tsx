@@ -64,7 +64,7 @@ export function ContactForm() {
 						name="email"
 						id="email"
 						required
-						placeholder="hi@alistair.sh"
+						placeholder="cole.mayke@outlook.com"
 						className="w-full"
 					/>
 				</label>
