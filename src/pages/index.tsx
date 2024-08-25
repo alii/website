@@ -115,7 +115,27 @@ export default function Home(props: Props) {
 									>
 										gambit technologies
 									</Link>
-									. we create lifelike ai to captivate customers. 🤖
+									. we create lifelike ai that captivates customers. 🤖
+								</>
+							),
+						},
+					]}
+				/>
+
+<MessageGroup
+					messages={[
+						{
+							key: 'blog-link',
+							content: (
+								<>
+									✍️ interested in my thoughts and experiences? check out my{' '}
+									<Link
+										href="/blog"
+										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
+									>
+										blog
+									</Link>
+									, where i write about anything and everything.
 								</>
 							),
 						},
@@ -189,26 +209,6 @@ export default function Home(props: Props) {
 										),
 									},
 								]),
-					]}
-				/>
-
-				<MessageGroup
-					messages={[
-						{
-							key: 'blog-link',
-							content: (
-								<>
-									✍️ interested in my thoughts and experiences? check out my{' '}
-									<Link
-										href="/blog"
-										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
-									>
-										blog
-									</Link>
-									, where i write about anything and everything.
-								</>
-							),
-						},
 					]}
 				/>
 
