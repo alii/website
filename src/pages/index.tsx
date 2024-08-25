@@ -195,6 +195,26 @@ export default function Home(props: Props) {
 				<MessageGroup
 					messages={[
 						{
+							key: 'blog-link',
+							content: (
+								<>
+									✍️ interested in my thoughts and experiences? check out my{' '}
+									<Link
+										href="/blog"
+										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
+									>
+										blog
+									</Link>
+									, where i write about anything and everything.
+								</>
+							),
+						},
+					]}
+				/>
+
+				<MessageGroup
+					messages={[
+						{
 							key: 'not-music',
 							content: (
 								<>
