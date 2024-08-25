@@ -1,8 +1,8 @@
 {
 	"name": "website",
 	"version": "1.0.0",
-	"repository": "git@github.com:alii/website.git",
-	"author": "Alistair Smith <hi@alistair.sh>",
+	"repository": "git@github.com:colemayke/website.git",
+	"author": "Cole Mayke <cole.mayke@outlook.com>",
 	"license": "Apache-2.0",
 	"private": true,
 	"packageManager": "bun@1.0.0",
