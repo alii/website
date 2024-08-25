@@ -42,7 +42,7 @@ export default function BlogList() {
                 content: (
                   <>
                     <Link href="/blog/post-1" className="font-semibold hover:underline">
-                      I am a Placeholder!
+                      I am a Placeholder! 안녕 혜수 내 사랑
                     </Link>
                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
                       I am a placeholder post.
