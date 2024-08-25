@@ -115,7 +115,7 @@ export default function Home(props: Props) {
 									>
 										gambit technologies
 									</Link>
-									. we create lifelike ai to captivate customers for businesses. 🤖
+									. we create lifelike ai to captivate a business'customers. 🤖
 								</>
 							),
 						},
