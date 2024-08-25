@@ -2,8 +2,8 @@ import {bwitch} from 'bwitch';
 import {NextkitError} from 'nextkit';
 import {z} from 'zod';
 import {api} from '../../server/api';
-import {env} from '../../server/env';
-import {codeblock} from '../../utils/discord';
+// import {env} from '../../server/env';
+// import {codeblock} from '../../utils/discord';
 
 const schema = z.object({
 	email: z.string().email(),
@@ -23,29 +23,29 @@ export default api({
 			throw new NextkitError(400, 'Invalid turnstile token, robot!');
 		}
 
-		const result = await fetch(env.DISCORD_WEBHOOK, {
-			method: 'POST',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({
-				content: 'contact form submission',
-				embeds: [
-					{
-						description: body.body,
-						author: {name: body.email},
-						fields: [{name: 'ip', value: ip ?? 'unknown!?'}],
-					},
+		// const result = await fetch(env.DISCORD_WEBHOOK, {
+		// 	method: 'POST',
+		// 	headers: {'Content-Type': 'application/json'},
+		// 	body: JSON.stringify({
+		// 		content: 'contact form submission',
+		// 		embeds: [
+		// 			{
+		// 				description: body.body,
+		// 				author: {name: body.email},
+		// 				fields: [{name: 'ip', value: ip ?? 'unknown!?'}],
+		// 			},
 
-					{
-						title: 'turnstile',
-						description: codeblock(JSON.stringify(outcome, null, 2), 'json'),
-					},
-				],
-			}),
-		});
+		// 			{
+		// 				title: 'turnstile',
+		// 				description: codeblock(JSON.stringify(outcome, null, 2), 'json'),
+		// 			},
+		// 		],
+		// 	}),
+		// });
 
-		if (result.status >= 400) {
-			throw new NextkitError(result.status, 'Error sending notification');
-		}
+		// if (result.status >= 400) {
+		// 	throw new NextkitError(result.status, 'Error sending notification');
+		// }
 
 		return bwitch(req.headers['content-type'])
 			.case('application/json', () => ({sent: true}))
