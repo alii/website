@@ -4,16 +4,7 @@ import {sign, verify} from 'jsonwebtoken';
 import {env} from './env';
 
 export interface SessionData {
-	monzo_user_credentials?:
-		| {
-				access_token: string;
-				refresh_token: string;
-				token_type: string;
-		  }
-		| {
-				token_type: string;
-				access_token: string;
-		  };
+	// Add any other session data you need here
 }
 
 export function createSessionJWT(data: SessionData) {

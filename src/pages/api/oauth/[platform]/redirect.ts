@@ -1,12 +1,9 @@
 import {z} from 'zod';
 import {api} from '../../../../server/api';
-import {monzoOAuthAPI} from '../../../../server/monzo';
-
-const toRedirectUrlSchema = z.literal('monzo').transform(() => monzoOAuthAPI.getOAuthURL());
 
 const urlSchema = z
 	.object({
-		platform: toRedirectUrlSchema,
+		platform: z.string(),
 	})
 	.transform(result => result.platform);
 
@@ -20,8 +17,10 @@ export default api({
 			};
 		}
 
+		// Handle other OAuth platforms here if needed
+
 		return {
-			_redirect: result.data.url,
+			_redirect: '/oauth/error?message=Invalid%20platform',
 		};
 	},
 });
