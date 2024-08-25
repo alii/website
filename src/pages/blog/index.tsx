@@ -42,10 +42,10 @@ export default function BlogList() {
                 content: (
                   <>
                     <Link href="/blog/post-1" className="font-semibold hover:underline">
-                      I am a Placeholder! 안녕 혜수 내 사랑
+                      안녕 혜수 내 사랑
                     </Link>
                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                      I am a placeholder post.
+                      hellooo i am a placeholder description
                     </p>
                   </>
                 ),
@@ -55,10 +55,10 @@ export default function BlogList() {
                 content: (
                   <>
                     <Link href="/blog/post-2" className="font-semibold hover:underline">
-                      I am a Placeholder!
+                      south korea - my second home 🇰🇷
                     </Link>
                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                      I am a placeholder post.
+                      my life in south korea
                     </p>
                   </>
                 ),
@@ -68,10 +68,23 @@ export default function BlogList() {
                 content: (
                   <>
                     <Link href="/blog/post-3" className="font-semibold hover:underline">
-                      I am a Placeholder!
+                      gallium ai - my first failed startup (WIP)
                     </Link>
                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                      I am a placeholder post.
+                      sometimes you have to fail to succeed
+                    </p>
+                  </>
+                ),
+              },
+              {
+                key: 'blog-post-4',
+                content: (
+                  <>
+                    <Link href="/blog/post-4" className="font-semibold hover:underline">
+                      why i chose to study engineering - my why of life
+                    </Link>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                      i don't know what i want to do with my life, and i don't know if i will ever figure it out
                     </p>
                   </>
                 ),
@@ -85,7 +98,7 @@ export default function BlogList() {
                 key: 'blog-outro',
                 content: (
                   <>
-                    more coming soon! stay tuned for updates. 🚀
+                    more coming soon! stay tuned for updates. 🚀 (this page is a WIP)
                   </>
                 ),
               },
