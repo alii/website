@@ -89,6 +89,19 @@ export default function BlogList() {
                   </>
                 ),
               },
+              {
+                key: 'blog-post-5',
+                content: (
+                  <>
+                    <Link href="/blog/post-5" className="font-semibold hover:underline">
+                      exploring busan 🌊
+                    </Link>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                      discovering the charm of korea's second-largest city
+                    </p>
+                  </>
+                ),
+              },
             ]}
           />
 
