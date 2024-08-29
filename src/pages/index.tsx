@@ -88,6 +88,22 @@ export default function Home(props: Props) {
 							),
 						},
 						{
+							key: 'rogers',
+							content: (
+								<>
+									i've completed two internships at{' '}
+									<Link
+										target="_blank"
+										href="https://www.rogers.com/"
+										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
+									>
+										rogers communications
+									</Link>
+									{' '}as a software engineer, which taught me a ton about the software development lifecycle and how applications are built. 🧑‍💻
+								</>
+							),
+						},
+						{
 							key: 'karrierone',
 							content: (
 								<>

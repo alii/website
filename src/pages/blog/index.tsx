@@ -28,7 +28,38 @@ export default function BlogList() {
                 key: 'blog-intro',
                 content: (
                   <>
-                    📝 welcome to my blog. here are some of my recent posts:
+                    📝 welcome to my blog. here are my published posts:
+                  </>
+                ),
+              },
+            ]}
+          />
+
+          <MessageGroup
+            messages={[
+              {
+                key: 'blog-post-busan',
+                content: (
+                  <>
+                    <Link href="/blog/busan" className="font-semibold hover:underline">
+                      exploring busan 🌊
+                    </Link>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                      discovering the charm of korea's second-largest city (WIP)
+                    </p>
+                  </>
+                ),
+              },
+            ]}
+          />
+
+          <MessageGroup
+            messages={[
+              {
+                key: 'upcoming-intro',
+                content: (
+                  <>
+                    🚀 upcoming posts:
                   </>
                 ),
               },
@@ -45,20 +76,7 @@ export default function BlogList() {
                       안녕 혜수 내 사랑
                     </Link>
                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                      hellooo i am a placeholder description
-                    </p>
-                  </>
-                ),
-              },
-              {
-                key: 'blog-post-2',
-                content: (
-                  <>
-                    <Link href="/blog/post-2" className="font-semibold hover:underline">
-                      south korea - my second home 🇰🇷
-                    </Link>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                      my life in south korea
+                      hellooo i am a work in progress
                     </p>
                   </>
                 ),
@@ -81,23 +99,10 @@ export default function BlogList() {
                 content: (
                   <>
                     <Link href="/blog/post-4" className="font-semibold hover:underline">
-                      why i chose to study engineering - my why of life
+                      why i chose to study engineering
                     </Link>
                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
                       i don't know what i want to do with my life, and i don't know if i will ever figure it out - and that's okay
-                    </p>
-                  </>
-                ),
-              },
-              {
-                key: 'blog-post-5',
-                content: (
-                  <>
-                    <Link href="/blog/post-5" className="font-semibold hover:underline">
-                      exploring busan 🌊
-                    </Link>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                      discovering the charm of korea's second-largest city
                     </p>
                   </>
                 ),
@@ -111,7 +116,7 @@ export default function BlogList() {
                 key: 'blog-outro',
                 content: (
                   <>
-                    more coming soon! stay tuned for updates. 🚀 (this page is a WIP)
+                    stay tuned for updates! 🚀
                   </>
                 ),
               },
