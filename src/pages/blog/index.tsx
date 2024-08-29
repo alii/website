@@ -41,7 +41,7 @@ export default function BlogList() {
                 key: 'blog-post-busan',
                 content: (
                   <>
-                    <Link href="/blog/busan" className="font-semibold hover:underline">
+                    <Link href="/blog/busan-wip" className="font-semibold hover:underline">
                       exploring busan 🌊
                     </Link>
                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
