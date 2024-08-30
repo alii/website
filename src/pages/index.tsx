@@ -138,7 +138,7 @@ export default function Home(props: Props) {
 					]}
 				/>
 
-<MessageGroup
+{/* <MessageGroup
 					messages={[
 						{
 							key: 'blog-link',
@@ -156,7 +156,7 @@ export default function Home(props: Props) {
 							),
 						},
 					]}
-				/>
+				/> */}
 
 
 				<MessageGroup
