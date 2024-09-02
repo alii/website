@@ -65,23 +65,6 @@ export default function Home(props: Props) {
 								</>
 							),
 						},
-						{
-							key: 'work',
-							content: (
-								<>
-									Currently I'm working on{' '}
-									<Link
-										target="_blank"
-										href="https://cubby.nyc"
-										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
-									>
-										Cubby
-									</Link>
-									. It's a powerful private workspace for researching all types of content &amp;
-									media
-								</>
-							),
-						},
 					]}
 				/>
 
