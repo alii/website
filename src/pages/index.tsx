@@ -47,7 +47,7 @@ export default function Home(props: Props) {
 		<main className="mx-auto max-w-xl px-3 pb-16 pt-24">
 			<motion.ul
 				transition={{
-					staggerChildren: 0.3,
+					staggerChildren: 0.4,
 					delayChildren: 0.3,
 				}}
 				initial="hidden"
@@ -59,48 +59,39 @@ export default function Home(props: Props) {
 						{
 							key: 'intro',
 							content: (
-								<>
-									Hi there, I'm <span className="font-serif">Alistair</span>. I'm a software
+								<div className="px-3 py-2">
+									Hi, I'm <span className="font-serif font-bold">Alistair</span>. I'm a software
 									engineer
-								</>
+								</div>
 							),
 						},
-					]}
-				/>
-
-				<MessageGroup
-					messages={[
 						{
-							key: 'blog-intro',
+							key: 'what-i-do',
 							content: (
-								<>
-									I try to write a blog post every now and then. I do OK at that. Everything is on{' '}
+								<p className="px-3 py-2">
+									I am currently working on{' '}
 									<Link
+										href="https://cubby.nyc"
 										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
-										href="https://alistair.blog"
+										target="_blank"
+										rel="noopener noreferrer"
 									>
-										alistair.blog
+										Cubby
 									</Link>
-									, but the most recent three are below
-								</>
+									. It's a research tool from the future. I also do a lot of open source stuff. You
+									can{' '}
+									<Link
+										href="https://github.com/alii"
+										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										check that out on my GitHub
+									</Link>
+									.
+								</p>
 							),
 						},
-
-						...props.recentBlogPosts.map(post => ({
-							key: post.slug,
-							content: (
-								<Link
-									href={`https://alistair.blog/${post.slug}`}
-									key={post.slug}
-									className="group block w-fit min-w-[300px] overflow-hidden"
-								>
-									<h2 className="font-serif text-base group-hover:text-lime-600 dark:group-hover:text-lime-400">
-										{post.name}
-									</h2>
-									<p>{post.excerpt}</p>
-								</Link>
-							),
-						})),
 					]}
 				/>
 
@@ -111,7 +102,7 @@ export default function Home(props: Props) {
 									{
 										key: 'music',
 										content: (
-											<div className="space-y-3">
+											<div className="space-y-3 px-3 py-2">
 												<p>
 													I listen to a lot of music. Mostly I love all/anything electronic, but I'm
 													especially into Drum & Bass. Currently listening to this on Spotify:
@@ -163,7 +154,7 @@ export default function Home(props: Props) {
 									{
 										key: 'music',
 										content: (
-											<p>
+											<p className="px-3 py-2">
 												I listen to a lot of music, and I really love my Drum & Bass. If you come
 												back to this page later, you might see what I'm listening to on Spotify, in
 												realtime. In the meantime, you can check out my favourite set of all time{' '}
@@ -181,7 +172,7 @@ export default function Home(props: Props) {
 						{
 							key: 'not-music',
 							content: (
-								<>
+								<div className="px-3 py-2">
 									In the rare case I'm not listening to anything, you can usually find me out and
 									about riding my{' '}
 									<Link
@@ -200,7 +191,7 @@ export default function Home(props: Props) {
 										DJing (on YouTube)
 									</Link>{' '}
 									or trying my hardest to figure out Ableton Live
-								</>
+								</div>
 							),
 						},
 					]}
@@ -209,36 +200,74 @@ export default function Home(props: Props) {
 				<MessageGroup
 					messages={[
 						{
+							key: 'blog-intro',
+							content: (
+								<div className="px-3 py-2">
+									I try to write a blog post every now and then. I do OK at that. Everything is on{' '}
+									<Link
+										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
+										href="https://alistair.blog"
+									>
+										alistair.blog
+									</Link>
+									, but the most recent three are below
+								</div>
+							),
+						},
+
+						...props.recentBlogPosts.map(post => ({
+							key: post.slug,
+							content: (
+								<Link
+									href={`https://alistair.blog/${post.slug}`}
+									key={post.slug}
+									className="group block w-fit min-w-[300px] overflow-hidden px-3 py-2"
+								>
+									<h2 className="font-serif text-base font-bold group-hover:text-lime-600 dark:group-hover:text-lime-400">
+										{post.name}
+									</h2>
+									<p>{post.excerpt}</p>
+								</Link>
+							),
+						})),
+					]}
+				/>
+
+				<MessageGroup
+					messages={[
+						{
 							key: 'location',
 							content: (
-								<div className="relative my-1 h-[150px] w-[300px]">
-									<div className="absolute inset-0 overflow-hidden rounded-t-lg rounded-bl-md rounded-br-lg">
+								<div className="px-3 py-2">
+									<div className="relative my-1 h-[150px] w-[300px]">
+										<div className="absolute inset-0 overflow-hidden rounded-t-lg rounded-bl-md rounded-br-lg">
+											<img
+												src={`/api/map?location=${lanyard.kv.location}&theme=light`}
+												alt="Map"
+												className="absolute inset-0 h-full w-full scale-125 object-cover dark:hidden"
+											/>
+											<img
+												src={`/api/map?location=${lanyard.kv.location}&theme=dark`}
+												alt="Map"
+												className="absolute inset-0 hidden h-full w-full scale-125 object-cover dark:block"
+											/>
+										</div>
+
+										<span className="absolute left-1/2 top-1/2 z-10 -ml-7 -mt-7 block size-14 animate-ping rounded-full bg-lime-500 duration-1000" />
+
 										<img
-											src={`/api/map?location=${lanyard.kv.location}&theme=light`}
-											alt="Map"
-											className="absolute inset-0 h-full w-full scale-125 object-cover dark:hidden"
-										/>
-										<img
-											src={`/api/map?location=${lanyard.kv.location}&theme=dark`}
-											alt="Map"
-											className="absolute inset-0 hidden h-full w-full scale-125 object-cover dark:block"
+											src={`https://cdn.discordapp.com/avatars/${lanyard.discord_user.id}/${lanyard.discord_user.avatar}.webp?size=160`}
+											alt="Avatar"
+											className="absolute left-1/2 top-1/2 z-10 size-16 -translate-x-1/2 -translate-y-1/2 rounded-full border-2"
 										/>
 									</div>
-
-									<span className="absolute left-1/2 top-1/2 z-10 -ml-7 -mt-7 block size-14 animate-ping rounded-full bg-lime-500 duration-1000" />
-
-									<img
-										src={`https://cdn.discordapp.com/avatars/${lanyard.discord_user.id}/${lanyard.discord_user.avatar}.webp?size=160`}
-										alt="Avatar"
-										className="absolute left-1/2 top-1/2 z-10 size-16 -translate-x-1/2 -translate-y-1/2 rounded-full border-2"
-									/>
 								</div>
 							),
 						},
 						{
 							key: 'location-caption',
 							content: (
-								<p>
+								<p className="px-3 py-2">
 									Right now I am in{' '}
 									<Link
 										href={`https://maps.apple.com/?q=${lanyard.kv.location}`}
@@ -259,16 +288,16 @@ export default function Home(props: Props) {
 						{
 							key: 'chat-1',
 							content: (
-								<>
+								<div className="px-3 py-2">
 									Want to reach me? I'd love to chat, whether you want to pitch an idea, or just say
 									hi
-								</>
+								</div>
 							),
 						},
 						{
 							key: 'discord',
 							content: (
-								<>
+								<div className="px-3 py-2">
 									My Discord is <code className="font-serif">@alistaiir</code> - I'm currently{' '}
 									<span
 										className={
@@ -289,13 +318,13 @@ export default function Home(props: Props) {
 											}[status]
 										}
 									</span>
-								</>
+								</div>
 							),
 						},
 						{
 							key: 'chat-2',
 							content: (
-								<>
+								<div className="px-3 py-2">
 									Otherwise, I'm available on{' '}
 									<Link
 										href="https://x.com/alistaiir"
@@ -304,7 +333,7 @@ export default function Home(props: Props) {
 									>
 										Twitter/X
 									</Link>
-								</>
+								</div>
 							),
 						},
 					]}
@@ -315,7 +344,7 @@ export default function Home(props: Props) {
 						{
 							key: 'experiments',
 							content: (
-								<>
+								<div className="px-3 py-2">
 									I have some fun experiments on this site, some are functional things I use, others
 									are just me messing around.{' '}
 									<Link
@@ -325,17 +354,17 @@ export default function Home(props: Props) {
 										Click here to see them
 									</Link>
 									.
-								</>
+								</div>
 							),
 						},
 						{
 							key: 'finally',
 							content: (
-								<>
+								<div className="px-3 py-2">
 									Finally, this site is a recently started WIP. If you have any cool
 									ideas/interactions I should add, reach out! Would love to hear some creative
 									ideas.
-								</>
+								</div>
 							),
 						},
 					]}

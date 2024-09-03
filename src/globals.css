@@ -16,3 +16,7 @@ body {
 	background-size: 50%;
 	@apply fixed inset-0 -z-10 opacity-[0.03] dark:opacity-[0.018];
 }
+
+a[href] {
+	@apply ring-indigo-500 focus:outline-none focus-visible:ring-[2.5px];
+}
