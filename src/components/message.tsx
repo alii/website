@@ -36,7 +36,7 @@ function MessageBubble({
 			}}
 			variants={item}
 			className={clsx(
-				'w-fit border border-neutral-200 bg-gray-100 px-3 py-2 text-sm dark:border-neutral-800 dark:bg-neutral-900',
+				'w-fit border border-neutral-200 bg-gray-100 px-3 py-2 text-sm shadow-xl shadow-neutral-300/50 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200 dark:shadow-md dark:shadow-neutral-500/10',
 
 				isLast && isFirst
 					? 'rounded-xl'

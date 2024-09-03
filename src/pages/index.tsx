@@ -286,7 +286,7 @@ export default function Home(props: Props) {
 							key: 'discord',
 							content: (
 								<>
-									My Discord is <code>@alistaiir</code> - I'm currently{' '}
+									My Discord is <code className="font-serif">@alistaiir</code> - I'm currently{' '}
 									<span
 										className={
 											{
