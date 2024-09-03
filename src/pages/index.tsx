@@ -97,6 +97,42 @@ export default function Home(props: Props) {
 
 				<MessageGroup
 					messages={[
+						{
+							key: 'blog-intro',
+							content: (
+								<div className="px-3 py-2">
+									I try to write a blog post every now and then. I do OK at that. Everything is on{' '}
+									<Link
+										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
+										href="https://alistair.blog"
+									>
+										alistair.blog
+									</Link>
+									, but the most recent three are below
+								</div>
+							),
+						},
+
+						...props.recentBlogPosts.map(post => ({
+							key: post.slug,
+							content: (
+								<Link
+									href={`https://alistair.blog/${post.slug}`}
+									key={post.slug}
+									className="group block w-fit min-w-[300px] overflow-hidden px-3 py-2"
+								>
+									<h2 className="font-serif text-base font-bold group-hover:text-lime-600 dark:group-hover:text-lime-400">
+										{post.name}
+									</h2>
+									<p>{post.excerpt}</p>
+								</Link>
+							),
+						})),
+					]}
+				/>
+
+				<MessageGroup
+					messages={[
 						...(lanyard.spotify
 							? [
 									{
@@ -194,42 +230,6 @@ export default function Home(props: Props) {
 								</div>
 							),
 						},
-					]}
-				/>
-
-				<MessageGroup
-					messages={[
-						{
-							key: 'blog-intro',
-							content: (
-								<div className="px-3 py-2">
-									I try to write a blog post every now and then. I do OK at that. Everything is on{' '}
-									<Link
-										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
-										href="https://alistair.blog"
-									>
-										alistair.blog
-									</Link>
-									, but the most recent three are below
-								</div>
-							),
-						},
-
-						...props.recentBlogPosts.map(post => ({
-							key: post.slug,
-							content: (
-								<Link
-									href={`https://alistair.blog/${post.slug}`}
-									key={post.slug}
-									className="group block w-fit min-w-[300px] overflow-hidden px-3 py-2"
-								>
-									<h2 className="font-serif text-base font-bold group-hover:text-lime-600 dark:group-hover:text-lime-400">
-										{post.name}
-									</h2>
-									<p>{post.excerpt}</p>
-								</Link>
-							),
-						})),
 					]}
 				/>
 

@@ -1,5 +1,6 @@
 import '../globals.css';
 
+import {GoogleAnalytics} from '@next/third-parties/google';
 import type {AppProps} from 'next/app';
 import {Inter, Newsreader} from 'next/font/google';
 import Head from 'next/head';
@@ -17,6 +18,8 @@ const serif = Newsreader({
 const body = Inter({
 	subsets: ['latin'],
 });
+
+const tag = process.env.NEXT_PUBLIC_GTM_ID;
 
 export default function App({Component, pageProps}: AppProps) {
 	useFirstEverLoad();
@@ -47,6 +50,8 @@ export default function App({Component, pageProps}: AppProps) {
 			<Component {...pageProps} />
 
 			<Toaster />
+
+			{tag && <GoogleAnalytics gaId={tag} />}
 		</>
 	);
 }
