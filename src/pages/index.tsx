@@ -69,26 +69,9 @@ export default function Home(props: Props) {
 							key: 'what-i-do',
 							content: (
 								<p className="px-3 py-2">
-									I am currently working on{' '}
-									<Link
-										href="https://cubby.nyc"
-										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										Cubby
-									</Link>
-									. It's a research tool from the future. I also do a lot of open source stuff. You
-									can{' '}
-									<Link
-										href="https://github.com/alii"
-										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										check that out on my GitHub
-									</Link>
-									.
+									I am an open source enthusiast and I've been called a TypeScript wizard at least a
+									few times. I'm interested in things like language specifications and compiler
+									internals.
 								</p>
 							),
 						},
@@ -140,8 +123,8 @@ export default function Home(props: Props) {
 										content: (
 											<div className="space-y-3 px-3 py-2">
 												<p>
-													I listen to a lot of music. Mostly I love all/anything electronic, but I'm
-													especially into Drum & Bass. Currently listening to this on Spotify:
+													I listen to a lot of music. I love all electronic music, and{' '}
+													<i>right now</i> I am listening to this on Spotify
 												</p>
 
 												<Link
@@ -226,7 +209,14 @@ export default function Home(props: Props) {
 									>
 										DJing (on YouTube)
 									</Link>{' '}
-									or trying my hardest to figure out Ableton Live
+									or{' '}
+									<Link
+										href="https://soundcloud.com/alistairsmusic/"
+										className="underline decoration-neutral-400 dark:decoration-neutral-200/50"
+										target="_blank"
+									>
+										trying my hardest to figure out Ableton Live
+									</Link>
 								</div>
 							),
 						},
