@@ -60,7 +60,7 @@ export default function Home(props: Props) {
 							key: 'intro',
 							content: (
 								<div className="px-3 py-2">
-									Hi, I'm <span className="font-serif font-bold">Alistair</span>. I'm a software
+									Hi, I'm <span className="font-serif italic">Alistair</span>. I'm a software
 									engineer
 								</div>
 							),
@@ -104,10 +104,10 @@ export default function Home(props: Props) {
 									key={post.slug}
 									className="group block w-fit min-w-[300px] overflow-hidden px-3 py-2"
 								>
-									<h2 className="font-serif text-base font-bold group-hover:text-lime-600 dark:group-hover:text-lime-400">
+									<h2 className="font-serif text-base italic group-hover:text-lime-600 dark:group-hover:text-lime-400">
 										{post.name}
 									</h2>
-									<p>{post.excerpt}</p>
+									<p className="text-neutral-800 dark:text-neutral-300">{post.excerpt}</p>
 								</Link>
 							),
 						})),
@@ -288,7 +288,8 @@ export default function Home(props: Props) {
 							key: 'discord',
 							content: (
 								<div className="px-3 py-2">
-									My Discord is <code className="font-serif">@alistaiir</code> - I'm currently{' '}
+									My Discord is <code className="font-serif italic">@alistaiir</code> - I'm
+									currently{' '}
 									<span
 										className={
 											{

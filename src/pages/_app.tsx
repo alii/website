@@ -10,9 +10,9 @@ import {useFirstEverLoad, useVisitCounts} from '../hooks/use-first-ever-load';
 
 const serif = Newsreader({
 	subsets: ['latin'],
-	weight: ['400', '200'],
+	weight: ['400'],
 	style: 'italic',
-	fallback: ['serif'],
+	// fallback: ['serif'],
 });
 
 const body = Inter({
@@ -36,7 +36,7 @@ export default function App({Component, pageProps}: AppProps) {
 				{`
 					:root {
 						--font-serif: ${serif.style.fontFamily};
-						--font-body: ${body.style.fontFamily};
+						--font-sans: ${body.style.fontFamily};
 					}
 				`}
 			</style>
