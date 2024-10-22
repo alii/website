@@ -32,6 +32,7 @@
 		"typescript": "^5.5.4"
 	},
 	"dependencies": {
+		"@c-side/next": "^1.0.0",
 		"@marsidev/react-turnstile": "^0.7.2",
 		"@next/third-parties": "^14.2.7",
 		"@otters/monzo": "^2.1.2",

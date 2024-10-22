@@ -1,10 +1,13 @@
+import {CSideScript} from '@c-side/next';
 import Document, {Head, Html, Main, NextScript} from 'next/document';
 
 export default class WebsiteDocument extends Document {
 	override render() {
 		return (
 			<Html>
-				<Head />
+				<Head>
+					<CSideScript />
+				</Head>
 				<body>
 					<Main />
 					<NextScript />
