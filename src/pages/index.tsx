@@ -119,22 +119,6 @@ export default function Home(props: Props) {
 								</>
 							),
 						},
-						{
-							key: 'gambit',
-							content: (
-								<>
-									i'm also working with{' '}
-									<Link
-										target="_blank"
-										href="https://gambitco.io/"
-										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
-									>
-										gambit technologies
-									</Link>
-									. we create lifelike ai that captivates customers. 🤖
-								</>
-							),
-						},
 					]}
 				/>
 
