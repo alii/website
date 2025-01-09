@@ -178,7 +178,7 @@ export default function Home(props: Props) {
 												realtime. In the meantime, you can check out
 												<Link
 													href="https://www.youtube.com/watch?v=BsPg7bjT1rM"
-													className="inline-block nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
+													className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50 inline-block"
 													target="_blank"
 												>
 													this Four Tet DJ set that I love
