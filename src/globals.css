@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 body {
-	@apply overscroll-none;
+	@apply select-none overflow-hidden overscroll-none;
 	/*  Use no anti aliasing on the font at all */
 	-webkit-font-smoothing: none;
 	-moz-osx-font-smoothing: none;

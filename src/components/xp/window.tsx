@@ -18,6 +18,11 @@ export function WindowTitleBar(props: WindowControlsProps) {
 	);
 }
 
+interface Position {
+	x: number;
+	y: number;
+}
+
 export interface WindowFrameProps extends PropsWithChildren, WindowControlsProps {
 	title: string;
 	resizable?: boolean;
@@ -26,6 +31,8 @@ export interface WindowFrameProps extends PropsWithChildren, WindowControlsProps
 export function WindowFrame({title, children, ...controlProps}: WindowFrameProps) {
 	const ref = useRef<HTMLDivElement>(null);
 	const [isMouseDown, setIsMouseDown] = useState(false);
+	const dragStart = useRef<Position | null>(null);
+	const windowPosition = useRef<Position | null>(null);
 
 	useEffect(() => {
 		const el = ref.current;
@@ -35,10 +42,42 @@ export function WindowFrame({title, children, ...controlProps}: WindowFrameProps
 		}
 
 		const onMouseMove = (e: MouseEvent) => {
-			//
+			if (!dragStart.current || !windowPosition.current) {
+				return;
+			}
+
+			const elBoundsRelativeToScreen = el.getBoundingClientRect();
+
+			const deltaX = e.clientX - dragStart.current.x;
+			const deltaY = e.clientY - dragStart.current.y;
+
+			const nextX = windowPosition.current.x + deltaX;
+			const nextY = windowPosition.current.y + deltaY;
+
+			const willGoOffScreen =
+				nextY < 0 ||
+				nextY + elBoundsRelativeToScreen.height > window.innerHeight ||
+				nextX < 0 ||
+				nextX + elBoundsRelativeToScreen.width > window.innerWidth;
+
+			if (willGoOffScreen) {
+				return;
+			}
+
+			el.style.transform = `translate(${nextX}px, ${nextY}px)`;
 		};
 
 		const onMouseUp = () => {
+			if (!el) return;
+
+			const transform = el.getBoundingClientRect();
+
+			windowPosition.current = {
+				x: transform.x,
+				y: transform.y,
+			};
+
+			dragStart.current = null;
 			setIsMouseDown(false);
 		};
 
@@ -51,13 +90,33 @@ export function WindowFrame({title, children, ...controlProps}: WindowFrameProps
 		};
 	}, [isMouseDown]);
 
+	const handleMouseDown = (e: React.MouseEvent) => {
+		const el = ref.current;
+		if (!el) return;
+
+		if (!windowPosition.current) {
+			const currentWindowPosition = el.getBoundingClientRect();
+
+			windowPosition.current = {
+				x: currentWindowPosition.x,
+				y: currentWindowPosition.y,
+			};
+		}
+
+		dragStart.current = {
+			x: e.clientX,
+			y: e.clientY,
+		};
+
+		setIsMouseDown(true);
+	};
+
 	return (
 		<div className="window absolute w-fit" ref={ref}>
-			<div className="title-bar" onMouseDown={() => setIsMouseDown(true)}>
+			<div className="title-bar" onMouseDown={handleMouseDown}>
 				<div className="title-bar-text select-none">{title}</div>
 				<WindowTitleBar {...controlProps} />
 			</div>
-
 			<div className="window-body">{children}</div>
 		</div>
 	);
