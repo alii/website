@@ -36,15 +36,15 @@ function MessageBubble({
 			}}
 			variants={item}
 			className={clsx(
-				'w-fit border border-neutral-200 bg-gray-100 text-sm dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200',
+				'w-fit border border-neutral-200 bg-white text-sm shadow-sm dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-400 dark:shadow-none',
 
 				isLast && isFirst
-					? 'rounded-xl'
+					? 'rounded-2xl'
 					: isFirst
-						? 'rounded-b-md rounded-t-xl'
+						? 'rounded-b-lg rounded-t-2xl'
 						: isLast
-							? 'rounded-b-xl rounded-t-md'
-							: 'rounded-md',
+							? 'rounded-b-2xl rounded-t-lg'
+							: 'rounded-lg',
 			)}
 		>
 			{content}
