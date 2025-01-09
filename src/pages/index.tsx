@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import type {GetStaticProps} from 'next';
 import {useLanyardWS, type Data as LanyardData} from 'use-lanyard';
-import {WindowFrame} from '../components/xp/window';
+import {WindowFrame} from '../components/xp/components/window';
 import {getRecentBlogPosts, type PartialBlogPost} from '../server/blog';
 import {env} from '../server/env';
 import {getLanyard} from '../server/lanyard';
