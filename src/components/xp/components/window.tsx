@@ -1,5 +1,6 @@
 import {useRef, type PropsWithChildren} from 'react';
 import {useWindowDrag} from '../hooks/use-window-drag';
+import {useActiveWindowStack} from '../state';
 
 export interface WindowControlsProps {
 	onMinimize?: () => void;
@@ -28,8 +29,15 @@ export function WindowFrame({title, children, ...controlProps}: WindowFrameProps
 	const ref = useRef<HTMLDivElement>(null);
 	const {handleMouseDown} = useWindowDrag(ref);
 
+	const [zIndex, onActiveWindowMouseDown] = useActiveWindowStack();
+
 	return (
-		<div className="window absolute w-fit" ref={ref}>
+		<div
+			ref={ref}
+			onMouseDown={onActiveWindowMouseDown}
+			className="window absolute w-fit"
+			style={{zIndex}}
+		>
 			<div className="title-bar" onMouseDown={handleMouseDown}>
 				<div className="title-bar-text select-none">{title}</div>
 				<WindowTitleBar {...controlProps} />

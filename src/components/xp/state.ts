@@ -1,0 +1,56 @@
+import {atom, useAtom} from 'alistair/atoms';
+import {useEffect, useId} from 'react';
+
+class WindowZIndexStack {
+	private readonly stack: string[];
+
+	constructor(stack: string[] = []) {
+		this.stack = stack;
+
+		console.log('stack', this.stack);
+	}
+
+	promote(id: string): WindowZIndexStack {
+		return new WindowZIndexStack([id, ...this.stack.filter(i => i !== id)]);
+	}
+
+	getPosition(id: string): number {
+		return this.stack.indexOf(id);
+	}
+
+	isActive(id: string): boolean {
+		return this.getPosition(id) === 0;
+	}
+
+	remove(id: string): WindowZIndexStack {
+		return new WindowZIndexStack(this.stack.filter(i => i !== id));
+	}
+
+	get size(): number {
+		return this.stack.length;
+	}
+}
+
+export const atomActiveWindowStack = atom<WindowZIndexStack>(new WindowZIndexStack());
+
+export function useActiveWindowStack() {
+	const id = useId();
+
+	const [stack, setStack] = useAtom(atomActiveWindowStack);
+
+	const onMouseDown = () => {
+		setStack(stack => stack.promote(id));
+	};
+
+	useEffect(() => {
+		setStack(stack => stack.promote(id));
+
+		return () => {
+			setStack(stack => stack.remove(id));
+		};
+	}, [id]);
+
+	const zIndex = stack.size - stack.getPosition(id);
+
+	return [zIndex, onMouseDown] as const;
+}
