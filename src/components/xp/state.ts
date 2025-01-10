@@ -1,5 +1,5 @@
 import {atom, useAtom} from 'alistair/atoms';
-import {useEffect, useId} from 'react';
+import {useEffect, useId, useRef} from 'react';
 
 class WindowZIndexStack {
 	private readonly stack: string[];
@@ -36,8 +36,25 @@ export function useActiveWindowStack() {
 
 	const [stack, setStack] = useAtom(atomActiveWindowStack);
 
-	const onMouseDown = () => {
-		setStack(stack => stack.promote(id));
+	const isAwaitingMouseUp = useRef(false);
+
+	const listeners = {
+		onMouseDown: () => {
+			if (stack.isActive(id)) {
+				return;
+			}
+
+			setStack(stack => stack.promote(id));
+			isAwaitingMouseUp.current = true;
+		},
+
+		onClickCapture: (e: React.MouseEvent<HTMLDivElement>) => {
+			if (isAwaitingMouseUp.current) {
+				e.stopPropagation();
+				e.preventDefault();
+				isAwaitingMouseUp.current = false;
+			}
+		},
 	};
 
 	useEffect(() => {
@@ -50,5 +67,7 @@ export function useActiveWindowStack() {
 
 	const zIndex = stack.size - stack.getPosition(id);
 
-	return [zIndex, onMouseDown] as const;
+	const isActive = stack.isActive(id);
+
+	return [zIndex, isActive, listeners] as const;
 }

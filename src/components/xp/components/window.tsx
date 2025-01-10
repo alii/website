@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import {useRef, type PropsWithChildren} from 'react';
 import {useWindowDrag} from '../hooks/use-window-drag';
 import {useActiveWindowStack} from '../state';
@@ -29,21 +30,18 @@ export function WindowFrame({title, children, ...controlProps}: WindowFrameProps
 	const ref = useRef<HTMLDivElement>(null);
 	const {handleMouseDown} = useWindowDrag(ref);
 
-	const [zIndex, onActiveWindowMouseDown] = useActiveWindowStack();
+	const [zIndex, isActive, listeners] = useActiveWindowStack();
 
 	return (
-		<div
-			ref={ref}
-			onMouseDown={onActiveWindowMouseDown}
-			className="window absolute w-fit"
-			style={{zIndex}}
-		>
+		<div ref={ref} {...listeners} className={clsx('window absolute w-fit')} style={{zIndex}}>
 			<div className="title-bar" onMouseDown={handleMouseDown}>
 				<div className="title-bar-text select-none">{title}</div>
 				<WindowTitleBar {...controlProps} />
 			</div>
 
-			<div className="window-body">{children}</div>
+			<div className={clsx(!isActive && 'pointer-events-none')}>
+				<div className="window-body">{children}</div>
+			</div>
 		</div>
 	);
 }
