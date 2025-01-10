@@ -1,4 +1,5 @@
-import {useEffect, useRef, useState, type RefObject} from 'react';
+import {useEvent, useLocalStorage} from 'alistair/hooks';
+import {useEffect, useId, useLayoutEffect, useRef, useState, type RefObject} from 'react';
 import type {Position} from '../types';
 
 interface UseWindowDragReturn {
@@ -7,6 +8,27 @@ interface UseWindowDragReturn {
 }
 
 export function useWindowDrag(ref: RefObject<HTMLElement>): UseWindowDragReturn {
+	const id = useId();
+
+	const [initialPosition, storePositionInLocalStorage] = useLocalStorage<Position | null>(
+		`window-position-${id}`,
+		() => null,
+	);
+
+	useLayoutEffect(() => {
+		if (!initialPosition || !ref.current) {
+			return;
+		}
+
+		ref.current.style.transform = `translate(${initialPosition.x}px, ${initialPosition.y}px)`;
+	}, [initialPosition, ref]);
+
+	const updatePosition = useEvent((position: Position) => {
+		if (!ref.current) return;
+		storePositionInLocalStorage(position);
+		ref.current.style.transform = `translate(${position.x}px, ${position.y}px)`;
+	});
+
 	const [isMouseDown, setIsMouseDown] = useState(false);
 	const dragStart = useRef<Position | null>(null);
 	const windowPosition = useRef<Position | null>(null);
@@ -33,7 +55,7 @@ export function useWindowDrag(ref: RefObject<HTMLElement>): UseWindowDragReturn 
 							? window.innerHeight - bounds.height
 							: bounds.y;
 
-				el.style.transform = `translate(${nextX}px, ${nextY}px)`;
+				updatePosition({x: nextX, y: nextY});
 			}
 		};
 
@@ -56,6 +78,7 @@ export function useWindowDrag(ref: RefObject<HTMLElement>): UseWindowDragReturn 
 			}
 
 			const elBounds = el.getBoundingClientRect();
+
 			const deltaX = e.clientX - dragStart.current.x;
 			const deltaY = e.clientY - dragStart.current.y;
 			const nextX = windowPosition.current.x + deltaX;
@@ -65,7 +88,7 @@ export function useWindowDrag(ref: RefObject<HTMLElement>): UseWindowDragReturn 
 				return;
 			}
 
-			el.style.transform = `translate(${nextX}px, ${nextY}px)`;
+			updatePosition({x: nextX, y: nextY});
 		};
 
 		const onMouseUp = () => {

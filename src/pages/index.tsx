@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import type {GetStaticProps} from 'next';
 import Link from 'next/link';
 import {useLanyardWS, type Data as LanyardData} from 'use-lanyard';
-import {TextMarquee} from '../components/xp/components/text-marquee';
+import {AudioProgress} from '../components/xp/components/audio-progress';
 import {WindowFrame} from '../components/xp/components/window';
 import {getRecentBlogPosts, type PartialBlogPost} from '../server/blog';
 import {env} from '../server/env';
@@ -45,6 +45,8 @@ export default function Home(props: Props) {
 		(dayjs().diff(dayjs().startOf('year'), 'days') / 365) * 100,
 	);
 
+	const spotify = lanyard.spotify;
+
 	return (
 		<main>
 			<WindowFrame onHelp={console.log} title="About Me">
@@ -68,6 +70,7 @@ export default function Home(props: Props) {
 						I try to write a blog post every now and then. I do OK at that. Everything is on{' '}
 						<Link
 							href="https://alistair.blog"
+							target="_blank"
 							className="text-blue-700 underline hover:text-blue-500"
 						>
 							alistair.blog
@@ -93,23 +96,35 @@ export default function Home(props: Props) {
 				</div>
 			</WindowFrame>
 
-			{lanyard.spotify ? (
+			{spotify ? (
 				<WindowFrame title="Spotify">
-					<div className="flex h-[280px] w-[400px] flex-col">
+					<div className="flex w-[400px] flex-col space-y-4">
 						<div className="flex w-full items-center space-x-4">
 							<img
 								className="size-16"
-								src={lanyard.spotify.album_art_url ?? '/album.png'}
+								src={spotify.album_art_url ?? '/album.png'}
 								alt="Album art"
 							/>
 
 							<div className="flex-1 space-y-2 overflow-x-hidden">
-								<div className="text-lg font-bold">
-									{/* <TextMarquee>{lanyard.spotify.song}</TextMarquee> */}
-									<TextMarquee>hello</TextMarquee>
-								</div>
-								<h2 className="text-sm">{lanyard.spotify.artist.split('; ').join(', ')}</h2>
+								<div className="truncate text-lg font-bold">{spotify.song}</div>
+								<h2 className="text-sm">{spotify.artist.split('; ').join(', ')}</h2>
 							</div>
+						</div>
+
+						<div>
+							<AudioProgress start={spotify.timestamps.start} end={spotify.timestamps.end} />
+						</div>
+
+						<div className="flex gap-1">
+							<button>Listen along</button>
+							<button
+								onClick={() => {
+									window.open(`https://open.spotify.com/track/${spotify.track_id}`, '_blank');
+								}}
+							>
+								Open in Spotify
+							</button>
 						</div>
 					</div>
 				</WindowFrame>

@@ -12,7 +12,8 @@ body {
 	-ms-font-smoothing: none;
 }
 
-* {
+*,
+button {
 	@apply cursor-default;
 }
 
