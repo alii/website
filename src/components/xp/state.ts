@@ -6,8 +6,6 @@ class WindowZIndexStack {
 
 	constructor(stack: string[] = []) {
 		this.stack = stack;
-
-		console.log('stack', this.stack);
 	}
 
 	promote(id: string): WindowZIndexStack {
