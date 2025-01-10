@@ -1,12 +1,16 @@
 import dayjs from 'dayjs';
 import type {GetStaticProps} from 'next';
 import Link from 'next/link';
+import {useEffect, useState} from 'react';
+import SpotifyWebAPI from 'spotify-web-api-js';
 import {useLanyardWS, type Data as LanyardData} from 'use-lanyard';
 import {AudioProgress} from '../components/xp/components/audio-progress';
 import {WindowFrame} from '../components/xp/components/window';
 import {getRecentBlogPosts, type PartialBlogPost} from '../server/blog';
 import {env} from '../server/env';
 import {getLanyard} from '../server/lanyard';
+import {getSpotifyRedirectURL, parseAccessTokenFromURL} from '../spotify/config';
+import {spotifyQueue} from '../spotify/queue';
 import {discordId} from '../utils/constants';
 
 export interface Props {
@@ -46,6 +50,51 @@ export default function Home(props: Props) {
 	);
 
 	const spotify = lanyard.spotify;
+
+	const [spotifyClient, setSpotifyClient] = useState<SpotifyWebAPI.SpotifyWebApiJs | null>(null);
+
+	useEffect(() => {
+		if (typeof window === 'undefined') {
+			return;
+		}
+
+		const accessToken = parseAccessTokenFromURL(window.location.href);
+
+		if (accessToken) {
+			const client = new SpotifyWebAPI();
+			client.setAccessToken(accessToken);
+
+			setSpotifyClient(client);
+		}
+	}, []);
+
+	useEffect(() => {
+		const spotify = lanyard.spotify;
+		const client = spotifyClient;
+
+		if (!spotify) {
+			if (client) {
+				spotifyQueue.addSync(() => client.pause());
+			}
+
+			return;
+		}
+
+		const trackId = spotify.track_id;
+		if (!client || !trackId) return;
+
+		spotifyQueue.addSync(() => {
+			const startTimestamp = spotify.timestamps.start;
+			const now = Date.now();
+
+			const timeSinceStart = now - startTimestamp;
+
+			return client.play({
+				uris: [`spotify:track:${trackId}`],
+				position_ms: timeSinceStart,
+			});
+		});
+	}, [spotifyClient, lanyard.spotify]);
 
 	return (
 		<main>
@@ -117,7 +166,13 @@ export default function Home(props: Props) {
 						</div>
 
 						<div className="flex gap-1">
-							<button>Listen along</button>
+							<button
+								onClick={() => {
+									window.location.href = getSpotifyRedirectURL();
+								}}
+							>
+								Listen along
+							</button>
 							<button
 								onClick={() => {
 									window.open(`https://open.spotify.com/track/${spotify.track_id}`, '_blank');
