@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import type {GetStaticProps} from 'next';
 import Link from 'next/link';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import SpotifyWebAPI from 'spotify-web-api-js';
 import {useLanyardWS, type Data as LanyardData} from 'use-lanyard';
 import {AudioProgress} from '../components/xp/components/audio-progress';
@@ -68,6 +68,8 @@ export default function Home(props: Props) {
 		}
 	}, []);
 
+	const lastPlayRequest = useRef<string | null>(null);
+
 	useEffect(() => {
 		const spotify = lanyard.spotify;
 		const client = spotifyClient;
@@ -88,6 +90,12 @@ export default function Home(props: Props) {
 			const now = Date.now();
 
 			const timeSinceStart = now - startTimestamp;
+
+			if (lastPlayRequest.current === trackId) {
+				return Promise.resolve();
+			}
+
+			lastPlayRequest.current = trackId;
 
 			return client.play({
 				uris: [`spotify:track:${trackId}`],

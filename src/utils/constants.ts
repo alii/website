@@ -9,7 +9,7 @@ export const RelativeTimeFormatter = new Intl.RelativeTimeFormat('en', {
 	style: 'long',
 });
 
-export const discordId = '686766483350880351';
+export const discordId = '268798547439255572';
 // export const discordId = '268798547439255572';
 
 export const dob = new Date('2004-11-02');
