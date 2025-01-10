@@ -39,7 +39,7 @@ export default function Home(props: Props) {
 		initialData: props.lanyard,
 	})!;
 
-	const status = lanyard.discord_status ?? 'offline';
+	// const status = lanyard.discord_status ?? 'offline';
 
 	const yearProgressPercentage = Math.round(
 		(dayjs().diff(dayjs().startOf('year'), 'days') / 365) * 100,
