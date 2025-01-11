@@ -40,42 +40,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 };
 
 export default function Home(props: Props) {
-	useEffect(() => {
-		if (typeof window === 'undefined') {
-			return;
-		}
-
-		const getNextTime = () => {
-			return Math.floor(Math.random() * 1000);
-		};
-
-		const block = () => {
-			const now = performance.now();
-			const next = now + 50;
-
-			while (performance.now() < next) {
-				// Block the thread
-			}
-		};
-
-		let timer: ReturnType<typeof setTimeout> | null = null;
-
-		const lagMachine = () => {
-			timer = setTimeout(() => {
-				block();
-				lagMachine();
-			}, getNextTime());
-		};
-
-		lagMachine();
-
-		return () => {
-			if (timer) {
-				clearTimeout(timer);
-			}
-		};
-	}, []);
-
 	const lanyard = useLanyardWS(discordId, {
 		initialData: props.lanyard,
 	})!;
@@ -98,6 +62,9 @@ export default function Home(props: Props) {
 		const accessToken = parseAccessTokenFromURL(window.location.href);
 
 		if (accessToken) {
+			// Remove access token from the URL
+			history.pushState('', document.title, window.location.pathname + window.location.search);
+
 			const client = new SpotifyWebAPI();
 			client.setAccessToken(accessToken);
 
