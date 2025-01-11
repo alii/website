@@ -11,8 +11,14 @@ export class Concurrency1PromiseQueue {
 		return promise;
 	}
 
-	public addSync<T>(run: () => Promise<T>) {
-		this.queue.push(() => run());
+	public addSync<T>(
+		run: () => Promise<T>,
+		options: {
+			onCatch: (error: any) => void;
+			onThen?: (result: T) => void;
+		},
+	) {
+		this.queue.push(() => run().then(options?.onThen).catch(options?.onCatch));
 		this.checkAndRun();
 	}
 

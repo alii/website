@@ -53,6 +53,7 @@ export default function Home(props: Props) {
 	const spotify = lanyard.spotify;
 
 	const [spotifyClient, setSpotifyClient] = useState<SpotifyWebAPI.SpotifyWebApiJs | null>(null);
+	const [spotifyError, setSpotifyError] = useState<string | null>(null);
 
 	useEffect(() => {
 		if (typeof window === 'undefined') {
@@ -80,7 +81,9 @@ export default function Home(props: Props) {
 
 		if (!spotify) {
 			if (client) {
-				spotifyQueue.addSync(() => client.pause());
+				spotifyQueue.addSync(() => client.pause(), {
+					onCatch: error => setSpotifyError(error.message),
+				});
 			}
 
 			return;
@@ -89,40 +92,45 @@ export default function Home(props: Props) {
 		const trackId = spotify.track_id;
 		if (!client || !trackId) return;
 
-		spotifyQueue.addSync(() => {
-			const startTimestamp = spotify.timestamps.start;
-			const now = Date.now();
+		spotifyQueue.addSync(
+			() => {
+				const startTimestamp = spotify.timestamps.start;
+				const now = Date.now();
 
-			const timeSinceStart = now - startTimestamp;
+				const timeSinceStart = now - startTimestamp;
 
-			if (lastPlayRequest.current === trackId) {
-				return Promise.resolve();
-			}
+				if (lastPlayRequest.current === trackId) {
+					return Promise.resolve();
+				}
 
-			lastPlayRequest.current = trackId;
+				lastPlayRequest.current = trackId;
 
-			return client.play({
-				uris: [`spotify:track:${trackId}`],
-				position_ms: timeSinceStart,
-			});
-		});
+				return client.play({
+					uris: [`spotify:track:${trackId}`],
+					position_ms: timeSinceStart,
+				});
+			},
+			{onCatch: error => setSpotifyError(error.message)},
+		);
 	}, [spotifyClient, lanyard.spotify]);
 
 	return (
 		<main>
-			<WindowFrame onHelp={console.log} title="About Me">
+			<WindowFrame title="About Me">
 				<div className="max-w-[280px] space-y-4">
 					<p>Hi, I'm Alistair. I am a software engineer.</p>
+
+					<p>
+						I an open source enthusiast and I've been called a TypeScript wizard at least a few
+						times. I'm interested in things like language specifications and compiler internals.
+					</p>
+
 					<PosterizedImage
 						amount={10}
 						src="/alistair.jpeg"
 						className="size-[150px]"
 						alt="Alistair"
 					/>
-					<p>
-						I an open source enthusiast and I've been called a TypeScript wizard at least a few
-						times. I'm interested in things like language specifications and compiler internals.
-					</p>
 				</div>
 			</WindowFrame>
 
@@ -164,12 +172,9 @@ export default function Home(props: Props) {
 
 			{spotify ? (
 				<WindowFrame
-					onClose={() => {
-						//
-					}}
 					title="Spotify"
 					onHelp={() => {
-						window.open(`https://open.spotify.com/track/${spotify.track_id}`, '_blank');
+						alert('You can listen along with me on Spotify by clicking the button below');
 					}}
 				>
 					<div className="flex w-[400px] flex-col space-y-4">
@@ -194,10 +199,16 @@ export default function Home(props: Props) {
 						<div className="flex gap-1">
 							<button
 								onClick={() => {
-									window.location.href = getSpotifyRedirectURL();
+									if (spotifyClient) {
+										spotifyQueue.addSync(() => spotifyClient.pause(), {
+											onCatch: error => setSpotifyError(error.message),
+										});
+									} else {
+										window.location.href = getSpotifyRedirectURL();
+									}
 								}}
 							>
-								Listen along
+								{spotifyClient ? 'Stop listening along' : 'Listen along'}
 							</button>
 							<button
 								onClick={() => {
@@ -207,6 +218,8 @@ export default function Home(props: Props) {
 								Open in Spotify
 							</button>
 						</div>
+
+						{spotifyError && <p className="font-bold text-red-700">{spotifyError}</p>}
 					</div>
 				</WindowFrame>
 			) : (
