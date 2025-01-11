@@ -33,7 +33,15 @@ export function WindowFrame({title, children, ...controlProps}: WindowFrameProps
 	const [zIndex, isActive, listeners] = useActiveWindowStack();
 
 	return (
-		<div ref={ref} {...listeners} className={clsx('window absolute w-fit')} style={{zIndex}}>
+		<div
+			ref={ref}
+			{...listeners}
+			className={clsx('window absolute w-fit')}
+			style={{
+				zIndex,
+				filter: isActive ? 'grayscale(0%)' : 'grayscale(30%)',
+			}}
+		>
 			<div className={clsx('title-bar', !isActive && 'inactive')} onMouseDown={handleMouseDown}>
 				<div className="title-bar-text">{title}</div>
 				<WindowTitleBar {...controlProps} />
