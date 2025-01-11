@@ -34,8 +34,8 @@ export function WindowFrame({title, children, ...controlProps}: WindowFrameProps
 
 	return (
 		<div ref={ref} {...listeners} className={clsx('window absolute w-fit')} style={{zIndex}}>
-			<div className="title-bar" onMouseDown={handleMouseDown}>
-				<div className="title-bar-text select-none">{title}</div>
+			<div className={clsx('title-bar', !isActive && 'inactive')} onMouseDown={handleMouseDown}>
+				<div className="title-bar-text">{title}</div>
 				<WindowTitleBar {...controlProps} />
 			</div>
 

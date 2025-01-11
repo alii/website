@@ -5,6 +5,7 @@ import {useEffect, useRef, useState} from 'react';
 import SpotifyWebAPI from 'spotify-web-api-js';
 import {useLanyardWS, type Data as LanyardData} from 'use-lanyard';
 import {AudioProgress} from '../components/xp/components/audio-progress';
+import {PosterizedImage} from '../components/xp/components/posterized-image';
 import {WindowFrame} from '../components/xp/components/window';
 import {getRecentBlogPosts, type PartialBlogPost} from '../server/blog';
 import {env} from '../server/env';
@@ -39,6 +40,42 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 };
 
 export default function Home(props: Props) {
+	useEffect(() => {
+		if (typeof window === 'undefined') {
+			return;
+		}
+
+		const getNextTime = () => {
+			return Math.floor(Math.random() * 1000);
+		};
+
+		const block = () => {
+			const now = performance.now();
+			const next = now + 50;
+
+			while (performance.now() < next) {
+				// Block the thread
+			}
+		};
+
+		let timer: ReturnType<typeof setTimeout> | null = null;
+
+		const lagMachine = () => {
+			timer = setTimeout(() => {
+				block();
+				lagMachine();
+			}, getNextTime());
+		};
+
+		lagMachine();
+
+		return () => {
+			if (timer) {
+				clearTimeout(timer);
+			}
+		};
+	}, []);
+
 	const lanyard = useLanyardWS(discordId, {
 		initialData: props.lanyard,
 	})!;
@@ -109,7 +146,12 @@ export default function Home(props: Props) {
 			<WindowFrame onHelp={console.log} title="About Me">
 				<div className="max-w-[280px] space-y-4">
 					<p>Hi, I'm Alistair. I am a software engineer.</p>
-					<img src="/alistair.jpeg" className="size-[150px]" alt="Alistair" />
+					<PosterizedImage
+						amount={10}
+						src="/alistair.jpeg"
+						className="size-[150px]"
+						alt="Alistair"
+					/>
 					<p>
 						I an open source enthusiast and I've been called a TypeScript wizard at least a few
 						times. I'm interested in things like language specifications and compiler internals.
@@ -154,10 +196,19 @@ export default function Home(props: Props) {
 			</WindowFrame>
 
 			{spotify ? (
-				<WindowFrame title="Spotify">
+				<WindowFrame
+					onClose={() => {
+						//
+					}}
+					title="Spotify"
+					onHelp={() => {
+						window.open(`https://open.spotify.com/track/${spotify.track_id}`, '_blank');
+					}}
+				>
 					<div className="flex w-[400px] flex-col space-y-4">
 						<div className="flex w-full items-center space-x-4">
-							<img
+							<PosterizedImage
+								amount={10}
 								className="size-16"
 								src={spotify.album_art_url ?? '/album.png'}
 								alt="Album art"
@@ -209,6 +260,39 @@ export default function Home(props: Props) {
 					</div>
 				</WindowFrame>
 			)}
+
+			<WindowFrame title="Where am I?">
+				<div className="max-w-[380px] space-y-4">
+					<div className="relative my-1 h-[150px] w-[300px]">
+						<div className="absolute inset-0 overflow-hidden">
+							<PosterizedImage
+								amount={10}
+								src={`/api/map?location=${lanyard.kv.location}&theme=light`}
+								alt="Map"
+								className="absolute inset-0 h-full w-full scale-125 object-cover dark:hidden"
+							/>
+
+							<PosterizedImage
+								amount={10}
+								src={`/api/map?location=${lanyard.kv.location}&theme=dark`}
+								alt="Map"
+								className="absolute inset-0 hidden h-full w-full scale-125 object-cover dark:block"
+							/>
+						</div>
+
+						<PosterizedImage
+							amount={10}
+							src={`https://cdn.discordapp.com/avatars/${lanyard.discord_user.id}/${lanyard.discord_user.avatar}.webp?size=160`}
+							alt="Avatar"
+							className="absolute left-1/2 top-1/2 z-10 size-12 -translate-x-1/2 -translate-y-1/2 rounded-full border-2"
+						/>
+
+						<p className="absolute left-1/2 top-[calc(50%+40px)] -translate-x-1/2 -translate-y-1/2 bg-black/75 text-xs font-bold text-white">
+							{lanyard.kv.location}
+						</p>
+					</div>
+				</div>
+			</WindowFrame>
 		</main>
 	);
 }

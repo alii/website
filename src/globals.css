@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'xp.css/dist/98.css';
+button {
+	background-color: silver;
+}
+
+@import '98.css';
 
 body {
 	@apply select-none overflow-hidden overscroll-none;

@@ -29,6 +29,7 @@
 		"typescript": "^5.5.4"
 	},
 	"dependencies": {
+		"98.css": "^0.1.20",
 		"@c-side/next": "^1.0.0",
 		"@marsidev/react-turnstile": "^0.7.2",
 		"@next/third-parties": "^14.2.7",
@@ -55,7 +56,6 @@
 		"spotify-web-api-js": "^1.5.2",
 		"use-lanyard": "^1.5.2",
 		"uuid": "^10.0.0",
-		"xp.css": "^0.2.6",
 		"zod": "^3.23.8"
 	}
 }
