@@ -99,7 +99,7 @@ export default function Home(props: Props) {
 			async () => {
 				const playback = await client.getMyCurrentPlaybackState();
 
-				if (!playback.device.id) {
+				if (!playback.device || !playback.device.id) {
 					setSpotifyError('No device found to play music on!');
 					return;
 				}
@@ -221,7 +221,7 @@ export default function Home(props: Props) {
 									}
 								}}
 							>
-								{spotifyClient ? 'Stop listening along' : 'Listen along'}
+								{spotifyClient ? 'Stop listening' : 'Listen along'}
 							</button>
 							<button
 								onClick={() => {
