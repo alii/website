@@ -11,6 +11,8 @@ export default class WebsiteDocument extends Document {
 				<body>
 					<Main />
 					<NextScript />
+
+					<script async defer src="https://sdk.scdn.co/spotify-player.js" />
 					<script async defer src="https://lab.alistair.cloud/latest.js" />
 				</body>
 			</Html>
