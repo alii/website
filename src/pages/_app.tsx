@@ -9,20 +9,14 @@ import {useFirstEverLoad, useVisitCounts} from '../hooks/use-first-ever-load';
 
 const tag = process.env.NEXT_PUBLIC_GTM_ID;
 
-if (typeof CSS !== 'undefined' && 'paintWorklet' in CSS) {
-	(CSS as {} as {paintWorklet: Worklet}).paintWorklet.addModule(
-		'https://unpkg.com/houdini-paint-dot-grid/dist/dot-grid-worklet.js',
-	);
-}
-
 export default function App({Component, pageProps}: AppProps) {
 	useFirstEverLoad();
 
-	const [_, set] = useVisitCounts();
+	const [, set] = useVisitCounts();
 
 	useEffect(() => {
 		set(x => x + 1);
-	}, [set]);
+	}, []);
 
 	return (
 		<>

@@ -90,10 +90,22 @@ export default function Home(props: Props) {
 		}
 
 		const trackId = spotify.track_id;
-		if (!client || !trackId) return;
+
+		if (!client || !trackId) {
+			return;
+		}
 
 		spotifyQueue.addSync(
-			() => {
+			async () => {
+				const playback = await client.getMyCurrentPlaybackState();
+
+				if (!playback.device.id) {
+					setSpotifyError('No device found to play music on!');
+					return;
+				}
+
+				const deviceId = playback.device.id;
+
 				const startTimestamp = spotify.timestamps.start;
 				const now = Date.now();
 
@@ -108,6 +120,7 @@ export default function Home(props: Props) {
 				return client.play({
 					uris: [`spotify:track:${trackId}`],
 					position_ms: timeSinceStart,
+					device_id: deviceId,
 				});
 			},
 			{onCatch: error => setSpotifyError(error.message)},
