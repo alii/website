@@ -1,5 +1,5 @@
-import {atom, useAtom} from 'alistair/atoms';
-import {useEffect, useId, useRef} from 'react';
+import {atom} from 'alistair/atoms';
+import {useCallback, useEffect, useId, useRef, useSyncExternalStore} from 'react';
 
 class WindowZIndexStack {
 	private readonly stack: string[];
@@ -34,17 +34,15 @@ export const atomActiveWindowStack = atom<WindowZIndexStack>(new WindowZIndexSta
 export function useActiveWindowStack() {
 	const id = useId();
 
-	const [stack, setStack] = useAtom(atomActiveWindowStack);
-
 	const isAwaitingMouseUp = useRef(false);
 
 	const listeners = {
 		onMouseDown: () => {
-			if (stack.isActive(id)) {
+			if (atomActiveWindowStack.get().isActive(id)) {
 				return;
 			}
 
-			setStack(stack => stack.promote(id));
+			atomActiveWindowStack.set(stack => stack.promote(id));
 			isAwaitingMouseUp.current = true;
 		},
 
@@ -58,16 +56,25 @@ export function useActiveWindowStack() {
 	};
 
 	useEffect(() => {
-		setStack(stack => stack.promote(id));
+		atomActiveWindowStack.set(stack => stack.promote(id));
 
 		return () => {
-			setStack(stack => stack.remove(id));
+			atomActiveWindowStack.set(stack => stack.remove(id));
 		};
 	}, [id]);
 
-	const zIndex = stack.size - stack.getPosition(id);
+	const subscribe = useCallback(
+		(notify: (value: WindowZIndexStack) => void) => atomActiveWindowStack.subscribe(notify),
+		[id],
+	);
 
-	const isActive = stack.isActive(id);
+	const zIndex = useSyncExternalStore(
+		subscribe,
+		() => atomActiveWindowStack.get().size - atomActiveWindowStack.get().getPosition(id),
+		() => atomActiveWindowStack.get().size - atomActiveWindowStack.get().getPosition(id),
+	);
+
+	const isActive = atomActiveWindowStack.get().isActive(id);
 
 	return [zIndex, isActive, listeners] as const;
 }

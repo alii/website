@@ -1,5 +1,14 @@
-import {useEvent, useLocalStorage} from 'alistair/hooks';
-import {useEffect, useId, useLayoutEffect, useRef, useState, type RefObject} from 'react';
+import {useEvent} from 'alistair/hooks';
+import {
+	useEffect,
+	useId,
+	useLayoutEffect,
+	useRef,
+	useState,
+	useSyncExternalStore,
+	type RefObject,
+} from 'react';
+import {memoJsonParse} from '../../../lib/json';
 import type {Position} from '../types';
 
 interface UseWindowDragReturn {
@@ -10,8 +19,9 @@ interface UseWindowDragReturn {
 export function useWindowDrag(ref: RefObject<HTMLElement>): UseWindowDragReturn {
 	const id = useId();
 
-	const [initialPosition, storePositionInLocalStorage] = useLocalStorage<Position | null>(
-		`window-position-${id}`,
+	const initialPosition = useSyncExternalStore(
+		() => () => {},
+		() => memoJsonParse<Position>(window.localStorage.getItem(`window-position-${id}`)),
 		() => null,
 	);
 
@@ -25,7 +35,7 @@ export function useWindowDrag(ref: RefObject<HTMLElement>): UseWindowDragReturn 
 
 	const updatePosition = useEvent((position: Position) => {
 		if (!ref.current) return;
-		storePositionInLocalStorage(position);
+		window.localStorage.setItem(`window-position-${id}`, JSON.stringify(position));
 		ref.current.style.transform = `translate(${position.x}px, ${position.y}px)`;
 	});
 

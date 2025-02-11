@@ -27,3 +27,8 @@ button {
 	background-size: cover;
 	background-position: center;
 }
+
+a,
+img {
+	-webkit-user-drag: none;
+}

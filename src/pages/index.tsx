@@ -100,7 +100,7 @@ export default function Home(props: Props) {
 				const playback = await client.getMyCurrentPlaybackState();
 
 				if (!playback.device || !playback.device.id) {
-					setSpotifyError('No device found to play music on!');
+					setSpotifyError('First make sure you have a device playing first');
 					return;
 				}
 

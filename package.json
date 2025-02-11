@@ -34,7 +34,7 @@
 		"@marsidev/react-turnstile": "^0.7.2",
 		"@next/third-parties": "^14.2.7",
 		"@otters/monzo": "^2.1.2",
-		"alistair": "^1.12.0",
+		"alistair": "^1.14.1",
 		"bwitch": "^0.3.0",
 		"clsx": "^2.1.1",
 		"common-tags": "^1.8.2",
