@@ -116,14 +116,9 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 			const nextX = windowPosition.current.x + deltaX;
 			const nextY = windowPosition.current.y + deltaY;
 
-			const validX =
-				nextX >= 0 && nextX + elBounds.width <= window.innerWidth
-					? nextX
-					: windowPosition.current.x;
-			const validY =
-				nextY >= 0 && nextY + elBounds.height <= window.innerHeight
-					? nextY
-					: windowPosition.current.y;
+			// Clamp the position to screen boundaries instead of reverting to original position
+			const validX = Math.max(0, Math.min(nextX, window.innerWidth - elBounds.width));
+			const validY = Math.max(0, Math.min(nextY, window.innerHeight - elBounds.height));
 
 			if (validX !== windowPosition.current.x || validY !== windowPosition.current.y) {
 				updatePosition({x: validX, y: validY});
