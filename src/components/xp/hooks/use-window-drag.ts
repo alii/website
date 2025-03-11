@@ -100,6 +100,11 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 				return;
 			}
 
+			if ('touches' in e) {
+				e.preventDefault();
+				if (!e.touches[0]) return;
+			}
+
 			const elBounds = el.getBoundingClientRect();
 			const clientX =
 				'touches' in e && e.touches[0] ? e.touches[0].clientX : (e as MouseEvent).clientX;
@@ -111,14 +116,27 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 			const nextX = windowPosition.current.x + deltaX;
 			const nextY = windowPosition.current.y + deltaY;
 
-			if (isPositionOffScreen(nextX, nextY, elBounds)) {
-				return;
-			}
+			// Instead of blocking all movement, calculate valid positions for each axis
+			const validX =
+				nextX >= 0 && nextX + elBounds.width <= window.innerWidth
+					? nextX
+					: windowPosition.current.x;
+			const validY =
+				nextY >= 0 && nextY + elBounds.height <= window.innerHeight
+					? nextY
+					: windowPosition.current.y;
 
-			updatePosition({x: nextX, y: nextY});
+			// Update position if either axis has changed
+			if (validX !== windowPosition.current.x || validY !== windowPosition.current.y) {
+				updatePosition({x: validX, y: validY});
+			}
 		};
 
-		const onMouseUp = () => {
+		const onMouseUp = (e: MouseEvent | TouchEvent) => {
+			if ('touches' in e) {
+				e.preventDefault();
+			}
+
 			if (!el) return;
 			const bounds = el.getBoundingClientRect();
 
@@ -131,9 +149,9 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 			setIsMouseDown(false);
 		};
 
-		document.addEventListener('mousemove', onMouseMove);
+		document.addEventListener('mousemove', onMouseMove, {passive: false});
 		document.addEventListener('mouseup', onMouseUp);
-		document.addEventListener('touchmove', onMouseMove);
+		document.addEventListener('touchmove', onMouseMove, {passive: false});
 		document.addEventListener('touchend', onMouseUp);
 		document.addEventListener('touchcancel', onMouseUp);
 
@@ -148,6 +166,11 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 
 	const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
 		if (!el) return;
+
+		if ('touches' in e) {
+			if (!e.touches[0]) return;
+			e.preventDefault();
+		}
 
 		const bounds = el.getBoundingClientRect();
 		const clientX =

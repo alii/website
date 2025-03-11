@@ -50,7 +50,11 @@ export function WindowFrame({title, children, ...controlProps}: WindowFrameProps
 						filter: isActive ? 'grayscale(0%)' : 'grayscale(30%)',
 					}}
 				>
-					<div className={clsx('title-bar', !isActive && 'inactive')} onMouseDown={handleMouseDown}>
+					<div
+						className={clsx('title-bar', !isActive && 'inactive')}
+						onMouseDown={handleMouseDown}
+						onTouchStart={handleMouseDown}
+					>
 						<div className="title-bar-text">{title}</div>
 						<WindowTitleBar {...controlProps} />
 					</div>
