@@ -42,7 +42,7 @@ export function WindowFrame({title, children, ...controlProps}: WindowFrameProps
 					animate={{opacity: 1}}
 					exit={{opacity: 0}}
 					ref={setRef}
-					transition={{duration: 1}}
+					transition={{duration: 3}}
 					{...listeners}
 					className={clsx('window absolute w-fit')}
 					style={{

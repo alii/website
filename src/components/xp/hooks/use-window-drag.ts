@@ -174,9 +174,10 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 			const touchTimeout = setTimeout(() => {
 				const dx = Math.abs(touch.clientX - startX);
 				const dy = Math.abs(touch.clientY - startY);
+
 				if (Date.now() - startTime > 100 || dx > 5 || dy > 5) {
 					e.preventDefault();
-					startDrag(touch.clientX, touch.clientY, e);
+					startDrag(touch.clientX, touch.clientY);
 				}
 			}, 100);
 
@@ -189,11 +190,11 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 			document.addEventListener('touchend', cleanup, {once: true});
 			document.addEventListener('touchcancel', cleanup, {once: true});
 		} else {
-			startDrag(e.clientX, e.clientY, e);
+			startDrag(e.clientX, e.clientY);
 		}
 	};
 
-	const startDrag = (clientX: number, clientY: number, e: React.MouseEvent | React.TouchEvent) => {
+	function startDrag(clientX: number, clientY: number) {
 		const bounds = el!.getBoundingClientRect();
 
 		windowPosition.current = {
@@ -207,21 +208,12 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 		};
 
 		setIsMouseDown(true);
-	};
+	}
 
 	return {
 		isMouseDown,
 		handleMouseDown,
 	};
-}
-
-function isPositionOffScreen(x: number, y: number, elementBounds: DOMRect): boolean {
-	return (
-		y < 0 ||
-		y + elementBounds.height > window.innerHeight ||
-		x < 0 ||
-		x + elementBounds.width > window.innerWidth
-	);
 }
 
 export function isBoundsOffScreen(bounds: DOMRect): boolean {
