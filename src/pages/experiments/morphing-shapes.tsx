@@ -1,9 +1,9 @@
-import {useEffect, useState} from 'react';
+import {useSearchParams} from 'next/navigation';
+import {useEffect, useMemo, useState} from 'react';
 import {v4 as uuid} from 'uuid';
 
 const THEME_COLORS = ['#fc9494', '#94e4fc', '#bffc94', '#ffffff'];
 const randomColor = () => THEME_COLORS[Math.floor(Math.random() * THEME_COLORS.length)]!;
-const ELEMENT_COUNT = 4;
 
 const IS_BROWSER = typeof window !== 'undefined';
 
@@ -79,8 +79,25 @@ function Box() {
 	);
 }
 
-const boxes = [...new Array(ELEMENT_COUNT)].map(() => <Box key={uuid()} />);
+function Boxes({count}: {count: number}) {
+	const boxes = useMemo(() => [...new Array(count)].map(() => <Box key={uuid()} />), [count]);
+
+	return <>{boxes}</>;
+}
 
 export default function MorphingShapes() {
-	return <>{boxes}</>;
+	const count = useSearchParams().get('count') ?? 4;
+
+	useEffect(() => {
+		const onResize = () => {
+			LIMITS.LEFT = window.innerWidth - 50;
+			LIMITS.TOP = window.innerHeight - 50;
+		};
+
+		window.addEventListener('resize', onResize);
+
+		return () => window.removeEventListener('resize', onResize);
+	}, []);
+
+	return <Boxes count={Number(count)} />;
 }
