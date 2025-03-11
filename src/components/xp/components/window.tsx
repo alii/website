@@ -1,5 +1,6 @@
 import clsx from 'clsx';
-import {useRef, type PropsWithChildren} from 'react';
+import {AnimatePresence, motion} from 'framer-motion';
+import {useRef, useState, type PropsWithChildren} from 'react';
 import {useWindowDrag} from '../hooks/use-window-drag';
 import {useActiveWindowStack} from '../state';
 
@@ -27,29 +28,37 @@ export interface WindowFrameProps extends PropsWithChildren, WindowControlsProps
 }
 
 export function WindowFrame({title, children, ...controlProps}: WindowFrameProps) {
-	const ref = useRef<HTMLDivElement>(null);
-	const {handleMouseDown} = useWindowDrag(ref);
+	const [ref, setRef] = useState<HTMLDivElement | null>(null);
+	const {handleMouseDown, ready} = useWindowDrag(ref);
 
 	const [zIndex, isActive, listeners] = useActiveWindowStack();
 
 	return (
-		<div
-			ref={ref}
-			{...listeners}
-			className={clsx('window absolute w-fit')}
-			style={{
-				zIndex,
-				filter: isActive ? 'grayscale(0%)' : 'grayscale(30%)',
-			}}
-		>
-			<div className={clsx('title-bar', !isActive && 'inactive')} onMouseDown={handleMouseDown}>
-				<div className="title-bar-text">{title}</div>
-				<WindowTitleBar {...controlProps} />
-			</div>
+		<AnimatePresence initial={false}>
+			{ready && (
+				<motion.div
+					initial={{opacity: 0}}
+					animate={{opacity: 1}}
+					exit={{opacity: 0}}
+					ref={setRef}
+					transition={{duration: 1}}
+					{...listeners}
+					className={clsx('window absolute w-fit')}
+					style={{
+						zIndex,
+						filter: isActive ? 'grayscale(0%)' : 'grayscale(30%)',
+					}}
+				>
+					<div className={clsx('title-bar', !isActive && 'inactive')} onMouseDown={handleMouseDown}>
+						<div className="title-bar-text">{title}</div>
+						<WindowTitleBar {...controlProps} />
+					</div>
 
-			<div className={clsx(!isActive && 'pointer-events-none')}>
-				<div className="window-body">{children}</div>
-			</div>
-		</div>
+					<div className={clsx(!isActive && 'pointer-events-none')}>
+						<div className="window-body">{children}</div>
+					</div>
+				</motion.div>
+			)}
+		</AnimatePresence>
 	);
 }

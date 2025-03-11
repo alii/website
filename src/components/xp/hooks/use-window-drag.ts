@@ -1,22 +1,15 @@
 import {useEvent} from 'alistair/hooks';
-import {
-	useEffect,
-	useId,
-	useLayoutEffect,
-	useRef,
-	useState,
-	useSyncExternalStore,
-	type RefObject,
-} from 'react';
+import {useEffect, useId, useRef, useState, useSyncExternalStore} from 'react';
 import {memoJsonParse} from '../../../lib/json';
 import type {Position} from '../types';
 
 interface UseWindowDragReturn {
 	isMouseDown: boolean;
+	ready: boolean;
 	handleMouseDown: (e: React.MouseEvent) => void;
 }
 
-export function useWindowDrag(ref: RefObject<HTMLElement>): UseWindowDragReturn {
+export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 	const id = useId();
 
 	const initialPosition = useSyncExternalStore(
@@ -25,18 +18,18 @@ export function useWindowDrag(ref: RefObject<HTMLElement>): UseWindowDragReturn 
 		() => null,
 	);
 
-	useLayoutEffect(() => {
-		if (!initialPosition || !ref.current) {
+	useEffect(() => {
+		if (!initialPosition || !el) {
 			return;
 		}
 
-		ref.current.style.transform = `translate(${initialPosition.x}px, ${initialPosition.y}px)`;
-	}, [initialPosition, ref]);
+		el.style.transform = `translate(${initialPosition.x}px, ${initialPosition.y}px)`;
+	}, [initialPosition, el]);
 
 	const updatePosition = useEvent((position: Position) => {
-		if (!ref.current) return;
+		if (!el) return;
 		window.localStorage.setItem(`window-position-${id}`, JSON.stringify(position));
-		ref.current.style.transform = `translate(${position.x}px, ${position.y}px)`;
+		el.style.transform = `translate(${position.x}px, ${position.y}px)`;
 	});
 
 	const [isMouseDown, setIsMouseDown] = useState(false);
@@ -44,10 +37,10 @@ export function useWindowDrag(ref: RefObject<HTMLElement>): UseWindowDragReturn 
 	const windowPosition = useRef<Position | null>(null);
 
 	useEffect(() => {
-		const el = ref.current;
 		if (!el) return;
 
 		const onActualWindowResize = () => {
+			console.log('onActualWindowResize');
 			const bounds = el.getBoundingClientRect();
 
 			if (isBoundsOffScreen(bounds)) {
@@ -74,10 +67,9 @@ export function useWindowDrag(ref: RefObject<HTMLElement>): UseWindowDragReturn 
 		return () => {
 			window.removeEventListener('resize', onActualWindowResize);
 		};
-	}, [ref]);
+	}, [el]);
 
 	useEffect(() => {
-		const el = ref.current;
 		if (!isMouseDown || !el) {
 			return;
 		}
@@ -121,10 +113,9 @@ export function useWindowDrag(ref: RefObject<HTMLElement>): UseWindowDragReturn 
 			document.removeEventListener('mousemove', onMouseMove);
 			document.removeEventListener('mouseup', onMouseUp);
 		};
-	}, [isMouseDown, ref]);
+	}, [isMouseDown, el]);
 
 	const handleMouseDown = (e: React.MouseEvent) => {
-		const el = ref.current;
 		if (!el) return;
 
 		const bounds = el.getBoundingClientRect();
@@ -145,6 +136,7 @@ export function useWindowDrag(ref: RefObject<HTMLElement>): UseWindowDragReturn 
 	return {
 		isMouseDown,
 		handleMouseDown,
+		ready: initialPosition !== null,
 	};
 }
 
