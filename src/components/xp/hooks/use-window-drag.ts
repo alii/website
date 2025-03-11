@@ -159,10 +159,6 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 	const handleMouseDown = (e: React.MouseEvent | React.TouchEvent, isActive: boolean) => {
 		if (!el) return;
 
-		if (!isActive) {
-			return;
-		}
-
 		if ('touches' in e) {
 			if (!e.touches[0]) return;
 
