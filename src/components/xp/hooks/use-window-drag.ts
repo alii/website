@@ -15,7 +15,7 @@ function getRandomPosition(): Position {
 
 interface UseWindowDragReturn {
 	isMouseDown: boolean;
-	handleMouseDown: (e: React.MouseEvent | React.TouchEvent) => void;
+	handleMouseDown: (e: React.MouseEvent | React.TouchEvent, isActive: boolean) => void;
 }
 
 export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
@@ -116,7 +116,6 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 			const nextX = windowPosition.current.x + deltaX;
 			const nextY = windowPosition.current.y + deltaY;
 
-			// Instead of blocking all movement, calculate valid positions for each axis
 			const validX =
 				nextX >= 0 && nextX + elBounds.width <= window.innerWidth
 					? nextX
@@ -126,7 +125,6 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 					? nextY
 					: windowPosition.current.y;
 
-			// Update position if either axis has changed
 			if (validX !== windowPosition.current.x || validY !== windowPosition.current.y) {
 				updatePosition({x: validX, y: validY});
 			}
@@ -164,19 +162,45 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 		};
 	}, [isMouseDown, el]);
 
-	const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
+	const handleMouseDown = (e: React.MouseEvent | React.TouchEvent, isActive: boolean) => {
 		if (!el) return;
+
+		if (!isActive) {
+			return;
+		}
 
 		if ('touches' in e) {
 			if (!e.touches[0]) return;
-			e.preventDefault();
-		}
 
-		const bounds = el.getBoundingClientRect();
-		const clientX =
-			'touches' in e && e.touches[0] ? e.touches[0].clientX : (e as React.MouseEvent).clientX;
-		const clientY =
-			'touches' in e && e.touches[0] ? e.touches[0].clientY : (e as React.MouseEvent).clientY;
+			const touch = e.touches[0];
+			const startTime = Date.now();
+			const startX = touch.clientX;
+			const startY = touch.clientY;
+
+			const touchTimeout = setTimeout(() => {
+				const dx = Math.abs(touch.clientX - startX);
+				const dy = Math.abs(touch.clientY - startY);
+				if (Date.now() - startTime > 100 || dx > 5 || dy > 5) {
+					e.preventDefault();
+					startDrag(touch.clientX, touch.clientY, e);
+				}
+			}, 100);
+
+			const cleanup = () => {
+				clearTimeout(touchTimeout);
+				document.removeEventListener('touchend', cleanup);
+				document.removeEventListener('touchcancel', cleanup);
+			};
+
+			document.addEventListener('touchend', cleanup, {once: true});
+			document.addEventListener('touchcancel', cleanup, {once: true});
+		} else {
+			startDrag(e.clientX, e.clientY, e);
+		}
+	};
+
+	const startDrag = (clientX: number, clientY: number, e: React.MouseEvent | React.TouchEvent) => {
+		const bounds = el!.getBoundingClientRect();
 
 		windowPosition.current = {
 			x: bounds.x,
