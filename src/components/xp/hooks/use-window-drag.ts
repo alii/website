@@ -3,9 +3,18 @@ import {useEffect, useId, useRef, useState, useSyncExternalStore} from 'react';
 import {memoJsonParse} from '../../../lib/json';
 import type {Position} from '../types';
 
+function getRandomPosition(): Position {
+	const maxX = Math.max(0, window.innerWidth - 300 - 50);
+	const maxY = Math.max(0, window.innerHeight - 200 - 50);
+
+	return {
+		x: Math.floor(Math.random() * maxX) + 25,
+		y: Math.floor(Math.random() * maxY) + 25,
+	};
+}
+
 interface UseWindowDragReturn {
 	isMouseDown: boolean;
-	ready: boolean;
 	handleMouseDown: (e: React.MouseEvent) => void;
 }
 
@@ -14,23 +23,36 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 
 	const initialPosition = useSyncExternalStore(
 		() => () => {},
-		() => memoJsonParse<Position>(window.localStorage.getItem(`window-position-${id}`)),
+		() => {
+			const position = memoJsonParse<Position>(
+				window.localStorage.getItem(`window-position-${id}`),
+			);
+
+			if (position) {
+				return position;
+			}
+
+			const next = getRandomPosition();
+			window.localStorage.setItem(`window-position-${id}`, JSON.stringify(next));
+
+			return next;
+		},
 		() => null,
 	);
-
-	useEffect(() => {
-		if (!initialPosition || !el) {
-			return;
-		}
-
-		el.style.transform = `translate(${initialPosition.x}px, ${initialPosition.y}px)`;
-	}, [initialPosition, el]);
 
 	const updatePosition = useEvent((position: Position) => {
 		if (!el) return;
 		window.localStorage.setItem(`window-position-${id}`, JSON.stringify(position));
 		el.style.transform = `translate(${position.x}px, ${position.y}px)`;
 	});
+
+	useEffect(() => {
+		if (!el || !initialPosition) {
+			return;
+		}
+
+		el.style.transform = `translate(${initialPosition.x}px, ${initialPosition.y}px)`;
+	}, [initialPosition, el]);
 
 	const [isMouseDown, setIsMouseDown] = useState(false);
 	const dragStart = useRef<Position | null>(null);
@@ -136,7 +158,6 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 	return {
 		isMouseDown,
 		handleMouseDown,
-		ready: initialPosition !== null,
 	};
 }
 

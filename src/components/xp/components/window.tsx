@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import {AnimatePresence, motion} from 'framer-motion';
-import {useRef, useState, type PropsWithChildren} from 'react';
+import {useState, type PropsWithChildren} from 'react';
+import {useIsHydrated} from '../hooks/is-hydrated';
 import {useWindowDrag} from '../hooks/use-window-drag';
 import {useActiveWindowStack} from '../state';
 
@@ -29,8 +30,8 @@ export interface WindowFrameProps extends PropsWithChildren, WindowControlsProps
 
 export function WindowFrame({title, children, ...controlProps}: WindowFrameProps) {
 	const [ref, setRef] = useState<HTMLDivElement | null>(null);
-	const {handleMouseDown, ready} = useWindowDrag(ref);
-
+	const {handleMouseDown} = useWindowDrag(ref);
+	const ready = useIsHydrated();
 	const [zIndex, isActive, listeners] = useActiveWindowStack();
 
 	return (
