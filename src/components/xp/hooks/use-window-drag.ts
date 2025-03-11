@@ -15,7 +15,7 @@ function getRandomPosition(): Position {
 
 interface UseWindowDragReturn {
 	isMouseDown: boolean;
-	handleMouseDown: (e: React.MouseEvent | React.TouchEvent, isActive: boolean) => void;
+	handleMouseDown: (e: React.MouseEvent | React.TouchEvent) => void;
 }
 
 export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
@@ -156,7 +156,7 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 		};
 	}, [isMouseDown, el]);
 
-	const handleMouseDown = (e: React.MouseEvent | React.TouchEvent, isActive: boolean) => {
+	const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
 		if (!el) return;
 
 		if ('touches' in e) {
