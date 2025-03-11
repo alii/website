@@ -15,7 +15,7 @@ function getRandomPosition(): Position {
 
 interface UseWindowDragReturn {
 	isMouseDown: boolean;
-	handleMouseDown: (e: React.MouseEvent) => void;
+	handleMouseDown: (e: React.MouseEvent | React.TouchEvent) => void;
 }
 
 export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
@@ -62,7 +62,6 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 		if (!el) return;
 
 		const onActualWindowResize = () => {
-			console.log('onActualWindowResize');
 			const bounds = el.getBoundingClientRect();
 
 			if (isBoundsOffScreen(bounds)) {
@@ -96,15 +95,19 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 			return;
 		}
 
-		const onMouseMove = (e: MouseEvent) => {
+		const onMouseMove = (e: MouseEvent | TouchEvent) => {
 			if (!dragStart.current || !windowPosition.current) {
 				return;
 			}
 
 			const elBounds = el.getBoundingClientRect();
+			const clientX =
+				'touches' in e && e.touches[0] ? e.touches[0].clientX : (e as MouseEvent).clientX;
+			const clientY =
+				'touches' in e && e.touches[0] ? e.touches[0].clientY : (e as MouseEvent).clientY;
 
-			const deltaX = e.clientX - dragStart.current.x;
-			const deltaY = e.clientY - dragStart.current.y;
+			const deltaX = clientX - dragStart.current.x;
+			const deltaY = clientY - dragStart.current.y;
 			const nextX = windowPosition.current.x + deltaX;
 			const nextY = windowPosition.current.y + deltaY;
 
@@ -130,17 +133,27 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 
 		document.addEventListener('mousemove', onMouseMove);
 		document.addEventListener('mouseup', onMouseUp);
+		document.addEventListener('touchmove', onMouseMove);
+		document.addEventListener('touchend', onMouseUp);
+		document.addEventListener('touchcancel', onMouseUp);
 
 		return () => {
 			document.removeEventListener('mousemove', onMouseMove);
 			document.removeEventListener('mouseup', onMouseUp);
+			document.removeEventListener('touchmove', onMouseMove);
+			document.removeEventListener('touchend', onMouseUp);
+			document.removeEventListener('touchcancel', onMouseUp);
 		};
 	}, [isMouseDown, el]);
 
-	const handleMouseDown = (e: React.MouseEvent) => {
+	const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
 		if (!el) return;
 
 		const bounds = el.getBoundingClientRect();
+		const clientX =
+			'touches' in e && e.touches[0] ? e.touches[0].clientX : (e as React.MouseEvent).clientX;
+		const clientY =
+			'touches' in e && e.touches[0] ? e.touches[0].clientY : (e as React.MouseEvent).clientY;
 
 		windowPosition.current = {
 			x: bounds.x,
@@ -148,8 +161,8 @@ export function useWindowDrag(el: HTMLElement | null): UseWindowDragReturn {
 		};
 
 		dragStart.current = {
-			x: e.clientX,
-			y: e.clientY,
+			x: clientX,
+			y: clientY,
 		};
 
 		setIsMouseDown(true);
