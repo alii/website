@@ -14,7 +14,5 @@ export function useFirstEverLoad() {
 }
 
 export function useVisitCounts() {
-	return useLocalStorage('user:visit-counts', () => {
-		return 1;
-	});
+	return useLocalStorage('user:visit-counts', () => 1);
 }
