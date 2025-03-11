@@ -10,7 +10,7 @@ import {WindowFrame} from '../components/xp/components/window';
 import {getRecentBlogPosts, type PartialBlogPost} from '../server/blog';
 import {env} from '../server/env';
 import {getLanyard} from '../server/lanyard';
-import {getSpotifyRedirectURL, parseAccessTokenFromURL} from '../spotify/config';
+import {parseAccessTokenFromURL} from '../spotify/config';
 import {spotifyQueue} from '../spotify/queue';
 import {discordId} from '../utils/constants';
 
@@ -186,9 +186,9 @@ export default function Home(props: Props) {
 			{spotify ? (
 				<WindowFrame
 					title="Spotify"
-					onHelp={() => {
-						alert('You can listen along with me on Spotify by clicking the button below');
-					}}
+					// onHelp={() => {
+					// 	alert('You can listen along with me on Spotify by clicking the button below');
+					// }}
 				>
 					<div className="flex w-[400px] flex-col space-y-4">
 						<div className="flex w-full items-center space-x-4">
@@ -210,7 +210,7 @@ export default function Home(props: Props) {
 						</div>
 
 						<div className="flex gap-1">
-							<button
+							{/* <button
 								onClick={() => {
 									if (spotifyClient) {
 										spotifyQueue.addSync(() => spotifyClient.pause(), {
@@ -222,7 +222,7 @@ export default function Home(props: Props) {
 								}}
 							>
 								{spotifyClient ? 'Stop listening' : 'Listen along'}
-							</button>
+							</button> */}
 							<button
 								onClick={() => {
 									window.open(`https://open.spotify.com/track/${spotify.track_id}`, '_blank');
