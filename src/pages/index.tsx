@@ -47,7 +47,7 @@ export default function Home(props: Props) {
 		<main className="mx-auto max-w-xl px-3 pb-16 pt-24">
 			<motion.ul
 				transition={{
-					staggerChildren: 0.4,
+					staggerChildren: 0.6,
 					delayChildren: 0.3,
 				}}
 				initial="hidden"

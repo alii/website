@@ -13,8 +13,8 @@ const group = {
 };
 
 const item = {
-	hidden: {opacity: 0},
-	show: {opacity: 1},
+	hidden: {opacity: 0, y: 20},
+	show: {opacity: 1, y: 0},
 };
 
 function MessageBubble({content}: {isLast?: boolean; isFirst?: boolean; content: ReactNode}) {
