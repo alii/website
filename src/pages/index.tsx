@@ -59,7 +59,7 @@ export default function Home(props: Props) {
 						{
 							key: 'intro',
 							content: (
-								<div className="px-3.5 py-2.5">
+								<div className="px-4 py-2.5">
 									I'm <span className="font-serif italic">Alistair</span>, I'm a software engineer
 								</div>
 							),
@@ -67,7 +67,7 @@ export default function Home(props: Props) {
 						{
 							key: 'what-i-do',
 							content: (
-								<p className="px-3.5 py-2.5">
+								<p className="px-4 py-2.5">
 									I an open source enthusiast and I've been called a TypeScript wizard at least a
 									few times. I'm interested in things like language specifications and compiler
 									internals.
@@ -82,7 +82,7 @@ export default function Home(props: Props) {
 						{
 							key: 'blog-intro',
 							content: (
-								<div className="px-3.5 py-2.5">
+								<div className="px-4 py-2.5">
 									I try to write a blog post every now and then. I do OK at that. Everything is on{' '}
 									<Link
 										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
@@ -101,7 +101,7 @@ export default function Home(props: Props) {
 								<Link
 									href={`https://alistair.blog/${post.slug}`}
 									key={post.slug}
-									className="group block w-fit min-w-[300px] overflow-hidden px-3.5 py-2.5"
+									className="group block w-fit min-w-[300px] overflow-hidden px-4 py-2.5"
 								>
 									<h2 className="font-serif text-base italic group-hover:text-lime-600 dark:group-hover:text-lime-400">
 										{post.name}
@@ -120,7 +120,7 @@ export default function Home(props: Props) {
 									{
 										key: 'music',
 										content: (
-											<div className="max-w-[380px] space-y-3 px-3.5 py-2.5">
+											<div className="max-w-[380px] space-y-3 px-4 py-2.5">
 												<p>
 													I listen to a lot of music. I love all electronic music, and{' '}
 													<i>right now</i> I am listening to this on Spotify:
@@ -175,7 +175,7 @@ export default function Home(props: Props) {
 									{
 										key: 'music',
 										content: (
-											<p className="px-3.5 py-2.5">
+											<p className="px-4 py-2.5">
 												I listen to a lot of music, and I really love my Drum & Bass. If you come
 												back to this page later, you might see what I'm listening to on Spotify, in
 												realtime. In the meantime, you can check out
@@ -193,7 +193,7 @@ export default function Home(props: Props) {
 						{
 							key: 'not-music',
 							content: (
-								<div className="px-3.5 py-2.5">
+								<div className="px-4 py-2.5">
 									In the rare case I'm not listening to anything, you can usually find me out and
 									about riding my{' '}
 									<Link
@@ -257,7 +257,7 @@ export default function Home(props: Props) {
 						{
 							key: 'location-caption',
 							content: (
-								<p className="px-3.5 py-2.5">
+								<p className="px-4 py-2.5">
 									Right now I am in{' '}
 									<Link
 										href={`https://maps.apple.com/?q=${lanyard.kv.location}`}
@@ -278,16 +278,16 @@ export default function Home(props: Props) {
 						{
 							key: 'chat-1',
 							content: (
-								<div className="px-3.5 py-2.5">
+								<div className="max-w-[330px] px-4 py-2.5">
 									Want to reach me? I'd love to chat, whether you want to pitch an idea, or just say
-									hi
+									hi.
 								</div>
 							),
 						},
 						{
 							key: 'discord',
 							content: (
-								<div className="px-3.5 py-2.5">
+								<div className="px-4 py-2.5">
 									My Discord is <code className="font-serif italic">@alistaiir</code> - I'm
 									currently{' '}
 									<span
@@ -315,7 +315,7 @@ export default function Home(props: Props) {
 						{
 							key: 'chat-2',
 							content: (
-								<div className="px-3.5 py-2.5">
+								<div className="px-4 py-2.5">
 									Otherwise, I'm on{' '}
 									<Link
 										href="https://x.com/alistaiir"
@@ -335,7 +335,7 @@ export default function Home(props: Props) {
 						{
 							key: 'experiments',
 							content: (
-								<div className="px-3.5 py-2.5">
+								<div className="px-4 py-2.5">
 									I have some fun experiments on this site, some are functional things I use, others
 									are just me messing around.{' '}
 									<Link

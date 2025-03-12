@@ -8,13 +8,13 @@ export interface MessageGroupProps {
 }
 
 const group = {
-	hidden: {opacity: 0, y: 20},
-	show: {opacity: 1, y: 0},
+	hidden: {opacity: 0, x: -5},
+	show: {opacity: 1, x: 0},
 };
 
 const item = {
-	hidden: {opacity: 0, y: 10},
-	show: {opacity: 1, y: 0},
+	hidden: {opacity: 0},
+	show: {opacity: 1},
 };
 
 function MessageBubble({content}: {isLast?: boolean; isFirst?: boolean; content: ReactNode}) {
