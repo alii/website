@@ -28,7 +28,7 @@ function MessageBubble({content}: {isLast?: boolean; isFirst?: boolean; content:
 			}}
 			variants={item}
 			className={clsx(
-				'w-fit bg-[#E9E9EB] text-sm text-[#242424] dark:bg-[#3B3B3D] dark:text-white dark:shadow-none',
+				'w-fit bg-[#E9E9EB] text-sm text-[#242424] dark:bg-[#3B3B3D] dark:text-[#E1E1E1] dark:shadow-none',
 
 				'rounded-[20px]',
 			)}
