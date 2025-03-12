@@ -120,51 +120,54 @@ export default function Home(props: Props) {
 									{
 										key: 'music',
 										content: (
-											<div className="space-y-3 px-3.5 py-2.5">
+											<div className="max-w-[380px] space-y-3 px-3.5 py-2.5">
 												<p>
 													I listen to a lot of music. I love all electronic music, and{' '}
-													<i>right now</i> I am listening to this on Spotify
+													<i>right now</i> I am listening to this on Spotify:
 												</p>
-
-												<Link
-													href={`https://open.spotify.com/track/${lanyard.spotify.track_id}`}
-													className="group relative !mb-1 block w-fit min-w-[300px] overflow-hidden rounded-xl rounded-bl-md p-3"
-													target="_blank"
-												>
-													<div className="absolute -inset-[1px] z-20 rounded-xl rounded-bl-md border-[3px] border-black/10 dark:border-white/20"></div>
-
-													<div className="absolute inset-0">
-														<div className="absolute inset-0 z-10 bg-white/70 group-hover:bg-white/80 dark:bg-neutral-800/80 dark:group-hover:bg-neutral-800/90"></div>
-														<img
-															src={lanyard.spotify.album_art_url ?? album.src}
-															alt="Album art"
-															aria-hidden
-															className="absolute top-1/2 -translate-y-1/2 scale-[3] blur-3xl saturate-[15] dark:saturate-[10]"
-														/>
-													</div>
-
-													<div className="relative z-10 flex items-center space-x-4 pr-8">
-														<img
-															src={lanyard.spotify.album_art_url ?? album.src}
-															alt="Album art"
-															className="size-12 rounded-md border-2"
-														/>
-
-														<div className="space-y-1">
-															<p className="line-clamp-1">
-																<strong>{lanyard.spotify.song}</strong>
-															</p>
-															<p className="line-clamp-1 text-neutral-800 dark:text-white/60">
-																{lanyard.spotify.artist.split('; ').join(', ')}
-															</p>
-														</div>
-													</div>
-
-													<div className="absolute right-4 top-4 z-10">
-														<SiSpotify className="size-4 text-neutral-900/80 dark:text-white/50" />
-													</div>
-												</Link>
 											</div>
+										),
+									},
+
+									{
+										key: 'the-current-song',
+										content: (
+											<Link
+												href={`https://open.spotify.com/track/${lanyard.spotify.track_id}`}
+												className="group relative !mb-1 block w-full min-w-[300px] cursor-default overflow-hidden rounded-[20px] p-4"
+												target="_blank"
+											>
+												<div className="absolute inset-0">
+													<div className="absolute inset-0 z-10 bg-white/70 transition-colors group-hover:bg-white/80 dark:bg-neutral-800/80 dark:group-hover:bg-neutral-800/85"></div>
+													<img
+														src={lanyard.spotify.album_art_url ?? album.src}
+														alt="Album art"
+														aria-hidden
+														className="absolute top-1/2 -translate-y-1/2 scale-[3] blur-3xl saturate-[50] dark:saturate-[10]"
+													/>
+												</div>
+
+												<div className="relative z-10 flex items-center space-x-4 pr-8">
+													<img
+														src={lanyard.spotify.album_art_url ?? album.src}
+														alt="Album art"
+														className="size-12 rounded-md border-2"
+													/>
+
+													<div className="space-y-1">
+														<p className="line-clamp-1">
+															<strong>{lanyard.spotify.song}</strong>
+														</p>
+														<p className="line-clamp-1 text-neutral-800 dark:text-white/60">
+															{lanyard.spotify.artist.split('; ').join(', ')}
+														</p>
+													</div>
+												</div>
+
+												<div className="absolute right-4 top-4 z-10">
+													<SiSpotify className="size-4 text-neutral-900/80 dark:text-white/50" />
+												</div>
+											</Link>
 										),
 									},
 								]
@@ -178,7 +181,7 @@ export default function Home(props: Props) {
 												realtime. In the meantime, you can check out
 												<Link
 													href="https://www.youtube.com/watch?v=BsPg7bjT1rM"
-													className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50 inline-block"
+													className="inline-block nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
 													target="_blank"
 												>
 													this Four Tet DJ set that I love
@@ -227,29 +230,27 @@ export default function Home(props: Props) {
 						{
 							key: 'location',
 							content: (
-								<div className="px-3.5 py-2.5">
-									<div className="relative my-1 h-[150px] w-[300px]">
-										<div className="absolute inset-0 overflow-hidden rounded-t-lg rounded-bl-md rounded-br-lg">
-											<img
-												src={`/api/map?location=${lanyard.kv.location}&theme=light`}
-												alt="Map"
-												className="absolute inset-0 h-full w-full scale-125 object-cover dark:hidden"
-											/>
-											<img
-												src={`/api/map?location=${lanyard.kv.location}&theme=dark`}
-												alt="Map"
-												className="absolute inset-0 hidden h-full w-full scale-125 object-cover dark:block"
-											/>
-										</div>
-
-										<span className="absolute left-1/2 top-1/2 z-10 -ml-7 -mt-7 block size-14 animate-ping rounded-full bg-lime-500 duration-1000" />
-
+								<div className="relative my-1 h-[150px] w-[300px]">
+									<div className="absolute inset-0 overflow-hidden rounded-[20px]">
 										<img
-											src={`https://cdn.discordapp.com/avatars/${lanyard.discord_user.id}/${lanyard.discord_user.avatar}.webp?size=160`}
-											alt="Avatar"
-											className="absolute left-1/2 top-1/2 z-10 size-16 -translate-x-1/2 -translate-y-1/2 rounded-full border-2"
+											src={`/api/map?location=${lanyard.kv.location}&theme=light`}
+											alt="Map"
+											className="absolute inset-0 h-full w-full scale-125 object-cover dark:hidden"
+										/>
+										<img
+											src={`/api/map?location=${lanyard.kv.location}&theme=dark`}
+											alt="Map"
+											className="absolute inset-0 hidden h-full w-full scale-125 object-cover dark:block"
 										/>
 									</div>
+
+									<span className="absolute left-1/2 top-1/2 z-10 -ml-7 -mt-7 block size-14 animate-ping rounded-full bg-lime-500 duration-1000" />
+
+									<img
+										src={`https://cdn.discordapp.com/avatars/${lanyard.discord_user.id}/${lanyard.discord_user.avatar}.webp?size=160`}
+										alt="Avatar"
+										className="absolute left-1/2 top-1/2 z-10 size-16 -translate-x-1/2 -translate-y-1/2 rounded-full border-2"
+									/>
 								</div>
 							),
 						},

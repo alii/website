@@ -8,24 +8,16 @@ export interface MessageGroupProps {
 }
 
 const group = {
-	hidden: {opacity: 0, x: -5},
-	show: {opacity: 1, x: 0},
+	hidden: {opacity: 0, y: 20},
+	show: {opacity: 1, y: 0},
 };
 
 const item = {
-	hidden: {opacity: 0},
-	show: {opacity: 1},
+	hidden: {opacity: 0, y: 10},
+	show: {opacity: 1, y: 0},
 };
 
-function MessageBubble({
-	isLast,
-	isFirst,
-	content,
-}: {
-	isLast?: boolean;
-	isFirst?: boolean;
-	content: ReactNode;
-}) {
+function MessageBubble({content}: {isLast?: boolean; isFirst?: boolean; content: ReactNode}) {
 	return (
 		<motion.div
 			transition={{
@@ -36,15 +28,9 @@ function MessageBubble({
 			}}
 			variants={item}
 			className={clsx(
-				'w-fit border border-neutral-200 bg-white text-sm shadow-sm dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-400 dark:shadow-none',
+				'w-fit bg-[#E9E9EB] text-sm text-[#242424] dark:bg-[#3B3B3D] dark:text-white dark:shadow-none',
 
-				isLast && isFirst
-					? 'rounded-2xl'
-					: isFirst
-						? 'rounded-b-lg rounded-t-2xl'
-						: isLast
-							? 'rounded-b-2xl rounded-t-lg'
-							: 'rounded-lg',
+				'rounded-[20px]',
 			)}
 		>
 			{content}
