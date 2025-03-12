@@ -8,8 +8,8 @@ export interface MessageGroupProps {
 }
 
 const group = {
-	hidden: {opacity: 0, x: -5},
-	show: {opacity: 1, x: 0},
+	hidden: {opacity: 0, y: 20},
+	show: {opacity: 1, y: 0},
 };
 
 const item = {
@@ -44,9 +44,8 @@ export function MessageGroup({messages}: MessageGroupProps) {
 			transition={{
 				type: 'spring',
 				mass: 11,
-				damping: 140,
+				damping: 80,
 				stiffness: 500,
-
 				staggerChildren: 0.2,
 			}}
 			variants={group}
