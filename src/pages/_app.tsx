@@ -1,6 +1,7 @@
 import '../globals.css';
 
 import {GoogleAnalytics} from '@next/third-parties/google';
+import {Lenis} from 'lenis/react';
 import type {AppProps} from 'next/app';
 import {Inter, Newsreader} from 'next/font/google';
 import Head from 'next/head';
@@ -47,7 +48,9 @@ export default function App({Component, pageProps}: AppProps) {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<Component {...pageProps} />
+			<Lenis root>
+				<Component {...pageProps} />
+			</Lenis>
 
 			<Toaster />
 
