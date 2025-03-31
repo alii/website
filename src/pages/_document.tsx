@@ -12,6 +12,7 @@ export default class WebsiteDocument extends Document {
 					<Main />
 					<NextScript />
 					<script async defer src="https://lab.alistair.cloud/latest.js" />
+					<script defer src="https://assets.onedollarstats.com/stonks.js" />
 				</body>
 			</Html>
 		);
