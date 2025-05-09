@@ -45,9 +45,10 @@ function MessageBubble({
 				'w-fit bg-zinc-100 text-sm text-zinc-700 dark:bg-zinc-900 dark:text-zinc-400 dark:shadow-none',
 				className,
 
-				'[mask:_paint(squircle)]',
-				'[--squircle-radius:_12px]',
-				'[--squircle-smooth:_0.35]',
+				'rounded-[20px]',
+				// '[mask:_paint(squircle)]',
+				// '[--squircle-radius:_12px]',
+				// '[--squircle-smooth:_0.35]',
 			)}
 		>
 			{content}
