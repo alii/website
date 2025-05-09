@@ -58,7 +58,7 @@ export default function RekordboxHistoryParser() {
 
 	return (
 		<div className="flex space-x-4">
-			<textarea value={state} className="bg-neutral-800" onChange={e => setState(e.target.value)} />
+			<textarea value={state} className="bg-zinc-800" onChange={e => setState(e.target.value)} />
 
 			<pre>{result}</pre>
 		</div>

@@ -3,8 +3,14 @@ import {motion} from 'framer-motion';
 import type {ReactNode} from 'react';
 import alistair from '../../public/alistair.jpeg';
 
+export interface Message {
+	key: string;
+	content: ReactNode;
+	className?: string;
+}
+
 export interface MessageGroupProps {
-	messages: Array<{key: string; content: ReactNode}>;
+	messages: Array<Message>;
 }
 
 const group = {
@@ -17,7 +23,15 @@ const item = {
 	show: {opacity: 1, y: 0},
 };
 
-function MessageBubble({content}: {isLast?: boolean; isFirst?: boolean; content: ReactNode}) {
+function MessageBubble({
+	content,
+	className,
+}: {
+	isLast?: boolean;
+	isFirst?: boolean;
+	content: ReactNode;
+	className?: string | undefined;
+}) {
 	return (
 		<motion.div
 			transition={{
@@ -28,9 +42,12 @@ function MessageBubble({content}: {isLast?: boolean; isFirst?: boolean; content:
 			}}
 			variants={item}
 			className={clsx(
-				'w-fit bg-[#E9E9EB] text-sm text-[#242424] dark:bg-[#3B3B3D] dark:text-[#E1E1E1] dark:shadow-none',
+				'w-fit bg-zinc-100 text-sm text-zinc-700 dark:bg-zinc-900 dark:text-zinc-400 dark:shadow-none',
+				className,
 
-				'rounded-[20px]',
+				'[mask:_paint(squircle)]',
+				'[--squircle-radius:_12px]',
+				'[--squircle-smooth:_0.35]',
 			)}
 		>
 			{content}
@@ -58,12 +75,13 @@ export function MessageGroup({messages}: MessageGroupProps) {
 			/>
 
 			<div className="space-y-1">
-				{messages.map(({key: id, content}, i) => (
+				{messages.map(({key: id, content, className}, i) => (
 					<MessageBubble
 						key={id}
 						content={content}
 						isFirst={i === 0}
 						isLast={i === messages.length - 1}
+						className={className}
 					/>
 				))}
 			</div>

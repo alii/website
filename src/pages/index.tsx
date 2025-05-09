@@ -5,7 +5,7 @@ import Link from 'next/link';
 import {SiSpotify} from 'react-icons/si';
 import {useLanyardWS, type Data as LanyardData} from 'use-lanyard';
 import album from '../../public/album.png';
-import {MessageGroup} from '../components/message';
+import {MessageGroup, type Message} from '../components/message';
 import {getRecentBlogPosts, type PartialBlogPost} from '../server/blog';
 import {env} from '../server/env';
 import {getLanyard} from '../server/lanyard';
@@ -85,7 +85,7 @@ export default function Home(props: Props) {
 								<div className="px-4 py-2.5">
 									I try to write a blog post every now and then. I do OK at that. Everything is on{' '}
 									<Link
-										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
+										className="nice-underline-zinc-400 dark:nice-underline-zinc-200/50"
 										href="https://alistair.blog"
 									>
 										alistair.blog
@@ -95,21 +95,24 @@ export default function Home(props: Props) {
 							),
 						},
 
-						...props.recentBlogPosts.map(post => ({
-							key: post.slug,
-							content: (
-								<Link
-									href={`https://alistair.blog/${post.slug}`}
-									key={post.slug}
-									className="group block w-fit min-w-[300px] overflow-hidden px-4 py-2.5"
-								>
-									<h2 className="font-serif text-base italic group-hover:text-lime-600 dark:group-hover:text-lime-400">
-										{post.name}
-									</h2>
-									<p className="text-neutral-800 dark:text-neutral-500">{post.excerpt}</p>
-								</Link>
-							),
-						})),
+						...props.recentBlogPosts.map(
+							(post): Message => ({
+								key: post.slug,
+								className: 'hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors',
+								content: (
+									<Link
+										href={`https://alistair.blog/${post.slug}`}
+										key={post.slug}
+										className="block w-fit min-w-[300px] overflow-hidden px-4 py-2.5"
+									>
+										<h2 className="font-serif text-base italic text-black dark:text-white">
+											{post.name}
+										</h2>
+										<p className="text-zinc-800 dark:text-zinc-400">{post.excerpt}</p>
+									</Link>
+								),
+							}),
+						),
 					]}
 				/>
 
@@ -138,7 +141,7 @@ export default function Home(props: Props) {
 												target="_blank"
 											>
 												<div className="absolute inset-0">
-													<div className="absolute inset-0 z-10 bg-white/70 transition-colors group-hover:bg-white/80 dark:bg-neutral-800/80 dark:group-hover:bg-neutral-800/85"></div>
+													<div className="absolute inset-0 z-10 bg-white/70 transition-colors group-hover:bg-white/80 dark:bg-zinc-800/80 dark:group-hover:bg-zinc-800/85"></div>
 													<img
 														src={lanyard.spotify.album_art_url ?? album.src}
 														alt="Album art"
@@ -158,14 +161,14 @@ export default function Home(props: Props) {
 														<p className="line-clamp-1">
 															<strong>{lanyard.spotify.song}</strong>
 														</p>
-														<p className="line-clamp-1 text-neutral-800 dark:text-white/60">
+														<p className="line-clamp-1 text-zinc-800 dark:text-white/60">
 															{lanyard.spotify.artist.split('; ').join(', ')}
 														</p>
 													</div>
 												</div>
 
 												<div className="absolute right-4 top-4 z-10">
-													<SiSpotify className="size-4 text-neutral-900/80 dark:text-white/50" />
+													<SiSpotify className="size-4 text-zinc-900/80 dark:text-white/50" />
 												</div>
 											</Link>
 										),
@@ -181,7 +184,7 @@ export default function Home(props: Props) {
 												realtime. In the meantime, you can check out
 												<Link
 													href="https://www.youtube.com/watch?v=BsPg7bjT1rM"
-													className="inline-block nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
+													className="inline-block nice-underline-zinc-400 dark:nice-underline-zinc-200/50"
 													target="_blank"
 												>
 													this Four Tet DJ set that I love
@@ -198,7 +201,7 @@ export default function Home(props: Props) {
 									about riding my{' '}
 									<Link
 										href="https://www.youtube.com/watch?v=LBx-JCj-7Y8"
-										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
+										className="nice-underline-zinc-400 dark:nice-underline-zinc-200/50"
 										target="_blank"
 									>
 										Evolve skateboard
@@ -206,7 +209,7 @@ export default function Home(props: Props) {
 									,{' '}
 									<Link
 										href="https://www.youtube.com/watch?v=x6vlL9Sscmw"
-										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
+										className="nice-underline-zinc-400 dark:nice-underline-zinc-200/50"
 										target="_blank"
 									>
 										DJing (on YouTube)
@@ -214,7 +217,7 @@ export default function Home(props: Props) {
 									or{' '}
 									<Link
 										href="https://soundcloud.com/alistairsmusic/"
-										className="underline decoration-neutral-400 dark:decoration-neutral-200/50"
+										className="underline decoration-zinc-400 dark:decoration-zinc-200/50"
 										target="_blank"
 									>
 										trying my hardest to figure out Ableton Live
@@ -261,7 +264,7 @@ export default function Home(props: Props) {
 									Right now I am in{' '}
 									<Link
 										href={`https://maps.apple.com/?q=${lanyard.kv.location}`}
-										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
+										className="nice-underline-zinc-400 dark:nice-underline-zinc-200/50"
 										target="_blank"
 									>
 										{lanyard.kv.location}
@@ -319,7 +322,7 @@ export default function Home(props: Props) {
 									Otherwise, I'm on{' '}
 									<Link
 										href="https://x.com/alistaiir"
-										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
+										className="nice-underline-zinc-400 dark:nice-underline-zinc-200/50"
 										target="_blank"
 									>
 										Twitter/X
@@ -340,7 +343,7 @@ export default function Home(props: Props) {
 									are just me messing around.{' '}
 									<Link
 										href="/experiments"
-										className="nice-underline-neutral-400 dark:nice-underline-neutral-200/50"
+										className="nice-underline-zinc-400 dark:nice-underline-zinc-200/50"
 									>
 										Click here to see them
 									</Link>

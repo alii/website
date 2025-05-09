@@ -31,12 +31,12 @@ type Props =
 export default function MonzoDashboard(props: Props) {
 	if (!props.success) {
 		return (
-			<div className="mx-auto my-16 max-w-2xl space-y-8 border bg-neutral-100 p-10 dark:border-neutral-800 dark:bg-neutral-900">
+			<div className="mx-auto my-16 max-w-2xl space-y-8 border bg-zinc-100 p-10 dark:border-zinc-800 dark:bg-zinc-900">
 				<p>{props.error}</p>
-				<pre className="w-full overflow-x-auto border px-2 py-1.5 text-neutral-600 dark:border-neutral-800 dark:text-neutral-400">
+				<pre className="w-full overflow-x-auto border px-2 py-1.5 text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">
 					{JSON.stringify(props.body, null, 4)}
 				</pre>
-				<p className="text-neutral-400">
+				<p className="text-zinc-400">
 					You may need to explicitly enable permissions in the Monzo app, on your phone.
 				</p>
 
@@ -55,7 +55,7 @@ export default function MonzoDashboard(props: Props) {
 	const {data} = props;
 
 	return (
-		<div className="mx-auto my-16 max-w-3xl space-y-8 border bg-neutral-100 p-10 shadow-2xl shadow-black/25 dark:border-neutral-800 dark:bg-neutral-900">
+		<div className="mx-auto my-16 max-w-3xl space-y-8 border bg-zinc-100 p-10 shadow-2xl shadow-black/25 dark:border-zinc-800 dark:bg-zinc-900">
 			<div className="space-y-4">
 				<h1 className="text-xl font-bold">Accounts</h1>
 				{data.accounts
@@ -72,7 +72,7 @@ export default function MonzoDashboard(props: Props) {
 							formatter.format(pennies / 100).replace(/\.00$/, '');
 
 						return (
-							<div key={acct.id} className="border dark:border-neutral-800">
+							<div key={acct.id} className="border dark:border-zinc-800">
 								<div className="flex justify-between p-2.5">
 									<div className="space-y-0.5">
 										<p>
@@ -80,16 +80,16 @@ export default function MonzoDashboard(props: Props) {
 										</p>
 
 										{acct.balance ? (
-											<p className="text-xl text-neutral-600 dark:text-neutral-300">
+											<p className="text-xl text-zinc-600 dark:text-zinc-300">
 												{format(acct.balance.balance)}{' '}
 												{!acct.balance || acct.balance.spend_today === 0 ? null : (
-													<span className="text-sm text-neutral-500 dark:text-neutral-400">
+													<span className="text-sm text-zinc-500 dark:text-zinc-400">
 														-{format(Math.abs(acct.balance.spend_today))} today
 													</span>
 												)}
 											</p>
 										) : (
-											<p className="text-sm text-neutral-500 dark:text-neutral-400">
+											<p className="text-sm text-zinc-500 dark:text-zinc-400">
 												{bwitch(acct.type)
 													.case(
 														'uk_monzo_flex_backing_loan',
@@ -102,11 +102,11 @@ export default function MonzoDashboard(props: Props) {
 									</div>
 
 									<div className="flex flex-col items-end space-y-1">
-										<p className="text-xs text-neutral-500">{acct.description}</p>
-										<p className="text-xs text-neutral-500">{acct.id}</p>
+										<p className="text-xs text-zinc-500">{acct.description}</p>
+										<p className="text-xs text-zinc-500">{acct.id}</p>
 
 										{acct.payment_details && (
-											<p className="text-xs text-neutral-500">
+											<p className="text-xs text-zinc-500">
 												{acct.payment_details.locale_uk.account_number} •{' '}
 												{acct.payment_details.locale_uk.sort_code}
 											</p>
@@ -116,13 +116,11 @@ export default function MonzoDashboard(props: Props) {
 
 								{acct.pots && acct.pots.length !== 0 && (
 									<>
-										<hr className="dark:border-neutral-800" />
+										<hr className="dark:border-zinc-800" />
 
 										<div className="space-y-1.5 pb-2.5 pt-1.5">
 											<div>
-												<p className="px-2.5 font-bold text-neutral-700 dark:text-neutral-200">
-													Pots
-												</p>
+												<p className="px-2.5 font-bold text-zinc-700 dark:text-zinc-200">Pots</p>
 											</div>
 
 											<div className="flex w-full space-x-2.5 overflow-x-auto px-2.5">
@@ -131,12 +129,12 @@ export default function MonzoDashboard(props: Props) {
 													.map(pot => (
 														<div
 															key={pot.id}
-															className="shrink-0 flex-grow border px-3 py-2 dark:border-neutral-800"
+															className="shrink-0 flex-grow border px-3 py-2 dark:border-zinc-800"
 														>
-															<p className="text-neutral-700 dark:text-neutral-200">
+															<p className="text-zinc-700 dark:text-zinc-200">
 																{pot.name}
 																{pot.round_up ? (
-																	<span className="text-sm text-neutral-500 dark:text-neutral-400">
+																	<span className="text-sm text-zinc-500 dark:text-zinc-400">
 																		{' '}
 																		({pot.round_up_multiplier}x)
 																	</span>
@@ -146,7 +144,7 @@ export default function MonzoDashboard(props: Props) {
 															<p className="text-lg">
 																{format(pot.balance)}
 																{typeof pot.goal_amount !== 'number' ? null : (
-																	<span className="text-neutral-400">
+																	<span className="text-zinc-400">
 																		{' '}
 																		/ {format(pot.goal_amount)}
 																	</span>
@@ -161,7 +159,7 @@ export default function MonzoDashboard(props: Props) {
 
 								{acct.webhooks && acct.webhooks.length !== 0 && (
 									<>
-										<hr className="border-neutral-800" />
+										<hr className="border-zinc-800" />
 
 										<div className="space-y-2 py-2.5">
 											<p className="px-2.5">Webhooks</p>
@@ -170,10 +168,10 @@ export default function MonzoDashboard(props: Props) {
 												{acct.webhooks.map(wehook => (
 													<div
 														key={wehook.id}
-														className="shrink-0 flex-grow border border-neutral-800 px-3 py-2"
+														className="shrink-0 flex-grow border border-zinc-800 px-3 py-2"
 													>
-														<p className="text-neutral-200">{wehook.url}</p>
-														<p className="text-sm text-neutral-400">{wehook.id}</p>
+														<p className="text-zinc-200">{wehook.url}</p>
+														<p className="text-sm text-zinc-400">{wehook.id}</p>
 													</div>
 												))}
 											</div>
@@ -185,7 +183,7 @@ export default function MonzoDashboard(props: Props) {
 					})}
 			</div>
 
-			<p className="text-sm text-neutral-500">
+			<p className="text-sm text-zinc-500">
 				Webhooks are currently misbehaving due to an issue with Monzo's API
 			</p>
 		</div>

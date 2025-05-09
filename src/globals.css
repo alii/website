@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-	@apply overscroll-none bg-[#fefefe] font-sans text-neutral-900 antialiased dark:bg-[#1E1E1E] dark:text-neutral-100;
+	@apply overscroll-none bg-[#fefefe] font-sans text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
 }
 
 #__next {
