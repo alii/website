@@ -1,4 +1,0 @@
-{
-	"extends": ["config:base"],
-	"packageRules": ["minor", "patch", "pin", "digest"]
-}
