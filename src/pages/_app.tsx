@@ -25,7 +25,7 @@ const tag = process.env.NEXT_PUBLIC_GTM_ID;
 export default function App({Component, pageProps}: AppProps) {
 	useFirstEverLoad();
 
-	const [_, set] = useVisitCounts();
+	const [, set] = useVisitCounts();
 
 	useEffect(() => {
 		set(x => x + 1);

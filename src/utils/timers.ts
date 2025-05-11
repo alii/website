@@ -1,9 +1,9 @@
 import type {NativeTimeout} from './types';
 
-export function debounce<F extends Function>(func: F, ms: number) {
+export function debounce<A extends unknown[] = []>(func: (...args: A) => void, ms: number) {
 	let timeout: NativeTimeout | null = null;
 
-	const debounced = (...args: any) => {
+	const debounced = (...args: A) => {
 		if (timeout !== null) {
 			clearTimeout(timeout);
 		}
@@ -11,5 +11,5 @@ export function debounce<F extends Function>(func: F, ms: number) {
 		timeout = setTimeout(() => func(...args), ms);
 	};
 
-	return debounced as unknown as F;
+	return debounced;
 }

@@ -129,7 +129,7 @@ export default function MonzoDashboard(props: Props) {
 													.map(pot => (
 														<div
 															key={pot.id}
-															className="shrink-0 flex-grow border px-3 py-2 dark:border-zinc-800"
+															className="shrink-0 grow border px-3 py-2 dark:border-zinc-800"
 														>
 															<p className="text-zinc-700 dark:text-zinc-200">
 																{pot.name}
@@ -168,7 +168,7 @@ export default function MonzoDashboard(props: Props) {
 												{acct.webhooks.map(wehook => (
 													<div
 														key={wehook.id}
-														className="shrink-0 flex-grow border border-zinc-800 px-3 py-2"
+														className="shrink-0 grow border border-zinc-800 px-3 py-2"
 													>
 														<p className="text-zinc-200">{wehook.url}</p>
 														<p className="text-sm text-zinc-400">{wehook.id}</p>

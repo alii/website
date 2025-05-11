@@ -44,7 +44,7 @@ export default function Home(props: Props) {
 	const status = lanyard.discord_status ?? 'offline';
 
 	return (
-		<main className="mx-auto max-w-xl px-3 pb-16 pt-24">
+		<main className="mx-auto max-w-xl px-3 pt-24 pb-16">
 			<motion.ul
 				transition={{
 					staggerChildren: 0.6,
@@ -85,7 +85,7 @@ export default function Home(props: Props) {
 								<div className="px-4 py-2.5">
 									I try to write a blog post every now and then. I do OK at that. Everything is on{' '}
 									<Link
-										className="nice-underline-zinc-400 dark:nice-underline-zinc-200/50"
+										className="underline decoration-zinc-200/50 dark:decoration-zinc-400"
 										href="https://alistair.blog"
 									>
 										alistair.blog
@@ -105,7 +105,7 @@ export default function Home(props: Props) {
 										key={post.slug}
 										className="block w-fit min-w-[300px] overflow-hidden px-4 py-2.5"
 									>
-										<h2 className="font-serif text-base italic text-black dark:text-white">
+										<h2 className="font-serif text-base text-black italic dark:text-white">
 											{post.name}
 										</h2>
 										<p className="text-zinc-800 dark:text-zinc-400">{post.excerpt}</p>
@@ -137,7 +137,7 @@ export default function Home(props: Props) {
 										content: (
 											<Link
 												href={`https://open.spotify.com/track/${lanyard.spotify.track_id}`}
-												className="group relative !mb-1 block w-full min-w-[300px] cursor-default overflow-hidden rounded-[20px] p-4"
+												className="group relative mb-1! block w-full min-w-[300px] cursor-default overflow-hidden rounded-[20px] p-4"
 												target="_blank"
 											>
 												<div className="absolute inset-0">
@@ -167,7 +167,7 @@ export default function Home(props: Props) {
 													</div>
 												</div>
 
-												<div className="absolute right-4 top-4 z-10">
+												<div className="absolute top-4 right-4 z-10">
 													<SiSpotify className="size-4 text-zinc-900/80 dark:text-white/50" />
 												</div>
 											</Link>
@@ -184,7 +184,7 @@ export default function Home(props: Props) {
 												realtime. In the meantime, you can check out
 												<Link
 													href="https://www.youtube.com/watch?v=BsPg7bjT1rM"
-													className="inline-block nice-underline-zinc-400 dark:nice-underline-zinc-200/50"
+													className="inline-block underline decoration-zinc-200/50 dark:decoration-zinc-400"
 													target="_blank"
 												>
 													this Four Tet DJ set that I love
@@ -201,7 +201,7 @@ export default function Home(props: Props) {
 									about riding my{' '}
 									<Link
 										href="https://www.youtube.com/watch?v=LBx-JCj-7Y8"
-										className="nice-underline-zinc-400 dark:nice-underline-zinc-200/50"
+										className="underline decoration-zinc-200/50 dark:decoration-zinc-400"
 										target="_blank"
 									>
 										Evolve skateboard
@@ -209,7 +209,7 @@ export default function Home(props: Props) {
 									,{' '}
 									<Link
 										href="https://www.youtube.com/watch?v=x6vlL9Sscmw"
-										className="nice-underline-zinc-400 dark:nice-underline-zinc-200/50"
+										className="underline decoration-zinc-200/50 dark:decoration-zinc-400"
 										target="_blank"
 									>
 										DJing (on YouTube)
@@ -247,12 +247,12 @@ export default function Home(props: Props) {
 										/>
 									</div>
 
-									<span className="absolute left-1/2 top-1/2 z-10 -ml-7 -mt-7 block size-14 animate-ping rounded-full bg-lime-500 duration-1000" />
+									<span className="absolute top-1/2 left-1/2 z-10 -mt-7 -ml-7 block size-14 animate-ping rounded-full bg-lime-500 duration-1000" />
 
 									<img
 										src={`https://cdn.discordapp.com/avatars/${lanyard.discord_user.id}/${lanyard.discord_user.avatar}.webp?size=160`}
 										alt="Avatar"
-										className="absolute left-1/2 top-1/2 z-10 size-16 -translate-x-1/2 -translate-y-1/2 rounded-full border-2"
+										className="absolute top-1/2 left-1/2 z-10 size-16 -translate-x-1/2 -translate-y-1/2 rounded-full border-2"
 									/>
 								</div>
 							),
@@ -264,7 +264,7 @@ export default function Home(props: Props) {
 									Right now I am in{' '}
 									<Link
 										href={`https://maps.apple.com/?q=${lanyard.kv.location}`}
-										className="nice-underline-zinc-400 dark:nice-underline-zinc-200/50"
+										className="underline decoration-zinc-200/50 dark:decoration-zinc-400"
 										target="_blank"
 									>
 										{lanyard.kv.location}
@@ -322,7 +322,7 @@ export default function Home(props: Props) {
 									Otherwise, I'm on{' '}
 									<Link
 										href="https://x.com/alistaiir"
-										className="nice-underline-zinc-400 dark:nice-underline-zinc-200/50"
+										className="underline decoration-zinc-200/50 dark:decoration-zinc-400"
 										target="_blank"
 									>
 										Twitter/X
@@ -343,7 +343,7 @@ export default function Home(props: Props) {
 									are just me messing around.{' '}
 									<Link
 										href="/experiments"
-										className="nice-underline-zinc-400 dark:nice-underline-zinc-200/50"
+										className="underline decoration-zinc-200/50 dark:decoration-zinc-400"
 									>
 										Click here to see them
 									</Link>

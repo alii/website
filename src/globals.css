@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
 body {
 	@apply overscroll-none bg-[#fefefe] font-sans text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
