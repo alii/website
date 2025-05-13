@@ -68,7 +68,7 @@ export default function Home(props: Props) {
 							key: 'what-i-do',
 							content: (
 								<p className="px-4 py-2.5">
-									I an open source enthusiast and I've been called a TypeScript wizard at least a
+									I am an open source enthusiast and I've been called a TypeScript wizard at least a
 									few times. I'm interested in things like language specifications and compiler
 									internals.
 								</p>
