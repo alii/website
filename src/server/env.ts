@@ -15,5 +15,10 @@ export const env = z
 			.refine((id): id is Id<'oauth2client'> => validateId(id, 'oauth2client')),
 		MONZO_CLIENT_SECRET: z.string(),
 		JWT_SIGNING_SECRET: z.string(),
+
+		DISCORD_DEMO_JWT_SECRET: z.string(),
+		DISCORD_DEMO_REDIRECT_URI: z.string().url(),
+		DISCORD_DEMO_DISCORD_CLIENT_ID: z.string(),
+		DISCORD_DEMO_DISCORD_CLIENT_SECRET: z.string(),
 	})
 	.parse(process.env);
