@@ -17,7 +17,7 @@ export class WTFESM extends Post {
 	public render() {
 		return (
 			<>
-				<h1>WTF, ESM!?</h1>
+				<h1 className="font-serif">WTF, ESM!?</h1>
 
 				<p>
 					I{' '}

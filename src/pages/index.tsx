@@ -1,5 +1,4 @@
 import {get} from '@prequist/lanyard';
-import dayjs from 'dayjs';
 import {motion} from 'framer-motion';
 import type {GetStaticProps} from 'next';
 import Link from 'next/link';
@@ -15,7 +14,7 @@ import {discordId} from '../utils/constants';
 export interface Props {
 	lanyard: Types.Presence;
 	location: string;
-	recentBlogPosts: Post[];
+	recentBlogPosts: Post.TinyJSON[];
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
@@ -23,8 +22,10 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	const location = lanyard.kv.location ?? env.DEFAULT_LOCATION;
 
 	const recentBlogPosts = [...posts]
-		.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix())
-		.slice(0, 3);
+		.filter(post => !post.hidden)
+		// .sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix())
+		.slice(0, 3)
+		.map(post => post.toTinyJSON());
 
 	return {
 		revalidate: 10,

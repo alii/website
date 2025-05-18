@@ -15,7 +15,8 @@ export class ServerlessDiscordOAuth extends Post {
 	public render() {
 		return (
 			<>
-				<h1 className="font-mono">Serverless Discord OAuth with Next.js</h1>
+				<h1 className="font-serif">Serverless Discord OAuth with Next.js</h1>
+
 				<p>
 					Oauth is is a brilliant solution to a difficult problem, but it can be hard to implement,
 					especially in a serverless environment. Hopefully, this post will help you get started.

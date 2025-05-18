@@ -58,7 +58,7 @@ export default function PostPage({slug}: Props) {
 
 			<main
 				className={clsx(
-					'prose dark:prose-hr:border-zinc-800 prose-blue prose-img:rounded-md prose-img:w-full dark:prose-invert dark:text-zinc-400',
+					'prose dark:prose-hr:border-zinc-800 prose-indigo prose-img:rounded-md prose-img:w-full dark:prose-invert dark:text-zinc-400',
 					'prose-hr:border-zinc-200',
 					'dark:prose-headings:text-zinc-300',
 

@@ -27,7 +27,7 @@ export class Mochip extends Post {
 	public render() {
 		return (
 			<>
-				<h1 className="font-mono">Avoiding homework with code (and getting caught)</h1>
+				<h1 className="font-serif">Avoiding homework with code (and getting caught)</h1>
 
 				<p>
 					Back in 2020, my school used a few online learning platforms that allowed

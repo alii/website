@@ -14,7 +14,7 @@ export class ZeroKbBlog extends Post {
 	public render() {
 		return (
 			<>
-				<h1 className="font-mono">The 0kb Next.js blog</h1>
+				<h1 className="font-serif">The 0kb Next.js blog</h1>
 
 				<Note variant="warning" title="Update 3rd April 2023">
 					This only applies to apps using the <code>pages</code> directory of Next.js as App Dir

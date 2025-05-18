@@ -8,7 +8,7 @@ export abstract class Post {
 	public abstract readonly excerpt: string;
 	public abstract readonly keywords: string[];
 
-	public toJSON() {
+	public toJSON(): Post.PartialJSON {
 		return {
 			name: this.name,
 			slug: this.slug,
@@ -19,5 +19,32 @@ export abstract class Post {
 		};
 	}
 
+	public toTinyJSON(): Post.TinyJSON {
+		return {
+			name: this.name,
+			slug: this.slug,
+			date: this.date.toISOString(),
+			excerpt: this.excerpt,
+		};
+	}
+
 	public abstract render(): ReactNode;
+}
+
+export namespace Post {
+	export interface PartialJSON {
+		name: string;
+		slug: string;
+		date: string;
+		hidden: boolean;
+		excerpt: string;
+		keywords: string[];
+	}
+
+	export interface TinyJSON {
+		name: string;
+		slug: string;
+		date: string;
+		excerpt: string;
+	}
 }

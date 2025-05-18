@@ -14,7 +14,7 @@ export class AmbientDeclarations extends Post {
 	public render() {
 		return (
 			<>
-				<h1 className="font-mono">Ambient Declarations</h1>
+				<h1 className="font-serif">Ambient Declarations</h1>
 				<p>
 					I recently landed a pull request (
 					<a href="https://github.com/oven-sh/bun/pull/18024">#18024</a>) in{' '}
