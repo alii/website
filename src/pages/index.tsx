@@ -1,24 +1,24 @@
+import {get} from '@prequist/lanyard';
 import dayjs from 'dayjs';
 import {motion} from 'framer-motion';
 import type {GetStaticProps} from 'next';
 import Link from 'next/link';
 import {SiSpotify} from 'react-icons/si';
-import {useLanyardWS, type Data as LanyardData} from 'use-lanyard';
+import {useLanyardWS, type Types} from 'use-lanyard';
 import album from '../../public/album.png';
 import {MessageGroup, type Message} from '../components/message';
 import {getRecentBlogPosts, type PartialBlogPost} from '../server/blog';
 import {env} from '../server/env';
-import {getLanyard} from '../server/lanyard';
 import {discordId} from '../utils/constants';
 
 export interface Props {
-	lanyard: LanyardData;
+	lanyard: Types.Presence;
 	location: string;
 	recentBlogPosts: PartialBlogPost[];
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-	const lanyard = await getLanyard(discordId);
+	const lanyard = await get(discordId);
 	const location = lanyard.kv.location ?? env.DEFAULT_LOCATION;
 
 	const allBlogPosts = await getRecentBlogPosts();
@@ -39,9 +39,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 export default function Home(props: Props) {
 	const lanyard = useLanyardWS(discordId, {
 		initialData: props.lanyard,
-	})!;
-
-	const status = lanyard.discord_status ?? 'offline';
+	});
 
 	return (
 		<main className="mx-auto max-w-xl px-3 pt-24 pb-16">
@@ -83,14 +81,8 @@ export default function Home(props: Props) {
 							key: 'blog-intro',
 							content: (
 								<div className="px-4 py-2.5">
-									I try to write a blog post every now and then. I do OK at that. Everything is on{' '}
-									<Link
-										className="underline decoration-zinc-200/50 dark:decoration-zinc-400"
-										href="https://alistair.blog"
-									>
-										alistair.blog
-									</Link>
-									, but the most recent three are below
+									I try to write a blog post every now and then. I do OK at that. Below are the most
+									recent three.
 								</div>
 							),
 						},
@@ -101,7 +93,7 @@ export default function Home(props: Props) {
 								className: 'hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors',
 								content: (
 									<Link
-										href={`https://alistair.blog/${post.slug}`}
+										href={`/${post.slug}`}
 										key={post.slug}
 										className="block w-fit min-w-[300px] overflow-hidden px-4 py-2.5"
 									>
@@ -161,9 +153,11 @@ export default function Home(props: Props) {
 														<p className="line-clamp-1">
 															<strong>{lanyard.spotify.song}</strong>
 														</p>
-														<p className="line-clamp-1 text-zinc-800 dark:text-white/60">
-															{lanyard.spotify.artist.split('; ').join(', ')}
-														</p>
+														{lanyard.spotify.artist && (
+															<p className="line-clamp-1 text-zinc-800 dark:text-white/60">
+																{lanyard.spotify.artist.split('; ').join(', ')}
+															</p>
+														)}
 													</div>
 												</div>
 
@@ -300,7 +294,7 @@ export default function Home(props: Props) {
 												idle: 'text-amber-500',
 												online: 'text-green-500',
 												offline: 'text-blurple',
-											}[status]
+											}[lanyard.discord_status]
 										}
 									>
 										{
@@ -309,7 +303,7 @@ export default function Home(props: Props) {
 												idle: 'idle',
 												online: 'online',
 												offline: 'offline',
-											}[status]
+											}[lanyard.discord_status]
 										}
 									</span>
 								</div>
