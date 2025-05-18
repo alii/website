@@ -3,11 +3,16 @@ import '../globals.css';
 import {GoogleAnalytics} from '@next/third-parties/google';
 import {Lenis} from 'lenis/react';
 import type {AppProps} from 'next/app';
-import {Inter, Newsreader} from 'next/font/google';
+import {Inter, JetBrains_Mono, Newsreader} from 'next/font/google';
 import Head from 'next/head';
+import {useRouter} from 'next/router';
 import {useEffect} from 'react';
 import {Toaster} from 'react-hot-toast';
 import {useFirstEverLoad, useVisitCounts} from '../hooks/use-first-ever-load';
+
+const mono = JetBrains_Mono({
+	subsets: ['latin'],
+});
 
 const serif = Newsreader({
 	subsets: ['latin'],
@@ -31,13 +36,16 @@ export default function App({Component, pageProps}: AppProps) {
 		set(x => x + 1);
 	}, [set]);
 
+	const path = useRouter().asPath;
+
 	return (
 		<>
 			<style jsx global>
 				{`
 					:root {
-						--font-serif: ${serif.style.fontFamily};
-						--font-sans: ${body.style.fontFamily};
+						--next-font-serif: ${serif.style.fontFamily};
+						--next-font-sans: ${body.style.fontFamily};
+						--next-font-mono: ${mono.style.fontFamily};
 					}
 				`}
 			</style>
@@ -48,7 +56,7 @@ export default function App({Component, pageProps}: AppProps) {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<Lenis root>
+			<Lenis root key={path}>
 				<Component {...pageProps} />
 			</Lenis>
 

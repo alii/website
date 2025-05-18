@@ -1,5 +1,13 @@
 @import 'tailwindcss';
 
+@plugin "@tailwindcss/typography";
+
+@theme {
+	--font-serif: var(--next-font-serif), --default-serif-font-family;
+	--font-sans: var(--next-font-sans), --default-sans-font-family;
+	--font-mono: var(--next-font-mono), --default-mono-font-family;
+}
+
 body {
 	@apply overscroll-none bg-[#fefefe] font-sans text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
 }
