@@ -56,7 +56,7 @@ export default function App({Component, pageProps}: AppProps) {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<Lenis root key={path}>
+			<Lenis root options={{smoothWheel: true, lerp: 0.2}} key={path}>
 				<Component {...pageProps} />
 			</Lenis>
 
