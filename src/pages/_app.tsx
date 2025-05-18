@@ -4,9 +4,9 @@ import {GoogleAnalytics} from '@next/third-parties/google';
 import type {AppProps} from 'next/app';
 import {Inter, JetBrains_Mono, Newsreader} from 'next/font/google';
 import Head from 'next/head';
-import {useRouter} from 'next/router';
 import {useEffect} from 'react';
 import {Toaster} from 'react-hot-toast';
+import {useShouldDoInitialPageAnimations} from '../hooks/use-did-initial-page-animations';
 import {useFirstEverLoad, useVisitCounts} from '../hooks/use-first-ever-load';
 
 const mono = JetBrains_Mono({
@@ -20,22 +20,19 @@ const serif = Newsreader({
 	// fallback: ['serif'],
 });
 
-const body = Inter({
-	subsets: ['latin'],
-});
+const body = Inter({subsets: ['latin']});
 
 const tag = process.env.NEXT_PUBLIC_GTM_ID;
 
 export default function App({Component, pageProps}: AppProps) {
 	useFirstEverLoad();
+	useShouldDoInitialPageAnimations();
 
 	const [, set] = useVisitCounts();
 
 	useEffect(() => {
 		set(x => x + 1);
 	}, [set]);
-
-	const path = useRouter().asPath;
 
 	return (
 		<>
