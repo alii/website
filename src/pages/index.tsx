@@ -6,23 +6,23 @@ import Link from 'next/link';
 import {SiSpotify} from 'react-icons/si';
 import {useLanyardWS, type Types} from 'use-lanyard';
 import album from '../../public/album.png';
+import type {Post} from '../blog/Post';
+import {posts} from '../blog/posts';
 import {MessageGroup, type Message} from '../components/message';
-import {getRecentBlogPosts, type PartialBlogPost} from '../server/blog';
 import {env} from '../server/env';
 import {discordId} from '../utils/constants';
 
 export interface Props {
 	lanyard: Types.Presence;
 	location: string;
-	recentBlogPosts: PartialBlogPost[];
+	recentBlogPosts: Post[];
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
 	const lanyard = await get(discordId);
 	const location = lanyard.kv.location ?? env.DEFAULT_LOCATION;
 
-	const allBlogPosts = await getRecentBlogPosts();
-	const recentBlogPosts = allBlogPosts
+	const recentBlogPosts = [...posts]
 		.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix())
 		.slice(0, 3);
 

@@ -98,7 +98,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 				tw="text-[35px] text-zinc-500 mt-10"
 				style={{fontFamily: `${SANS_SERIF.name}, sans-serif`}}
 			>
-				alistair.blog
+				alistair.sh
 			</div>
 		</div>
 	);
