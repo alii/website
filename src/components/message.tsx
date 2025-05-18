@@ -2,15 +2,46 @@ import clsx from 'clsx';
 import {motion} from 'framer-motion';
 import type {ReactNode} from 'react';
 import alistair from '../../public/alistair.jpeg';
+import type {DistributedOmit} from '../utils/types';
 
-export interface Message {
-	key: string;
-	content: ReactNode;
-	className?: string;
+export function message(
+	...args:
+		| [key: string, content: ReactNode, className?: string]
+		| [message: DistributedOmit<Extract<MessageOrNode, {type?: 'message'}>, 'type'>]
+): MessageOrNode {
+	if (args.length === 1) {
+		const [message] = args;
+		return {...message, type: 'message'};
+	} else {
+		const [key, content, className] = args;
+		return {
+			type: 'message',
+			key,
+			content,
+			className,
+		};
+	}
 }
 
+message.node = (node: ReactNode): MessageOrNode => ({
+	type: 'node',
+	node,
+});
+
+export type MessageOrNode =
+	| {
+			type?: 'message';
+			key: string;
+			content: ReactNode;
+			className?: string | undefined;
+	  }
+	| {
+			type: 'node';
+			node: ReactNode;
+	  };
+
 export interface MessageGroupProps {
-	messages: Array<Message>;
+	messages: Array<MessageOrNode>;
 }
 
 const group = {
@@ -56,7 +87,7 @@ function MessageBubble({
 	);
 }
 
-export function MessageGroup({messages}: MessageGroupProps) {
+export function MessageGroupContainer({children}: {children: ReactNode}) {
 	return (
 		<motion.li
 			transition={{
@@ -75,17 +106,31 @@ export function MessageGroup({messages}: MessageGroupProps) {
 				alt="Me standing in front of some tents"
 			/>
 
-			<div className="space-y-1">
-				{messages.map(({key: id, content, className}, i) => (
+			<div className="space-y-1">{children}</div>
+		</motion.li>
+	);
+}
+
+export function MessageGroup({messages}: MessageGroupProps) {
+	return (
+		<MessageGroupContainer>
+			{messages.map((messageOrReactNode, i) => {
+				if (messageOrReactNode.type === 'node') {
+					return messageOrReactNode.node;
+				}
+
+				const {key, content, className} = messageOrReactNode;
+
+				return (
 					<MessageBubble
-						key={id}
+						key={key}
 						content={content}
 						isFirst={i === 0}
 						isLast={i === messages.length - 1}
 						className={className}
 					/>
-				))}
-			</div>
-		</motion.li>
+				);
+			})}
+		</MessageGroupContainer>
 	);
 }

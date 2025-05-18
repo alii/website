@@ -40,7 +40,7 @@ export default function PostPage({slug}: Props) {
 					className="font-mono text-blue-500 hover:text-blue-800 dark:text-zinc-400 dark:hover:text-zinc-600"
 					href="/"
 				>
-					../
+					cd ../
 				</Link>
 			</div>
 

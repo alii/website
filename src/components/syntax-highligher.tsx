@@ -27,7 +27,7 @@ export function Shell({
 					<p
 						key={line}
 						className={clsx(
-							'my-0 before:select-none',
+							'!my-0 before:select-none',
 							hasDollarOnFirstLineOnly
 								? isFirst &&
 										'text-yellow-800 before:text-yellow-600 before:content-["$_"] dark:text-yellow-200 dark:before:text-yellow-400'

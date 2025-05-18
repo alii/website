@@ -7,7 +7,8 @@ import {useLanyardWS, type Types} from 'use-lanyard';
 import album from '../../public/album.png';
 import type {Post} from '../blog/Post';
 import {posts} from '../blog/posts';
-import {MessageGroup, type Message} from '../components/message';
+import {message, MessageGroup} from '../components/message';
+import {useShouldDoInitialPageAnimations} from '../hooks/use-did-initial-page-animations';
 import {env} from '../server/env';
 import {discordId} from '../utils/constants';
 
@@ -42,6 +43,8 @@ export default function Home(props: Props) {
 		initialData: props.lanyard,
 	});
 
+	const shouldAnimate = useShouldDoInitialPageAnimations();
+
 	return (
 		<main className="mx-auto max-w-xl px-3 pt-24 pb-16">
 			<motion.ul
@@ -49,7 +52,7 @@ export default function Home(props: Props) {
 					staggerChildren: 0.6,
 					delayChildren: 0.3,
 				}}
-				initial="hidden"
+				initial={shouldAnimate ? 'hidden' : 'show'}
 				animate="show"
 				className="space-y-8"
 			>
@@ -82,29 +85,31 @@ export default function Home(props: Props) {
 							key: 'blog-intro',
 							content: (
 								<div className="px-4 py-2.5">
-									I try to write a blog post every now and then. I do OK at that. Below are the most
-									recent three.
+									I try to write a blog post every now and then. I do OK at that
 								</div>
 							),
 						},
 
 						...props.recentBlogPosts.map(
-							(post): Message => ({
-								key: post.slug,
-								className: 'hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors',
-								content: (
-									<Link
-										href={`/${post.slug}`}
-										key={post.slug}
-										className="block w-fit min-w-[300px] overflow-hidden px-4 py-2.5"
-									>
-										<h2 className="font-serif text-base text-black italic dark:text-white">
-											{post.name}
-										</h2>
-										<p className="text-zinc-800 dark:text-zinc-400">{post.excerpt}</p>
-									</Link>
-								),
-							}),
+							post =>
+								message({
+									key: post.slug,
+									className: 'hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors',
+									content: (
+										<Link
+											href={`/${post.slug}`}
+											key={post.slug}
+											className="block w-fit min-w-[300px] overflow-hidden px-4 py-2.5"
+										>
+											<h2 className="font-serif text-base text-black italic dark:text-white">
+												{post.name}
+											</h2>
+											<p className="text-zinc-800 dark:text-zinc-400">{post.excerpt}</p>
+										</Link>
+									),
+								}),
+
+							message.node('hi'),
 						),
 					]}
 				/>
@@ -276,7 +281,7 @@ export default function Home(props: Props) {
 						{
 							key: 'chat-1',
 							content: (
-								<div className="max-w-[330px] px-4 py-2.5">
+								<div className="max-w-[384px] px-4 py-2.5">
 									Want to reach me? I'd love to chat, whether you want to pitch an idea, or just say
 									hi.
 								</div>

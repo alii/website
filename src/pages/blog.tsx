@@ -1,13 +1,40 @@
+import {motion} from 'framer-motion';
 import Link from 'next/link';
 import type {ReactNode} from 'react';
+import {TbArrowLeft} from 'react-icons/tb';
 import {posts, sortPosts} from '../blog/posts';
+import {useShouldDoInitialPageAnimations} from '../hooks/use-did-initial-page-animations';
 
 export default function Blog() {
+	const shouldAnimate = useShouldDoInitialPageAnimations();
+
 	return (
 		<main className="mx-auto max-w-xl space-y-4 px-3 pt-24 pb-16">
-			<h1 className="font-serif text-2xl">alistair.sh/blog</h1>
+			<p>
+				<Link href="/">
+					<TbArrowLeft className="mb-0.5 inline-block" /> Home
+				</Link>
+			</p>
 
-			<ul className="list-inside list-disc space-y-1 font-mono">
+			<motion.ul
+				className="list-inside list-disc space-y-1"
+				initial={shouldAnimate ? 'hidden' : 'show'}
+				animate="show"
+				variants={{
+					hidden: {opacity: 0, y: 32},
+					show: {
+						opacity: 1,
+						y: 0,
+						transition: {staggerChildren: 0.1, delayChildren: 0.4, ease: [0.22, 1, 0.36, 1]},
+					},
+				}}
+				transition={{
+					type: 'spring',
+					stiffness: 60,
+					damping: 18,
+					mass: 1.2,
+				}}
+			>
 				{sortPosts(posts).flatMap(post => {
 					if (post.hidden) {
 						return [];
@@ -19,20 +46,35 @@ export default function Blog() {
 						</BlogLink>,
 					];
 				})}
-			</ul>
+			</motion.ul>
 		</main>
 	);
 }
 
 function BlogLink(props: {readonly href: string; readonly children: ReactNode}) {
 	return (
-		<li>
+		<motion.li
+			variants={{
+				hidden: {opacity: 0, y: 32},
+				show: {
+					opacity: 1,
+					y: 0,
+					transition: {
+						type: 'spring',
+						stiffness: 60,
+						damping: 18,
+						mass: 1.2,
+						ease: [0.22, 1, 0.36, 1],
+					},
+				},
+			}}
+		>
 			<Link
 				className="cursor-default text-sky-500 hover:text-sky-700 dark:hover:text-sky-600"
 				href={props.href}
 			>
 				{props.children}
 			</Link>
-		</li>
+		</motion.li>
 	);
 }
