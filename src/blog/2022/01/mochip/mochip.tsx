@@ -261,14 +261,14 @@ export class Mochip extends Post {
 				<hr />
 
 				<p>
-					Edit as of 23 Sept, 2022: After making this post public, I posted this on HackerNews and
-					amazingly got to #1 for a few hours, so this site received a lot of traffic. I served
-					almost 1.5tb of content in about 6 hours. Some of the employees at Sparx (the parent
-					company of HegartyMaths) ended up seeing this and sent it it on Colin. A few minutes ago I
-					just received a really, <i>really</i> lovely email from Mr Hegarty himself with the
-					subject "Congrats to you!". I am so grateful for the kindness and consideration Colin has
-					shown Scott and I. If you are a teacher reading this, then please use HegartyMaths for
-					your students! The happy ending.
+					<b>Edit 23 Sept, 2022</b>: After making this post public, I posted this on HackerNews and
+					amazingly sat in the #1 spot overnight. This site consequently received a lot of traffic,
+					and I served almost 1.5tb in just shy of 6 hours. Some of the employees at Sparx (the
+					parent company of HegartyMaths) ended up seeing this and forwarded it to Colin. A few
+					minutes ago I just received a really lovely email from Mr Hegarty himself with the subject
+					"Congrats to you!". I am so grateful for the kindness and consideration Colin has shown
+					Scott and I, so if you are a teacher reading this, then please consider using HegartyMaths
+					at your school! This was the happy ending!
 				</p>
 			</>
 		);
