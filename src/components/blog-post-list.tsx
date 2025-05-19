@@ -11,9 +11,19 @@ const allPosts = posts.filter(post => !post.hidden);
 export function BlogPostList() {
 	const [isFocused, setIsFocused] = useState(false);
 	const [isHovered, setIsHovered] = useState(false);
-	const [didHoverOrFocusOnce, setDidHoverOrFocusOnce] = useState(false);
+
+	const [didHoverOrFocusOnceLocalStorage, setDidHoverOrFocusOnce] = useLocalStorage(
+		'blog-post-list:did-hover-or-focus-once',
+		() => false,
+	);
+
 	const [isLockedOpenLocalStorage, setIsLockedOpen] = useLocalStorage(
 		'blog-post-list:is-locked-open',
+		() => false,
+	);
+
+	const didHoverOrFocusOnce = useIsomorphicValue(
+		() => didHoverOrFocusOnceLocalStorage,
 		() => false,
 	);
 
