@@ -35,8 +35,9 @@ export function BlogPostList() {
 			<div className="px-4">
 				<div className="items-tart flex justify-between border-b border-zinc-200 pb-4 dark:border-zinc-800">
 					<p className="mr-4">
-						I try to write a blog post every now and then, often about some of the things I've been
-						working on. Hover your mouse here to see the full list.
+						I try to write a blog post every now and then, often about things I've recently been
+						working on. Hover your mouse here to see the full list, lock the padlock to keep it
+						open.
 					</p>
 
 					<motion.button
@@ -82,6 +83,14 @@ export function BlogPostList() {
 					expanded: {
 						height: 'auto',
 					},
+				}}
+				transition={{
+					duration: 0.7,
+					type: 'spring',
+					bounce: 0.2,
+					mass: 0.5,
+					stiffness: 100,
+					damping: 10,
 				}}
 			>
 				<div className="flex flex-col p-4 pb-2.5">
