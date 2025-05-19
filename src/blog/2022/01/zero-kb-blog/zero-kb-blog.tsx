@@ -48,18 +48,18 @@ export class ZeroKbBlog extends Post {
 				<h2>Runtime JS</h2>
 
 				<p>
-					With something called <code>PageConfig</code> we can instruct Next.js to supply zero
-					runtime JS to the client. It comes with a couple trade offs but the general idea is that
-					we perform our first render on the server and the resulting HTML and CSS is "frozen" and
-					sent down to the client over the wire. Zero JavaScript runtime in the browser, no{' '}
+					With something called <code>PageConfig</code>, we can instruct Next.js to supply zero
+					runtime JS to the client. It comes with a couple of trade-offs, but the general idea is
+					that we perform our first render on the server and the resulting HTML and CSS is "frozen"
+					and sent down to the client over the wire. Zero JavaScript runtime in the browser, no{' '}
 					<code>&lt;script&gt;</code> tags in sight!
 				</p>
 
 				<h2>What's the catch?</h2>
 
 				<p>
-					As the saying goes, there's no such thing as free lunch. As with anything, doing this
-					comes with some tradeoffs. For example, Next has a lot of built in React components that
+					As the saying goes, there's no such thing as a free lunch. As with anything, doing this
+					comes with some trade-offs. For example, Next has a lot of built-in React components that
 					can speed up not only your app, but also development speed. Using the zero kb mode, we
 					unfortunately cannot make full use of the <code>next/link</code> component; a component
 					that prefetches pages so that clicks on links don't cause a full page reload.

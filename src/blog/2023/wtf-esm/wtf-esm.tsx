@@ -52,7 +52,7 @@ export class WTFESM extends Post {
 				<hr />
 
 				<p>
-					Right now, it's extradordinarly clear we are experiencing growing pains in our great
+					Right now, it's extraordinarily clear we are experiencing growing pains in our great
 					migration to ECMAScript Modules. Below is the part of my <code>package.json</code> that I
 					posted.
 				</p>
@@ -78,7 +78,7 @@ export class WTFESM extends Post {
 
 				<p>
 					As mentioned above, I made some mistakes here. First of all, it's important to
-					diffrentiate between what is runtime code that engines will understand (what is
+					differentiate between what is runtime code that engines will understand (what is
 					JavaScript), and what is type definitions (what is TypeScript). This (seems) easy enough,
 					we can see clearly that there are two <code>types</code> fields. One is under the{' '}
 					<code>.</code> entrypoint for <code>exports</code>, the other is at the root. Let's break

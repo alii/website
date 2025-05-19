@@ -1,14 +1,19 @@
 import Link from 'next/link';
+import {TbArrowLeft} from 'react-icons/tb';
 
 export default function Page404() {
 	return (
-		<main className="mx-auto max-w-3xl space-y-2 px-6 pt-16 pb-40">
-			<p className="font-serif text-3xl italic">404</p>
-			<p>Sorry, I couldn't locate that page for ya</p>
+		<main className="mx-auto max-w-3xl space-y-4 py-20">
+			<p className="font-serif text-xl text-sky-700 dark:text-sky-200">
+				<span className="text-sky-600">404</span> Sorry, I could not find that page
+			</p>
 
 			<div>
-				<Link href="/" className="rounded-full bg-pink-500 px-2 py-1">
-					↖ home
+				<Link
+					href="/"
+					className="flex w-fit items-center space-x-1.5 rounded-full bg-sky-100 px-4 py-2 text-sky-700 dark:bg-sky-950 dark:text-sky-500"
+				>
+					<TbArrowLeft className="inline" /> <span>Go home</span>
 				</Link>
 			</div>
 		</main>

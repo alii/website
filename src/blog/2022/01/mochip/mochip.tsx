@@ -51,14 +51,14 @@ export class Mochip extends Post {
 				<p>
 					Mostly, software engineers are rather lazy individuals. We tell metal how to do stuff for
 					us. Homework then, naturally, is an arduous task for a developer who is still at school.
-					So, still 2018, myself and a close friend of mine by the name of{' '}
+					So, still 2018, a close friend of mine by the name of{' '}
 					<a href="https://hiett.dev" target="_blank" rel="noreferrer">
 						Scott Hiett
 					</a>{' '}
-					decided to do something about the Hegarty situation. We started to reverse engineer the
-					frontend app and eventually came up with a Tampermonkey userscript that would glitch the
-					embedded YouTube player to say that we've watched the video at least 1x. Cruically, our
-					teachers could see how many times we've watched the video, so being able to skip up to 20
+					and I decided to do something about the Hegarty situation. We started to reverse engineer
+					the frontend app and eventually came up with a Tampermonkey userscript that would glitch
+					the embedded YouTube player to say that we'd watched the video at least 1x. Crucially, our
+					teachers could see how many times we'd watched the video, so being able to skip up to 20
 					minutes of homework time was especially useful – and it was a lot of fun to build too.
 				</p>
 				<p>
@@ -95,12 +95,12 @@ export class Mochip extends Post {
 					never thought about reversing until all of this began.
 				</p>
 				<p>
-					One common factor between Hegarty and Educake is that immediately give you the correct
-					answer if you got a question wrong. We took advantage of this and wrote a small node/mongo
-					app &amp; tampermonkey script to detect when a user was on a quiz page, and answer every
-					question with a random number and then store the correct answer in mongodb. I don't have
-					the original source but the TamperMonkey script was <i>probably something</i> like the
-					following:
+					One common factor between Hegarty and Educake is that they immediately give you the
+					correct answer if you got a question wrong. We took advantage of this and wrote a small
+					node/mongo app & tampermonkey script to detect when a user was on a quiz page, answer
+					every question with a random number, and then store the correct answer in mongodb. I don't
+					have the original source but the TamperMonkey script was <i>probably something</i> like
+					the following:
 				</p>
 				<Highlighter>
 					{stripIndent`
@@ -155,14 +155,14 @@ export class Mochip extends Post {
 
 				<h2>Hegarty 2</h2>
 				<p>
-					The success of this script along with pressure from my peers led me to gain a lot of
+					The success of this script, along with pressure from my peers, led me to gain a lot of
 					motivation to start working on reversing Hegarty again. I reached out to an internet
-					friend who, for the sake of his privacy, will be named as "Jake." He also used
-					HegartyMaths at his school and was in the same boat as me trying to not do our homework.
-					Together, we managed to figure out how to answer many varying types of questions,
-					including multiple choice and ordered answers resulting in a huge amount of data stored.
-					We had sacrificial user accounts and managed to answer 60,000 questions in a couple
-					minutes, rocketing our way to the top of the HegartyMaths global leaderboard.{' '}
+					friend who, for the sake of his privacy, will be named "Jake." He also used HegartyMaths
+					at his school and was in the same boat as me trying to avoid doing our homework. Together,
+					we managed to figure out how to answer many varying types of questions, including multiple
+					choice and ordered answers, resulting in a huge amount of data stored. We had sacrificial
+					user accounts and managed to answer 60,000 questions in a couple minutes, rocketing our
+					way to the top of the HegartyMaths global leaderboard.{' '}
 					<i>
 						Would like to give a special shoutout to Boon for lending us his login and letting us
 						decimate his statistics.
@@ -180,11 +180,11 @@ export class Mochip extends Post {
 				</p>
 				<h2>Mochip</h2>
 				<p>
-					So, where does Mochip tie in to this? Mochip was a chrome extension, a collection of both
+					So, where does Mochip tie in to this? Mochip was a Chrome extension, a collection of both
 					our scraped Hegarty and scraped Educake databases sat behind a TypeScript API and a small
-					React app. Hosted on Heroku free tier and MongoDB Atlas free tier, users could login,
+					React app. Hosted on Heroku free tier and MongoDB Atlas free tier, users could log in,
 					enter a question (from either site) and get back a list of answers Mochip has for that
-					question. Here's what the landing page looked like
+					question. Here's what the landing page looked like:
 				</p>
 				<img src={mochipLanding.src} alt="Screenshot of Mochip's main dashboard page" />
 				<p>
@@ -239,13 +239,13 @@ export class Mochip extends Post {
 					I'd like to give a special thank you to the legendary Colin Hegarty for his kindness and
 					consideration when reaching out to me. Things could have gone a lot worse for me had this
 					not been the case. HegartyMaths is a brilliant learning resource and at the end of the
-					day, it's there to help students learn rather than an inconvenience.
+					day, it's there to help students learn rather than be an inconvenience.
 				</p>
 				<p>
-					Shortly after, Colin reached out to the Educake team who we also scheduled a call with. We
-					explained our complete methodology and suggested ways to prevent this in the future. The
-					easiest fix from our point of view would be to implement an easy rate limit with Redis
-					that would make it wildy infeasible to automate a test. The other thing we suggested was
+					Shortly after, Colin reached out to the Educake team, who we also scheduled a call with.
+					We explained our complete methodology and suggested ways to prevent this in the future.
+					The easiest fix from our point of view would be to implement an easy rate limit with Redis
+					that would make it wildly infeasible to automate a test. The other thing we suggested was
 					to scramble IDs in the database to invalidate <b>our</b> cloned database as much as
 					possible (e.g. we only had the Hegarty IDs, so we could no longer reverse lookup a
 					question).
@@ -263,12 +263,12 @@ export class Mochip extends Post {
 				<p>
 					<b>Edit 23 Sept, 2022</b>: After making this post public, I posted this on HackerNews and
 					amazingly sat in the #1 spot overnight. This site consequently received a lot of traffic,
-					and I served almost 1.5tb in just shy of 6 hours. Some of the employees at Sparx (the
+					and I served almost 1.5TB in just shy of 6 hours. Some of the employees at Sparx (the
 					parent company of HegartyMaths) ended up seeing this and forwarded it to Colin. A few
 					minutes ago I just received a really lovely email from Mr Hegarty himself with the subject
-					"Congrats to you!". I am so grateful for the kindness and consideration Colin has shown
-					Scott and I, so if you are a teacher reading this, then please consider using HegartyMaths
-					at your school! This was the happy ending!
+					"Congrats to you!" I am so grateful for the kindness and consideration Colin has shown
+					Scott and me, so if you are a teacher reading this, then please consider using
+					HegartyMaths at your school! This was the happy ending!
 				</p>
 			</>
 		);

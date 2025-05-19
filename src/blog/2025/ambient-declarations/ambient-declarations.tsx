@@ -332,8 +332,8 @@ export class AmbientDeclarations extends Post {
 					`}
 				</Highlighter>
 				<p>
-					Bun's types take this a step further by using a clever trick that let's us use the
-					built-in types if they exist, with a graceful fallback when it doesn't
+					Bun's types take this a step further by using a clever trick that lets us use the built-in
+					types if they exist, with a graceful fallback when they don't.
 				</p>
 				<div className="space-y-1">
 					<Highlighter filename="bun.d.ts">
