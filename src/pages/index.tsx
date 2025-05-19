@@ -7,6 +7,7 @@ import {useLanyardWS, type Types} from 'use-lanyard';
 import album from '../../public/album.png';
 import type {Post} from '../blog/Post';
 import {posts} from '../blog/posts';
+import {BlogPostList} from '../components/blog-post-list';
 import {message, MessageGroup} from '../components/message';
 import {useShouldDoInitialPageAnimations} from '../hooks/use-did-initial-page-animations';
 import {env} from '../server/env';
@@ -81,36 +82,35 @@ export default function Home(props: Props) {
 
 				<MessageGroup
 					messages={[
-						{
-							key: 'blog-intro',
-							content: (
-								<div className="px-4 py-2.5">
-									I try to write a blog post every now and then. I do OK at that
-								</div>
-							),
-						},
+						// {
+						// 	key: 'blog-intro',
+						// 	content: (
+						// 		<div className="px-4 py-2.5">
 
-						...props.recentBlogPosts.map(
-							post =>
-								message({
-									key: post.slug,
-									className: 'hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors',
-									content: (
-										<Link
-											href={`/${post.slug}`}
-											key={post.slug}
-											className="block w-fit min-w-[300px] overflow-hidden px-4 py-2.5"
-										>
-											<h2 className="font-serif text-base text-black italic dark:text-white">
-												{post.name}
-											</h2>
-											<p className="text-zinc-800 dark:text-zinc-400">{post.excerpt}</p>
-										</Link>
-									),
-								}),
+						// 		</div>
+						// 	),
+						// },
 
-							message.node('hi'),
-						),
+						// ...props.recentBlogPosts.map(post =>
+						// 	message({
+						// 		key: post.slug,
+						// 		className: 'hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors',
+						// 		content: (
+						// 			<Link
+						// 				href={`/${post.slug}`}
+						// 				key={post.slug}
+						// 				className="block w-fit min-w-[300px] overflow-hidden px-4 py-2.5"
+						// 			>
+						// 				<h2 className="font-serif text-base text-black italic dark:text-white">
+						// 					{post.name}
+						// 				</h2>
+						// 				<p className="text-zinc-800 dark:text-zinc-400">{post.excerpt}</p>
+						// 			</Link>
+						// 		),
+						// 	}),
+						// ),
+
+						message('remaining-blog-posts', <BlogPostList />),
 					]}
 				/>
 
