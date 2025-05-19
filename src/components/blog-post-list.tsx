@@ -1,8 +1,10 @@
 import {useLocalStorage} from 'alistair/hooks';
 import {AnimatePresence, motion} from 'framer-motion';
-import {useState} from 'react';
+import {useRef, useState} from 'react';
+import {flushSync} from 'react-dom';
 import {TbLock, TbLockOpen} from 'react-icons/tb';
 import {posts} from '../blog/posts';
+import {useIsomorphicValue} from '../hooks/use-isomorphic-value';
 
 const allPosts = posts.filter(post => !post.hidden);
 
@@ -10,8 +12,13 @@ export function BlogPostList() {
 	const [isFocused, setIsFocused] = useState(false);
 	const [isHovered, setIsHovered] = useState(false);
 	const [didHoverOrFocusOnce, setDidHoverOrFocusOnce] = useState(false);
-	const [isLockedOpen, setIsLockedOpen] = useLocalStorage(
+	const [isLockedOpenLocalStorage, setIsLockedOpen] = useLocalStorage(
 		'blog-post-list:is-locked-open',
+		() => false,
+	);
+
+	const isLockedOpen = useIsomorphicValue(
+		() => isLockedOpenLocalStorage,
 		() => false,
 	);
 
@@ -37,6 +44,8 @@ export function BlogPostList() {
 	const blur = () => setIsFocused(false);
 	const out = () => setIsHovered(false);
 
+	const button = useRef<HTMLButtonElement>(null);
+
 	return (
 		<div
 			className="relative pt-4"
@@ -53,10 +62,15 @@ export function BlogPostList() {
 					</p>
 
 					<motion.button
+						ref={button}
 						title={isLockedOpen ? 'Lock the list open' : 'Unlock the list'}
-						className="group z-10 -my-3 -ml-6 -mr-3.5 inline h-fit cursor-pointer px-5 focus:outline-none"
+						className="group z-10 -my-3 -mr-3.5 -ml-6 inline h-fit cursor-pointer px-5 focus-visible:outline-none"
 						onClick={() => {
-							setIsLockedOpen(x => !x);
+							flushSync(() => {
+								setIsLockedOpen(x => !x);
+							});
+
+							button.current?.blur();
 						}}
 						initial={didHoverOrFocusOnce ? 'hidden' : 'shown'}
 						animate={didHoverOrFocusOnce ? 'hidden' : 'shown'}
@@ -105,7 +119,7 @@ export function BlogPostList() {
 					damping: 10,
 				}}
 			>
-				<div className="flex flex-col p-4 pb-2.5 pt-1">
+				<div className="flex flex-col p-4 pt-1 pb-2.5">
 					{allPosts.map(post => {
 						return (
 							<a
@@ -114,7 +128,7 @@ export function BlogPostList() {
 								href={`/${post.slug}`}
 							>
 								<div className="rounded-md px-2 py-2 duration-100 group-hover:bg-zinc-200/50 dark:group-hover:bg-zinc-800">
-									<h2 className="font-serif text-base italic text-black dark:text-white">
+									<h2 className="font-serif text-base text-black italic dark:text-white">
 										{post.name}
 									</h2>
 
@@ -128,7 +142,7 @@ export function BlogPostList() {
 				<AnimatePresence initial={false}>
 					{!isActuallyExpanded && (
 						<motion.div
-							className="absolute bottom-0 left-0 right-0 h-full bg-gradient-to-t from-zinc-100 to-transparent dark:from-zinc-950/80"
+							className="absolute right-0 bottom-0 left-0 h-full bg-gradient-to-t from-zinc-100 to-transparent dark:from-zinc-950/80"
 							initial={{
 								opacity: 0,
 							}}

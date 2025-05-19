@@ -17,5 +17,5 @@ body {
 }
 
 a[href] {
-	@apply ring-sky-500 focus:outline-none focus-visible:ring-[2.5px];
+	@apply ring-sky-500 focus-visible:ring-[2.5px] focus-visible:outline-none;
 }
