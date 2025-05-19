@@ -28,7 +28,7 @@ export default function Blog() {
 					show: {
 						opacity: 1,
 						y: 0,
-						transition: {staggerChildren: 0.1, delayChildren: 0.4, ease: [0.22, 1, 0.36, 1]},
+						transition: {staggerChildren: 0.1, ease: [0.22, 1, 0.36, 1]},
 					},
 				}}
 				transition={{
