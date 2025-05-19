@@ -30,7 +30,7 @@ export class ServerlessDiscordOAuth extends Post {
 				<h2>The setup</h2>
 				<p>
 					Firstly, we're going to need to create a Next.js with TypeScript app. Feel free to skip
-					this if you "have one that you made earlier".
+					this if you "have one that you made earlier."
 				</p>
 				<Shell>bun create next-app my-app --typescript</Shell>
 				<h3>Dependencies</h3>
@@ -163,10 +163,10 @@ export class ServerlessDiscordOAuth extends Post {
 					`}
 				</Highlighter>
 				<p>
-					Cool! This is the barebones that we will need to start writing our OAuth. It's quite a lot
-					to bite but if you break it down line by line and read the comments, it should be fairly
-					self-explanatory. We're still missing a few prerequesits to tell Discord who we are: the
-					client id and secret.
+					Cool! This is the bare bones that we will need to start writing our OAuth. It's quite a
+					lot to bite, but if you break it down line by line and read the comments, it should be
+					fairly self-explanatory. We're still missing a few prerequisites to tell Discord who we
+					are: the client id and secret.
 				</p>
 
 				<h3>Obtaining keys</h3>
@@ -221,7 +221,7 @@ export class ServerlessDiscordOAuth extends Post {
 				<h3>Why JWT?</h3>
 				<p>
 					We've picked JWT because it lets us store information on the client side where only the
-					server can mutate and verify that the server created it. This means users cant modify the
+					server can mutate and verify that the server created it. This means users can't modify the
 					data inside a JWT token, allowing the server to make guarantees about the data encoded.
 				</p>
 
@@ -234,8 +234,8 @@ export class ServerlessDiscordOAuth extends Post {
 					repository! The solution? Environment varibles.
 				</p>
 				<p>
-					Environment variables are bits of information that are provided to a process at runtime,
-					it means we don't have to store secrets inside of our source code.
+					Environment variables are bits of information that are provided to a process at runtime.
+					It means we don't have to store secrets inside our source code.
 				</p>
 				<p>
 					Thankfully, Next.js makes it super easy for us to use environment variables with something
@@ -245,7 +245,7 @@ export class ServerlessDiscordOAuth extends Post {
 				<h3>Creating our env file</h3>
 				<p>
 					Firstly, make a new file in your project's file structure called <code>.env</code> and add
-					the content below. the format for env files is <code>KEY=value</code>. You can use{' '}
+					the content below. The format for env files is <code>KEY=value</code>. You can use{' '}
 					<code>openssl rand -hex 64</code> to generate a JWT secret.
 				</p>
 
@@ -258,8 +258,8 @@ export class ServerlessDiscordOAuth extends Post {
 				</Highlighter>
 
 				<p>
-					And finally, we need to update our code to make sure that our <code>api/oauth.ts</code>{' '}
-					file can use the newly generated environment variables.
+					Finally, we need to update our code to make sure that our <code>api/oauth.ts</code> file
+					can use the newly generated environment variables.
 				</p>
 				<Highlighter filename="pages/api/oauth.ts">
 					{stripIndent`
