@@ -15,7 +15,8 @@ const mono = JetBrains_Mono({
 
 const serif = Newsreader({
 	subsets: ['latin'],
-	style: 'italic',
+	style: ['italic'],
+	weight: ['400'],
 });
 
 const body = Inter({subsets: ['latin']});

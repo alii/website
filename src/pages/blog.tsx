@@ -17,7 +17,7 @@ export default function Blog() {
 				</Link>
 			</p>
 
-			<h2 className="font-serif text-xl">alistair.sh/blog</h2>
+			<h2 className="font-serif text-xl italic">alistair.sh/blog</h2>
 
 			<motion.ul
 				className="list-inside list-disc space-y-1"

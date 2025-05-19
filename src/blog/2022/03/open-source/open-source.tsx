@@ -11,7 +11,7 @@ export class OpenSource extends Post {
 	public render() {
 		return (
 			<>
-				<h1 className="font-serif">Open Source</h1>
+				<h1 className="font-serif italic">Open Source</h1>
 
 				<p>
 					<small>
