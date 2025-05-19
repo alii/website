@@ -113,7 +113,7 @@ export default function Home(props: Props) {
 														src={lanyard.spotify.album_art_url ?? album.src}
 														alt="Album art"
 														aria-hidden
-														className="absolute top-1/2 -translate-y-1/2 scale-[3] blur-3xl saturate-[50] dark:saturate-[10]"
+														className="absolute top-1/2 -translate-y-1/2 blur-3xl saturate-[50] dark:saturate-[10]"
 													/>
 												</div>
 
