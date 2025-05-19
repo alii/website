@@ -142,7 +142,7 @@ export function BlogPostList() {
 				<AnimatePresence initial={false}>
 					{!isActuallyExpanded && (
 						<motion.div
-							className="absolute right-0 bottom-0 left-0 h-full bg-gradient-to-t from-zinc-100 to-transparent dark:from-zinc-950/80"
+							className="pointer-events-none absolute right-0 bottom-0 left-0 h-full bg-gradient-to-t from-zinc-100 to-transparent dark:from-zinc-950/80"
 							initial={{
 								opacity: 0,
 							}}
