@@ -18,7 +18,7 @@ export default function PostPage({slug}: Props) {
 	const post = posts.find(post => post.slug === slug)!;
 
 	return (
-		<div className="mx-auto w-fit space-y-4 py-28">
+		<div className="mx-auto space-y-4 px-4 py-28">
 			<Head>
 				<title>{post.name}</title>
 				<meta name="description" content={post.excerpt} />
@@ -56,7 +56,7 @@ export default function PostPage({slug}: Props) {
 
 			<main
 				className={clsx(
-					'prose dark:prose-hr:border-zinc-800 prose-sky prose-img:rounded-md prose-img:w-full dark:prose-invert dark:text-zinc-400',
+					'prose dark:prose-hr:border-zinc-800 prose-sky prose-img:rounded-md prose-img:w-full dark:prose-invert max-w-prose dark:text-zinc-400',
 					'prose-hr:border-zinc-200',
 					'dark:prose-headings:text-zinc-300',
 
