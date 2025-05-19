@@ -6,31 +6,40 @@ import {posts} from '../blog/posts';
 const allPosts = posts.filter(post => !post.hidden);
 
 export function BlogPostList() {
-	const [isHoveredOrFocused, setIsHoveredOrFocused] = useState(false);
+	const [isFocused, setIsFocused] = useState(false);
+	const [isHovered, setIsHovered] = useState(false);
 	const [isLockedOpen, setIsLockedOpen] = useState(false);
 	const [didHoverOrFocusOnce, setDidHoverOrFocusOnce] = useState(false);
 
-	const isActuallyExpanded = isHoveredOrFocused || isLockedOpen;
+	const isActuallyExpanded = isFocused || isHovered || isLockedOpen;
 
-	const hoverOrFocus = () => {
+	const openSideEffect = () => {
 		if (!didHoverOrFocusOnce) {
 			setIsLockedOpen(true);
 			setDidHoverOrFocusOnce(true);
 		}
-		setIsHoveredOrFocused(true);
 	};
 
-	const outOrBlur = () => {
-		setIsHoveredOrFocused(false);
+	const hover = () => {
+		openSideEffect();
+		setIsHovered(true);
 	};
+
+	const focus = () => {
+		openSideEffect();
+		setIsFocused(true);
+	};
+
+	const blur = () => setIsFocused(false);
+	const out = () => setIsHovered(false);
 
 	return (
 		<div
 			className="relative pt-4"
-			onMouseOver={hoverOrFocus}
-			onMouseOut={outOrBlur}
-			onFocus={hoverOrFocus}
-			onBlur={outOrBlur}
+			onMouseOver={hover}
+			onMouseOut={out}
+			onFocus={focus}
+			onBlur={blur}
 		>
 			<div className="px-4">
 				<div className="items-tart flex justify-between border-b border-zinc-200 pb-4 dark:border-zinc-800">
@@ -77,7 +86,7 @@ export function BlogPostList() {
 				className="relative overflow-hidden"
 				variants={{
 					collapsed: {
-						height: 80,
+						height: 72,
 					},
 					expanded: {
 						height: 'auto',
@@ -115,7 +124,7 @@ export function BlogPostList() {
 				<AnimatePresence initial={false}>
 					{!isActuallyExpanded && (
 						<motion.div
-							className="absolute right-0 bottom-0 left-0 h-full bg-gradient-to-t from-zinc-300/80 to-transparent dark:from-zinc-950/80"
+							className="absolute right-0 bottom-0 left-0 h-full bg-gradient-to-t from-zinc-100 to-transparent dark:from-zinc-950/80"
 							initial={{
 								opacity: 0,
 							}}
