@@ -2,6 +2,7 @@ import {get} from '@prequist/lanyard';
 import {motion} from 'framer-motion';
 import type {GetStaticProps} from 'next';
 import Link from 'next/link';
+import {CiTwitter} from 'react-icons/ci';
 import {SiSpotify} from 'react-icons/si';
 import {useLanyardWS, type Types} from 'use-lanyard';
 import album from '../../public/album.png';
@@ -201,7 +202,7 @@ export default function Home(props: Props) {
 						{
 							key: 'location',
 							content: (
-								<div className="relative my-1 h-[150px] w-[300px]">
+								<div className="relative h-[150px] w-[300px]">
 									<div className="absolute inset-0 overflow-hidden rounded-[20px]">
 										<img
 											src={`/api/map?location=${lanyard.kv.location}&theme=light`}
@@ -215,7 +216,7 @@ export default function Home(props: Props) {
 										/>
 									</div>
 
-									<span className="absolute top-1/2 left-1/2 z-10 -mt-7 -ml-7 block size-14 animate-ping rounded-full bg-lime-500 duration-1000" />
+									<span className="absolute top-1/2 left-1/2 z-10 -mt-7 -ml-7 block size-14 animate-[ping_2s_cubic-bezier(0,_0,_0.2,_1)_infinite] rounded-full bg-lime-500" />
 
 									<img
 										src={`https://cdn.discordapp.com/avatars/${lanyard.discord_user.id}/${lanyard.discord_user.avatar}.webp?size=160`}
@@ -287,7 +288,7 @@ export default function Home(props: Props) {
 							key: 'chat-2',
 							content: (
 								<div className="px-4 py-2.5">
-									Otherwise, I'm on{' '}
+									Otherwise, I'm on <CiTwitter className="mb-[3px] inline" />{' '}
 									<Link
 										href="https://x.com/alistaiir"
 										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
