@@ -1,3 +1,4 @@
+import {useLocalStorage} from 'alistair/hooks';
 import {AnimatePresence, motion} from 'framer-motion';
 import {useState} from 'react';
 import {TbLock, TbLockOpen} from 'react-icons/tb';
@@ -8,8 +9,11 @@ const allPosts = posts.filter(post => !post.hidden);
 export function BlogPostList() {
 	const [isFocused, setIsFocused] = useState(false);
 	const [isHovered, setIsHovered] = useState(false);
-	const [isLockedOpen, setIsLockedOpen] = useState(false);
 	const [didHoverOrFocusOnce, setDidHoverOrFocusOnce] = useState(false);
+	const [isLockedOpen, setIsLockedOpen] = useLocalStorage(
+		'blog-post-list:is-locked-open',
+		() => false,
+	);
 
 	const isActuallyExpanded = isFocused || isHovered || isLockedOpen;
 
@@ -50,7 +54,7 @@ export function BlogPostList() {
 
 					<motion.button
 						title={isLockedOpen ? 'Lock the list open' : 'Unlock the list'}
-						className="group z-10 -my-3 -mr-3.5 -ml-6 inline h-fit cursor-pointer px-5 focus:outline-none"
+						className="group z-10 -my-3 -ml-6 -mr-3.5 inline h-fit cursor-pointer px-5 focus:outline-none"
 						onClick={() => {
 							setIsLockedOpen(x => !x);
 						}}
@@ -101,7 +105,7 @@ export function BlogPostList() {
 					damping: 10,
 				}}
 			>
-				<div className="flex flex-col p-4 pt-1 pb-2.5">
+				<div className="flex flex-col p-4 pb-2.5 pt-1">
 					{allPosts.map(post => {
 						return (
 							<a
@@ -110,7 +114,7 @@ export function BlogPostList() {
 								href={`/${post.slug}`}
 							>
 								<div className="rounded-md px-2 py-2 duration-100 group-hover:bg-zinc-200/50 dark:group-hover:bg-zinc-800">
-									<h2 className="font-serif text-base text-black italic dark:text-white">
+									<h2 className="font-serif text-base italic text-black dark:text-white">
 										{post.name}
 									</h2>
 
@@ -124,7 +128,7 @@ export function BlogPostList() {
 				<AnimatePresence initial={false}>
 					{!isActuallyExpanded && (
 						<motion.div
-							className="absolute right-0 bottom-0 left-0 h-full bg-gradient-to-t from-zinc-100 to-transparent dark:from-zinc-950/80"
+							className="absolute bottom-0 left-0 right-0 h-full bg-gradient-to-t from-zinc-100 to-transparent dark:from-zinc-950/80"
 							initial={{
 								opacity: 0,
 							}}
