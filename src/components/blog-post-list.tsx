@@ -26,7 +26,7 @@ export function BlogPostList() {
 
 	return (
 		<div
-			className="relative overflow-hidden pt-4"
+			className="relative pt-4"
 			onMouseOver={hoverOrFocus}
 			onMouseOut={outOrBlur}
 			onFocus={hoverOrFocus}
@@ -115,7 +115,7 @@ export function BlogPostList() {
 				<AnimatePresence initial={false}>
 					{!isActuallyExpanded && (
 						<motion.div
-							className="absolute right-0 bottom-0 left-0 h-full rounded-b-xl bg-gradient-to-t from-zinc-300 to-transparent dark:from-zinc-950/80"
+							className="absolute right-0 bottom-0 left-0 h-full bg-gradient-to-t from-zinc-300/80 to-transparent dark:from-zinc-950/80"
 							initial={{
 								opacity: 0,
 							}}

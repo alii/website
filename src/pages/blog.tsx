@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type {ReactNode} from 'react';
 import {TbArrowLeft} from 'react-icons/tb';
 import {posts, sortPosts} from '../blog/posts';
+import {BlogFooter} from '../components/blog-footer';
 import {useShouldDoInitialPageAnimations} from '../hooks/use-did-initial-page-animations';
 
 export default function Blog() {
@@ -10,11 +11,13 @@ export default function Blog() {
 
 	return (
 		<main className="mx-auto max-w-xl space-y-4 px-3 pt-24 pb-16">
-			<p>
+			<p className="text-sm text-zinc-500 dark:text-zinc-600">
 				<Link href="/">
 					<TbArrowLeft className="mb-0.5 inline-block" /> Home
 				</Link>
 			</p>
+
+			<h2 className="font-serif text-xl">alistair.sh/blog</h2>
 
 			<motion.ul
 				className="list-inside list-disc space-y-1"
@@ -47,6 +50,8 @@ export default function Blog() {
 					];
 				})}
 			</motion.ul>
+
+			{BlogFooter}
 		</main>
 	);
 }

@@ -2,10 +2,8 @@ import clsx from 'clsx';
 import type {GetStaticPaths, GetStaticProps, PageConfig} from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import {CiGlobe, CiTwitter} from 'react-icons/ci';
-import {VscGithubAlt} from 'react-icons/vsc';
 import {posts} from '../blog/posts';
-import {ExternalLink} from '../components/external-link';
+import {BlogFooter} from '../components/blog-footer';
 import {Note} from '../components/note';
 
 export const config: PageConfig = {
@@ -68,36 +66,8 @@ export default function PostPage({slug}: Props) {
 				{post.render()}
 			</main>
 
-			<footer>
-				<p className="font-mono [&_a]:inline-block [&_a]:px-6 [&_a]:py-4 [&_a:first-child]:pl-0 [&_a:last-child]:pr-0">
-					<FooterLink href="https://alistair.sh">
-						<CiGlobe className="mr-[3px] mb-[1.5px] inline size-[15px]" />
-						<span>alistair.sh</span>
-					</FooterLink>
-
-					<FooterLink href="https://twitter.com/alistaiir">
-						<CiTwitter className="mr-0.5 inline size-[18px]" />
-						<span>alistaiir</span>
-					</FooterLink>
-
-					<FooterLink href="https://github.com/alii">
-						<VscGithubAlt className="mr-[3px] inline size-[14px]" />
-						<span>alii</span>
-					</FooterLink>
-				</p>
-			</footer>
+			{BlogFooter}
 		</div>
-	);
-}
-
-function FooterLink({href, children}: {href: string; children: React.ReactNode}) {
-	return (
-		<ExternalLink
-			href={href}
-			className="cursor-default text-sm text-zinc-400 decoration-blue-500/20 hover:underline hover:decoration-blue-500/50 dark:text-zinc-700"
-		>
-			{children}
-		</ExternalLink>
 	);
 }
 

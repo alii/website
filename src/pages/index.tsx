@@ -80,39 +80,7 @@ export default function Home(props: Props) {
 					]}
 				/>
 
-				<MessageGroup
-					messages={[
-						// {
-						// 	key: 'blog-intro',
-						// 	content: (
-						// 		<div className="px-4 py-2.5">
-
-						// 		</div>
-						// 	),
-						// },
-
-						// ...props.recentBlogPosts.map(post =>
-						// 	message({
-						// 		key: post.slug,
-						// 		className: 'hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors',
-						// 		content: (
-						// 			<Link
-						// 				href={`/${post.slug}`}
-						// 				key={post.slug}
-						// 				className="block w-fit min-w-[300px] overflow-hidden px-4 py-2.5"
-						// 			>
-						// 				<h2 className="font-serif text-base text-black italic dark:text-white">
-						// 					{post.name}
-						// 				</h2>
-						// 				<p className="text-zinc-800 dark:text-zinc-400">{post.excerpt}</p>
-						// 			</Link>
-						// 		),
-						// 	}),
-						// ),
-
-						message('remaining-blog-posts', <BlogPostList />),
-					]}
-				/>
+				<MessageGroup messages={[message('remaining-blog-posts', <BlogPostList />)]} />
 
 				<MessageGroup
 					messages={[
@@ -135,7 +103,7 @@ export default function Home(props: Props) {
 										content: (
 											<Link
 												href={`https://open.spotify.com/track/${lanyard.spotify.track_id}`}
-												className="group relative mb-1! block w-full min-w-[300px] cursor-default overflow-hidden rounded-[20px] p-4"
+												className="group relative block w-full min-w-[300px] cursor-default overflow-hidden rounded-[20px] p-4"
 												target="_blank"
 											>
 												<div className="absolute inset-0">

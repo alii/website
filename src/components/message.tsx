@@ -73,7 +73,7 @@ function MessageBubble({
 			}}
 			variants={item}
 			className={clsx(
-				'w-fit bg-zinc-100 text-sm text-zinc-700 dark:bg-zinc-900 dark:text-zinc-400 dark:shadow-none',
+				'w-fit overflow-hidden bg-zinc-100 text-sm text-zinc-700 dark:bg-zinc-900 dark:text-zinc-400 dark:shadow-none',
 				className,
 
 				'rounded-[20px]',
