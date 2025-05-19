@@ -93,7 +93,7 @@ export function BlogPostList() {
 					damping: 10,
 				}}
 			>
-				<div className="flex flex-col p-4 pb-2.5">
+				<div className="flex flex-col p-4 pt-1 pb-2.5">
 					{allPosts.map(post => {
 						return (
 							<a
