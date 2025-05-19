@@ -152,7 +152,7 @@ export default function Home(props: Props) {
 												realtime. In the meantime, you can check out
 												<Link
 													href="https://www.youtube.com/watch?v=BsPg7bjT1rM"
-													className="inline-block underline decoration-zinc-200/50 dark:decoration-zinc-400"
+													className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 													target="_blank"
 												>
 													this Four Tet DJ set that I love
@@ -169,7 +169,7 @@ export default function Home(props: Props) {
 									about riding my{' '}
 									<Link
 										href="https://www.youtube.com/watch?v=LBx-JCj-7Y8"
-										className="underline decoration-zinc-200/50 dark:decoration-zinc-400"
+										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 										target="_blank"
 									>
 										Evolve skateboard
@@ -177,7 +177,7 @@ export default function Home(props: Props) {
 									,{' '}
 									<Link
 										href="https://www.youtube.com/watch?v=x6vlL9Sscmw"
-										className="underline decoration-zinc-200/50 dark:decoration-zinc-400"
+										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 										target="_blank"
 									>
 										DJing (on YouTube)
@@ -185,7 +185,7 @@ export default function Home(props: Props) {
 									or{' '}
 									<Link
 										href="https://soundcloud.com/alistairsmusic/"
-										className="underline decoration-zinc-400 dark:decoration-zinc-200/50"
+										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 										target="_blank"
 									>
 										trying my hardest to figure out Ableton Live
@@ -232,7 +232,7 @@ export default function Home(props: Props) {
 									Right now I am in{' '}
 									<Link
 										href={`https://maps.apple.com/?q=${lanyard.kv.location}`}
-										className="underline decoration-zinc-200/50 dark:decoration-zinc-400"
+										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 										target="_blank"
 									>
 										{lanyard.kv.location}
@@ -290,7 +290,7 @@ export default function Home(props: Props) {
 									Otherwise, I'm on{' '}
 									<Link
 										href="https://x.com/alistaiir"
-										className="underline decoration-zinc-200/50 dark:decoration-zinc-400"
+										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 										target="_blank"
 									>
 										Twitter/X
@@ -311,7 +311,7 @@ export default function Home(props: Props) {
 									are just me messing around.{' '}
 									<Link
 										href="/experiments"
-										className="underline decoration-zinc-200/50 dark:decoration-zinc-400"
+										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 									>
 										Click here to see them
 									</Link>

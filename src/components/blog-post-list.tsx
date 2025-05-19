@@ -44,8 +44,8 @@ export function BlogPostList() {
 			<div className="px-4">
 				<div className="items-tart flex justify-between border-b border-zinc-200 pb-4 dark:border-zinc-800">
 					<p className="mr-4">
-						I try to write a blog post every now and then, often about things I've recently been
-						working on. Hover your mouse here to see the full list.
+						I try to write every now and then, often about stuff I've recently been working on.
+						Hover your mouse here to see the list.
 					</p>
 
 					<motion.button
