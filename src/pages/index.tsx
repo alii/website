@@ -260,8 +260,14 @@ export default function Home(props: Props) {
 							key: 'discord',
 							content: (
 								<div className="px-4 py-2.5">
-									My Discord is <code className="font-serif italic">@alistaiir</code> - I'm
-									currently{' '}
+									My Discord is{' '}
+									<a
+										href="discord://-/users/268798547439255572"
+										className="font-serif text-indigo-600 italic underline dark:text-indigo-300"
+									>
+										@alistaiir
+									</a>{' '}
+									- I'm currently{' '}
 									<span
 										className={
 											{
