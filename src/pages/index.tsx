@@ -3,7 +3,7 @@ import {motion} from 'framer-motion';
 import type {GetStaticProps} from 'next';
 import Link from 'next/link';
 import {CiTwitter} from 'react-icons/ci';
-import {SiSpotify} from 'react-icons/si';
+import {SiBun, SiGithub, SiSpotify} from 'react-icons/si';
 import {useLanyardWS, type Types} from 'use-lanyard';
 import album from '../../public/album.png';
 import type {Post} from '../blog/Post';
@@ -51,8 +51,8 @@ export default function Home(props: Props) {
 		<main className="mx-auto max-w-xl px-3 pt-24 pb-16">
 			<motion.ul
 				transition={{
-					staggerChildren: 0.6,
-					delayChildren: 0.3,
+					staggerChildren: 0.1,
+					delayChildren: 0.1,
 				}}
 				initial={shouldAnimate ? 'hidden' : 'show'}
 				animate="show"
@@ -64,138 +64,126 @@ export default function Home(props: Props) {
 							key: 'intro',
 							content: (
 								<div className="px-4 py-2.5">
-									I'm <span className="font-serif italic">Alistair</span>, I'm a software engineer
+									I'm <span className="font-serif italic">Alistair</span>. I work on
+									<SiBun className="mb-[3px] ml-1 inline" />{' '}
+									<Link
+										href="https://bun.sh"
+										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
+										target="_blank"
+									>
+										Bun, the fast JavaScript runtime
+									</Link>
+									. I'm interested in things like language specifications and type systems. I've
+									been called a TypeScript wizard at least a few times.
 								</div>
-							),
-						},
-						{
-							key: 'what-i-do',
-							content: (
-								<p className="px-4 py-2.5">
-									I am an open source enthusiast and I've been called a TypeScript wizard at least a
-									few times. I'm interested in things like language specifications and compiler
-									internals.
-								</p>
 							),
 						},
 					]}
 				/>
 
-				<MessageGroup messages={[message('remaining-blog-posts', <BlogPostList />)]} />
+				{lanyard.spotify && (
+					<MessageGroup
+						messages={[
+							{
+								key: 'music',
+								content: (
+									<div className="max-w-[380px] space-y-3 px-4 py-2.5">
+										<p>
+											I listen to a lot of music, and{' '}
+											<span className="font-serif italic">right now</span> I'm listening to this on:
+										</p>
+									</div>
+								),
+							},
 
-				<MessageGroup
+							{
+								key: 'the-current-song',
+								content: (
+									<Link
+										href={`https://open.spotify.com/track/${lanyard.spotify.track_id}`}
+										className="group relative block w-full min-w-[300px] cursor-default overflow-hidden rounded-[20px] p-4"
+										target="_blank"
+									>
+										<div className="absolute inset-0">
+											<div className="absolute inset-0 z-10 bg-white/70 transition-colors group-hover:bg-white/80 dark:bg-zinc-800/80 dark:group-hover:bg-zinc-800/85"></div>
+											<img
+												src={lanyard.spotify.album_art_url ?? album.src}
+												alt="Album art"
+												aria-hidden
+												className="absolute top-1/2 -translate-y-1/2 blur-3xl saturate-[50] dark:saturate-[10]"
+											/>
+										</div>
+
+										<div className="relative z-10 flex items-center space-x-4 pr-8">
+											<img
+												src={lanyard.spotify.album_art_url ?? album.src}
+												alt="Album art"
+												className="size-12 rounded-md border-2"
+											/>
+
+											<div className="space-y-1">
+												<p className="line-clamp-1">
+													<strong>{lanyard.spotify.song}</strong>
+												</p>
+												{lanyard.spotify.artist && (
+													<p className="line-clamp-1 text-zinc-800 dark:text-white/60">
+														{lanyard.spotify.artist.split('; ').join(', ')}
+													</p>
+												)}
+											</div>
+										</div>
+
+										<div className="absolute top-4 right-4 z-10">
+											<SiSpotify className="size-4 text-zinc-900/80 dark:text-white/50" />
+										</div>
+									</Link>
+								),
+							},
+						]}
+					/>
+				)}
+
+				{/* <MessageGroup
 					messages={[
 						...(lanyard.spotify
-							? [
-									{
-										key: 'music',
-										content: (
-											<div className="max-w-[380px] space-y-3 px-4 py-2.5">
-												<p>
-													I listen to a lot of music. I love all electronic music, and{' '}
-													<i>right now</i> I am listening to this on Spotify:
-												</p>
-											</div>
-										),
-									},
-
-									{
-										key: 'the-current-song',
-										content: (
-											<Link
-												href={`https://open.spotify.com/track/${lanyard.spotify.track_id}`}
-												className="group relative block w-full min-w-[300px] cursor-default overflow-hidden rounded-[20px] p-4"
-												target="_blank"
-											>
-												<div className="absolute inset-0">
-													<div className="absolute inset-0 z-10 bg-white/70 transition-colors group-hover:bg-white/80 dark:bg-zinc-800/80 dark:group-hover:bg-zinc-800/85"></div>
-													<img
-														src={lanyard.spotify.album_art_url ?? album.src}
-														alt="Album art"
-														aria-hidden
-														className="absolute top-1/2 -translate-y-1/2 blur-3xl saturate-[50] dark:saturate-[10]"
-													/>
-												</div>
-
-												<div className="relative z-10 flex items-center space-x-4 pr-8">
-													<img
-														src={lanyard.spotify.album_art_url ?? album.src}
-														alt="Album art"
-														className="size-12 rounded-md border-2"
-													/>
-
-													<div className="space-y-1">
-														<p className="line-clamp-1">
-															<strong>{lanyard.spotify.song}</strong>
-														</p>
-														{lanyard.spotify.artist && (
-															<p className="line-clamp-1 text-zinc-800 dark:text-white/60">
-																{lanyard.spotify.artist.split('; ').join(', ')}
-															</p>
-														)}
-													</div>
-												</div>
-
-												<div className="absolute top-4 right-4 z-10">
-													<SiSpotify className="size-4 text-zinc-900/80 dark:text-white/50" />
-												</div>
-											</Link>
-										),
-									},
-								]
-							: [
-									{
-										key: 'music',
-										content: (
-											<p className="px-4 py-2.5">
-												I listen to a lot of music, and I really love my Drum & Bass. If you come
-												back to this page later, you might see what I'm listening to on Spotify, in
-												realtime. In the meantime, you can check out
-												<Link
-													href="https://www.youtube.com/watch?v=BsPg7bjT1rM"
-													className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
-													target="_blank"
-												>
-													this Four Tet DJ set that I love
-												</Link>
-											</p>
-										),
-									},
-								]),
-						{
-							key: 'not-music',
-							content: (
-								<div className="px-4 py-2.5">
-									In the rare case I'm not listening to anything, you can usually find me out and
-									about riding my{' '}
-									<Link
-										href="https://www.youtube.com/watch?v=LBx-JCj-7Y8"
-										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
-										target="_blank"
-									>
-										Evolve skateboard
-									</Link>
-									,{' '}
-									<Link
-										href="https://www.youtube.com/watch?v=x6vlL9Sscmw"
-										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
-										target="_blank"
-									>
-										DJing (on YouTube)
-									</Link>{' '}
-									or{' '}
-									<Link
-										href="https://soundcloud.com/alistairsmusic/"
-										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
-										target="_blank"
-									>
-										trying my hardest to figure out Ableton Live
-									</Link>
-								</div>
-							),
-						},
+							? []
+							: []),
+						// {
+						// 	key: 'not-music',
+						// 	content: (
+						// 		<div className="px-4 py-2.5">
+						// 			In the rare case I'm not listening to anything, you can usually find me out and
+						// 			about riding my{' '}
+						// 			<Link
+						// 				href="https://www.youtube.com/watch?v=LBx-JCj-7Y8"
+						// 				className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
+						// 				target="_blank"
+						// 			>
+						// 				Evolve skateboard
+						// 			</Link>
+						// 			,{' '}
+						// 			<Link
+						// 				href="https://www.youtube.com/watch?v=x6vlL9Sscmw"
+						// 				className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
+						// 				target="_blank"
+						// 			>
+						// 				DJing (on YouTube)
+						// 			</Link>{' '}
+						// 			or{' '}
+						// 			<Link
+						// 				href="https://soundcloud.com/alistairsmusic/"
+						// 				className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
+						// 				target="_blank"
+						// 			>
+						// 				trying my hardest to figure out Ableton Live
+						// 			</Link>
+						// 		</div>
+						// 	),
+						// },
 					]}
-				/>
+				/> */}
+
+				<MessageGroup messages={[message('remaining-blog-posts', <BlogPostList />)]} />
 
 				<MessageGroup
 					messages={[
@@ -230,7 +218,7 @@ export default function Home(props: Props) {
 							key: 'location-caption',
 							content: (
 								<p className="px-4 py-2.5">
-									Right now I am in{' '}
+									Currently in{' '}
 									<Link
 										href={`https://maps.apple.com/?q=${lanyard.kv.location}`}
 										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
@@ -250,10 +238,7 @@ export default function Home(props: Props) {
 						{
 							key: 'chat-1',
 							content: (
-								<div className="max-w-[384px] px-4 py-2.5">
-									Want to reach me? I'd love to chat, whether you want to pitch an idea, or just say
-									hi.
-								</div>
+								<div className="max-w-[384px] px-4 py-2.5">I'm on a few social platforms</div>
 							),
 						},
 						{
@@ -291,16 +276,32 @@ export default function Home(props: Props) {
 							),
 						},
 						{
+							key: 'github',
+							content: (
+								<div className="px-4 py-2.5">
+									I'm{' '}
+									<Link
+										href="https://github.com/alii"
+										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
+										target="_blank"
+									>
+										@alii on GitHub
+									</Link>{' '}
+									<SiGithub className="mb-[3px] inline" />{' '}
+								</div>
+							),
+						},
+						{
 							key: 'chat-2',
 							content: (
 								<div className="px-4 py-2.5">
-									Otherwise, I'm on <CiTwitter className="mb-[3px] inline" />{' '}
+									Otherwise, I'm <CiTwitter className="mb-[3px] inline" />{' '}
 									<Link
 										href="https://x.com/alistaiir"
 										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 										target="_blank"
 									>
-										Twitter/X
+										@alistaiir on Twitter/X
 									</Link>
 								</div>
 							),

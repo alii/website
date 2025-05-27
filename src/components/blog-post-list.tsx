@@ -137,7 +137,7 @@ export function BlogPostList() {
 								className="group -mx-2 block rounded-lg py-1"
 								href={`/${post.slug}`}
 							>
-								<div className="rounded-md px-3 py-2 duration-100 group-last:rounded-b-xl group-hover:bg-zinc-200/50 dark:group-hover:bg-zinc-800">
+								<div className="rounded-md px-3 py-2 duration-100 group-last:rounded-b-xl group-hover:bg-zinc-200/50 group-active:scale-[0.98] dark:group-hover:bg-zinc-800">
 									<h2 className="font-serif text-base text-black italic dark:text-white">
 										{post.name}
 									</h2>
