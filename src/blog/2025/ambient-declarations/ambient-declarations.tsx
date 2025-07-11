@@ -121,7 +121,7 @@ export class AmbientDeclarations extends Post {
 				<p>
 					<b>Ambient declarations</b> are for code that exists elsewhere.
 				</p>
-				<Highlighter filename="ai-add.d.ts">
+				<Highlighter filename="add.d.ts">
 					{stripIndent`
 						export declare function add(a: number, b: number): number;
 					`}
