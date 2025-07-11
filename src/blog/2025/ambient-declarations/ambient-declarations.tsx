@@ -126,10 +126,6 @@ export class AmbientDeclarations extends Post {
 						export declare function add(a: number, b: number): number;
 					`}
 				</Highlighter>
-				<p>
-					The <code>declare</code> keyword tells TypeScript: "This exists at runtime, but you won't
-					find it here."
-				</p>
 				<h2>Module vs. Script Declarations</h2>
 				<ul>
 					<li>
