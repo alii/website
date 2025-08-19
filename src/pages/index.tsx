@@ -90,7 +90,8 @@ export default function Home(props: Props) {
 									<div className="max-w-[380px] space-y-3 px-4 py-2.5">
 										<p>
 											I listen to a lot of music, and{' '}
-											<span className="font-serif italic">right now</span> I'm listening to this song on Spotify:
+											<span className="font-serif italic">right now</span> I'm listening to this
+											song on Spotify:
 										</p>
 									</div>
 								),
