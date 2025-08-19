@@ -18,7 +18,7 @@ export class AmbientDeclarations extends Post {
 				<p>
 					I recently landed a pull request (
 					<a href="https://github.com/oven-sh/bun/pull/18024">#18024</a>) in{' '}
-					<a href="https://bun.sh/">Bun</a> that reorganized and rewrote significant portions of
+					<a href="https://bun.com/">Bun</a> that reorganized and rewrote significant portions of
 					Bun's TypeScript definitions. Working on this PR made me realize how little documentation
 					there is on ambient declarations, so I wanted to write about it.
 				</p>

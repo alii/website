@@ -67,7 +67,7 @@ export default function Home(props: Props) {
 									I'm <span className="font-serif italic">Alistair</span>. I work on
 									<SiBun className="mb-[3px] ml-1 inline" />{' '}
 									<Link
-										href="https://bun.sh"
+										href="https://bun.com"
 										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 										target="_blank"
 									>
