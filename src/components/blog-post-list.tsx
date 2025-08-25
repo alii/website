@@ -121,12 +121,10 @@ export function BlogPostList() {
 					},
 				}}
 				transition={{
-					duration: 0.7,
 					type: 'spring',
-					bounce: 0.2,
-					mass: 0.5,
-					stiffness: 100,
-					damping: 10,
+					mass: 0.2,
+					stiffness: 170,
+					damping: 20,
 				}}
 			>
 				<div className="flex flex-col p-4 pt-1 pb-1.5">

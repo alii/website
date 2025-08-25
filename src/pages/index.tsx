@@ -1,4 +1,5 @@
 import {get} from '@prequist/lanyard';
+import clsx from 'clsx';
 import {motion} from 'framer-motion';
 import type {GetStaticProps} from 'next';
 import Link from 'next/link';
@@ -74,7 +75,7 @@ export default function Home(props: Props) {
 										Bun, the fast JavaScript runtime
 									</Link>
 									. I'm interested in things like language specifications and type systems. I've
-									been called a TypeScript wizard at least a few times.
+									been called a TypeScript wizard at least a few times. It's nice to meet you.
 								</div>
 							),
 						},
@@ -219,7 +220,7 @@ export default function Home(props: Props) {
 							key: 'location-caption',
 							content: (
 								<p className="px-4 py-2.5">
-									Currently in{' '}
+									I'm currently in{' '}
 									<Link
 										href={`https://maps.apple.com/?q=${lanyard.kv.location}`}
 										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
@@ -253,26 +254,18 @@ export default function Home(props: Props) {
 									>
 										@alistaiir
 									</a>{' '}
-									- I'm currently{' '}
 									<span
-										className={
+										aria-hidden
+										className={clsx(
+											'ml-0.5 inline-block size-1.5 rounded-full',
 											{
-												dnd: 'text-red-600 dark:text-red-400',
-												idle: 'text-amber-500',
-												online: 'text-green-500',
-												offline: 'text-blurple',
-											}[lanyard.discord_status]
-										}
-									>
-										{
-											{
-												dnd: 'in dnd',
-												idle: 'idle',
-												online: 'online',
-												offline: 'offline',
-											}[lanyard.discord_status]
-										}
-									</span>
+												dnd: 'bg-red-600 dark:bg-red-400',
+												idle: 'bg-amber-500',
+												online: 'bg-green-500',
+												offline: 'bg-gray-500',
+											}[lanyard.discord_status],
+										)}
+									/>
 								</div>
 							),
 						},
@@ -296,14 +289,15 @@ export default function Home(props: Props) {
 							key: 'chat-2',
 							content: (
 								<div className="px-4 py-2.5">
-									Otherwise, I'm <CiTwitter className="mb-[3px] inline" />{' '}
+									Lastly I'm{' '}
 									<Link
 										href="https://x.com/alistaiir"
 										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 										target="_blank"
 									>
 										@alistaiir on Twitter/X
-									</Link>
+									</Link>{' '}
+									<CiTwitter className="mb-[3px] inline" />
 								</div>
 							),
 						},

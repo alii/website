@@ -3,9 +3,12 @@ import Link from 'next/link';
 export default function ExperimentsList() {
 	return (
 		<div className="mx-auto max-w-prose space-y-8 px-6 py-24">
-			<p>This is a list of random experiments I've built on this website. There's not a lot here</p>
+			<p>
+				This is a list of random experiments I've built on this website. There's not a lot here and
+				this is all quite old.
+			</p>
 
-			<ul className="list-outside list-disc space-y-4 [&_a:hover]:underline [&_a]:text-blue-400">
+			<ul className="list-outside list-disc space-y-4 [&_a]:text-blue-400 [&_a:hover]:underline">
 				<li>
 					<Link href="/experiments/morphing-shapes">Morphing Shapes</Link>
 					<p className="text-sm">
