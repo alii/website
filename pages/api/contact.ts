@@ -1,9 +1,9 @@
 import {bwitch} from 'bwitch';
 import {NextkitError} from 'nextkit';
 import {z} from 'zod';
-import {api} from '../../server/api';
-import {env} from '../../server/env';
-import {codeblock} from '../../utils/discord';
+import {api} from '../../src/server/api';
+import {env} from '../../src/server/env';
+import {codeblock} from '../../src/utils/discord';
 
 const schema = z.object({
 	email: z.string().email(),

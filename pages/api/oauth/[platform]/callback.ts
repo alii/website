@@ -1,7 +1,7 @@
 import {z} from 'zod';
-import {api} from '../../../../server/api';
-import {monzoOAuthAPI} from '../../../../server/monzo';
-import {createSessionJWT, getCookieHeader} from '../../../../server/sessions';
+import {api} from '../../../../src/server/api';
+import {monzoOAuthAPI} from '../../../../src/server/monzo';
+import {createSessionJWT, getCookieHeader} from '../../../../src/server/sessions';
 
 const querySchema = z.object({
 	code: z.string(),

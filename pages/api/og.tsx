@@ -2,7 +2,7 @@ import {findLargestUsableFontSize} from '@altano/satori-fit-text';
 import {unstable_createNodejsStream} from '@vercel/og';
 import type {NextApiRequest, NextApiResponse, ServerRuntime} from 'next';
 import type {Font} from 'satori';
-import {posts} from '../../blog/posts';
+import {posts} from '../../src/blog/posts';
 
 export const runtime: ServerRuntime = 'nodejs';
 

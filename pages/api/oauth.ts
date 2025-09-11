@@ -5,7 +5,7 @@ import type {RESTGetAPIUserResult} from 'discord-api-types/v10';
 import {sign} from 'jsonwebtoken';
 import type {NextApiHandler} from 'next';
 import {pathcat} from 'pathcat';
-import {env} from '../../server/env';
+import {env} from '../../src/server/env';
 
 const {
 	DISCORD_DEMO_DISCORD_CLIENT_ID: CLIENT_ID,

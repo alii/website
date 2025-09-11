@@ -6,14 +6,14 @@ import Link from 'next/link';
 import {CiTwitter} from 'react-icons/ci';
 import {SiBun, SiGithub, SiSpotify} from 'react-icons/si';
 import {useLanyardWS, type Types} from 'use-lanyard';
-import album from '../../public/album.png';
-import type {Post} from '../blog/Post';
-import {posts} from '../blog/posts';
-import {BlogPostList} from '../components/blog-post-list';
-import {message, MessageGroup} from '../components/message';
-import {useShouldDoInitialPageAnimations} from '../hooks/use-did-initial-page-animations';
-import {env} from '../server/env';
-import {discordId} from '../utils/constants';
+import album from '../public/album.png';
+import type {Post} from '../src/blog/Post';
+import {posts} from '../src/blog/posts';
+import {BlogPostList} from '../src/components/blog-post-list';
+import {message, MessageGroup} from '../src/components/message';
+import {useShouldDoInitialPageAnimations} from '../src/hooks/use-did-initial-page-animations';
+import {env} from '../src/server/env';
+import {discordId} from '../src/utils/constants';
 
 export interface Props {
 	lanyard: Types.Presence;

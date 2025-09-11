@@ -1,7 +1,7 @@
 import {NextkitError} from 'nextkit';
 import {z} from 'zod';
-import {api} from '../../server/api';
-import {getMapURL} from '../../server/apple-maps';
+import {api} from '../../src/server/api';
+import {getMapURL} from '../../src/server/apple-maps';
 
 const querySchema = z.object({
 	theme: z.union([z.literal('light'), z.literal('dark')]),

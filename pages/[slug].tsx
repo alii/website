@@ -2,9 +2,9 @@ import clsx from 'clsx';
 import type {GetStaticPaths, GetStaticProps, PageConfig} from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import {posts} from '../blog/posts';
-import {BlogFooter} from '../components/blog-footer';
-import {Note} from '../components/note';
+import {posts} from '../src/blog/posts';
+import {BlogFooter} from '../src/components/blog-footer';
+import {Note} from '../src/components/note';
 
 export const config: PageConfig = {
 	unstable_runtimeJS: false,

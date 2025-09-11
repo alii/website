@@ -2,7 +2,7 @@ import type {APIUser} from 'discord-api-types/v10';
 import {verify} from 'jsonwebtoken';
 import type {GetServerSideProps, PageConfig} from 'next';
 import Link from 'next/link';
-import {env} from '../../server/env';
+import {env} from '../../src/server/env';
 
 interface Props {
 	readonly user: APIUser | null;

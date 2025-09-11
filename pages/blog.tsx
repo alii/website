@@ -2,9 +2,9 @@ import {motion} from 'framer-motion';
 import Link from 'next/link';
 import type {ReactNode} from 'react';
 import {TbArrowLeft} from 'react-icons/tb';
-import {posts, sortPosts} from '../blog/posts';
-import {BlogFooter} from '../components/blog-footer';
-import {useShouldDoInitialPageAnimations} from '../hooks/use-did-initial-page-animations';
+import {posts, sortPosts} from '../src/blog/posts';
+import {BlogFooter} from '../src/components/blog-footer';
+import {useShouldDoInitialPageAnimations} from '../src/hooks/use-did-initial-page-animations';
 
 export default function Blog() {
 	const shouldAnimate = useShouldDoInitialPageAnimations();

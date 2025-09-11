@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 
-const Stats = dynamic(() => import('../components/stats').then(mod => mod.Stats), {
+const Stats = dynamic(() => import('../src/components/stats').then(mod => mod.Stats), {
 	ssr: false,
 });
 

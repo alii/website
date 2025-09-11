@@ -6,8 +6,8 @@ import {Inter, JetBrains_Mono, Newsreader} from 'next/font/google';
 import Head from 'next/head';
 import {useEffect} from 'react';
 import {Toaster} from 'react-hot-toast';
-import {useShouldDoInitialPageAnimations} from '../hooks/use-did-initial-page-animations';
-import {useFirstEverLoad, useVisitCounts} from '../hooks/use-first-ever-load';
+import {useShouldDoInitialPageAnimations} from '../src/hooks/use-did-initial-page-animations';
+import {useFirstEverLoad, useVisitCounts} from '../src/hooks/use-first-ever-load';
 
 const mono = JetBrains_Mono({
 	subsets: ['latin'],

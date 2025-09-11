@@ -3,7 +3,7 @@ import {HTTPClientError} from 'alistair/http';
 import {bwitch} from 'bwitch';
 import type {GetServerSideProps, Redirect} from 'next';
 import Link from 'next/link';
-import {parseSessionJWT} from '../../../server/sessions';
+import {parseSessionJWT} from '../../../src/server/sessions';
 
 type Props =
 	| {

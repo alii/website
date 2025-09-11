@@ -1,6 +1,6 @@
 import {z} from 'zod';
-import {api} from '../../../../server/api';
-import {monzoOAuthAPI} from '../../../../server/monzo';
+import {api} from '../../../../src/server/api';
+import {monzoOAuthAPI} from '../../../../src/server/monzo';
 
 const toRedirectUrlSchema = z.literal('monzo').transform(() => monzoOAuthAPI.getOAuthURL());
 
