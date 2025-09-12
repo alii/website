@@ -15,6 +15,7 @@
         "alistair": "^1.15.0",
         "axios": "^1.11.0",
         "bun": "^1.2.21",
+        "bun-framework-react": "link:bun-framework-react",
         "bwitch": "^0.3.0",
         "clsx": "^2.1.1",
         "common-tags": "^1.8.2",
@@ -23,13 +24,9 @@
         "dotenv": "^16.6.1",
         "envsafe": "^2.0.3",
         "framer-motion": "^12.23.12",
-        "i": "^0.3.7",
         "jsonwebtoken": "^9.0.2",
         "jwa": "^2.0.1",
-        "next": "^15.5.0",
         "nextkit": "^3.4.3",
-        "react": "^0.0.0-experimental-f3a80361-20250911",
-        "react-dom": "^0.0.0-experimental-f3a80361-20250911",
         "react-hot-toast": "^2.6.0",
         "react-icons": "^5.5.0",
         "react-refresh": "^0.0.0-experimental-f3a80361-20250911",
@@ -368,6 +365,8 @@
 
     "bun": ["bun@1.2.21", "", { "optionalDependencies": { "@oven/bun-darwin-aarch64": "1.2.21", "@oven/bun-darwin-x64": "1.2.21", "@oven/bun-darwin-x64-baseline": "1.2.21", "@oven/bun-linux-aarch64": "1.2.21", "@oven/bun-linux-aarch64-musl": "1.2.21", "@oven/bun-linux-x64": "1.2.21", "@oven/bun-linux-x64-baseline": "1.2.21", "@oven/bun-linux-x64-musl": "1.2.21", "@oven/bun-linux-x64-musl-baseline": "1.2.21", "@oven/bun-windows-x64": "1.2.21", "@oven/bun-windows-x64-baseline": "1.2.21" }, "os": [ "linux", "win32", "darwin", ], "cpu": [ "x64", "arm64", ], "bin": { "bun": "bin/bun.exe", "bunx": "bin/bunx.exe" } }, "sha512-y0lJ02dS90U3PJm+7KAKY8Se95AQvP5Xm77LouUwrpNOHpv59kBG4SK1+9iE1cAhpUaFipq+0EJ56S6MmE3row=="],
 
+    "bun-framework-react": ["bun-framework-react@link:bun-framework-react", {}],
+
     "bwitch": ["bwitch@0.3.0", "", {}, "sha512-DjO89QJ7Lsr/E5iZ/7rF+Y4f4DW9I+ahmLNJS7jkHfven4cduXpNChxLxq0vC3jusgsED5bb7+W2L7/QDgqX/A=="],
 
     "call-bind": ["call-bind@1.0.8", "", { "dependencies": { "call-bind-apply-helpers": "^1.0.0", "es-define-property": "^1.0.0", "get-intrinsic": "^1.2.4", "set-function-length": "^1.2.2" } }, "sha512-oKlSFMcMwpUg2ednkhQ454wfWiU/ul3CkJe/PEHcTKuiX6RpbehUiFMXu13HalGZxfUwCQzZG747YXBn1im9ww=="],
@@ -621,8 +620,6 @@
     "highlight.js": ["highlight.js@10.7.3", "", {}, "sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A=="],
 
     "highlightjs-vue": ["highlightjs-vue@1.0.0", "", {}, "sha512-PDEfEF102G23vHmPhLyPboFCD+BkMGu+GuJe2d9/eH4FsCwvgBpnc9n0pGE+ffKdph38s6foEZiEjdgHdzp+IA=="],
-
-    "i": ["i@0.3.7", "", {}, "sha512-FYz4wlXgkQwIPqhzC5TdNMLSE5+GS1IIDJZY/1ZiEPCT2S3COUVZeT5OW4BmW4r5LHLQuOosSwsvnroG9GR59Q=="],
 
     "ignore": ["ignore@5.3.2", "", {}, "sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g=="],
 
