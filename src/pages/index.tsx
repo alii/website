@@ -211,7 +211,7 @@ export default function Home(props: Props) {
 									<img
 										src={`https://cdn.discordapp.com/avatars/${lanyard.discord_user.id}/${lanyard.discord_user.avatar}.webp?size=160`}
 										alt="Avatar"
-										className="absolute top-1/2 left-1/2 z-10 size-16 -translate-x-1/2 -translate-y-1/2 rounded-full border-2"
+										className="absolute top-1/2 left-1/2 z-10 size-16 -translate-x-1/2 -translate-y-1/2 rotate-180 rounded-full border-2"
 									/>
 								</div>
 							),
