@@ -1,1 +1,1 @@
-export default { app: 'react' }
+export default {app: {framework: require('bun-framework-react').default}};
