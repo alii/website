@@ -7,10 +7,8 @@
 	"private": true,
 	"packageManager": "bun@1.0.0",
 	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint"
+		"dev": "bun-release --app",
+		"build": "bun-release build --app"
 	},
 	"devDependencies": {
 		"@tailwindcss/forms": "^0.5.10",
