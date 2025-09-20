@@ -1,3 +1,5 @@
+'use client';
+
 import {useLocalStorage} from 'alistair/hooks';
 import {AnimatePresence, motion} from 'framer-motion';
 import {useRef, useState} from 'react';
