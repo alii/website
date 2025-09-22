@@ -1,17 +1,14 @@
 'use client';
 
-import {Link} from 'bun-framework-react/link';
+import {useState} from 'react';
 
-import {useLanyardWS} from 'use-lanyard';
-import {discordId} from '../src/utils/constants';
-
-export default function Home() {
-	const lanyard = useLanyardWS(discordId);
+export default function Index() {
+	const [bool, set] = useState(false);
 
 	return (
 		<main className="mx-auto max-w-xl px-3 pt-24 pb-16">
-			<Link href="/about">About</Link>
-			<pre>{JSON.stringify(lanyard, null, 2)}</pre>
+			<button onClick={() => set(x => !x)}>toggle it</button>
+			<pre>{JSON.stringify({bool}, null, 2)}</pre>
 		</main>
 	);
 }
