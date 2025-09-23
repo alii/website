@@ -40,7 +40,7 @@
 		"alistair": "^1.16.0",
 		"axios": "^1.12.2",
 		"bun": "^1.2.22",
-		"bun-framework-react": "/Users/ali/code/bun/default/packages/bun-framework-react/bun-framework-react-0.1.0.tgz",
+		"bun-framework-react": "link:bun-framework-react",
 		"bwitch": "^0.3.0",
 		"clsx": "^2.1.1",
 		"common-tags": "^1.8.2",
