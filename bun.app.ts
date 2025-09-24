@@ -1,1 +1,2 @@
-export default {app: {framework: 'bun-framework-react'}};
+import react from 'bun-framework-react';
+export default {app: {framework: react}};
