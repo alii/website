@@ -40,7 +40,6 @@
 		"@vercel/og": "^0.6.8",
 		"alistair": "^1.16.0",
 		"axios": "^1.12.2",
-		"bun": "^1.2.22",
 		"bun-framework-react": "^0.0.0-canary.7",
 		"bwitch": "^0.3.0",
 		"clsx": "^2.1.1",
