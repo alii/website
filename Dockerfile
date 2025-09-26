@@ -15,4 +15,4 @@ FROM oven/bun:1.2.22 as runner
 COPY --from=builder /app/dist /app
 
 EXPOSE 3000
-CMD ["bunx", "serve", "dist", "-l", "http://0.0.0.0:3000", "-s"]
+CMD ["bunx", "serve", "dist", "-l", "0.0.0.0:3000", "-s"]
