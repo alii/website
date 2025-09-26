@@ -2,16 +2,17 @@ FROM oven/bun:1.2.22 as builder
 WORKDIR /app
 
 RUN apt update && apt install -y unzip
-RUN bunx bun-pr 22504
+RUN bunx bun-pr 4f0d2a5624e4c54eb89faf7d5e23470efc8de667
 COPY bunfig.toml bunfig.toml
 COPY bun.lock bun.lock
 COPY package.json package.json
-RUN bun-22504 install
+RUN bun-4f0d2a5624e4c54eb89faf7d5e23470efc8de667 install
 
 COPY . .
-RUN bun-22504 build --app
+RUN bun-4f0d2a5624e4c54eb89faf7d5e23470efc8de667 build --app
 
 FROM oven/bun:1.2.22 as runner
 COPY --from=builder /app/dist /app
 
-CMD ["bunx", "serve", "-s", "dist"]
+EXPOSE 3000
+CMD ["bunx", "serve", "dist", "-p", "3000", "-s"]
