@@ -12,7 +12,8 @@ COPY . .
 RUN bun-4f0d2a5624e4c54eb89faf7d5e23470efc8de667 build --app
 
 FROM oven/bun:1.2.22 as runner
-COPY --from=builder /app/dist /app
+WORKDIR /app
+COPY --from=builder /app/dist .
 
 EXPOSE 3000
 CMD ["bunx", "serve", "-p", "3000"]
