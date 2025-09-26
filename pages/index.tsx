@@ -1,5 +1,5 @@
-import { Home as Test } from '../src/test.tsx';
+import {Home as Test} from '../test.tsx';
 
 export default function App() {
-	return <Test />
+	return <Test />;
 }
