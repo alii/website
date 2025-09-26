@@ -1,13 +1,11 @@
 'use client';
 
-import {Link} from 'bun-framework-react/link';
-
 import {useLocalStorage} from 'alistair/hooks';
+import {Link} from 'bun-framework-react/link';
 import {useLanyardWS} from 'use-lanyard';
-import {discordId} from './utils/constants';
 
 export function Home() {
-	const lanyard = useLanyardWS(discordId);
+	const lanyard = useLanyardWS('268798547439255572');
 
 	useLocalStorage('ok', () => null);
 
