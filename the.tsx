@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 
 export interface LinkProps extends React.ComponentProps<'a'> {
 	/**

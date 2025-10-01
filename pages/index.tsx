@@ -1,5 +1,5 @@
-import {Home as Test} from '../test.tsx';
+import {Home} from '../test.tsx';
 
 export default function App() {
-	return <Test />;
+	return <div><Home /></div>;
 }
