@@ -1,4 +1,3 @@
-import {Link} from 'bun-framework-react/link';
 import {stripIndent} from 'common-tags';
 import {Highlighter, Shell} from '../../../../components/syntax-highligher';
 import {Post} from '../../../Post';
@@ -24,8 +23,7 @@ export class ServerlessDiscordOAuth extends Post {
 				</p>
 
 				<p>
-					Live demo:{' '}
-					<Link href="/demos/serverless-discord-oauth">/demos/serverless-discord-oauth</Link>
+					Live demo: <a href="/demos/serverless-discord-oauth">/demos/serverless-discord-oauth</a>
 				</p>
 
 				<h2>The setup</h2>

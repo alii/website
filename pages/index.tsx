@@ -1,7 +1,6 @@
 'use client';
 
 import {get} from '@prequist/lanyard';
-import {Link} from 'bun-framework-react/link';
 import clsx from 'clsx';
 import {motion} from 'framer-motion';
 import type {GetStaticProps} from 'next';
@@ -70,13 +69,13 @@ export default function Home(props: Props) {
 								<div className="px-4 py-2.5">
 									I'm <span className="font-serif italic">Alistair</span>. I work on
 									<SiBun className="mb-[3px] ml-1 inline" />{' '}
-									<Link
+									<a
 										href="https://bun.com"
 										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 										target="_blank"
 									>
 										Bun, the fast JavaScript runtime
-									</Link>
+									</a>
 									. I'm interested in things like language specifications and type systems. I've
 									been called a TypeScript wizard at least a few times. It's nice to meet you.
 								</div>
@@ -104,7 +103,7 @@ export default function Home(props: Props) {
 							{
 								key: 'the-current-song',
 								content: (
-									<Link
+									<a
 										href={`https://open.spotify.com/track/${lanyard.spotify.track_id}`}
 										className="group relative block w-full min-w-[300px] cursor-default overflow-hidden rounded-[20px] p-4"
 										target="_blank"
@@ -141,7 +140,7 @@ export default function Home(props: Props) {
 										<div className="absolute top-4 right-4 z-10">
 											<SiSpotify className="size-4 text-zinc-900/80 dark:text-white/50" />
 										</div>
-									</Link>
+									</a>
 								),
 							},
 						]}
@@ -159,29 +158,29 @@ export default function Home(props: Props) {
 						// 		<div className="px-4 py-2.5">
 						// 			In the rare case I'm not listening to anything, you can usually find me out and
 						// 			about riding my{' '}
-						// 			<Link
+						// 			<a
 						// 				href="https://www.youtube.com/watch?v=LBx-JCj-7Y8"
 						// 				className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 						// 				target="_blank"
 						// 			>
 						// 				Evolve skateboard
-						// 			</Link>
+						// 			</a>
 						// 			,{' '}
-						// 			<Link
+						// 			<a
 						// 				href="https://www.youtube.com/watch?v=x6vlL9Sscmw"
 						// 				className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 						// 				target="_blank"
 						// 			>
 						// 				DJing (on YouTube)
-						// 			</Link>{' '}
+						// 			</a>{' '}
 						// 			or{' '}
-						// 			<Link
+						// 			<a
 						// 				href="https://soundcloud.com/alistairsmusic/"
 						// 				className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 						// 				target="_blank"
 						// 			>
 						// 				trying my hardest to figure out Ableton Live
-						// 			</Link>
+						// 			</a>
 						// 		</div>
 						// 	),
 						// },
@@ -224,13 +223,13 @@ export default function Home(props: Props) {
 							content: (
 								<p className="px-4 py-2.5">
 									I'm currently in{' '}
-									<Link
+									<a
 										href={`https://maps.apple.com/?q=${lanyard.kv.location}`}
 										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 										target="_blank"
 									>
 										{lanyard.kv.location}
-									</Link>{' '}
+									</a>{' '}
 									📍
 								</p>
 							),
@@ -277,13 +276,13 @@ export default function Home(props: Props) {
 							content: (
 								<div className="px-4 py-2.5">
 									I'm{' '}
-									<Link
+									<a
 										href="https://github.com/alii"
 										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 										target="_blank"
 									>
 										@alii on GitHub
-									</Link>{' '}
+									</a>{' '}
 									<SiGithub className="mb-[3px] inline" />{' '}
 								</div>
 							),
@@ -293,13 +292,13 @@ export default function Home(props: Props) {
 							content: (
 								<div className="px-4 py-2.5">
 									Lastly I'm{' '}
-									<Link
+									<a
 										href="https://x.com/alistaiir"
 										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 										target="_blank"
 									>
 										@alistaiir on Twitter/X
-									</Link>{' '}
+									</a>{' '}
 									<CiTwitter className="mb-[3px] inline" />
 								</div>
 							),
@@ -315,12 +314,12 @@ export default function Home(props: Props) {
 								<div className="px-4 py-2.5">
 									I have some fun experiments on this site, some are functional things I use, others
 									are just me messing around.{' '}
-									<Link
+									<a
 										href="/experiments"
 										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 									>
 										Click here to see them
-									</Link>
+									</a>
 									.
 								</div>
 							),
