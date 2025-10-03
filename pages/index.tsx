@@ -1,7 +1,5 @@
 'use client';
 
-import album from '../public/album.png';
-
 import {get} from '@prequist/lanyard';
 import {Link} from 'bun-framework-react/link';
 import clsx from 'clsx';
@@ -17,6 +15,8 @@ import {MessageGroup, message} from '../src/components/message';
 import {useShouldDoInitialPageAnimations} from '../src/hooks/use-did-initial-page-animations';
 import {env} from '../src/server/env';
 import {discordId} from '../src/utils/constants';
+
+const album = '/album.png';
 
 export interface Props {
 	lanyard: Types.Presence;
@@ -112,7 +112,7 @@ export default function Home(props: Props) {
 										<div className="absolute inset-0">
 											<div className="absolute inset-0 z-10 bg-white/70 transition-colors group-hover:bg-white/80 dark:bg-zinc-800/80 dark:group-hover:bg-zinc-800/85"></div>
 											<img
-												src={lanyard.spotify.album_art_url ?? album.src}
+												src={lanyard.spotify.album_art_url ?? album}
 												alt="Album art"
 												aria-hidden
 												className="absolute top-1/2 -translate-y-1/2 blur-3xl saturate-[50] dark:saturate-[10]"
@@ -121,7 +121,7 @@ export default function Home(props: Props) {
 
 										<div className="relative z-10 flex items-center space-x-4 pr-8">
 											<img
-												src={lanyard.spotify.album_art_url ?? album.src}
+												src={lanyard.spotify.album_art_url ?? album}
 												alt="Album art"
 												className="size-12 rounded-md border-2"
 											/>
