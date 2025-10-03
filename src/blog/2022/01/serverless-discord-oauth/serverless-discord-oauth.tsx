@@ -1,5 +1,5 @@
+import {Link} from 'bun-framework-react/link';
 import {stripIndent} from 'common-tags';
-import Link from 'next/link';
 import {Highlighter, Shell} from '../../../../components/syntax-highligher';
 import {Post} from '../../../Post';
 import discordOAuthDashboardImage from './discord-oauth-dashboard.png';
