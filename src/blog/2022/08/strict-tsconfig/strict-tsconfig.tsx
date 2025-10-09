@@ -38,7 +38,9 @@ export class StrictTSConfig extends Post {
 								"noUncheckedIndexedAccess": true,
 								"allowImportingTsExtensions": true,
 								"verbatimModuleSyntax": true,
-								"isolatedModules": true
+								"isolatedModules": true,
+								"noPropertyAccessFromIndexSignature": true,
+								"allowUnreachableCode": false
 							}
 						}
 					`}
