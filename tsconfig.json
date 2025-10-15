@@ -11,6 +11,7 @@
 		"module": "ESNext",
 		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
+		"allowImportingTsExtensions": true,
 		"jsx": "preserve",
 		"verbatimModuleSyntax": true,
 		"plugins": [

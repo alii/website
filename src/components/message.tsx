@@ -1,8 +1,9 @@
 import clsx from 'clsx';
 import {motion} from 'framer-motion';
 import type {ReactNode} from 'react';
-import alistair from '../../public/alistair.jpeg';
 import type {DistributedOmit} from '../utils/types';
+
+const alistair = '/alistair.jpeg';
 
 export function message(
 	...args:
@@ -101,7 +102,7 @@ export function MessageGroupContainer({children}: {children: ReactNode}) {
 			className="flex items-end space-x-2"
 		>
 			<img
-				src={alistair.src}
+				src={alistair}
 				className="size-8 rounded-full"
 				alt="Me standing in front of some tents"
 			/>

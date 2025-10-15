@@ -1,11 +1,12 @@
 import {stripIndent} from 'common-tags';
 import {Highlighter} from '../../../../components/syntax-highligher';
 import {Post} from '../../../Post';
-import emailFromColin from './email-from-colin.png';
-import gmeet from './gmeet.png';
-import goodbyeMochip from './goodbye-mochip.png';
-import hegartyTimeExploit from './hegarty-time-exploit.jpeg';
-import mochipLanding from './landing.jpeg';
+
+const emailFromColin = '/email-from-colin.png';
+const gmeet = '/gmeet.png';
+const goodbyeMochip = '/goodbye-mochip.png';
+const hegartyTimeExploit = '/hegarty-time-exploit.jpeg';
+const mochipLanding = '/landing.jpeg';
 
 export class Mochip extends Post {
 	public name = 'Avoiding homework with code (and getting caught)';
@@ -80,7 +81,7 @@ export class Mochip extends Post {
 					taken of it in 2020. See below{' '}
 					<span className="opacity-50">(certain details redacted for obvious reasons)</span>:
 				</p>
-				<img src={hegartyTimeExploit.src} alt="Hegarty Time Exploit Email" />
+				<img src={hegartyTimeExploit} alt="Hegarty Time Exploit Email" />
 				<p>
 					This response excited us a bit, as they were now aware of us messing around with the site
 					and they had no intention of fixing the minor vuln we had anyway, so we kept using it. We
@@ -186,7 +187,7 @@ export class Mochip extends Post {
 					enter a question (from either site) and get back a list of answers Mochip has for that
 					question. Here's what the landing page looked like:
 				</p>
-				<img src={mochipLanding.src} alt="Screenshot of Mochip's main dashboard page" />
+				<img src={mochipLanding} alt="Screenshot of Mochip's main dashboard page" />
 				<p>
 					In the screenshot we can see a few stats on the right like total estimated time saved and
 					how long you've had your account for. We gamified it a little just to keep people engaged
@@ -226,7 +227,7 @@ export class Mochip extends Post {
 					shocked to see it working. Shortly after this I received an email from Colin directly. See
 					below
 				</p>
-				<img src={emailFromColin.src} alt="Email from Colin" />
+				<img src={emailFromColin} alt="Email from Colin" />
 				<p>
 					I was upset but also a little content — it was sort of validation that I'd successfully
 					made it and that catching the attention of Colin himself was sort of a good thing. We
@@ -234,7 +235,7 @@ export class Mochip extends Post {
 					conversations of my life. I am extremely grateful for the advice Colin gave us in the
 					call.
 				</p>
-				<img src={gmeet.src} alt="Screenshot of Google Meet" />
+				<img src={gmeet} alt="Screenshot of Google Meet" />
 				<p>
 					I'd like to give a special thank you to the legendary Colin Hegarty for his kindness and
 					consideration when reaching out to me. Things could have gone a lot worse for me had this
@@ -251,7 +252,7 @@ export class Mochip extends Post {
 					question).
 				</p>
 
-				<img src={goodbyeMochip.src} alt="My email replying to Colin" />
+				<img src={goodbyeMochip} alt="My email replying to Colin" />
 
 				<p>
 					Thank you for reading, truly. Mochip was a real passion project and I had a wild time
