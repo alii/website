@@ -254,13 +254,13 @@ export default function Home(props: Props) {
 					messages={[
 						{
 							key: 'chat-1',
-							content: <div className="max-w-[384px] px-4 py-2.5">Find me...</div>,
+							content: <div className="max-w-[384px] px-4 py-2.5">Find me online:</div>,
 						},
 						{
 							key: 'github',
 							content: (
 								<div className="px-4 py-2.5">
-									as{' '}
+									I'm{' '}
 									<Link
 										href="https://github.com/alii"
 										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
@@ -276,7 +276,7 @@ export default function Home(props: Props) {
 							key: 'chat-2',
 							content: (
 								<div className="px-4 py-2.5">
-									or{' '}
+									I'm{' '}
 									<Link
 										href="https://x.com/alistaiir"
 										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
