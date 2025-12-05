@@ -1,10 +1,9 @@
 import {get} from '@prequist/lanyard';
-import clsx from 'clsx';
 import {motion} from 'framer-motion';
 import type {GetStaticProps} from 'next';
 import Link from 'next/link';
 import {CiTwitter} from 'react-icons/ci';
-import {SiBun, SiGithub, SiSpotify} from 'react-icons/si';
+import {SiBun, SiClaude, SiGithub, SiSpotify} from 'react-icons/si';
 import {useLanyardWS, type Types} from 'use-lanyard';
 import album from '../../public/album.png';
 import type {Post} from '../blog/Post';
@@ -63,16 +62,32 @@ export default function Home(props: Props) {
 					messages={[
 						{
 							key: 'intro',
+							className: '!max-w-[450px]',
 							content: (
 								<div className="px-4 py-2.5">
-									I'm <span className="font-serif italic">Alistair</span>. I work on
-									<SiBun className="mb-[3px] ml-1 inline" />{' '}
+									I'm <span className="font-serif italic">Alistair</span>. I work at{' '}
+									<Link
+										href="https://www.anthropic.com/"
+										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
+										target="_blank"
+									>
+										Anthropic
+									</Link>{' '}
+									on <SiBun className="mb-[3px] ml-[2px] inline" />{' '}
 									<Link
 										href="https://bun.com"
 										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 										target="_blank"
 									>
-										Bun, the fast JavaScript runtime
+										Bun
+									</Link>{' '}
+									and <SiClaude className="mb-px ml-px inline" />{' '}
+									<Link
+										href="https://www.claude.com/product/claude-code"
+										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
+										target="_blank"
+									>
+										Claude Code
 									</Link>
 									. I'm interested in things like language specifications and type systems. I've
 									been called a TypeScript wizard at least a few times. It's nice to meet you.
@@ -239,41 +254,13 @@ export default function Home(props: Props) {
 					messages={[
 						{
 							key: 'chat-1',
-							content: (
-								<div className="max-w-[384px] px-4 py-2.5">I'm on a few social platforms</div>
-							),
-						},
-						{
-							key: 'discord',
-							content: (
-								<div className="px-4 py-2.5">
-									My Discord is{' '}
-									<a
-										href="discord://-/users/268798547439255572"
-										className="font-serif text-indigo-600 italic underline dark:text-indigo-300"
-									>
-										@alistaiir
-									</a>{' '}
-									<span
-										aria-hidden
-										className={clsx(
-											'ml-0.5 inline-block size-1.5 rounded-full',
-											{
-												dnd: 'bg-red-600 dark:bg-red-400',
-												idle: 'bg-amber-500',
-												online: 'bg-green-500',
-												offline: 'bg-gray-500',
-											}[lanyard.discord_status],
-										)}
-									/>
-								</div>
-							),
+							content: <div className="max-w-[384px] px-4 py-2.5">Find me...</div>,
 						},
 						{
 							key: 'github',
 							content: (
 								<div className="px-4 py-2.5">
-									I'm{' '}
+									as{' '}
 									<Link
 										href="https://github.com/alii"
 										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
@@ -289,7 +276,7 @@ export default function Home(props: Props) {
 							key: 'chat-2',
 							content: (
 								<div className="px-4 py-2.5">
-									Lastly I'm{' '}
+									or{' '}
 									<Link
 										href="https://x.com/alistaiir"
 										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
