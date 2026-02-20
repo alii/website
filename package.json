@@ -42,7 +42,7 @@
 		"@prequist/lanyard": "^1.1.0",
 		"@tailwindcss/typography": "^0.5.19",
 		"@vercel/og": "^0.6.8",
-		"alistair": "^1.16.0",
+		"alistair": "^1.17.0",
 		"axios": "^1.13.5",
 		"bwitch": "^0.3.0",
 		"clsx": "^2.1.1",
