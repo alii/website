@@ -300,7 +300,7 @@ export default function Home(props: Props) {
 					]}
 				/>
 
-				<MessageGroup
+				{/* <MessageGroup
 					messages={[
 						{
 							key: 'experiments',
@@ -319,7 +319,7 @@ export default function Home(props: Props) {
 							),
 						},
 					]}
-				/>
+				/> */}
 			</motion.ul>
 		</main>
 	);
