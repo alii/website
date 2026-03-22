@@ -15,21 +15,41 @@ export interface GitHubRepo {
 
 export const projectNames = [
 	'oven-sh/bun',
-	'alii/azs',
-	'alii/searchy',
-	'alii/linear-style',
-	'alii/use-lanyard',
-	'alii/use-last-fm',
-	'kaito-http/kaito',
-	'alii/poimandres-terminal',
-	'alii/discord-jsx',
-	'alii/nextkit',
-	'alii/permer',
 	'alii/arc',
 	'alii/al',
+	'valtyr/prisma-kysely',
+	'kaito-http/kaito',
+	'alii/use-lanyard',
+	'alii/nextkit',
+	'alii/use-last-fm',
+	'alii/discord-jsx',
+	'alii/poimandres-terminal',
+	'alii/linear-style',
+	'alii/azs',
+	'alii/searchy',
+	'alii/permer',
 	'alii/trisma',
 	'alii/typestr',
 ];
+
+export const descriptionOverrides: Record<string, string> = {
+	'oven-sh/bun': 'Fast JavaScript runtime, bundler, and package manager. I work on this at Anthropic.',
+	'alii/arc': 'JavaScript on the BEAM. Run JS/TS on the Erlang VM.',
+	'alii/al': 'A small, statically-typed, expression-oriented programming language.',
+	'valtyr/prisma-kysely': 'Generate Kysely types directly from your Prisma schema.',
+	'kaito-http/kaito': 'Type-safe HTTP framework for TypeScript.',
+	'alii/use-lanyard': 'React hook for fetching Discord presence through Lanyard.',
+	'alii/nextkit': 'Typesafe API routes for Next.js.',
+	'alii/use-last-fm': 'React hook for grabbing Last.fm now playing data.',
+	'alii/discord-jsx': 'Write Discord messages with JSX.',
+	'alii/poimandres-terminal': 'Poimandres theme for the terminal.',
+	'alii/linear-style': 'CSS inspired by Linear\'s landing page.',
+	'alii/azs': 'A URL shortener.',
+	'alii/searchy': 'Full-text search, written in TypeScript.',
+	'alii/permer': 'Bitfield-based permissions in TypeScript.',
+	'alii/trisma': 'Prisma utilities.',
+	'alii/typestr': 'TypeScript type-level string parser.',
+};
 
 const languageColors: Record<string, string> = {
 	TypeScript: '#3178c6',
@@ -110,7 +130,7 @@ export function ProjectsList({repos}: ProjectsListProps) {
 			<div className="px-4">
 				<div className="flex items-start justify-between border-b border-zinc-200 pb-4 dark:border-zinc-800">
 					<p className="mr-4">
-						Open source I've built or contributed to.
+						Some things I've built or worked on.
 					</p>
 
 					<motion.button
