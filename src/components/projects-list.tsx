@@ -5,117 +5,101 @@ import {flushSync} from 'react-dom';
 import {TbLock, TbLockOpen} from 'react-icons/tb';
 import {useIsomorphicValue} from '../hooks/use-isomorphic-value';
 
-interface Project {
+export interface Project {
 	name: string;
 	description: string;
 	url: string;
-	stars?: number;
 	language?: string;
 }
 
-const projects: Project[] = [
+export const projects: Project[] = [
 	{
 		name: 'oven-sh/bun',
 		description: 'Incredibly fast JavaScript runtime, bundler, test runner, and package manager',
 		url: 'https://github.com/oven-sh/bun',
-		stars: 88400,
 		language: 'Zig',
 	},
 	{
 		name: 'alii/azs',
 		description: 'Amplify your Zod schemas with methods',
 		url: 'https://github.com/alii/azs',
-		stars: 344,
 		language: 'TypeScript',
 	},
 	{
 		name: 'alii/searchy',
 		description: 'Cloudflare + Google = supercharged web surfing',
 		url: 'https://github.com/alii/searchy',
-		stars: 150,
 		language: 'TypeScript',
 	},
 	{
 		name: 'alii/linear-style',
 		description: 'An index for Linear themes',
 		url: 'https://github.com/alii/linear-style',
-		stars: 121,
 		language: 'TypeScript',
 	},
 	{
 		name: 'alii/use-lanyard',
 		description: 'React hook for realtime Discord presence via Lanyard',
 		url: 'https://github.com/alii/use-lanyard',
-		stars: 89,
 		language: 'TypeScript',
 	},
 	{
 		name: 'alii/use-last-fm',
 		description: 'React hook for realtime Last.fm data',
 		url: 'https://github.com/alii/use-last-fm',
-		stars: 120,
 		language: 'TypeScript',
 	},
 	{
 		name: 'kaito-http/kaito',
 		description: 'HTTP framework for TypeScript',
 		url: 'https://github.com/kaito-http/kaito',
-		stars: 106,
 		language: 'TypeScript',
 	},
 	{
 		name: 'alii/poimandres-terminal',
 		description: 'Terminal color profiles inspired by Poimandres VSCode themes',
 		url: 'https://github.com/alii/poimandres-terminal',
-		stars: 98,
 	},
 	{
 		name: 'alii/discord-jsx',
 		description: 'Experimental Discord bots with JSX',
 		url: 'https://github.com/alii/discord-jsx',
-		stars: 81,
 		language: 'TypeScript',
 	},
 	{
 		name: 'alii/nextkit',
 		description: 'Zero-dependency API toolkit for Next.js',
 		url: 'https://github.com/alii/nextkit',
-		stars: 71,
 		language: 'TypeScript',
 	},
 	{
 		name: 'alii/permer',
 		description: 'Abstraction for handling flags with bitwise operations',
 		url: 'https://github.com/alii/permer',
-		stars: 51,
 		language: 'TypeScript',
 	},
 	{
 		name: 'alii/arc',
 		description: 'JavaScript on the BEAM',
 		url: 'https://github.com/alii/arc',
-		stars: 22,
 		language: 'Gleam',
 	},
 	{
 		name: 'alii/al',
 		description: 'A small, statically-typed, expression-oriented programming language',
 		url: 'https://github.com/alii/al',
-		stars: 21,
 		language: 'V',
 	},
 	{
 		name: 'alii/trisma',
 		description: 'Prisma but with TypeScript for data modelling',
 		url: 'https://github.com/alii/trisma',
-		stars: 33,
 		language: 'TypeScript',
 	},
 	{
 		name: 'alii/typestr',
 		description: 'Zero runtime TypeScript string library using type-level magic',
 		url: 'https://github.com/alii/typestr',
-		stars: 30,
 		language: 'TypeScript',
 	},
 ];
@@ -127,7 +111,11 @@ function formatStars(count: number): string {
 	return count.toString();
 }
 
-export function ProjectsList() {
+export interface ProjectsListProps {
+	stars: Record<string, number>;
+}
+
+export function ProjectsList({stars}: ProjectsListProps) {
 	const [isFocused, setIsFocused] = useState(false);
 	const [isHovered, setIsHovered] = useState(false);
 
@@ -247,6 +235,8 @@ export function ProjectsList() {
 			>
 				<div className="flex flex-col p-4 pt-1 pb-1.5">
 					{projects.map(project => {
+						const starCount = stars[project.name];
+
 						return (
 							<a
 								key={project.name}
@@ -264,8 +254,8 @@ export function ProjectsList() {
 											{project.language && (
 												<span>{project.language}</span>
 											)}
-											{project.stars && (
-												<span>{formatStars(project.stars)}</span>
+											{starCount != null && (
+												<span>{formatStars(starCount)}</span>
 											)}
 										</div>
 									</div>

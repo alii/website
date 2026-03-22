@@ -10,7 +10,7 @@ import type {Post} from '../blog/Post';
 import {posts} from '../blog/posts';
 import {BlogPostList} from '../components/blog-post-list';
 import {message, MessageGroup} from '../components/message';
-import {ProjectsList} from '../components/projects-list';
+import {projects, ProjectsList} from '../components/projects-list';
 import {useShouldDoInitialPageAnimations} from '../hooks/use-did-initial-page-animations';
 import {env} from '../server/env';
 import {backupDiscordId, discordId} from '../utils/constants';
@@ -20,6 +20,7 @@ export interface Props {
 	backupLanyard: Types.Presence;
 	location: string;
 	recentBlogPosts: Post.TinyJSON[];
+	projectStars: Record<string, number>;
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
@@ -33,6 +34,27 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 		.slice(0, 3)
 		.map(post => post.toTinyJSON());
 
+	const repos = [...new Set(projects.map(p => p.name))];
+	const starResults = await Promise.allSettled(
+		repos.map(async repo => {
+			const res = await fetch(`https://api.github.com/repos/${repo}`, {
+				headers: process.env.GITHUB_TOKEN
+					? {Authorization: `token ${process.env.GITHUB_TOKEN}`}
+					: {},
+			});
+			if (!res.ok) return {repo, stars: 0};
+			const data = await res.json();
+			return {repo, stars: data.stargazers_count as number};
+		}),
+	);
+
+	const projectStars: Record<string, number> = {};
+	for (const result of starResults) {
+		if (result.status === 'fulfilled' && result.value.stars > 0) {
+			projectStars[result.value.repo] = result.value.stars;
+		}
+	}
+
 	return {
 		revalidate: 10,
 		props: {
@@ -40,6 +62,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			lanyard,
 			backupLanyard,
 			recentBlogPosts,
+			projectStars,
 		},
 	};
 };
@@ -212,7 +235,7 @@ export default function Home(props: Props) {
 
 				<MessageGroup messages={[message('remaining-blog-posts', <BlogPostList />)]} />
 
-				<MessageGroup messages={[message('projects', <ProjectsList />)]} />
+				<MessageGroup messages={[message('projects', <ProjectsList stars={props.projectStars} />)]} />
 
 				<MessageGroup
 					messages={[
