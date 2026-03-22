@@ -5,117 +5,53 @@ import {flushSync} from 'react-dom';
 import {TbLock, TbLockOpen} from 'react-icons/tb';
 import {useIsomorphicValue} from '../hooks/use-isomorphic-value';
 
-export interface Project {
+export interface GitHubRepo {
 	name: string;
 	description: string;
+	language: string | null;
+	stars: number;
 	url: string;
-	language?: string;
 }
 
-export const projects: Project[] = [
-	{
-		name: 'oven-sh/bun',
-		description: 'Incredibly fast JavaScript runtime, bundler, test runner, and package manager',
-		url: 'https://github.com/oven-sh/bun',
-		language: 'Zig',
-	},
-	{
-		name: 'alii/azs',
-		description: 'Amplify your Zod schemas with methods',
-		url: 'https://github.com/alii/azs',
-		language: 'TypeScript',
-	},
-	{
-		name: 'alii/searchy',
-		description: 'Cloudflare + Google = supercharged web surfing',
-		url: 'https://github.com/alii/searchy',
-		language: 'TypeScript',
-	},
-	{
-		name: 'alii/linear-style',
-		description: 'An index for Linear themes',
-		url: 'https://github.com/alii/linear-style',
-		language: 'TypeScript',
-	},
-	{
-		name: 'alii/use-lanyard',
-		description: 'React hook for realtime Discord presence via Lanyard',
-		url: 'https://github.com/alii/use-lanyard',
-		language: 'TypeScript',
-	},
-	{
-		name: 'alii/use-last-fm',
-		description: 'React hook for realtime Last.fm data',
-		url: 'https://github.com/alii/use-last-fm',
-		language: 'TypeScript',
-	},
-	{
-		name: 'kaito-http/kaito',
-		description: 'HTTP framework for TypeScript',
-		url: 'https://github.com/kaito-http/kaito',
-		language: 'TypeScript',
-	},
-	{
-		name: 'alii/poimandres-terminal',
-		description: 'Terminal color profiles inspired by Poimandres VSCode themes',
-		url: 'https://github.com/alii/poimandres-terminal',
-	},
-	{
-		name: 'alii/discord-jsx',
-		description: 'Experimental Discord bots with JSX',
-		url: 'https://github.com/alii/discord-jsx',
-		language: 'TypeScript',
-	},
-	{
-		name: 'alii/nextkit',
-		description: 'Zero-dependency API toolkit for Next.js',
-		url: 'https://github.com/alii/nextkit',
-		language: 'TypeScript',
-	},
-	{
-		name: 'alii/permer',
-		description: 'Abstraction for handling flags with bitwise operations',
-		url: 'https://github.com/alii/permer',
-		language: 'TypeScript',
-	},
-	{
-		name: 'alii/arc',
-		description: 'JavaScript on the BEAM',
-		url: 'https://github.com/alii/arc',
-		language: 'Gleam',
-	},
-	{
-		name: 'alii/al',
-		description: 'A small, statically-typed, expression-oriented programming language',
-		url: 'https://github.com/alii/al',
-		language: 'V',
-	},
-	{
-		name: 'alii/trisma',
-		description: 'Prisma but with TypeScript for data modelling',
-		url: 'https://github.com/alii/trisma',
-		language: 'TypeScript',
-	},
-	{
-		name: 'alii/typestr',
-		description: 'Zero runtime TypeScript string library using type-level magic',
-		url: 'https://github.com/alii/typestr',
-		language: 'TypeScript',
-	},
+export const projectNames = [
+	'oven-sh/bun',
+	'alii/azs',
+	'alii/searchy',
+	'alii/linear-style',
+	'alii/use-lanyard',
+	'alii/use-last-fm',
+	'kaito-http/kaito',
+	'alii/poimandres-terminal',
+	'alii/discord-jsx',
+	'alii/nextkit',
+	'alii/permer',
+	'alii/arc',
+	'alii/al',
+	'alii/trisma',
+	'alii/typestr',
 ];
 
-function formatStars(count: number): string {
-	if (count >= 1000) {
-		return `${(count / 1000).toFixed(1).replace(/\.0$/, '')}k`;
-	}
-	return count.toString();
-}
+const languageColors: Record<string, string> = {
+	TypeScript: '#3178c6',
+	JavaScript: '#f1e05a',
+	Zig: '#ec915c',
+	Rust: '#dea584',
+	Go: '#00add8',
+	Python: '#3572a5',
+	Gleam: '#ffaff3',
+	V: '#4f87c4',
+	CSS: '#563d7c',
+	HTML: '#e34c26',
+	Shell: '#89e051',
+	C: '#555555',
+	'C++': '#f34b7d',
+};
 
 export interface ProjectsListProps {
-	stars: Record<string, number>;
+	repos: GitHubRepo[];
 }
 
-export function ProjectsList({stars}: ProjectsListProps) {
+export function ProjectsList({repos}: ProjectsListProps) {
 	const [isFocused, setIsFocused] = useState(false);
 	const [isHovered, setIsHovered] = useState(false);
 
@@ -174,7 +110,7 @@ export function ProjectsList({stars}: ProjectsListProps) {
 			<div className="px-4">
 				<div className="flex items-start justify-between border-b border-zinc-200 pb-4 dark:border-zinc-800">
 					<p className="mr-4">
-						Some of my open source work. Hover to browse, or click the lock to keep it open.
+						Open source I've built or contributed to.
 					</p>
 
 					<motion.button
@@ -234,34 +170,36 @@ export function ProjectsList({stars}: ProjectsListProps) {
 				}}
 			>
 				<div className="flex flex-col p-4 pt-1 pb-1.5">
-					{projects.map(project => {
-						const starCount = stars[project.name];
+					{repos.map(repo => {
+						const [org, name] = repo.name.split('/');
+						const langColor = repo.language ? languageColors[repo.language] ?? '#888' : null;
 
 						return (
 							<a
-								key={project.name}
-								className="group -mx-2 block rounded-lg py-1"
-								href={project.url}
+								key={repo.name}
+								className="group -mx-2 block rounded-lg py-0.5"
+								href={repo.url}
 								target="_blank"
 								rel="noopener noreferrer"
 							>
-								<div className="rounded-md px-3 py-2 duration-100 group-last:rounded-b-xl group-hover:bg-zinc-200/50 group-active:scale-[0.98] dark:group-hover:bg-zinc-800">
-									<div className="flex items-baseline justify-between gap-3">
-										<h2 className="font-serif text-base text-black italic dark:text-white">
-											{project.name}
+								<div className="rounded-md px-3 py-1.5 duration-100 group-last:rounded-b-xl group-hover:bg-zinc-200/50 group-active:scale-[0.98] dark:group-hover:bg-zinc-800">
+									<div className="flex items-baseline justify-between gap-2">
+										<h2 className="min-w-0 truncate font-serif text-base text-black italic dark:text-white">
+											<span className="text-zinc-400 dark:text-zinc-600">{org}/</span>{name}
 										</h2>
-										<div className="flex shrink-0 items-center gap-2 text-xs text-zinc-500 dark:text-zinc-500">
-											{project.language && (
-												<span>{project.language}</span>
-											)}
-											{starCount != null && (
-												<span>{formatStars(starCount)}</span>
-											)}
-										</div>
+										{langColor && repo.language && (
+											<span className="flex shrink-0 items-center gap-1.5 text-xs text-zinc-500">
+												<span
+													className="inline-block size-2 rounded-full"
+													style={{backgroundColor: langColor}}
+												/>
+												{repo.language}
+											</span>
+										)}
 									</div>
 
-									<p className="text-zinc-800 dark:text-zinc-400">
-										{project.description}
+									<p className="truncate text-sm text-zinc-600 dark:text-zinc-500">
+										{repo.description}
 									</p>
 								</div>
 							</a>

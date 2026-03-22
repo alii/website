@@ -10,7 +10,7 @@ import type {Post} from '../blog/Post';
 import {posts} from '../blog/posts';
 import {BlogPostList} from '../components/blog-post-list';
 import {message, MessageGroup} from '../components/message';
-import {projects, ProjectsList} from '../components/projects-list';
+import {type GitHubRepo, projectNames, ProjectsList} from '../components/projects-list';
 import {useShouldDoInitialPageAnimations} from '../hooks/use-did-initial-page-animations';
 import {env} from '../server/env';
 import {backupDiscordId, discordId} from '../utils/constants';
@@ -20,7 +20,7 @@ export interface Props {
 	backupLanyard: Types.Presence;
 	location: string;
 	recentBlogPosts: Post.TinyJSON[];
-	projectStars: Record<string, number>;
+	repos: GitHubRepo[];
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
@@ -34,26 +34,29 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 		.slice(0, 3)
 		.map(post => post.toTinyJSON());
 
-	const repos = [...new Set(projects.map(p => p.name))];
-	const starResults = await Promise.allSettled(
-		repos.map(async repo => {
+	const repoNames = [...new Set(projectNames)];
+	const repoResults = await Promise.allSettled(
+		repoNames.map(async repo => {
 			const res = await fetch(`https://api.github.com/repos/${repo}`, {
 				headers: process.env.GITHUB_TOKEN
 					? {Authorization: `token ${process.env.GITHUB_TOKEN}`}
 					: {},
 			});
-			if (!res.ok) return {repo, stars: 0};
+			if (!res.ok) return null;
 			const data = await res.json();
-			return {repo, stars: data.stargazers_count as number};
+			return {
+				name: data.full_name as string,
+				description: (data.description as string) ?? '',
+				language: (data.language as string | null),
+				stars: data.stargazers_count as number,
+				url: data.html_url as string,
+			} satisfies GitHubRepo;
 		}),
 	);
 
-	const projectStars: Record<string, number> = {};
-	for (const result of starResults) {
-		if (result.status === 'fulfilled' && result.value.stars > 0) {
-			projectStars[result.value.repo] = result.value.stars;
-		}
-	}
+	const repos: GitHubRepo[] = repoResults
+		.map(r => (r.status === 'fulfilled' ? r.value : null))
+		.filter((r): r is GitHubRepo => r != null);
 
 	return {
 		revalidate: 10,
@@ -62,7 +65,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			lanyard,
 			backupLanyard,
 			recentBlogPosts,
-			projectStars,
+			repos,
 		},
 	};
 };
@@ -235,7 +238,7 @@ export default function Home(props: Props) {
 
 				<MessageGroup messages={[message('remaining-blog-posts', <BlogPostList />)]} />
 
-				<MessageGroup messages={[message('projects', <ProjectsList stars={props.projectStars} />)]} />
+				<MessageGroup messages={[message('projects', <ProjectsList repos={props.repos} />)]} />
 
 				<MessageGroup
 					messages={[
