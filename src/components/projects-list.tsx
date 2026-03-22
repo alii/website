@@ -198,7 +198,7 @@ export function ProjectsList({repos}: ProjectsListProps) {
 										)}
 									</div>
 
-									<p className="truncate text-sm text-zinc-600 dark:text-zinc-500">
+									<p className="line-clamp-3 text-sm text-zinc-600 dark:text-zinc-500">
 										{repo.description}
 									</p>
 								</div>
