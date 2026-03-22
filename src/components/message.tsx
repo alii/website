@@ -106,7 +106,7 @@ export function MessageGroupContainer({children}: {children: ReactNode}) {
 				alt="Me standing in front of some tents"
 			/>
 
-			<div className="space-y-1">{children}</div>
+			<div className="min-w-0 space-y-1">{children}</div>
 		</motion.li>
 	);
 }

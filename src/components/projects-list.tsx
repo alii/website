@@ -101,7 +101,7 @@ export function ProjectsList({repos}: ProjectsListProps) {
 
 	return (
 		<div
-			className="relative pt-4"
+			className="relative min-w-0 max-w-full pt-4"
 			onMouseOver={hover}
 			onMouseOut={out}
 			onFocus={focus}
@@ -169,7 +169,7 @@ export function ProjectsList({repos}: ProjectsListProps) {
 					damping: 20,
 				}}
 			>
-				<div className="flex flex-col p-4 pt-1 pb-1.5">
+				<div className="flex min-w-0 flex-col p-4 pt-1 pb-1.5">
 					{repos.map(repo => {
 						const [org, name] = repo.name.split('/');
 						const langColor = repo.language ? languageColors[repo.language] ?? '#888' : null;
@@ -182,8 +182,8 @@ export function ProjectsList({repos}: ProjectsListProps) {
 								target="_blank"
 								rel="noopener noreferrer"
 							>
-								<div className="rounded-md px-3 py-1.5 duration-100 group-last:rounded-b-xl group-hover:bg-zinc-200/50 group-active:scale-[0.98] dark:group-hover:bg-zinc-800">
-									<div className="flex items-baseline justify-between gap-2">
+								<div className="min-w-0 rounded-md px-3 py-1.5 duration-100 group-last:rounded-b-xl group-hover:bg-zinc-200/50 group-active:scale-[0.98] dark:group-hover:bg-zinc-800">
+									<div className="flex min-w-0 items-baseline justify-between gap-2">
 										<h2 className="min-w-0 truncate font-serif text-base text-black italic dark:text-white">
 											<span className="text-zinc-400 dark:text-zinc-600">{org}/</span>{name}
 										</h2>

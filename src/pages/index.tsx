@@ -238,7 +238,7 @@ export default function Home(props: Props) {
 
 				<MessageGroup messages={[message('remaining-blog-posts', <BlogPostList />)]} />
 
-				<MessageGroup messages={[message('projects', <ProjectsList repos={props.repos} />)]} />
+				<MessageGroup messages={[message('projects', <ProjectsList repos={props.repos} />, 'w-full')]} />
 
 				<MessageGroup
 					messages={[
