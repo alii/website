@@ -10,6 +10,7 @@ import type {Post} from '../blog/Post';
 import {posts} from '../blog/posts';
 import {BlogPostList} from '../components/blog-post-list';
 import {message, MessageGroup} from '../components/message';
+import {ProjectsList} from '../components/projects-list';
 import {useShouldDoInitialPageAnimations} from '../hooks/use-did-initial-page-animations';
 import {env} from '../server/env';
 import {backupDiscordId, discordId} from '../utils/constants';
@@ -210,6 +211,8 @@ export default function Home(props: Props) {
 				/> */}
 
 				<MessageGroup messages={[message('remaining-blog-posts', <BlogPostList />)]} />
+
+				<MessageGroup messages={[message('projects', <ProjectsList />)]} />
 
 				<MessageGroup
 					messages={[
