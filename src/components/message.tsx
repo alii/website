@@ -77,9 +77,6 @@ function MessageBubble({
 				className,
 
 				'rounded-[20px]',
-				// '[mask:paint(squircle)]',
-				// '[--squircle-radius:12px]',
-				// '[--squircle-smooth:0.35]',
 			)}
 		>
 			{content}

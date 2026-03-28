@@ -14,7 +14,7 @@
 .eslintcache
 .next
 out
-
+*.tsbuildinfo
 # Yarn
 .yarn/*
 !.yarn/releases
