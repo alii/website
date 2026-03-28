@@ -1,10 +1,3 @@
-import {useLocalStorage} from 'alistair/hooks';
-import {AnimatePresence, motion} from 'framer-motion';
-import {useRef, useState} from 'react';
-import {flushSync} from 'react-dom';
-import {TbLock, TbLockOpen} from 'react-icons/tb';
-import {useIsomorphicValue} from '../hooks/use-isomorphic-value';
-
 export interface GitHubRepo {
 	name: string;
 	description: string;
@@ -32,25 +25,6 @@ export const projectNames = [
 	'alii/typestr',
 ];
 
-export const descriptionOverrides: Record<string, string> = {
-	'oven-sh/bun': 'Fast JavaScript runtime, bundler, and package manager. I work on this at Anthropic.',
-	'alii/arc': 'JavaScript on the BEAM. Run JS/TS on the Erlang VM.',
-	'alii/al': 'A small, statically-typed, expression-oriented programming language.',
-	'valtyr/prisma-kysely': 'Generate Kysely types directly from your Prisma schema.',
-	'kaito-http/kaito': 'Type-safe HTTP framework for TypeScript.',
-	'alii/use-lanyard': 'React hook for fetching Discord presence through Lanyard.',
-	'alii/nextkit': 'Typesafe API routes for Next.js.',
-	'alii/use-last-fm': 'React hook for grabbing Last.fm now playing data.',
-	'alii/discord-jsx': 'Write Discord messages with JSX.',
-	'alii/poimandres-terminal': 'Poimandres theme for the terminal.',
-	'alii/linear-style': 'CSS inspired by Linear\'s landing page.',
-	'alii/azs': 'A URL shortener.',
-	'alii/searchy': 'Full-text search, written in TypeScript.',
-	'alii/permer': 'Bitfield-based permissions in TypeScript.',
-	'alii/trisma': 'Prisma utilities.',
-	'alii/typestr': 'TypeScript type-level string parser.',
-};
-
 const languageColors: Record<string, string> = {
 	TypeScript: '#3178c6',
 	JavaScript: '#f1e05a',
@@ -72,178 +46,31 @@ export interface ProjectsListProps {
 }
 
 export function ProjectsList({repos}: ProjectsListProps) {
-	const [isFocused, setIsFocused] = useState(false);
-	const [isHovered, setIsHovered] = useState(false);
-
-	const [didHoverOrFocusOnceLocalStorage, setDidHoverOrFocusOnce] = useLocalStorage(
-		'projects-list:did-hover-or-focus-once',
-		() => false,
-	);
-
-	const [isLockedOpenLocalStorage, setIsLockedOpen] = useLocalStorage(
-		'projects-list:is-locked-open',
-		() => false,
-	);
-
-	const didHoverOrFocusOnce = useIsomorphicValue(
-		() => didHoverOrFocusOnceLocalStorage,
-		() => false,
-	);
-
-	const isLockedOpen = useIsomorphicValue(
-		() => isLockedOpenLocalStorage,
-		() => false,
-	);
-
-	const isActuallyExpanded = isFocused || isHovered || isLockedOpen;
-
-	const openSideEffect = () => {
-		if (!didHoverOrFocusOnce) {
-			setIsLockedOpen(true);
-			setDidHoverOrFocusOnce(true);
-		}
-	};
-
-	const hover = () => {
-		openSideEffect();
-		setIsHovered(true);
-	};
-
-	const focus = () => {
-		openSideEffect();
-		setIsFocused(true);
-	};
-
-	const blur = () => setIsFocused(false);
-	const out = () => setIsHovered(false);
-
-	const button = useRef<HTMLButtonElement>(null);
-
 	return (
-		<div
-			className="relative min-w-0 max-w-full pt-4"
-			onMouseOver={hover}
-			onMouseOut={out}
-			onFocus={focus}
-			onBlur={blur}
-		>
-			<div className="px-4">
-				<div className="flex items-start justify-between border-b border-zinc-200 pb-4 dark:border-zinc-800">
-					<p className="mr-4">
-						Some things I've built or worked on.
-					</p>
+		<div className="flex flex-wrap gap-2">
+			{repos.map(repo => {
+				const name = repo.name.split('/')[1];
+				const langColor = repo.language ? languageColors[repo.language] ?? '#888' : null;
 
-					<motion.button
-						ref={button}
-						title={isLockedOpen ? 'Lock the list open' : 'Unlock the list'}
-						className="group z-10 -my-3 -mr-3.5 -ml-6 inline h-fit cursor-pointer px-5 focus-visible:outline-none"
-						onClick={() => {
-							flushSync(() => {
-								setIsLockedOpen(x => !x);
-							});
-
-							button.current?.blur();
-						}}
-						initial={didHoverOrFocusOnce ? 'hidden' : 'shown'}
-						animate={didHoverOrFocusOnce ? 'hidden' : 'shown'}
-						variants={{
-							shown: {
-								opacity: 0,
-							},
-							hidden: {
-								opacity: 1,
-							},
-						}}
+				return (
+					<a
+						key={repo.name}
+						href={repo.url}
+						target="_blank"
+						rel="noopener noreferrer"
+						title={repo.description}
+						className="group flex items-center gap-1.5 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-sm transition-colors hover:border-zinc-300 hover:bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700 dark:hover:bg-zinc-800"
 					>
-						<span className="sr-only">Toggle project list</span>
-
-						<div className="py-6">
-							<span className="-m-2 block rounded-md p-2 group-hover:bg-zinc-200 group-focus-visible:ring-2 group-focus-visible:ring-sky-500 dark:group-hover:bg-zinc-800">
-								{isLockedOpen && didHoverOrFocusOnce ? (
-									<TbLock className="size-4 text-zinc-800 duration-200 dark:text-zinc-400" />
-								) : (
-									<TbLockOpen className="size-4 text-zinc-800 duration-200 dark:text-zinc-400" />
-								)}
-							</span>
-						</div>
-					</motion.button>
-				</div>
-			</div>
-
-			<motion.div
-				initial={isActuallyExpanded ? 'expanded' : 'collapsed'}
-				animate={isActuallyExpanded ? 'expanded' : 'collapsed'}
-				className="relative overflow-hidden"
-				variants={{
-					collapsed: {
-						height: 72,
-					},
-					expanded: {
-						height: 'auto',
-					},
-				}}
-				transition={{
-					type: 'spring',
-					mass: 0.2,
-					stiffness: 170,
-					damping: 20,
-				}}
-			>
-				<div className="flex min-w-0 flex-col p-4 pt-1 pb-1.5">
-					{repos.map(repo => {
-						const [org, name] = repo.name.split('/');
-						const langColor = repo.language ? languageColors[repo.language] ?? '#888' : null;
-
-						return (
-							<a
-								key={repo.name}
-								className="group -mx-2 block rounded-lg py-0.5"
-								href={repo.url}
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								<div className="min-w-0 rounded-md px-3 py-1.5 duration-100 group-last:rounded-b-xl group-hover:bg-zinc-200/50 group-active:scale-[0.98] dark:group-hover:bg-zinc-800">
-									<div className="flex min-w-0 items-baseline justify-between gap-2">
-										<h2 className="min-w-0 truncate font-serif text-base text-black italic dark:text-white">
-											<span className="text-zinc-400 dark:text-zinc-600">{org}/</span>{name}
-										</h2>
-										{langColor && repo.language && (
-											<span className="flex shrink-0 items-center gap-1.5 text-xs text-zinc-500">
-												<span
-													className="inline-block size-2 rounded-full"
-													style={{backgroundColor: langColor}}
-												/>
-												{repo.language}
-											</span>
-										)}
-									</div>
-
-									<p className="line-clamp-3 text-sm text-zinc-600 dark:text-zinc-500">
-										{repo.description}
-									</p>
-								</div>
-							</a>
-						);
-					})}
-				</div>
-
-				<AnimatePresence initial={false}>
-					{!isActuallyExpanded && (
-						<motion.div
-							className="pointer-events-none absolute right-0 bottom-0 left-0 h-full bg-gradient-to-t from-zinc-100 to-transparent dark:from-zinc-950/80"
-							initial={{
-								opacity: 0,
-							}}
-							animate={{
-								opacity: 1,
-							}}
-							exit={{
-								opacity: 0,
-							}}
-						/>
-					)}
-				</AnimatePresence>
-			</motion.div>
+						{langColor && (
+							<span
+								className="inline-block size-2 shrink-0 rounded-full"
+								style={{backgroundColor: langColor}}
+							/>
+						)}
+						<span className="text-zinc-700 dark:text-zinc-300">{name}</span>
+					</a>
+				);
+			})}
 		</div>
 	);
 }

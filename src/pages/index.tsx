@@ -10,7 +10,7 @@ import type {Post} from '../blog/Post';
 import {posts} from '../blog/posts';
 import {BlogPostList} from '../components/blog-post-list';
 import {message, MessageGroup} from '../components/message';
-import {type GitHubRepo, descriptionOverrides, projectNames, ProjectsList} from '../components/projects-list';
+import {type GitHubRepo, projectNames, ProjectsList} from '../components/projects-list';
 import {useShouldDoInitialPageAnimations} from '../hooks/use-did-initial-page-animations';
 import {env} from '../server/env';
 import {backupDiscordId, discordId} from '../utils/constants';
@@ -44,10 +44,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			});
 			if (!res.ok) return null;
 			const data = await res.json();
-			const fullName = data.full_name as string;
 			return {
-				name: fullName,
-				description: descriptionOverrides[fullName] ?? (data.description as string) ?? '',
+				name: data.full_name as string,
+				description: (data.description as string) ?? '',
 				language: (data.language as string | null),
 				stars: data.stargazers_count as number,
 				url: data.html_url as string,
@@ -239,8 +238,6 @@ export default function Home(props: Props) {
 
 				<MessageGroup messages={[message('remaining-blog-posts', <BlogPostList />)]} />
 
-				<MessageGroup messages={[message('projects', <ProjectsList repos={props.repos} />, 'w-full')]} />
-
 				<MessageGroup
 					messages={[
 						{
@@ -327,6 +324,12 @@ export default function Home(props: Props) {
 								</div>
 							),
 						},
+					]}
+				/>
+
+				<MessageGroup
+					messages={[
+						message('projects', <ProjectsList repos={props.repos} />, 'w-full'),
 					]}
 				/>
 
