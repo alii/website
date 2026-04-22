@@ -287,7 +287,7 @@ export default function Home(props: Props) {
 								<div className="px-4 py-2.5">
 									I'm{' '}
 									<Link
-										href="https://x.com/alistaiir"
+										href="https://x.com/intent/user?screen_name=alistaiir"
 										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
 										target="_blank"
 									>
