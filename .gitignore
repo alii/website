@@ -25,5 +25,8 @@ out
 # bun
 *.bun
 
+# TypeScript
+*.tsbuildinfo
+
 # Cloud9 IDE files
 .c9
