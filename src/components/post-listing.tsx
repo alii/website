@@ -140,9 +140,11 @@ function toListingPost(post: Post | PostListingPost): PostListingPost {
 export function PostListing({
 	posts,
 	votes,
+	showTags = true,
 }: {
 	posts: Array<Post | PostListingPost>;
 	votes?: Record<string, number>;
+	showTags?: boolean;
 }) {
 	const items = posts.map(toListingPost);
 
@@ -163,7 +165,7 @@ export function PostListing({
 							<span className="text-lime-700 dark:text-lime-500">posted by alii</span>
 							<span className="text-zinc-400 dark:text-zinc-600">&middot;</span>
 							{fmtDate(post.date)}
-							{post.keywords && post.keywords.length > 0 && (
+							{showTags && post.keywords && post.keywords.length > 0 && (
 								<>
 									<span className="text-zinc-400 dark:text-zinc-600">&middot;</span>
 									{post.keywords.slice(0, 4).map(keyword => {

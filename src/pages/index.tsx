@@ -173,7 +173,7 @@ export default function Home(props: Props) {
 
 	return (
 		<Layout sidebar={sidebar}>
-			<PostListing posts={recent} votes={votes} />
+			<PostListing posts={recent} votes={votes} showTags={false} />
 			<p className={`${thingTagline} mt-3`}>
 				<Link href="/blog">view all posts &raquo;</Link>
 			</p>
