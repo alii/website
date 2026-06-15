@@ -103,6 +103,14 @@ export class AmbientDeclarations extends Post {
 						export declare function add(a: number, b: number): number;
 					`}
 				</Highlighter>
+				<h2>Compiler contract</h2>
+				<p>
+					Since ambient modules don't contain runtime code, they should be treated like "promises"
+					or "contracts" that you are making with the compiler. They're like documentation that
+					TypeScript can understand. Just like documentation for humans, it can get out of sync with
+					the actual runtime code. A lot of the work I'm doing at Bun is ensuring our type
+					definitions are up to date with Bun's runtime APIs.
+				</p>
 				<hr />
 				<h2>How Does TypeScript Find Types?</h2>
 				<p>
@@ -216,37 +224,6 @@ export class AmbientDeclarations extends Post {
 					unavoidable edge-cases.
 				</Note>
 
-				<h2>Declaring Global Types</h2>
-				<p>
-					Suppose you want to add a global variable that your runtime creates, or perhaps a library
-					you're using doesn't have types for:
-				</p>
-				<Highlighter filename="globals.d.ts">
-					{stripIndent`
-						declare function myAwesomeFunction(x: string): number;
-					`}
-				</Highlighter>
-				<p>
-					Because this declaration file is NOT a module, this will be accessible everywhere in your
-					program.
-				</p>
-				<p>
-					What if you wanted to add something to the <code>window</code> object? TypeScript declares
-					the window variable exists by assigning it to an interface called <code>Window</code>,
-					which is also declared globally. You can perform{' '}
-					<a href="https://www.typescriptlang.org/docs/handbook/declaration-merging.html">
-						Declaration Merging
-					</a>{' '}
-					to extend that interface, and tell TypeScript about new properties that exist.
-				</p>
-				<Highlighter filename="globals.d.ts">
-					{stripIndent`
-						interface Window {
-							myAwesomeFunction: (x: string) => number;
-						}
-					`}
-				</Highlighter>
-
 				<h2>Declaring modules by name</h2>
 				<p>
 					You can declare a module by its name. As long as the ambient declaration file gets
@@ -301,14 +278,36 @@ export class AmbientDeclarations extends Post {
 						Make sure your <code>tsconfig.json</code> includes the types folder (usually automatic).
 					</li>
 				</ol>
-				<h2>Compiler contract</h2>
+				<h2>Declaring Global Types</h2>
 				<p>
-					Since ambient modules don't contain runtime code, they should be treated like "promises"
-					or "contracts" that you are making with the compiler. They're like documentation that
-					TypeScript can understand. Just like documentation for humans, it can get out of sync with
-					the actual runtime code. A lot of the work I'm doing at Bun is ensuring our type
-					definitions are up to date with Bun's runtime APIs.
+					Suppose you want to add a global variable that your runtime creates, or perhaps a library
+					you're using doesn't have types for:
 				</p>
+				<Highlighter filename="globals.d.ts">
+					{stripIndent`
+						declare function myAwesomeFunction(x: string): number;
+					`}
+				</Highlighter>
+				<p>
+					Because this declaration file is NOT a module, this will be accessible everywhere in your
+					program.
+				</p>
+				<p>
+					What if you wanted to add something to the <code>window</code> object? TypeScript declares
+					the window variable exists by assigning it to an interface called <code>Window</code>,
+					which is also declared globally. You can perform{' '}
+					<a href="https://www.typescriptlang.org/docs/handbook/declaration-merging.html">
+						Declaration Merging
+					</a>{' '}
+					to extend that interface, and tell TypeScript about new properties that exist.
+				</p>
+				<Highlighter filename="globals.d.ts">
+					{stripIndent`
+						interface Window {
+							myAwesomeFunction: (x: string) => number;
+						}
+					`}
+				</Highlighter>
 				<h2>Conflicts</h2>
 				<p>
 					While doing research for the pull request mentioned at the beginning, I found a few cases
