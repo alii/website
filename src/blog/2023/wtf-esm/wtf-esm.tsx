@@ -12,18 +12,7 @@ export class WTFESM extends Post {
 	public excerpt =
 		'I got confidently wrong about publishing a package, in public, and Andrew Branch corrected me from his holiday. This is the week-long hole that came after, and the question underneath it: who actually turns "y" into a file?';
 
-	public keywords = [
-		'javascript',
-		'esm',
-		'cjs',
-		'module resolution',
-		'typescript',
-		'node',
-		'v8',
-		'runtime',
-		'spec',
-		'package.json',
-	];
+	public keywords = ['module resolution', 'esm', 'cjs', 'typescript', 'node', 'javascript'];
 
 	public render() {
 		return (

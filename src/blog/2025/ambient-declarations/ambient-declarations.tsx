@@ -8,7 +8,7 @@ export class AmbientDeclarations extends Post {
 	public slug = 'ambient-declarations';
 	public date = new Date('9 May 2025');
 	public hidden = false;
-	public keywords = ['Ambient Modules', 'TypeScript', 'Module Resolution'];
+	public keywords = ['typescript', 'module resolution', 'ambient declarations', 'declaration files'];
 	public excerpt = 'Explaining ambient declarations with @types/bun as an example';
 
 	public render() {

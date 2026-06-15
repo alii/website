@@ -10,7 +10,7 @@ export class ServerlessDiscordOAuth extends Post {
 	public date = new Date('2 January 2022');
 	public excerpt = "Implementing basic Discord OAuth on Vercel's serverless platform";
 	public hidden = false;
-	public keywords = ['serverless', 'vercel', 'discord', 'oauth', 'node'];
+	public keywords = ['next.js', 'serverless', 'discord', 'oauth', 'vercel'];
 
 	public render() {
 		return (

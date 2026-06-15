@@ -13,16 +13,7 @@ export class Mochip extends Post {
 	public date = new Date('6 Jan 2022');
 	public excerpt = 'The eventful tale of me getting fed up with my homework';
 	public hidden = false;
-	public keywords = [
-		'school',
-		'homework',
-		'clout',
-		'hegarty maths',
-		'educake',
-		'homework hack',
-		'maths homework',
-		'programming',
-	];
+	public keywords = ['web scraping', 'reverse engineering', 'browser extension', 'school'];
 
 	public render() {
 		return (
