@@ -1,16 +1,12 @@
 import type {APIUser} from 'discord-api-types/v10';
 import {verify} from 'jsonwebtoken';
-import type {GetServerSideProps, PageConfig} from 'next';
+import type {GetServerSideProps} from 'next';
 import Link from 'next/link';
 import {env} from '../../server/env';
 
 interface Props {
 	readonly user: APIUser | null;
 }
-
-export const config: PageConfig = {
-	unstable_runtimeJS: false,
-};
 
 export default function ServerlessDiscordOAuthDemoPage({user}: Props) {
 	if (!user) {

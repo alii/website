@@ -1,37 +1,56 @@
 import Link from 'next/link';
+import {Layout} from '../../components/layout';
+import {box, boxBd, boxHd, breadcrumb, listing, thing, thingEntry, thingExcerpt, thingTitle} from '../../ui';
+
+const experiments = [
+	{
+		href: '/experiments/morphing-shapes',
+		name: 'Morphing Shapes',
+		desc: 'Animating and shifting divs using just CSS transitions and JS to initiate them.',
+	},
+	{
+		href: '/monzo/dashboard',
+		name: 'Monzo Dashboard',
+		desc: 'Using the Monzo API to display personal account details. The Monzo API requires me to manually add users, so contact me if you want access.',
+	},
+	{
+		href: '/experiments/rekordbox-history-parser',
+		name: 'Rekordbox History Parser',
+		desc: 'Rekordbox exports history in a format not so useful for copy pasting. This is a tiny tool to fix that.',
+	},
+];
 
 export default function ExperimentsList() {
 	return (
-		<div className="mx-auto max-w-prose space-y-8 px-6 py-24">
-			<p>
-				This is a list of random experiments I've built on this website. There's not a lot here and
-				this is all quite old.
-			</p>
+		<Layout>
+			<div className={breadcrumb}>
+				<Link href="/">home</Link>
+				<span className="text-zinc-400 dark:text-zinc-600">&rsaquo;</span>
+				<span>experiments</span>
+			</div>
 
-			<ul className="list-outside list-disc space-y-4 [&_a]:text-blue-400 [&_a:hover]:underline">
-				<li>
-					<Link href="/experiments/morphing-shapes">Morphing Shapes</Link>
-					<p className="text-sm">
-						Animating and shifting divs using just css transitions and JS to initiate them
+			<section className={box}>
+				<div className={boxHd}>experiments</div>
+				<div className={boxBd}>
+					<p>
+						A list of random experiments I&apos;ve built on this website. There&apos;s not a lot
+						here and most of it is quite old.
 					</p>
-				</li>
+				</div>
+			</section>
 
-				<li>
-					<Link href="/monzo/dashboard">Monzo Dashboard</Link>
-					<p className="text-sm">
-						Using the Monzo API to display personal account details. Unfortunately, the Monzo API
-						requires me to manually add users, so if you want access, contact me.
-					</p>
-				</li>
-
-				<li>
-					<Link href="/experiments/rekordbox-history-parser">Rekordbox History Parser</Link>
-					<p className="text-sm">
-						Rekordbox exports history in a format not so useful for copy pasting. This is a tiny
-						tool to fix that
-					</p>
-				</li>
-			</ul>
-		</div>
+			<ol className={listing}>
+				{experiments.map(experiment => (
+					<li className={thing} key={experiment.href}>
+						<div className={thingEntry}>
+							<Link className={thingTitle} href={experiment.href}>
+								{experiment.name}
+							</Link>
+							<p className={thingExcerpt}>{experiment.desc}</p>
+						</div>
+					</li>
+				))}
+			</ol>
+		</Layout>
 	);
 }

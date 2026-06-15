@@ -20,5 +20,11 @@ export const env = z
 		DISCORD_DEMO_REDIRECT_URI: z.string().url(),
 		DISCORD_DEMO_DISCORD_CLIENT_ID: z.string(),
 		DISCORD_DEMO_DISCORD_CLIENT_SECRET: z.string(),
+
+		// Lanyard API key, used to persist blog post votes into Lanyard KV.
+		// Optional: if unset, /api/vote returns 503 and the UI degrades to
+		// read-only counts. Get one with `.apikey` in the Lanyard Discord
+		// (https://discord.gg/lanyard).
+		LANYARD_API_KEY: z.string().optional(),
 	})
 	.parse(process.env);

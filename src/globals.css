@@ -3,19 +3,24 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-	--font-serif: var(--next-font-serif), --default-serif-font-family;
-	--font-sans: var(--next-font-sans), --default-sans-font-family;
-	--font-mono: var(--next-font-mono), --default-mono-font-family;
+	--font-serif: Georgia, 'Times New Roman', Times, serif;
+	--font-sans: Verdana, Geneva, 'DejaVu Sans', Tahoma, sans-serif;
+	--font-mono: 'Consolas', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 }
 
-body {
-	@apply overscroll-none bg-[#fefefe] font-sans text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
-}
+/* Only base element defaults live here — everything else is Tailwind utilities
+ * (with `dark:` variants) on the components. Dark mode follows the system via
+ * prefers-color-scheme, which is Tailwind v4's default `dark:` behaviour. */
+@layer base {
+	:root {
+		color-scheme: light dark;
+	}
 
-#__next {
-	@apply absolute inset-0;
-}
+	body {
+		@apply bg-zinc-200 font-sans text-[13px] leading-[1.45] text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
+	}
 
-a[href] {
-	@apply ring-sky-500 focus-visible:ring-[2.5px] focus-visible:outline-none;
+	a {
+		@apply text-sky-700 hover:underline dark:text-sky-400;
+	}
 }

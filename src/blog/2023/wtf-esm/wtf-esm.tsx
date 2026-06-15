@@ -10,9 +10,20 @@ export class WTFESM extends Post {
 	public date = new Date('2023-04-03');
 	public hidden = true;
 	public excerpt =
-		'I recently Tweeted about publishing a dual ESM and CJS package to npm. It got a lot of likes, and here is why that matters.';
+		'When you write `import x from "y"`, what part of the system actually turns "y" into a file? It is split across the spec, the engine and the runtime, and not how you would guess.';
 
-	public keywords = ['javascript', 'esm', 'typescript', 'publish', 'package', 'npm', 'node'];
+	public keywords = [
+		'javascript',
+		'esm',
+		'cjs',
+		'module resolution',
+		'typescript',
+		'node',
+		'v8',
+		'runtime',
+		'spec',
+		'package.json',
+	];
 
 	public render() {
 		return (
@@ -22,248 +33,241 @@ export class WTFESM extends Post {
 				<p>
 					I{' '}
 					<ExternalLink href="https://twitter.com/alistaiir/status/1634274673876783120">
-						recently Tweeted
+						tweeted a package.json
 					</ExternalLink>{' '}
-					about publishing a dual ESM and CJS package to npm. It got a lot of likes, and here is why
-					that matters. It's important that you understand that I was wrong in my Tweet, and things
-					are arguably easier or more difficult than they seem. This is the current state of
-					publishing a JS package.
+					a while back and said it was the right way to ship a dual ESM/CJS package. It wasn't.
+					Working out why it was wrong was more useful than the fix, because it made me understand
+					something I'd been hand-waving for years: when you write <code>import x from 'y'</code>,
+					what part of the system actually turns <code>'y'</code> into a file?
+				</p>
+
+				<p>
+					The job is split across three things that mostly don't talk to each other: the language
+					spec, the engine, and the runtime. The split is not where I assumed it was.
 				</p>
 
 				<h3>Preface</h3>
 
 				<p>
-					I am so incredibly grateful for the absolutely wonderful{' '}
-					<ExternalLink href="https://twitter.com/atcb">Andrew Branch</ExternalLink>, who took a lot
-					of time out of his vacation to correct my Tweet and wrote{' '}
+					Thanks to <ExternalLink href="https://twitter.com/atcb">Andrew Branch</ExternalLink>, who
+					corrected my tweet and wrote{' '}
 					<ExternalLink href="https://twitter.com/atcb/status/1634653474041503744">
-						this excellent thread
-					</ExternalLink>
-					. A lot of this blog post is regurgitated text of how I interpreted his Tweets.
-				</p>
-
-				<p>
-					Andrew works on TypeScript itself at Microsoft, specifically on auto imports and modules.
-					It's likely he's the only person on the planet who knows exactly how this works inside
-					out. It's been rumoured that he will be summoned if you utter "module resolution" three
-					times in the dark. Thank you Andy - you're truly a super star ⭐💖
+						this thread
+					</ExternalLink>{' '}
+					on his holiday. He works on TypeScript at Microsoft, on auto-imports and modules, so he is
+					roughly the worst possible person to be wrong at on this topic. Thank you Andy ⭐💖
 				</p>
 
 				<hr />
 
+				<h3>Three things, one import</h3>
+
+				<p>The spec, the engine and the runtime each do a different part of the work:</p>
+
+				<ul>
+					<li>the spec (ECMA-262) decides the order things happen in</li>
+					<li>the engine (V8, JavaScriptCore, SpiderMonkey) runs that</li>
+					<li>
+						the runtime (Node, Bun, Deno, the browser) decides what file <code>'y'</code> is
+					</li>
+				</ul>
+
+				<p>The spec never touches that last one, which is the part everyone assumes it owns.</p>
+
+				<h3>The spec doesn't resolve anything</h3>
+
 				<p>
-					Right now, it's extraordinarily clear we are experiencing growing pains in our great
-					migration to ECMAScript Modules. Below is the part of my <code>package.json</code> that I
-					posted.
+					Go looking in <ExternalLink href="https://tc39.es/ecma262/">ECMA-262</ExternalLink> for the
+					bit that turns <code>'lodash'</code> into a path and you won't find it. The spec models a
+					module as a Module Record and describes its lifecycle: parse, link, evaluate. It handles
+					the hard ordering problems, like cycles, top-level <code>await</code>, and what happens
+					when a module throws while the graph is still linking. That is all timing.
+				</p>
+
+				<p>
+					The specifier itself is just a string to it. When the spec needs the module behind that
+					string, it doesn't resolve it. It calls a host hook, <code>HostLoadImportedModule</code>{' '}
+					(older name: <code>HostResolveImportedModule</code>), and leaves it there. "Host" is the
+					spec's word for "someone else's problem". So it pins down <em>when</em> a module is needed
+					and says nothing about <em>which file</em> it is.
+				</p>
+
+				<h3>The engine runs it, but doesn't do the lookup either</h3>
+
+				<p>
+					The host isn't quite the engine. V8 (and JSC, and SpiderMonkey) is what implements
+					parse/link/evaluate. It builds the records, walks the graph, runs the bytecode, keeps the
+					order the spec asks for. The engine owns the timing.
+				</p>
+
+				<p>
+					It still has no idea what <code>node_modules</code> is, and has never read a package.json.
+					It hands resolution back to whoever embeds it: you give{' '}
+					<code>Module::InstantiateModule</code> a resolve callback, and V8 calls it every time it
+					needs to turn a specifier into a module. The engine does the graph. You do the lookup.
+				</p>
+
+				<h3>The runtime is the part that knows about files</h3>
+
+				<p>
+					That embedder, the thing that answers "what file is <code>'y'</code>", is the runtime:
+					Node, Bun, Deno, the browser. This is where everything you think of as "how imports work"
+					actually lives, and none of it is in the language:
+				</p>
+
+				<ul>
+					<li>
+						walking up <code>node_modules</code>
+					</li>
+					<li>
+						reading package.json: <code>main</code>, <code>module</code>, <code>exports</code>,{' '}
+						<code>imports</code>
+					</li>
+					<li>
+						matching conditions: <code>import</code>, <code>require</code>, <code>types</code>,{' '}
+						<code>node</code>, <code>default</code>
+					</li>
+					<li>
+						trying extensions: <code>.js</code>, <code>.mjs</code>, <code>.cjs</code>,{' '}
+						<code>/index.js</code>
+					</li>
+					<li>on the web, resolving a URL and checking import maps</li>
+				</ul>
+
+				<p>
+					This is the bit a wrong tweet taught me: <code>exports</code> isn't a JavaScript feature,
+					it's a Node feature. Node invented it for its own resolver and other runtimes copied it.
+					When people say ESM vs CJS is a mess, they mean the runtime resolution layer is a mess,
+					because it's the only layer carrying both worlds at once.
+				</p>
+
+				<h3>Where I went wrong</h3>
+
+				<p>So, the tweet. Roughly this:</p>
+
+				<Highlighter language="json">
+					{stripIndent`
+						{
+							"type": "module",
+							"main": "./dist/index.cjs",
+							"module": "./dist/index.js",
+							"types": "./dist/index.d.ts",
+							"exports": {
+								".": {
+									"types": "./dist/index.d.ts",
+									"import": "./dist/index.js",
+									"require": "./dist/index.cjs"
+								},
+								"./package.json": "./package.json"
+							}
+						}
+					`}
+				</Highlighter>
+
+				<p>
+					One root <code>types</code> for both builds. Looks fine. But <code>exports</code> is a
+					resolver, and every consumer (TypeScript included) reads the conditions top to bottom and
+					takes the first one that matches. A single root <code>types</code> doesn't tell a{' '}
+					<code>require</code> consumer anything useful. You want the types chosen per condition:
 				</p>
 
 				<Highlighter language="json">
 					{stripIndent`
-                        {
-                            "type": "module",
-                            "main": "./dist/index.cjs",
-                            "module": "./dist/index.js",
-                            "types": "./dist/index.d.ts",
-                            "exports": {
-                                ".": {
-                                    "types": "./dist/index.d.ts",
-                                    "import": "./dist/index.js",
-                                    "require": "./dist/index.cjs"
-                                },
-                                "./package.json": "./package.json"
-                            }
-                        }
-                    `}
+						{
+							"exports": {
+								".": {
+									"import": {
+										"types": "./dist/index.d.ts",
+										"default": "./dist/index.js"
+									},
+									"require": {
+										"types": "./dist/index.d.cts",
+										"default": "./dist/index.cjs"
+									}
+								},
+								"./package.json": "./package.json"
+							}
+						}
+					`}
 				</Highlighter>
 
-				<p>
-					As mentioned above, I made some mistakes here. First of all, it's important to
-					differentiate between what is runtime code that engines will understand (what is
-					JavaScript), and what is type definitions (what is TypeScript). This (seems) easy enough,
-					we can see clearly that there are two <code>types</code> fields. One is under the{' '}
-					<code>.</code> entrypoint for <code>exports</code>, the other is at the root. Let's break
-					it down.
-				</p>
-
-				<h3>Where did I go wrong?</h3>
-
-				<p>
-					It's pretty hard to get a conclusive answer from the "crowd" of JavaScript developers
-					about the best way to publish a package to npm. Everyone has conflicting answers &amp; we
-					all seem to be following what already exists on GitHub and npm. There are lots of packages
-					that are published technically incorrectly but used and installed by millions of people.
-					This means a lot of packages follow what I'm calling a colloquial standard. Here's what I{' '}
-					<b>*thought to be true*</b>, and so do most other devs...
-				</p>
-
-				<Note variant="warning" title="Warning">
-					Below is not the correct way to publish a package to npm. This is what I thought was
-					correct at the time of Tweeting.
+				<Note variant="warning" title="Order matters">
+					First match wins, so <code>types</code> goes first in each block and <code>default</code>{' '}
+					goes last. Put <code>import</code> or <code>require</code> above <code>types</code> and the
+					consumer resolves straight to the <code>.js</code> and never sees the types.
 				</Note>
 
+				<h3>Why two .d.ts files</h3>
+
+				<p>
+					This one catches everyone, docs included. A <code>.d.ts</code> describes the shape{' '}
+					<em>and</em> the module format of the file next to it. An ESM <code>.d.ts</code> describes{' '}
+					<code>export default</code>; a CJS <code>.d.cts</code> describes <code>module.exports</code>
+					{' / '}
+					<code>export =</code>. They aren't interchangeable. Our package.json says{' '}
+					<code>"type": "module"</code>, so a plain <code>.d.ts</code> is ESM and a{' '}
+					<code>.d.cts</code> is CJS, same rule as <code>.js</code> vs <code>.cjs</code>. Point your{' '}
+					<code>require</code> consumers at the ESM <code>.d.ts</code> and their compiler thinks the
+					CJS build has a default export it doesn't. So you copy the file, rename it{' '}
+					<code>.d.cts</code>, and point <code>require</code> at it. Yes, it's annoying.
+				</p>
+
+				<h3>TypeScript is doing the runtime's job, early</h3>
+
+				<p>
+					The thing that made this click: TypeScript is running the runtime's resolver statically. It
+					never executes your code, but to check <code>import x from 'y'</code> it has to predict the
+					file the runtime will land on, so it reimplements resolution at build time. That's what{' '}
+					<code>moduleResolution</code> picks. <code>node16</code> and <code>nodenext</code> copy
+					Node's <code>exports</code>-aware resolver, <code>bundler</code> copies what esbuild and
+					Vite do, and the old <code>node10</code> (renamed from <code>node</code> in TS 5.0) predates{' '}
+					<code>exports</code> and ignores it. That's also why you keep a root <code>main</code> and{' '}
+					<code>types</code>: they're the fallback for anything still on <code>node10</code>. If
+					TypeScript's guess and the runtime disagree, your types are wrong and you find out when
+					someone else does.
+				</p>
+
+				<h3>Don't do it by hand</h3>
+
+				<p>
+					Stop reading your package.json by eye and let a tool do it.{' '}
+					<ExternalLink href="https://arethetypeswrong.github.io/">
+						Are the types wrong?
+					</ExternalLink>{' '}
+					(<code>@arethetypeswrong/cli</code>, aka <code>attw</code>, also Andrew's) runs your package
+					through every resolution mode and tells you which consumers break. For the build itself, let{' '}
+					<ExternalLink href="https://github.com/isaacs/tshy">tshy</ExternalLink>,{' '}
+					<ExternalLink href="https://tsup.egoist.dev/">tsup</ExternalLink> or{' '}
+					<ExternalLink href="https://bun.com">Bun</ExternalLink> emit the <code>.js</code>/
+					<code>.cjs</code> pair, the matching <code>.d.ts</code>/<code>.d.cts</code> and the{' '}
+					<code>exports</code> block. I haven't hand-written this object since.
+				</p>
+
+				<h3>tl;dr</h3>
+
 				<ul>
+					<li>the spec owns timing and treats specifiers as opaque strings</li>
+					<li>the engine runs the spec and asks a callback for resolution</li>
 					<li>
-						<code>.types</code> at the root is for TypeScript type definitions. A single{' '}
-						<code>.d.ts</code> file can define all exported symbols in your package.
+						the runtime does the resolution (node_modules, package.json, <code>exports</code>);{' '}
+						<code>exports</code> is Node's, not JavaScript's
 					</li>
-
 					<li>
-						<code>.main</code> is for CJS before <code>exports</code> existed. You can emit a single
-						CJS compatible file that can be consumed by (legacy) runtimes.
+						TypeScript reimplements the runtime's resolver statically; <code>moduleResolution</code>{' '}
+						picks which one
 					</li>
-
 					<li>
-						<code>.module</code> is for an ESM entrypoint before <code>exports</code> existed. This
-						was mostly used by bundlers like Webpack, and has never been part of any standard. It's
-						superseded by <code>exports</code>, but it might be good to keep in order to support the
-						older bundlers.
-					</li>
-
-					<li>
-						<code>.exports</code> is the new standard for defining entrypoints for your package. It
-						is a map of entrypoints to files. The <code>.</code> entrypoint is the default
-						entrypoint. We also include <code>./package.json</code> so the package.json file is also
-						accessible. The <code>exports</code> field is supported in modern runtimes. Node has
-						supported it since v16.0.0 - for this reason, you will see <code>exports</code>{' '}
-						sometimes referenced as node16.
-					</li>
-
-					<li>
-						<code>.exports.*.types</code> is for TypeScript type definitions. A single{' '}
-						<code>.d.ts</code> file can define all exported symbols in your package for both CJS and
-						ESM.
-					</li>
-
-					<li>
-						<code>.exports.*.import</code> is for ESM. This is the entrypoint for how a modern
-						runtime should import your package when running under CommonJS. It is a single ESM
-						compatible file.
-					</li>
-
-					<li>
-						<code>.exports.*.require</code> is for CJS. This is the entrypoint for how a modern
-						runtime should import your package when running under CommonJS. It is a single CJS
-						compatible file.
-					</li>
-
-					<li>
-						<code>.exports.*.default</code> is for when a runtime does not match any other
-						condition, and is a fallback. It's also within the spec to specify <code>default</code>{' '}
-						as the <b>only</b> entrypoint. I did not use <code>default</code> in my initial Tweet.
+						inside <code>exports</code>: first match wins, <code>types</code> first,{' '}
+						<code>default</code> last, ship <code>.d.ts</code> + <code>.d.cts</code>, run{' '}
+						<code>attw</code>
 					</li>
 				</ul>
 
 				<p>
-					I made a few mistakes here. First of all, types are specific to ESM and CJS. This means
-					there should be <b>two</b> <code>types</code> fields. One for ESM, one for CJS. Even the
-					TypeScript documentation gets this wrong, and is something they're working on updating.
-					Solutions for this are also pretty wild. I've managed to get things working by simply
-					copying <code>./dist/index.d.ts</code> to <code>./dist/index.d.cts</code> after bundling,
-					and making the following changes to my <code>package.json</code>.
+					The tweet was wrong, but the thing I actually needed wasn't a better package.json. It was
+					knowing the runtime owns the lookup and the spec doesn't. Once that's clear, the rest mostly
+					falls out.
 				</p>
-
-				<Highlighter language="json">
-					{stripIndent`
-                            {
-                                "exports": {
-                                    ".": {
-                                        "import": {
-                                            "types": "./dist/index.d.ts",
-                                            "default": "./dist/index.js"
-                                        },
-                                        "require": {
-                                            "types": "./dist/index.d.cts",
-                                            "default": "./dist/index.cjs"
-                                        }
-                                    },
-                                    "./package.json": "./package.json"
-                                }
-                            }
-                        `}
-				</Highlighter>
-
-				<p>
-					Note that we point to a .js file and not .mjs when targeting ESM. This is because our
-					package.json has <code>type</code> set to <code>module</code>. This tells our runtime that
-					all files are assumed to be ESM unless they have a <code>.cjs</code> extension. There's no
-					such thing as an ESM package, only ESM files. Using <code>"type": "module",</code> is just
-					a way to tell the runtime to interpret existing files as ESM.
-				</p>
-
-				<h3>What gives?</h3>
-
-				<Note variant="info" title="Note">
-					I'm still figuring this all out, and I'm not an expert. I'm just trying to share what I
-					have learned so far. If you have any corrections or suggestions, please let me know!
-				</Note>
-
-				<p>
-					Clearly, this is messy. It's messy because we're trying to support a lot of different
-					runtimes, and we're trying to support them all at once. We're trying to support ESM, CJS,
-					legacy bundlers, modern bundlers, and TypeScript. We're trying to support all of these
-					runtimes at once, and finally, we're trying to support them all at once in a single{' '}
-					<code>package.json</code> file. Few other languages suffer from this level of complexity
-					and fragmentation.
-				</p>
-
-				<p>
-					Let's break down the mess and why all these things are the way they are. Starting off with{' '}
-					<code>exports</code>.
-				</p>
-
-				<p>
-					<code>exports</code> is the modern way to define what your package exports. We have
-					already established that it is a map of entrypoints to files. Let's step through what
-					happens when a runtime/consumer (we'll use the word consumer, because TypeScript - which
-					is not a runtime - is also reading our code in this case) wants to import our package.
-				</p>
-
-				<ol>
-					<li>
-						<p>Consumer encounters an import statement</p>
-
-						<Highlighter>
-							{stripIndent`
-								import {something} from 'my-package';
-							`}
-						</Highlighter>
-					</li>
-
-					<li>
-						<p>
-							Consumer resolve the source code for <code>my-package</code>. In Node.js this is done
-							by looking for the folder name in <code>node_modules</code>, and then finding the{' '}
-							<code>package.json</code>. In any case, this is up to the consumer to implement
-						</p>
-					</li>
-
-					<li>
-						<p>
-							Consumer finds <code>package.json</code> file in the source code folder, and begins to
-							read the <code>exports</code> field
-						</p>
-					</li>
-
-					<li>
-						It steps through each field (in order, despite it being an object) and checks if the
-						condition the consumer is looking for exists in the <code>exports</code> field.
-					</li>
-
-					<li>
-						<p>
-							If the condition is met, the consumer will use the file specified in the{' '}
-							<code>exports</code> field as the entrypoint for the package. If the condition is not
-							met, it will continue to the next field. If no condition is met, a consumer will
-							usually exit/throw an error.
-						</p>
-
-						<p>
-							An example of a condition being met could be Node.js looking for an ESM file. In this
-							case, it would look for the <code>import</code> condition first, before trying to fall
-							back to <code>default</code> if it exists.
-						</p>
-					</li>
-				</ol>
 			</>
 		);
 	}

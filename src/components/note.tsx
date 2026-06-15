@@ -12,37 +12,32 @@ const icons = {
 	warning: <VscWarning className="mr-2 inline text-sm select-none" />,
 	info: <VscInfo className="mr-2 inline text-sm select-none" />,
 	success: <VscCheck className="mr-2 inline text-sm select-none" />,
-	tip: <VscInfo className="mr-2 inline text-sm select-none" />,
+};
+
+const variants = {
+	warning:
+		'border-yellow-500 bg-yellow-50 text-yellow-800 dark:border-yellow-700 dark:bg-yellow-950/40 dark:text-yellow-300',
+	info: 'border-sky-500 bg-sky-50 text-sky-800 dark:border-sky-700 dark:bg-sky-950/40 dark:text-sky-300',
+	success:
+		'border-green-500 bg-green-50 text-green-800 dark:border-green-700 dark:bg-green-950/40 dark:text-green-300',
 };
 
 export function Note(props: NoteProps) {
-	const className = clsx(
-		'p-4 pt-3 not-prose rounded-md space-y-2',
-		'[&_code]:inline [&_code]:rounded [&_code]:text-xs [&_code]:p-0.5',
-		'[&_a]:underline [&_a:hover]:text-blue-500',
-
-		{
-			'bg-yellow-100/90 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-500':
-				props.variant === 'warning',
-
-			'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-500': props.variant === 'info',
-			'bg-green-50 text-green-600 dark:bg-green-900/40 dark:text-green-500':
-				props.variant === 'success',
-
-			'[&_code]:bg-yellow-50 [&_code]:dark:bg-yellow-900/40': props.variant === 'warning',
-			'[&_code]:bg-blue-200/90 [&_code]:dark:bg-blue-900/40': props.variant === 'info',
-			'[&_code]:bg-green-200/90 [&_code]:dark:bg-green-900/40': props.variant === 'success',
-		},
-	);
-
 	return (
-		<div className={className}>
-			<div>
-				{icons[props.variant]}
-				{props.title && <h2 className="inline text-xs">{props.title}</h2>}
-			</div>
+		<div
+			className={clsx(
+				'not-prose my-3.5 border border-l-4 px-3 py-2.5 text-[13px] [&_a:hover]:underline',
+				variants[props.variant],
+			)}
+		>
+			{props.title && (
+				<div className="mb-1 text-[11px] font-bold tracking-wide uppercase">
+					{icons[props.variant]}
+					{props.title}
+				</div>
+			)}
 
-			<div className="text-sm">{props.children}</div>
+			<div className="[&_p]:m-0">{props.children}</div>
 		</div>
 	);
 }

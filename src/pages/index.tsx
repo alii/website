@@ -1,24 +1,20 @@
 import {get} from '@prequist/lanyard';
-import {motion} from 'framer-motion';
 import type {GetStaticProps} from 'next';
 import Link from 'next/link';
-import {CiTwitter} from 'react-icons/ci';
-import {SiBun, SiClaude, SiGithub, SiSpotify} from 'react-icons/si';
+import {SiSpotify} from 'react-icons/si';
 import {useLanyardWS, type Types} from 'use-lanyard';
-import album from '../../public/album.png';
-import type {Post} from '../blog/Post';
-import {posts} from '../blog/posts';
-import {BlogPostList} from '../components/blog-post-list';
-import {message, MessageGroup} from '../components/message';
-import {useShouldDoInitialPageAnimations} from '../hooks/use-did-initial-page-animations';
+import {posts, sortPosts} from '../blog/posts';
+import {Layout} from '../components/layout';
+import {PostListing} from '../components/post-listing';
+import {box, boxBd, boxHd, pinrow, pinrowK, thingTagline} from '../ui';
 import {env} from '../server/env';
 import {backupDiscordId, discordId} from '../utils/constants';
+import {parseVotes} from '../utils/votes';
 
 export interface Props {
 	lanyard: Types.Presence;
 	backupLanyard: Types.Presence;
 	location: string;
-	recentBlogPosts: Post.TinyJSON[];
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
@@ -26,19 +22,12 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	const backupLanyard = await get(backupDiscordId);
 	const location = lanyard.kv.location ?? env.DEFAULT_LOCATION;
 
-	const recentBlogPosts = [...posts]
-		.filter(post => !post.hidden)
-		// .sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix())
-		.slice(0, 3)
-		.map(post => post.toTinyJSON());
-
 	return {
 		revalidate: 10,
 		props: {
 			location,
 			lanyard,
 			backupLanyard,
-			recentBlogPosts,
 		},
 	};
 };
@@ -53,274 +42,141 @@ export default function Home(props: Props) {
 	});
 
 	const spotify = lanyard.spotify ?? backupLanyard?.spotify ?? null;
+	const location = lanyard.kv.location ?? props.location;
+	const votes = parseVotes(lanyard.kv);
 
-	const shouldAnimate = useShouldDoInitialPageAnimations();
+	const recent = sortPosts(posts)
+		.filter(post => !post.hidden)
+		.slice(0, 6);
+
+	const sidebar = (
+		<>
+			<section className={box}>
+				<div className={boxHd}>
+					about <span className="text-[#f48024]">alistair</span>
+				</div>
+				<div className={boxBd}>
+					<p>
+						I&apos;m <strong>Alistair</strong>. I work at{' '}
+						<Link href="https://www.anthropic.com/" target="_blank">
+							Anthropic
+						</Link>{' '}
+						on{' '}
+						<Link href="https://bun.com" target="_blank">
+							Bun
+						</Link>{' '}
+						and{' '}
+						<Link href="https://www.claude.com/product/claude-code" target="_blank">
+							Claude Code
+						</Link>
+						.
+					</p>
+					<p>
+						I&apos;m interested in language specifications and type systems. I&apos;ve been called a
+						TypeScript wizard at least a few times. It&apos;s nice to meet you.
+					</p>
+				</div>
+			</section>
+
+			{spotify && (
+				<section className={box}>
+					<div className={boxHd}>
+						<SiSpotify className="mb-px mr-1 inline" /> now playing
+					</div>
+					<div className={boxBd}>
+						<Link
+							href={`https://open.spotify.com/track/${spotify.track_id}`}
+							target="_blank"
+							className="flex items-start gap-2.5 !text-inherit hover:no-underline"
+						>
+							<img
+								src={spotify.album_art_url ?? '/album.png'}
+								alt="Album art"
+								width={48}
+								height={48}
+								className="size-12 shrink-0 border border-zinc-300 dark:border-zinc-700"
+							/>
+							<span className="min-w-0">
+								<strong className="block truncate">{spotify.song}</strong>
+								{spotify.artist && (
+									<span className="block truncate text-zinc-500 dark:text-zinc-400">
+										{spotify.artist.split('; ').join(', ')}
+									</span>
+								)}
+							</span>
+						</Link>
+					</div>
+				</section>
+			)}
+
+			<section className={box}>
+				<div className={boxHd}>whereabouts</div>
+				<div className={boxBd}>
+					<div className="relative mb-2 h-[130px] overflow-hidden border border-zinc-300 dark:border-zinc-700">
+						<img
+							src={`/api/map?location=${location}&theme=light`}
+							alt="Map"
+							className="absolute inset-0 size-full scale-125 object-cover dark:hidden"
+						/>
+						<img
+							src={`/api/map?location=${location}&theme=dark`}
+							alt="Map"
+							className="absolute inset-0 hidden size-full scale-125 object-cover dark:block"
+						/>
+						<img
+							src={`https://cdn.discordapp.com/avatars/${lanyard.discord_user.id}/${lanyard.discord_user.avatar}.webp?size=160`}
+							alt="Avatar"
+							className="absolute top-1/2 left-1/2 size-12 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-[0_0_0_2px_#ff4500]"
+						/>
+					</div>
+					<p>
+						Currently in{' '}
+						<Link href={`https://maps.apple.com/?q=${location}`} target="_blank">
+							{location}
+						</Link>
+						.
+					</p>
+				</div>
+			</section>
+
+			<section className={box}>
+				<div className={boxHd}>find me online</div>
+				<div className={boxBd}>
+					<div className={pinrow}>
+						<span className={pinrowK}>github</span>
+						<span className="min-w-0 flex-1">
+							<Link href="https://github.com/alii" target="_blank">
+								@alii
+							</Link>
+						</span>
+					</div>
+					<div className={pinrow}>
+						<span className={pinrowK}>twitter</span>
+						<span className="min-w-0 flex-1">
+							<Link href="https://x.com/intent/user?screen_name=alistaiir" target="_blank">
+								@alistaiir
+							</Link>
+						</span>
+					</div>
+					<div className={pinrow}>
+						<span className={pinrowK}>work</span>
+						<span className="min-w-0 flex-1">
+							<Link href="https://www.anthropic.com/" target="_blank">
+								Anthropic
+							</Link>
+						</span>
+					</div>
+				</div>
+			</section>
+		</>
+	);
 
 	return (
-		<main className="mx-auto max-w-xl px-3 pt-24 pb-16">
-			<motion.ul
-				transition={{
-					staggerChildren: 0.1,
-					delayChildren: 0.1,
-				}}
-				initial={shouldAnimate ? 'hidden' : 'show'}
-				animate="show"
-				className="space-y-8"
-			>
-				<MessageGroup
-					messages={[
-						{
-							key: 'intro',
-							className: '!max-w-[450px]',
-							content: (
-								<div className="px-4 py-2.5">
-									I'm <span className="font-serif italic">Alistair</span>. I work at{' '}
-									<Link
-										href="https://www.anthropic.com/"
-										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
-										target="_blank"
-									>
-										Anthropic
-									</Link>{' '}
-									on <SiBun className="mb-[3px] ml-[2px] inline" />{' '}
-									<Link
-										href="https://bun.com"
-										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
-										target="_blank"
-									>
-										Bun
-									</Link>{' '}
-									and <SiClaude className="mb-px ml-px inline" />{' '}
-									<Link
-										href="https://www.claude.com/product/claude-code"
-										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
-										target="_blank"
-									>
-										Claude Code
-									</Link>
-									. I'm interested in things like language specifications and type systems. I've
-									been called a TypeScript wizard at least a few times. It's nice to meet you.
-								</div>
-							),
-						},
-					]}
-				/>
-
-				{spotify && (
-					<MessageGroup
-						messages={[
-							{
-								key: 'music',
-								content: (
-									<div className="max-w-[380px] space-y-3 px-4 py-2.5">
-										<p>
-											I listen to a lot of music, and{' '}
-											<span className="font-serif italic">right now</span> I'm listening to this
-											song on Spotify:
-										</p>
-									</div>
-								),
-							},
-
-							{
-								key: 'the-current-song',
-								content: (
-									<Link
-										href={`https://open.spotify.com/track/${spotify.track_id}`}
-										className="group relative block w-full min-w-[300px] cursor-default overflow-hidden rounded-[20px] p-4"
-										target="_blank"
-									>
-										<div className="absolute inset-0">
-											<div className="absolute inset-0 z-10 bg-white/70 transition-colors group-hover:bg-white/80 dark:bg-zinc-800/80 dark:group-hover:bg-zinc-800/85"></div>
-											<img
-												src={spotify.album_art_url ?? album.src}
-												alt="Album art"
-												aria-hidden
-												className="absolute top-1/2 -translate-y-1/2 blur-3xl saturate-[50] dark:saturate-[10]"
-											/>
-										</div>
-
-										<div className="relative z-10 flex items-center space-x-4 pr-8">
-											<img
-												src={spotify.album_art_url ?? album.src}
-												alt="Album art"
-												className="size-12 rounded-md border-2"
-											/>
-
-											<div className="space-y-1">
-												<p className="line-clamp-1">
-													<strong>{spotify.song}</strong>
-												</p>
-												{spotify.artist && (
-													<p className="line-clamp-1 text-zinc-800 dark:text-white/60">
-														{spotify.artist.split('; ').join(', ')}
-													</p>
-												)}
-											</div>
-										</div>
-
-										<div className="absolute top-4 right-4 z-10">
-											<SiSpotify className="size-4 text-zinc-900/80 dark:text-white/50" />
-										</div>
-									</Link>
-								),
-							},
-						]}
-					/>
-				)}
-
-				{/* <MessageGroup
-					messages={[
-						...(spotify
-							? []
-							: []),
-						// {
-						// 	key: 'not-music',
-						// 	content: (
-						// 		<div className="px-4 py-2.5">
-						// 			In the rare case I'm not listening to anything, you can usually find me out and
-						// 			about riding my{' '}
-						// 			<Link
-						// 				href="https://www.youtube.com/watch?v=LBx-JCj-7Y8"
-						// 				className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
-						// 				target="_blank"
-						// 			>
-						// 				Evolve skateboard
-						// 			</Link>
-						// 			,{' '}
-						// 			<Link
-						// 				href="https://www.youtube.com/watch?v=x6vlL9Sscmw"
-						// 				className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
-						// 				target="_blank"
-						// 			>
-						// 				DJing (on YouTube)
-						// 			</Link>{' '}
-						// 			or{' '}
-						// 			<Link
-						// 				href="https://soundcloud.com/alistairsmusic/"
-						// 				className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
-						// 				target="_blank"
-						// 			>
-						// 				trying my hardest to figure out Ableton Live
-						// 			</Link>
-						// 		</div>
-						// 	),
-						// },
-					]}
-				/> */}
-
-				<MessageGroup messages={[message('remaining-blog-posts', <BlogPostList />)]} />
-
-				<MessageGroup
-					messages={[
-						{
-							key: 'location',
-							content: (
-								<div className="relative h-[150px] w-[300px]">
-									<div className="absolute inset-0 overflow-hidden rounded-[20px]">
-										<img
-											src={`/api/map?location=${lanyard.kv.location}&theme=light`}
-											alt="Map"
-											className="absolute inset-0 h-full w-full scale-125 object-cover dark:hidden"
-										/>
-										<img
-											src={`/api/map?location=${lanyard.kv.location}&theme=dark`}
-											alt="Map"
-											className="absolute inset-0 hidden h-full w-full scale-125 object-cover dark:block"
-										/>
-									</div>
-
-									<span className="absolute top-1/2 left-1/2 z-10 -mt-7 -ml-7 block size-14 animate-[ping_2s_cubic-bezier(0,_0,_0.2,_1)_infinite] rounded-full bg-lime-500" />
-
-									<img
-										src={`https://cdn.discordapp.com/avatars/${lanyard.discord_user.id}/${lanyard.discord_user.avatar}.webp?size=160`}
-										alt="Avatar"
-										className="absolute top-1/2 left-1/2 z-10 size-16 -translate-x-1/2 -translate-y-1/2 rounded-full border-2"
-									/>
-								</div>
-							),
-						},
-						{
-							key: 'location-caption',
-							content: (
-								<p className="px-4 py-2.5">
-									I'm currently in{' '}
-									<Link
-										href={`https://maps.apple.com/?q=${lanyard.kv.location}`}
-										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
-										target="_blank"
-									>
-										{lanyard.kv.location}
-									</Link>{' '}
-									📍
-								</p>
-							),
-						},
-					]}
-				/>
-
-				<MessageGroup
-					messages={[
-						{
-							key: 'chat-1',
-							content: <div className="max-w-[384px] px-4 py-2.5">Find me online:</div>,
-						},
-						{
-							key: 'github',
-							content: (
-								<div className="px-4 py-2.5">
-									I'm{' '}
-									<Link
-										href="https://github.com/alii"
-										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
-										target="_blank"
-									>
-										@alii on GitHub
-									</Link>{' '}
-									<SiGithub className="mb-[3px] inline" />{' '}
-								</div>
-							),
-						},
-						{
-							key: 'chat-2',
-							content: (
-								<div className="px-4 py-2.5">
-									I'm{' '}
-									<Link
-										href="https://x.com/intent/user?screen_name=alistaiir"
-										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
-										target="_blank"
-									>
-										@alistaiir on Twitter/X
-									</Link>{' '}
-									<CiTwitter className="mb-[3px] inline" />
-								</div>
-							),
-						},
-					]}
-				/>
-
-				{/* <MessageGroup
-					messages={[
-						{
-							key: 'experiments',
-							content: (
-								<div className="px-4 py-2.5">
-									I have some fun experiments on this site, some are functional things I use, others
-									are just me messing around.{' '}
-									<Link
-										href="/experiments"
-										className="underline decoration-zinc-400 dark:decoration-zinc-500/80"
-									>
-										Click here to see them
-									</Link>
-									.
-								</div>
-							),
-						},
-					]}
-				/> */}
-			</motion.ul>
-		</main>
+		<Layout sidebar={sidebar}>
+			<PostListing posts={recent} votes={votes} />
+			<p className={`${thingTagline} mt-3`}>
+				<Link href="/blog">view all posts &raquo;</Link>
+			</p>
+		</Layout>
 	);
 }

@@ -1,0 +1,110 @@
+[
+  {
+    "id": "alistair",
+    "file": "/88x31/alistair.gif",
+    "alt": "alistair.sh — Alistair's homepage",
+    "href": "/"
+  },
+  {
+    "id": "under-construction",
+    "file": "/88x31/under-construction.gif",
+    "alt": "under construction",
+    "href": null
+  },
+  {
+    "id": "typescript",
+    "file": "/88x31/typescript.gif",
+    "alt": "typed or die — TypeScript",
+    "href": "https://www.typescriptlang.org"
+  },
+  {
+    "id": "plasma-vibes",
+    "file": "/88x31/plasma-vibes.gif",
+    "alt": "100% vibes",
+    "href": null
+  },
+  {
+    "id": "claude-code",
+    "file": "/88x31/claude-code.gif",
+    "alt": "built with Claude Code",
+    "href": "https://www.claude.com/product/claude-code"
+  },
+  {
+    "id": "powered-by-bun",
+    "file": "/88x31/powered-by-bun.gif",
+    "alt": "powered by Bun",
+    "href": "https://bun.com"
+  },
+  {
+    "id": "this-is-fine",
+    "file": "/88x31/this-is-fine.gif",
+    "alt": "this is fine",
+    "href": null
+  },
+  {
+    "id": "star-wars",
+    "file": "/88x31/star-wars.gif",
+    "alt": "a long time ago in a galaxy far, far away",
+    "href": null
+  },
+  {
+    "id": "now-spinning",
+    "file": "/88x31/now-spinning.gif",
+    "alt": "now spinning — on the decks",
+    "href": "https://soundcloud.com/alistairsmusic"
+  },
+  {
+    "id": "live-set",
+    "file": "/88x31/live-set.gif",
+    "alt": "live set — made in Ableton Live",
+    "href": "https://soundcloud.com/alistairsmusic"
+  },
+  {
+    "id": "strict-mode",
+    "file": "/88x31/strict-mode.gif",
+    "alt": "strict mode — no errors",
+    "href": "/strict-tsconfig"
+  },
+  {
+    "id": "zero-kb",
+    "file": "/88x31/zero-kb.gif",
+    "alt": "0kb bundle",
+    "href": "/zero-kb-nextjs-blog"
+  },
+  {
+    "id": "shipped-it",
+    "file": "/88x31/shipped-it.gif",
+    "alt": "shipped it on Vercel",
+    "href": "/serverless-discord-oauth"
+  },
+  {
+    "id": "read-the-spec",
+    "file": "/88x31/read-the-spec.gif",
+    "alt": "read the spec",
+    "href": "https://tc39.es/ecma262/"
+  },
+  {
+    "id": "js-on-beam",
+    "file": "/88x31/js-on-beam.gif",
+    "alt": "JS on the BEAM",
+    "href": "https://github.com/alii/arc"
+  },
+  {
+    "id": "made-a-lang",
+    "file": "/88x31/made-a-lang.gif",
+    "alt": "I made a lang",
+    "href": "https://github.com/alii/al"
+  },
+  {
+    "id": "now-scrobbling",
+    "file": "/88x31/now-scrobbling.gif",
+    "alt": "now scrobbling — last.fm",
+    "href": "https://github.com/alii/use-last-fm"
+  },
+  {
+    "id": "anime",
+    "file": "/88x31/anime.gif",
+    "alt": "anime",
+    "href": null
+  }
+]

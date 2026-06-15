@@ -25,7 +25,7 @@ export function Shell({
 
 				return (
 					<p
-						key={line}
+						key={index}
 						className={clsx(
 							'!my-0 before:select-none',
 							hasDollarOnFirstLineOnly
@@ -59,7 +59,7 @@ function Filename({filename}: {readonly filename: string}) {
 	})();
 
 	return (
-		<p className="mx-1 mt-1 mb-0 rounded bg-zinc-100 px-3 py-1.5 text-sm text-zinc-600 dark:bg-zinc-900/50 dark:text-zinc-400">
+		<p className="m-0 border-b border-zinc-300 bg-zinc-100 px-3 py-1.5 font-mono text-xs text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">
 			<span className="mr-2">{icon}</span>
 			<span>{filename}</span>
 		</p>
@@ -77,18 +77,18 @@ export function Highlighter({
 }) {
 	return (
 		<div className="[&_pre]:!m-0 [&_pre]:border-none">
-			<div className="hidden overflow-hidden rounded-md border border-zinc-800 dark:block">
+			{/* light theme */}
+			<div className="overflow-hidden border border-zinc-300 bg-white dark:hidden">
 				{filename && <Filename filename={filename} />}
-
-				<SyntaxHighlighter language={language} style={dark} PreTag={Pre}>
+				<SyntaxHighlighter language={language} style={light} PreTag={Pre}>
 					{children}
 				</SyntaxHighlighter>
 			</div>
 
-			<div className="rounded-md border border-zinc-200 dark:hidden">
+			{/* dark theme */}
+			<div className="hidden overflow-hidden border border-zinc-700 bg-zinc-900 dark:block">
 				{filename && <Filename filename={filename} />}
-
-				<SyntaxHighlighter language={language} style={light} PreTag={Pre}>
+				<SyntaxHighlighter language={language} style={dark} PreTag={Pre}>
 					{children}
 				</SyntaxHighlighter>
 			</div>

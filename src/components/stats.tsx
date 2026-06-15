@@ -1,4 +1,5 @@
 import {useMemo} from 'react';
+import {box, boxBd, boxHd, pinrow, pinrowK} from '../ui';
 import {useFirstEverLoad, useVisitCounts} from '../hooks/use-first-ever-load';
 
 export function Stats() {
@@ -8,13 +9,27 @@ export function Stats() {
 	const firstEverLoadTime = useMemo(() => new Date(stats.time), [stats.time]);
 
 	return (
-		<div className="m-4 mx-auto max-w-2xl rounded-md bg-blue-100 p-6 py-12 text-blue-800 dark:bg-blue-900 dark:text-blue-100">
-			<p>
-				You first visited my website on {firstEverLoadTime.toLocaleDateString()} at{' '}
-				{firstEverLoadTime.toLocaleTimeString()} and on this first visit, you were on the{' '}
-				{stats.path} page. Since then, you have visited {visits - 1} more times.{' '}
-				{visits > 1 && 'Thanks for coming back!'}
-			</p>
-		</div>
+		<section className={box}>
+			<div className={boxHd}>your visitor record</div>
+			<div className={boxBd}>
+				<div className={pinrow}>
+					<span className={pinrowK}>first seen</span>
+					<span className="min-w-0 flex-1">
+						{firstEverLoadTime.toLocaleDateString()} at {firstEverLoadTime.toLocaleTimeString()}
+					</span>
+				</div>
+				<div className={pinrow}>
+					<span className={pinrowK}>landed on</span>
+					<span className="min-w-0 flex-1 font-mono">{stats.path}</span>
+				</div>
+				<div className={pinrow}>
+					<span className={pinrowK}>visits</span>
+					<span className="min-w-0 flex-1">
+						{visits} total &mdash; {visits - 1} return visit{visits - 1 === 1 ? '' : 's'}.{' '}
+						{visits > 1 && 'Thanks for coming back!'}
+					</span>
+				</div>
+			</div>
+		</section>
 	);
 }
