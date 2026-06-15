@@ -1,12 +1,12 @@
 import {NextkitError} from 'nextkit';
 import {z} from 'zod';
-import {posts} from '../../blog/posts';
+import {POST_SLUGS} from '../../blog/slugs';
 import {api} from '../../server/api';
 import {env} from '../../server/env';
 import {discordId} from '../../utils/constants';
 import {voteKey} from '../../utils/votes';
 
-const slugs = new Set(posts.map(post => post.slug));
+const slugs = new Set<string>(POST_SLUGS);
 
 const schema = z.object({
 	slug: z.string().refine(slug => slugs.has(slug), 'Unknown post'),

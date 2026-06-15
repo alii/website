@@ -1,13 +1,28 @@
-import type {PropsWithChildren} from 'react';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-
-import light from 'react-syntax-highlighter/dist/cjs/styles/hljs/lightfair';
-import dark from 'react-syntax-highlighter/dist/cjs/styles/hljs/vs2015';
-
 import clsx from 'clsx';
+import type {PropsWithChildren} from 'react';
 import {TbBrandCss3, TbBrandHtml5, TbBrandJavascript, TbBrandTypescript} from 'react-icons/tb';
 
-const Pre = ({children}: PropsWithChildren) => <pre className="px-4">{children}</pre>;
+// Fine-grained, synchronous Shiki. We preload only the languages/themes we use
+// and use the pure-JS regex engine (no oniguruma WASM), so codeToHtml is sync
+// and works at build time / in serverless with no async and no native deps.
+import {createHighlighterCoreSync} from 'shiki/core';
+import {createJavaScriptRegexEngine} from 'shiki/engine/javascript';
+import bash from 'shiki/langs/bash.mjs';
+import css from 'shiki/langs/css.mjs';
+import html from 'shiki/langs/html.mjs';
+import javascript from 'shiki/langs/javascript.mjs';
+import json from 'shiki/langs/json.mjs';
+import markdown from 'shiki/langs/markdown.mjs';
+import typescript from 'shiki/langs/typescript.mjs';
+import {lightfair, vs2015} from './shiki-themes';
+
+const highlighter = createHighlighterCoreSync({
+	engine: createJavaScriptRegexEngine({forgiving: true}),
+	themes: [lightfair, vs2015],
+	langs: [typescript, javascript, bash, json, css, html, markdown],
+});
+
+type Language = 'typescript' | 'javascript' | 'bash' | 'json' | 'css' | 'html' | 'markdown';
 
 export function Shell({
 	children,
@@ -70,28 +85,20 @@ export function Highlighter({
 	children,
 	language = 'typescript',
 	filename,
-}: {
+}: PropsWithChildren<{
 	readonly children: string;
-	readonly language?: 'typescript' | 'javascript' | 'bash' | 'json' | 'css' | 'html' | 'markdown';
+	readonly language?: Language;
 	readonly filename?: string;
-}) {
-	return (
-		<div className="[&_pre]:!m-0 [&_pre]:border-none">
-			{/* light theme */}
-			<div className="overflow-hidden border border-zinc-300 bg-white dark:hidden">
-				{filename && <Filename filename={filename} />}
-				<SyntaxHighlighter language={language} style={light} PreTag={Pre}>
-					{children}
-				</SyntaxHighlighter>
-			</div>
+}>) {
+	const html = highlighter.codeToHtml(children.replace(/\n$/, ''), {
+		lang: language,
+		themes: {light: 'lightfair', dark: 'vs2015'},
+	});
 
-			{/* dark theme */}
-			<div className="hidden overflow-hidden border border-zinc-700 bg-zinc-900 dark:block">
-				{filename && <Filename filename={filename} />}
-				<SyntaxHighlighter language={language} style={dark} PreTag={Pre}>
-					{children}
-				</SyntaxHighlighter>
-			</div>
+	return (
+		<div className="not-prose overflow-hidden border border-zinc-300 text-[12.5px] dark:border-zinc-700">
+			{filename && <Filename filename={filename} />}
+			<div dangerouslySetInnerHTML={{__html: html}} />
 		</div>
 	);
 }

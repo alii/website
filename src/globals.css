@@ -24,3 +24,24 @@
 		@apply text-sky-700 hover:underline dark:text-sky-400;
 	}
 }
+
+/* Shiki code blocks. The highlighter emits inline light-theme colours plus
+ * `--shiki-dark` CSS variables; this swaps to them under system dark mode. */
+.shiki {
+	overflow-x: auto;
+	padding: 12px 16px;
+	font-family: var(--font-mono);
+	line-height: 1.55;
+	tab-size: 2;
+}
+
+@media (prefers-color-scheme: dark) {
+	.shiki,
+	.shiki span {
+		color: var(--shiki-dark) !important;
+	}
+
+	.shiki {
+		background-color: var(--shiki-dark-bg) !important;
+	}
+}

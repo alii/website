@@ -84,7 +84,7 @@ export default function PostPage({slug}: Props) {
 				<div className="p-[18px]">
 					<div
 						className={clsx(
-							'prose prose-sky max-w-none dark:prose-invert',
+							'prose prose-sky dark:prose-invert max-w-none',
 							// the post body renders its own <h1> title; we already show it in the
 							// header above, so hide the duplicate leading heading
 							'[&>h1:first-child]:hidden',

@@ -15,6 +15,7 @@ import {
 	thingVote,
 } from '../ui';
 import {normalizeTag} from '../utils/tags';
+import {voteSlug} from '../utils/votes';
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -149,7 +150,7 @@ export function PostListing({
 		<ol className={listing}>
 			{items.map(post => (
 				<li className={thing} key={post.slug}>
-					<VoteBox slug={post.slug} count={votes?.[post.slug] ?? 0} />
+					<VoteBox slug={post.slug} count={votes?.[voteSlug(post.slug)] ?? 0} />
 
 					<div className={thingEntry}>
 						<a className={thingTitle} href={`/${post.slug}`}>
