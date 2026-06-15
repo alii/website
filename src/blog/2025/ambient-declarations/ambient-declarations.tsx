@@ -8,7 +8,12 @@ export class AmbientDeclarations extends Post {
 	public slug = 'ambient-declarations';
 	public date = new Date('9 May 2025');
 	public hidden = false;
-	public keywords = ['typescript', 'module resolution', 'ambient declarations', 'declaration files'];
+	public keywords = [
+		'typescript',
+		'module resolution',
+		'ambient declarations',
+		'declaration files',
+	];
 	public excerpt = 'Explaining ambient declarations with @types/bun as an example';
 
 	public render() {
@@ -80,6 +85,24 @@ export class AmbientDeclarations extends Post {
 					regular .ts files. There are many use cases for this, a common one being declaring types
 					of globals.
 				</Note>
+				<h2>Ambient vs. Regular Declarations</h2>
+				<p>
+					<b>Regular declarations</b> are for code you write and control.
+				</p>
+				<Highlighter filename="add.ts">
+					{stripIndent`
+						export function add(a: number, b: number): number {
+							return a + b;
+						}`}
+				</Highlighter>
+				<p>
+					<b>Ambient declarations</b> are for code that exists elsewhere.
+				</p>
+				<Highlighter filename="add.d.ts">
+					{stripIndent`
+						export declare function add(a: number, b: number): number;
+					`}
+				</Highlighter>
 				<hr />
 				<h2>How Does TypeScript Find Types?</h2>
 				<p>
@@ -108,24 +131,6 @@ export class AmbientDeclarations extends Post {
 						.
 					</li>
 				</ul>
-				<h2>Ambient vs. Regular Declarations</h2>
-				<p>
-					<b>Regular declarations</b> are for code you write and control.
-				</p>
-				<Highlighter filename="add.ts">
-					{stripIndent`
-						export function add(a: number, b: number): number {
-							return a + b;
-						}`}
-				</Highlighter>
-				<p>
-					<b>Ambient declarations</b> are for code that exists elsewhere.
-				</p>
-				<Highlighter filename="add.d.ts">
-					{stripIndent`
-						export declare function add(a: number, b: number): number;
-					`}
-				</Highlighter>
 				<h2>Module vs. Script Declarations</h2>
 				<ul>
 					<li>
