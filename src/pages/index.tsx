@@ -6,21 +6,21 @@ import {useLanyardWS, type Types} from 'use-lanyard';
 import {posts, sortPosts} from '../blog/posts';
 import {Layout} from '../components/layout';
 import {PostListing} from '../components/post-listing';
-import {box, boxBd, boxHd, pinrow, pinrowK, thingTagline} from '../ui';
 import {env} from '../server/env';
+import {box, boxBd, boxHd, pinrow, pinrowK, thingTagline} from '../ui';
 import {backupDiscordId, discordId} from '../utils/constants';
 import {parseVotes} from '../utils/votes';
 
 export interface Props {
-	lanyard: Types.Presence;
-	backupLanyard: Types.Presence;
+	lanyard: Types.Presence | null;
+	backupLanyard: Types.Presence | null;
 	location: string;
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-	const lanyard = await get(discordId);
-	const backupLanyard = await get(backupDiscordId);
-	const location = lanyard.kv.location ?? env.DEFAULT_LOCATION;
+	const lanyard = await get(discordId).catch(() => null);
+	const backupLanyard = await get(backupDiscordId).catch(() => null);
+	const location = lanyard?.kv.location ?? env.DEFAULT_LOCATION;
 
 	return {
 		revalidate: 10,
@@ -33,17 +33,16 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 };
 
 export default function Home(props: Props) {
-	const lanyard = useLanyardWS(discordId, {
-		initialData: props.lanyard,
-	});
+	const lanyard = useLanyardWS(discordId, props.lanyard ? {initialData: props.lanyard} : {});
 
-	const backupLanyard = useLanyardWS(backupDiscordId, {
-		initialData: props.backupLanyard,
-	});
+	const backupLanyard = useLanyardWS(
+		backupDiscordId,
+		props.backupLanyard ? {initialData: props.backupLanyard} : {},
+	);
 
-	const spotify = lanyard.spotify ?? backupLanyard?.spotify ?? null;
-	const location = lanyard.kv.location ?? props.location;
-	const votes = parseVotes(lanyard.kv);
+	const spotify = lanyard?.spotify ?? backupLanyard?.spotify ?? null;
+	const location = lanyard?.kv.location ?? props.location;
+	const votes = parseVotes(lanyard?.kv);
 
 	const recent = sortPosts(posts)
 		.filter(post => !post.hidden)
@@ -81,13 +80,13 @@ export default function Home(props: Props) {
 			{spotify && (
 				<section className={box}>
 					<div className={boxHd}>
-						<SiSpotify className="mb-px mr-1 inline" /> now playing
+						<SiSpotify className="mr-1 mb-px inline" /> now playing
 					</div>
 					<div className={boxBd}>
 						<Link
 							href={`https://open.spotify.com/track/${spotify.track_id}`}
 							target="_blank"
-							className="flex items-start gap-2.5 !text-inherit hover:no-underline"
+							className="flex items-start gap-2.5 text-inherit! hover:no-underline"
 						>
 							<img
 								src={spotify.album_art_url ?? '/album.png'}
@@ -109,35 +108,37 @@ export default function Home(props: Props) {
 				</section>
 			)}
 
-			<section className={box}>
-				<div className={boxHd}>whereabouts</div>
-				<div className={boxBd}>
-					<div className="relative mb-2 h-[130px] overflow-hidden border border-zinc-300 dark:border-zinc-700">
-						<img
-							src={`/api/map?location=${location}&theme=light`}
-							alt="Map"
-							className="absolute inset-0 size-full scale-125 object-cover dark:hidden"
-						/>
-						<img
-							src={`/api/map?location=${location}&theme=dark`}
-							alt="Map"
-							className="absolute inset-0 hidden size-full scale-125 object-cover dark:block"
-						/>
-						<img
-							src={`https://cdn.discordapp.com/avatars/${lanyard.discord_user.id}/${lanyard.discord_user.avatar}.webp?size=160`}
-							alt="Avatar"
-							className="absolute top-1/2 left-1/2 size-12 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-[0_0_0_2px_#ff4500]"
-						/>
+			{lanyard && (
+				<section className={box}>
+					<div className={boxHd}>whereabouts</div>
+					<div className={boxBd}>
+						<div className="relative mb-2 h-32.5 overflow-hidden border border-zinc-300 dark:border-zinc-700">
+							<img
+								src={`/api/map?location=${location}&theme=light`}
+								alt="Map"
+								className="absolute inset-0 size-full scale-125 object-cover dark:hidden"
+							/>
+							<img
+								src={`/api/map?location=${location}&theme=dark`}
+								alt="Map"
+								className="absolute inset-0 hidden size-full scale-125 object-cover dark:block"
+							/>
+							<img
+								src={`https://cdn.discordapp.com/avatars/${lanyard.discord_user.id}/${lanyard.discord_user.avatar}.webp?size=160`}
+								alt="Avatar"
+								className="absolute top-1/2 left-1/2 size-12 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-[0_0_0_2px_#ff4500]"
+							/>
+						</div>
+						<p>
+							Currently in{' '}
+							<Link href={`https://maps.apple.com/?q=${location}`} target="_blank">
+								{location}
+							</Link>
+							.
+						</p>
 					</div>
-					<p>
-						Currently in{' '}
-						<Link href={`https://maps.apple.com/?q=${location}`} target="_blank">
-							{location}
-						</Link>
-						.
-					</p>
-				</div>
-			</section>
+				</section>
+			)}
 
 			<section className={box}>
 				<div className={boxHd}>find me online</div>

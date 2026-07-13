@@ -17,12 +17,9 @@ import {
 import {normalizeTag} from '../utils/tags';
 import {voteSlug} from '../utils/votes';
 
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-// Deterministic so server and client render identically (no hydration drift).
-function fmtDate(date: Date) {
-	return `${date.getUTCDate()} ${MONTHS[date.getUTCMonth()]} ${date.getUTCFullYear()}`;
-}
+const fmt = new Intl.DateTimeFormat(undefined, {
+	dateStyle: 'medium',
+});
 
 type Vote = -1 | 0 | 1;
 
@@ -89,7 +86,7 @@ function VoteBox({slug, count}: {slug: string; count: number}) {
 		<div className={thingVote}>
 			<button
 				type="button"
-				className={clsx(arrow, mounted && vote === 1 && '!text-[#f48024]')}
+				className={clsx(arrow, mounted && vote === 1 && 'text-[#f48024]!')}
 				onClick={() => cast(1)}
 				aria-label="upvote"
 				aria-pressed={vote === 1}
@@ -101,8 +98,8 @@ function VoteBox({slug, count}: {slug: string; count: number}) {
 				type="button"
 				className={clsx(
 					arrow,
-					'hover:!text-[#6a92ff]',
-					mounted && vote === -1 && '!text-[#6a92ff]',
+					'hover:text-[#6a92ff]!',
+					mounted && vote === -1 && 'text-[#6a92ff]!',
 				)}
 				onClick={() => cast(-1)}
 				aria-label="downvote"
@@ -164,14 +161,18 @@ export function PostListing({
 						<p className={thingTagline}>
 							<span className="text-lime-700 dark:text-lime-500">posted by alii</span>
 							<span className="text-zinc-400 dark:text-zinc-600">&middot;</span>
-							{fmtDate(post.date)}
+							<span suppressHydrationWarning>{fmt.format(post.date)}</span>
 							{showTags && post.keywords && post.keywords.length > 0 && (
 								<>
 									<span className="text-zinc-400 dark:text-zinc-600">&middot;</span>
 									{post.keywords.slice(0, 4).map(keyword => {
 										const t = normalizeTag(keyword);
 										return (
-											<Link className={tagClass} key={t} href={`/blog?tag=${encodeURIComponent(t)}`}>
+											<Link
+												className={tagClass}
+												key={t}
+												href={`/blog?tag=${encodeURIComponent(t)}`}
+											>
 												{t}
 											</Link>
 										);

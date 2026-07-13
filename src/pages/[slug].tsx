@@ -52,7 +52,7 @@ export default function PostPage({slug}: Props) {
 			)}
 
 			<article className="border border-t-[3px] border-zinc-300 border-t-[#f48024] bg-white dark:border-zinc-700 dark:border-t-[#f48024] dark:bg-zinc-900">
-				<header className="border-b border-zinc-300 px-[18px] pt-3.5 pb-2.5 dark:border-zinc-700">
+				<header className="border-b border-zinc-300 px-4.5 pt-3.5 pb-2.5 dark:border-zinc-700">
 					<h1 className="mb-2 text-2xl leading-tight font-semibold text-zinc-900 dark:text-zinc-100">
 						{post.name}
 					</h1>
@@ -81,7 +81,7 @@ export default function PostPage({slug}: Props) {
 					</div>
 				</header>
 
-				<div className="p-[18px]">
+				<div className="p-4.5">
 					<div
 						className={clsx(
 							'prose prose-sky dark:prose-invert max-w-none',
@@ -97,7 +97,7 @@ export default function PostPage({slug}: Props) {
 					</div>
 				</div>
 
-				<footer className="flex flex-wrap items-center gap-2.5 border-t border-zinc-300 bg-zinc-100 px-[18px] py-3 dark:border-zinc-700 dark:bg-zinc-800">
+				<footer className="flex flex-wrap items-center gap-2.5 border-t border-zinc-300 bg-zinc-100 px-4.5 py-3 dark:border-zinc-700 dark:bg-zinc-800">
 					<Link className="font-mono" href="/blog">
 						&laquo; back to all posts
 					</Link>

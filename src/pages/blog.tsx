@@ -13,11 +13,11 @@ import {normalizeTag} from '../utils/tags';
 import {parseVotes} from '../utils/votes';
 
 export interface Props {
-	lanyard: Types.Presence;
+	lanyard: Types.Presence | null;
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-	const lanyard = await get(discordId);
+	const lanyard = await get(discordId).catch(() => null);
 
 	return {
 		revalidate: 10,
@@ -26,15 +26,17 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 };
 
 export default function Blog(props: Props) {
-	const lanyard = useLanyardWS(discordId, {initialData: props.lanyard});
-	const votes = parseVotes(lanyard.kv);
+	const lanyard = useLanyardWS(discordId, props.lanyard ? {initialData: props.lanyard} : {});
+	const votes = parseVotes(lanyard?.kv);
 
 	const router = useRouter();
 	const activeTag = typeof router.query.tag === 'string' ? normalizeTag(router.query.tag) : null;
 
 	const visible = sortPosts(posts)
 		.filter(post => !post.hidden)
-		.filter(post => !activeTag || post.keywords.some(keyword => normalizeTag(keyword) === activeTag));
+		.filter(
+			post => !activeTag || post.keywords.some(keyword => normalizeTag(keyword) === activeTag),
+		);
 
 	const sep = <span className="text-zinc-400 dark:text-zinc-600">&rsaquo;</span>;
 

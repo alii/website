@@ -42,7 +42,7 @@ export function Shell({
 					<p
 						key={index}
 						className={clsx(
-							'!my-0 before:select-none',
+							'my-0! before:select-none',
 							hasDollarOnFirstLineOnly
 								? isFirst &&
 										'text-yellow-800 before:text-yellow-600 before:content-["$_"] dark:text-yellow-200 dark:before:text-yellow-400'
@@ -91,7 +91,7 @@ export function Highlighter({
 	readonly filename?: string;
 }>) {
 	const html = highlighter.codeToHtml(children.replace(/\n$/, ''), {
-		lang: language,
+		lang: 'json',
 		themes: {light: 'lightfair', dark: 'vs2015'},
 	});
 

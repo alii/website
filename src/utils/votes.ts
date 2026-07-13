@@ -34,9 +34,7 @@ export function parseVotes(
 ): Record<string, number> {
 	const out: Record<string, number> = {};
 
-	if (!kv) {
-		return out;
-	}
+	if (!kv) return out;
 
 	for (const [key, value] of Object.entries(kv)) {
 		if (!key.startsWith(VOTES_PREFIX)) {

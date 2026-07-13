@@ -18,8 +18,6 @@ export class Mochip extends Post {
 	public render() {
 		return (
 			<>
-				<h1 className="font-serif italic">Avoiding homework with code (and getting caught)</h1>
-
 				<p>
 					Back in 2020, my school used a few online learning platforms that allowed
 					professors/teachers to assign homework to students. I, as a lazy developer, wanted to
