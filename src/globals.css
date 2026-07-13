@@ -2,10 +2,18 @@
 
 @plugin "@tailwindcss/typography";
 
-@theme {
-	--font-serif: Georgia, 'Times New Roman', Times, serif;
-	--font-sans: Verdana, Geneva, 'DejaVu Sans', Tahoma, sans-serif;
-	--font-mono: 'Consolas', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+/* `inline` is load-bearing: --font-karla/--font-fraunces are defined by
+ * next/font on the _app wrapper div, not on :root. A normal @theme variable
+ * would resolve var(--font-karla) at :root (where it doesn't exist) and come
+ * up empty; `inline` makes utilities embed the var() reference directly so it
+ * resolves at the styled element instead. */
+@theme inline {
+	--font-sans:
+		var(--font-karla), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+		Arial, sans-serif;
+	--font-serif: var(--font-lora), Georgia, 'Times New Roman', serif;
+	--font-mono: var(--font-iosevka), ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 }
 
 /* Only base element defaults live here — everything else is Tailwind utilities
@@ -16,12 +24,18 @@
 		color-scheme: light dark;
 	}
 
+	/* no font-family here — the _app wrapper div owns font-sans, because the
+	 * next/font CSS variables are defined on it and aren't visible from body */
 	body {
-		@apply bg-zinc-200 font-sans text-[13px] leading-[1.45] text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
+		@apply bg-[#faf8f4] text-[16px] leading-[1.8] tracking-[-0.03em] text-stone-700 antialiased dark:bg-[#151210] dark:text-stone-300;
 	}
 
 	a {
-		@apply text-sky-700 hover:underline dark:text-sky-400;
+		@apply text-orange-800 underline decoration-orange-800/30 underline-offset-2 hover:decoration-orange-800 dark:text-orange-300 dark:decoration-orange-300/30 dark:hover:decoration-orange-300;
+	}
+
+	::selection {
+		@apply bg-orange-800/15 dark:bg-orange-300/20;
 	}
 }
 
@@ -30,7 +44,9 @@
 .shiki {
 	overflow-x: auto;
 	padding: 12px 16px;
-	font-family: var(--font-mono);
+	/* --font-iosevka is defined on the _app wrapper (next/font), so reference it
+	 * directly — the inline theme's --font-mono isn't emitted as a runtime var */
+	font-family: var(--font-iosevka), ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 	line-height: 1.55;
 	tab-size: 2;
 }

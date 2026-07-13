@@ -25,6 +25,21 @@ const config = {
 	async redirects() {
 		return [
 			{
+				source: '/blog',
+				destination: '/',
+				permanent: false,
+			},
+			{
+				source: '/experiments/:path*',
+				destination: '/',
+				permanent: false,
+			},
+			{
+				source: '/stats',
+				destination: '/',
+				permanent: false,
+			},
+			{
 				source: '/outro',
 				destination: 'https://www.youtube.com/watch?v=HeF11Av9WuU',
 				permanent: true,

@@ -74,7 +74,7 @@ function Filename({filename}: {readonly filename: string}) {
 	})();
 
 	return (
-		<p className="m-0 border-b border-zinc-300 bg-zinc-100 px-3 py-1.5 font-mono text-xs text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400">
+		<p className="m-0 border-b border-stone-200 bg-stone-100 px-3 py-1.5 font-mono text-xs text-stone-500 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-400">
 			<span className="mr-2">{icon}</span>
 			<span>{filename}</span>
 		</p>
@@ -91,12 +91,12 @@ export function Highlighter({
 	readonly filename?: string;
 }>) {
 	const html = highlighter.codeToHtml(children.replace(/\n$/, ''), {
-		lang: 'json',
+		lang: language,
 		themes: {light: 'lightfair', dark: 'vs2015'},
 	});
 
 	return (
-		<div className="not-prose overflow-hidden border border-zinc-300 text-[12.5px] dark:border-zinc-700">
+		<div className="not-prose overflow-hidden rounded-lg border border-stone-200 text-[12.5px] dark:border-stone-800">
 			{filename && <Filename filename={filename} />}
 			<div dangerouslySetInnerHTML={{__html: html}} />
 		</div>

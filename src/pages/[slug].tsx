@@ -5,8 +5,7 @@ import Link from 'next/link';
 import {posts} from '../blog/posts';
 import {Layout} from '../components/layout';
 import {Note} from '../components/note';
-import {breadcrumb, tag} from '../ui';
-import {normalizeTag} from '../utils/tags';
+import {muted, pageTitle} from '../ui';
 
 interface Props {
 	readonly slug: string;
@@ -27,7 +26,7 @@ export default function PostPage({slug}: Props) {
 				<title>{post.name}</title>
 				<meta name="description" content={post.excerpt} />
 				<meta name="keywords" content={post.keywords.join(', ')} />
-				<meta name="theme-color" content={post.hidden ? '#ebb305' : '#cee3f8'} />
+				<meta name="theme-color" content={post.hidden ? '#ebb305' : '#ffffff'} />
 				<meta property="og:image" content={`https://alistair.sh/api/og?slug=${post.slug}`} />
 				<meta name="twitter:card" content="summary_large_image" />
 				<meta name="twitter:title" content={post.name} />
@@ -37,73 +36,47 @@ export default function PostPage({slug}: Props) {
 				<meta name="twitter:creator" content="@alistaiir" />
 			</Head>
 
-			<div className={breadcrumb}>
-				<Link href="/">home</Link>
-				<span className="text-zinc-400 dark:text-zinc-600">&rsaquo;</span>
-				<Link href="/blog">blog</Link>
-				<span className="text-zinc-400 dark:text-zinc-600">&rsaquo;</span>
-				<span>{post.name}</span>
-			</div>
-
 			{post.hidden && (
 				<Note variant="warning" title="Hidden post">
 					<p>This post is not listed on the homepage. Please don&apos;t share the link.</p>
 				</Note>
 			)}
 
-			<article className="border border-t-[3px] border-zinc-300 border-t-[#f48024] bg-white dark:border-zinc-700 dark:border-t-[#f48024] dark:bg-zinc-900">
-				<header className="border-b border-zinc-300 px-4.5 pt-3.5 pb-2.5 dark:border-zinc-700">
-					<h1 className="mb-2 text-2xl leading-tight font-semibold text-zinc-900 dark:text-zinc-100">
-						{post.name}
-					</h1>
-					<div className="flex flex-wrap items-center gap-x-3.5 gap-y-1.5 text-[11px] text-zinc-500 dark:text-zinc-400">
-						<span>
-							Posted{' '}
-							<strong className="font-semibold text-zinc-700 dark:text-zinc-300">
-								{fmtDate(post.date)}
-							</strong>
-						</span>
-						<span>
-							by <strong className="font-semibold text-zinc-700 dark:text-zinc-300">alii</strong>
-						</span>
-						{post.keywords.length > 0 && (
-							<span className="flex flex-wrap gap-1">
-								{post.keywords.map(keyword => {
-									const t = normalizeTag(keyword);
-									return (
-										<Link className={tag} key={t} href={`/blog?tag=${encodeURIComponent(t)}`}>
-											{t}
-										</Link>
-									);
-								})}
-							</span>
-						)}
-					</div>
+			<article>
+				<header className="mb-12">
+					<h1 className={`mb-2 leading-tight ${pageTitle}`}>{post.name}</h1>
+
+					<p className={`text-[13px] ${muted}`}>{fmtDate(post.date)}</p>
 				</header>
 
-				<div className="p-4.5">
-					<div
-						className={clsx(
-							'prose prose-sky dark:prose-invert max-w-none',
-							// the post body renders its own <h1> title; we already show it in the
-							// header above, so hide the duplicate leading heading
-							'[&>h1:first-child]:hidden',
-							'prose-img:w-full prose-img:rounded-none prose-img:border prose-img:border-zinc-300 dark:prose-img:border-zinc-700',
-							'prose-pre:rounded-none prose-pre:border prose-pre:border-zinc-300 prose-pre:bg-transparent prose-pre:text-zinc-700 dark:prose-pre:border-zinc-700 dark:prose-pre:text-zinc-300',
-							'prose-headings:font-sans',
-						)}
-					>
-						{post.render()}
-					</div>
+				<div
+					className={clsx(
+						// serif body for long-form reading; the rest of the site stays sans.
+						// tracking resets to normal — the body's tightened letter-spacing is
+						// tuned for Karla and cramps Lora at reading size
+						'prose prose-stone dark:prose-invert max-w-none font-serif text-[17px] tracking-normal',
+						// the post body renders its own <h1> title; we already show it in the
+						// header above, so hide the duplicate leading heading
+						'[&>h1:first-child]:hidden',
+						'prose-headings:font-serif prose-headings:font-semibold',
+						'prose-img:w-full',
+						// the prose plugin's default pre color is pale gray meant for a dark
+						// background; we make pre transparent, so give it readable text again
+						'prose-pre:bg-transparent prose-pre:p-0 prose-pre:text-stone-700 dark:prose-pre:text-stone-300',
+						// wide content must scroll inside the column, not the page
+						'[&_table]:block [&_table]:overflow-x-auto [&_video]:w-full',
+						'prose-a:text-orange-800 prose-a:decoration-orange-800/40 prose-a:underline-offset-2 dark:prose-a:text-orange-300 dark:prose-a:decoration-orange-300/40',
+						// hover must target the LINK, not the prose container —
+						// hover:prose-a:* binds :hover to .prose and lights up every link at once
+						'[&_a:hover]:decoration-orange-800 dark:[&_a:hover]:decoration-orange-300',
+						'prose-code:font-mono prose-pre:font-mono',
+					)}
+				>
+					{post.render()}
 				</div>
 
-				<footer className="flex flex-wrap items-center gap-2.5 border-t border-zinc-300 bg-zinc-100 px-4.5 py-3 dark:border-zinc-700 dark:bg-zinc-800">
-					<Link className="font-mono" href="/blog">
-						&laquo; back to all posts
-					</Link>
-					<span className="ml-auto" />
-					<Link href="https://x.com/intent/user?screen_name=alistaiir">@alistaiir</Link>
-					<Link href="https://github.com/alii">github/alii</Link>
+				<footer className="mt-16 text-[15px]">
+					<Link href="/">&larr; Home</Link>
 				</footer>
 			</article>
 		</Layout>

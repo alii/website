@@ -10,8 +10,7 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint",
-		"gen:buttons": "node scripts/generate-88x31.mjs"
+		"lint": "next lint"
 	},
 	"devDependencies": {
 		"@napi-rs/canvas": "^1.0.0",
@@ -38,6 +37,7 @@
 	"dependencies": {
 		"@altano/satori-fit-text": "^2.0.2",
 		"@c-side/next": "^1.0.0",
+		"@fontsource/iosevka": "^5.2.5",
 		"@marsidev/react-turnstile": "^1.5.3",
 		"@next/third-parties": "^16.2.9",
 		"@otters/monzo": "^2.1.2",

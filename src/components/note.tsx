@@ -15,18 +15,16 @@ const icons = {
 };
 
 const variants = {
-	warning:
-		'border-yellow-500 bg-yellow-50 text-yellow-800 dark:border-yellow-700 dark:bg-yellow-950/40 dark:text-yellow-300',
-	info: 'border-sky-500 bg-sky-50 text-sky-800 dark:border-sky-700 dark:bg-sky-950/40 dark:text-sky-300',
-	success:
-		'border-green-500 bg-green-50 text-green-800 dark:border-green-700 dark:bg-green-950/40 dark:text-green-300',
+	warning: 'border-yellow-500 text-yellow-800 dark:border-yellow-600 dark:text-yellow-300',
+	info: 'border-sky-500 text-sky-800 dark:border-sky-600 dark:text-sky-300',
+	success: 'border-green-500 text-green-800 dark:border-green-600 dark:text-green-300',
 };
 
 export function Note(props: NoteProps) {
 	return (
 		<div
 			className={clsx(
-				'not-prose my-3.5 border border-l-4 px-3 py-2.5 text-[13px] [&_a:hover]:underline',
+				'not-prose my-6 border-l-2 py-0.5 pl-4 text-[15px] [&_a:hover]:underline',
 				variants[props.variant],
 			)}
 		>
