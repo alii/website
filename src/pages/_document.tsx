@@ -4,7 +4,29 @@ export default class WebsiteDocument extends Document {
 	override render() {
 		return (
 			<Html>
-				<Head />
+				<Head>
+					<link
+						rel="preload"
+						href="/fonts/karla-latin.woff2"
+						as="font"
+						type="font/woff2"
+						crossOrigin="anonymous"
+					/>
+					<link
+						rel="preload"
+						href="/fonts/lora-latin.woff2"
+						as="font"
+						type="font/woff2"
+						crossOrigin="anonymous"
+					/>
+					<link
+						rel="preload"
+						href="/fonts/iosevka-latin-400.woff2"
+						as="font"
+						type="font/woff2"
+						crossOrigin="anonymous"
+					/>
+				</Head>
 				<body>
 					<Main />
 					<NextScript />

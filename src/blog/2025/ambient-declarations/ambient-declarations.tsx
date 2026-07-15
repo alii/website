@@ -544,14 +544,14 @@ export class AmbientDeclarations extends Post {
 					</li>
 				</ul>
 
-				<hr />
+				<br />
 
 				<div className="text-xs">
 					<p>
-						Special thanks to the following people for reading revisions and helping with this post:
+						Thank you to <a href="https://cnrad.dev">Conrad</a> and{' '}
+						<a href="https://looskie.com">Cody</a> for reading revisions and helping with this
+						article.
 					</p>
-					<a href="https://cnrad.dev">Conrad Crawford</a>,{' '}
-					<a href="https://looskie.com">Cody Miller</a>
 				</div>
 			</>
 		);

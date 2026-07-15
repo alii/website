@@ -2,18 +2,47 @@
 
 @plugin "@tailwindcss/typography";
 
+/* Self-hosted fonts (latin subsets, variable weight) — plain @font-face
+ * instead of next/font so the families are usable from anywhere, including
+ * :root-level theme variables and Preflight defaults. Files in public/fonts. */
+@font-face {
+	font-family: 'Karla';
+	src: url('/fonts/karla-latin.woff2') format('woff2');
+	font-weight: 200 800;
+	font-style: normal;
+	font-display: swap;
+}
 
-/* `inline` is load-bearing: --font-karla/--font-fraunces are defined by
- * next/font on the _app wrapper div, not on :root. A normal @theme variable
- * would resolve var(--font-karla) at :root (where it doesn't exist) and come
- * up empty; `inline` makes utilities embed the var() reference directly so it
- * resolves at the styled element instead. */
-@theme inline {
+@font-face {
+	font-family: 'Lora';
+	src: url('/fonts/lora-latin.woff2') format('woff2');
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Iosevka';
+	src: url('/fonts/iosevka-latin-400.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Iosevka';
+	src: url('/fonts/iosevka-latin-700.woff2') format('woff2');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@theme {
 	--font-sans:
-		var(--font-karla), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
-		Arial, sans-serif;
-	--font-serif: var(--font-lora), Georgia, 'Times New Roman', serif;
-	--font-mono: var(--font-iosevka), ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+		'Karla', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+		sans-serif;
+	--font-serif: 'Lora', Georgia, 'Times New Roman', serif;
+	--font-mono: 'Iosevka', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 }
 
 /* Only base element defaults live here — everything else is Tailwind utilities
@@ -24,10 +53,8 @@
 		color-scheme: light dark;
 	}
 
-	/* no font-family here — the _app wrapper div owns font-sans, because the
-	 * next/font CSS variables are defined on it and aren't visible from body */
 	body {
-		@apply bg-[#faf8f4] text-[16px] leading-[1.8] tracking-[-0.03em] text-stone-700 antialiased dark:bg-[#151210] dark:text-stone-300;
+		@apply bg-[#faf8f4] font-sans text-[16px] leading-[1.8] tracking-[-0.03em] text-stone-700 antialiased dark:bg-[#151210] dark:text-stone-300;
 	}
 
 	a {
@@ -36,6 +63,15 @@
 
 	::selection {
 		@apply bg-orange-800/15 dark:bg-orange-300/20;
+	}
+
+	/* any monospace is always Iosevka: Preflight sets its own font stack
+	 * directly on these elements, so re-point them at the theme token */
+	pre,
+	code,
+	kbd,
+	samp {
+		font-family: var(--font-mono);
 	}
 }
 
@@ -46,15 +82,6 @@
 	padding: 12px 16px;
 	line-height: 1.55;
 	tab-size: 2;
-}
-
-/* the inner <code> needs its own rule: Preflight sets font-family directly on
- * code elements, which beats inheritance from the pre. --font-iosevka is
- * referenced directly because it's defined on the _app wrapper (next/font)
- * and the inline theme's --font-mono isn't emitted as a runtime var */
-.shiki,
-.shiki code {
-	font-family: var(--font-iosevka), ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 }
 
 @media (prefers-color-scheme: dark) {

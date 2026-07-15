@@ -69,7 +69,6 @@ export default function PostPage({slug}: Props) {
 						// hover must target the LINK, not the prose container —
 						// hover:prose-a:* binds :hover to .prose and lights up every link at once
 						'[&_a:hover]:decoration-orange-800 dark:[&_a:hover]:decoration-orange-300',
-						'prose-code:font-mono prose-pre:font-mono',
 					)}
 				>
 					{post.render()}
