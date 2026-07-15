@@ -44,11 +44,17 @@
 .shiki {
 	overflow-x: auto;
 	padding: 12px 16px;
-	/* --font-iosevka is defined on the _app wrapper (next/font), so reference it
-	 * directly — the inline theme's --font-mono isn't emitted as a runtime var */
-	font-family: var(--font-iosevka), ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 	line-height: 1.55;
 	tab-size: 2;
+}
+
+/* the inner <code> needs its own rule: Preflight sets font-family directly on
+ * code elements, which beats inheritance from the pre. --font-iosevka is
+ * referenced directly because it's defined on the _app wrapper (next/font)
+ * and the inline theme's --font-mono isn't emitted as a runtime var */
+.shiki,
+.shiki code {
+	font-family: var(--font-iosevka), ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 }
 
 @media (prefers-color-scheme: dark) {

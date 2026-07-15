@@ -1,18 +1,19 @@
 import type {ThemeRegistrationRaw} from 'shiki';
 
-// Ports of the highlight.js "lightfair" and "vs2015" themes — the exact ones the
-// old react-syntax-highlighter setup used — into Shiki TextMate themes, so the
-// code colours stay the same after the migration. highlight.js and TextMate
-// tokenise differently, so this reproduces the palette faithfully rather than
-// every single token identically.
+// Custom warm themes matching the site palette (cream paper, stone grays,
+// terracotta/amber/olive accents). One light, one dark; the Highlighter emits
+// both and globals.css swaps them via prefers-color-scheme.
 
-export const lightfair: ThemeRegistrationRaw = {
-	name: 'lightfair',
+export const paperLight: ThemeRegistrationRaw = {
+	name: 'paper-light',
 	type: 'light',
-	colors: {'editor.background': '#ffffff', 'editor.foreground': '#444444'},
+	colors: {'editor.background': '#fdfcf9', 'editor.foreground': '#44403c'},
 	settings: [
-		{settings: {foreground: '#444444', background: '#ffffff'}},
-		{scope: ['comment', 'punctuation.definition.comment', 'quote'], settings: {foreground: '#888888'}},
+		{settings: {foreground: '#44403c', background: '#fdfcf9'}},
+		{
+			scope: ['comment', 'punctuation.definition.comment', 'quote'],
+			settings: {foreground: '#a29d90', fontStyle: 'italic'},
+		},
 		{
 			scope: [
 				'keyword',
@@ -21,55 +22,64 @@ export const lightfair: ThemeRegistrationRaw = {
 				'storage.modifier',
 				'keyword.control',
 				'keyword.operator.new',
-				'entity.name.tag.css',
 			],
-			settings: {foreground: '#444444', fontStyle: 'bold'},
+			settings: {foreground: '#9a3412'},
 		},
-		{scope: ['entity.name.tag'], settings: {foreground: '#01a3a3', fontStyle: 'bold'}},
-		{scope: ['punctuation.definition.tag', 'meta.tag', 'meta.preprocessor'], settings: {foreground: '#778899'}},
-		{scope: ['string', 'string.quoted', 'meta.embedded'], settings: {foreground: '#4286f4'}},
-		{scope: ['constant.numeric', 'constant.character'], settings: {foreground: '#4286f4'}},
+		{scope: ['keyword.operator'], settings: {foreground: '#78716c'}},
+		{scope: ['entity.name.tag'], settings: {foreground: '#9a3412'}},
+		{
+			scope: ['punctuation.definition.tag', 'meta.tag', 'meta.preprocessor'],
+			settings: {foreground: '#a29d90'},
+		},
+		{scope: ['string', 'string.quoted', 'meta.embedded'], settings: {foreground: '#6d7030'}},
+		{
+			scope: ['constant.numeric', 'constant.character', 'constant.language', 'support.constant'],
+			settings: {foreground: '#b45309'},
+		},
+		{scope: ['entity.name.function', 'support.function'], settings: {foreground: '#6f4a0e'}},
 		{
 			scope: [
-				'entity.name.function',
 				'entity.name.type',
 				'support.type',
 				'support.class',
 				'entity.name.class',
-				'entity.other.attribute-name.id.css',
-				'entity.other.attribute-name.class.css',
+				'entity.other.attribute-name',
 			],
-			settings: {foreground: '#4286f4'},
+			settings: {foreground: '#b0512f'},
 		},
-		{scope: ['entity.name.section', 'markup.heading'], settings: {foreground: '#4286f4', fontStyle: 'bold'}},
-		{scope: ['constant.language', 'support.constant'], settings: {foreground: '#62bcbc'}},
-		{scope: ['support.function', 'constant.other.symbol', 'keyword.other.unit'], settings: {foreground: '#25c6c6'}},
 		{
-			scope: [
-				'variable',
-				'variable.other',
-				'string.regexp',
-				'constant.character.escape',
-				'markup.underline.link',
-			],
-			settings: {foreground: '#BC6060'},
+			scope: ['support.type.property-name', 'meta.object-literal.key'],
+			settings: {foreground: '#8a3e1d'},
 		},
+		{
+			scope: ['variable', 'variable.other', 'variable.parameter'],
+			settings: {foreground: '#57534e'},
+		},
+		{
+			scope: ['string.regexp', 'constant.character.escape'],
+			settings: {foreground: '#a4432a'},
+		},
+		{scope: ['punctuation'], settings: {foreground: '#78716c'}},
+		{
+			scope: ['entity.name.section', 'markup.heading'],
+			settings: {foreground: '#9a3412', fontStyle: 'bold'},
+		},
+		{scope: ['markup.underline.link'], settings: {foreground: '#9a3412'}},
 		{scope: ['emphasis'], settings: {fontStyle: 'italic'}},
 		{scope: ['strong'], settings: {fontStyle: 'bold'}},
 	],
 };
 
-export const vs2015: ThemeRegistrationRaw = {
-	name: 'vs2015',
+export const paperDark: ThemeRegistrationRaw = {
+	name: 'paper-dark',
 	type: 'dark',
-	colors: {'editor.background': '#1E1E1E', 'editor.foreground': '#DCDCDC'},
+	colors: {'editor.background': '#1d1915', 'editor.foreground': '#d6d3d1'},
 	settings: [
-		{settings: {foreground: '#DCDCDC', background: '#1E1E1E'}},
+		{settings: {foreground: '#d6d3d1', background: '#1d1915'}},
 		{
 			scope: ['comment', 'punctuation.definition.comment', 'quote'],
-			settings: {foreground: '#57A64A', fontStyle: 'italic'},
+			settings: {foreground: '#78716c', fontStyle: 'italic'},
 		},
-		{scope: ['comment.documentation', 'string.documentation'], settings: {foreground: '#608B4E'}},
 		{
 			scope: [
 				'keyword',
@@ -77,36 +87,50 @@ export const vs2015: ThemeRegistrationRaw = {
 				'storage.type',
 				'storage.modifier',
 				'keyword.control',
-				'constant.language',
-				'variable.language',
-				'support.type.primitive',
-				'entity.name.tag',
+				'keyword.operator.new',
 			],
-			settings: {foreground: '#569CD6'},
+			settings: {foreground: '#fdba74'},
 		},
+		{scope: ['keyword.operator'], settings: {foreground: '#a8a29e'}},
+		{scope: ['entity.name.tag'], settings: {foreground: '#fdba74'}},
 		{
-			scope: ['support.type', 'entity.name.type', 'support.class', 'entity.name.class', 'entity.other.inherited-class'],
-			settings: {foreground: '#4EC9B0'},
+			scope: ['punctuation.definition.tag', 'meta.tag', 'meta.preprocessor'],
+			settings: {foreground: '#8a8378'},
 		},
-		{scope: ['constant.numeric', 'constant.character.numeric'], settings: {foreground: '#B8D7A3'}},
-		{scope: ['string', 'string.quoted', 'meta.embedded.string'], settings: {foreground: '#D69D85'}},
-		{scope: ['string.regexp', 'constant.character.escape'], settings: {foreground: '#9A5334'}},
-		{scope: ['variable', 'variable.other'], settings: {foreground: '#BD63C5'}},
+		{scope: ['string', 'string.quoted', 'meta.embedded'], settings: {foreground: '#b3bd6d'}},
+		{
+			scope: ['constant.numeric', 'constant.character', 'constant.language', 'support.constant'],
+			settings: {foreground: '#e8a75c'},
+		},
+		{scope: ['entity.name.function', 'support.function'], settings: {foreground: '#f2e2ba'}},
 		{
 			scope: [
+				'entity.name.type',
+				'support.type',
+				'support.class',
+				'entity.name.class',
 				'entity.other.attribute-name',
-				'support.type.property-name',
-				'meta.object-literal.key',
-				'variable.parameter',
 			],
-			settings: {foreground: '#9CDCFE'},
+			settings: {foreground: '#e59077'},
 		},
 		{
-			scope: ['punctuation.definition.tag', 'meta.tag', 'meta.preprocessor', 'keyword.other.preprocessor'],
-			settings: {foreground: '#9B9B9B'},
+			scope: ['support.type.property-name', 'meta.object-literal.key'],
+			settings: {foreground: '#dfa088'},
 		},
-		{scope: ['entity.name.section', 'markup.heading'], settings: {foreground: '#D7BA7D'}},
-		{scope: ['entity.name.function', 'support.function', 'meta.function-call'], settings: {foreground: '#DCDCDC'}},
+		{
+			scope: ['variable', 'variable.other', 'variable.parameter'],
+			settings: {foreground: '#d6d3d1'},
+		},
+		{
+			scope: ['string.regexp', 'constant.character.escape'],
+			settings: {foreground: '#e08563'},
+		},
+		{scope: ['punctuation'], settings: {foreground: '#8a847a'}},
+		{
+			scope: ['entity.name.section', 'markup.heading'],
+			settings: {foreground: '#fdba74', fontStyle: 'bold'},
+		},
+		{scope: ['markup.underline.link'], settings: {foreground: '#fdba74'}},
 		{scope: ['emphasis'], settings: {fontStyle: 'italic'}},
 		{scope: ['strong'], settings: {fontStyle: 'bold'}},
 	],

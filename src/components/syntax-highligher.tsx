@@ -14,11 +14,11 @@ import javascript from 'shiki/langs/javascript.mjs';
 import json from 'shiki/langs/json.mjs';
 import markdown from 'shiki/langs/markdown.mjs';
 import typescript from 'shiki/langs/typescript.mjs';
-import {lightfair, vs2015} from './shiki-themes';
+import {paperDark, paperLight} from './shiki-themes';
 
 const highlighter = createHighlighterCoreSync({
 	engine: createJavaScriptRegexEngine({forgiving: true}),
-	themes: [lightfair, vs2015],
+	themes: [paperLight, paperDark],
 	langs: [typescript, javascript, bash, json, css, html, markdown],
 });
 
@@ -92,7 +92,7 @@ export function Highlighter({
 }>) {
 	const html = highlighter.codeToHtml(children.replace(/\n$/, ''), {
 		lang: language,
-		themes: {light: 'lightfair', dark: 'vs2015'},
+		themes: {light: 'paper-light', dark: 'paper-dark'},
 	});
 
 	return (
