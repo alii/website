@@ -8,7 +8,7 @@
 	"packageManager": "bun@1.0.0",
 	"scripts": {
 		"dev": "next dev",
-		"build": "bun scripts/generate-feed.ts && next build",
+		"build": "next build",
 		"start": "next start",
 		"lint": "next lint"
 	},

@@ -7,6 +7,7 @@ const footerLinks = [
 	{href: '/', label: 'home'},
 	{href: 'https://github.com/alii', label: 'github'},
 	{href: 'https://x.com/intent/user?screen_name=alistaiir', label: 'twitter'},
+	{href: '/feed.xml', label: 'rss'},
 ];
 
 export function Layout({children}: {children: ReactNode}) {
@@ -18,16 +19,6 @@ export function Layout({children}: {children: ReactNode}) {
 				<span>&copy; {new Date().getFullYear()} Alistair Smith</span>
 				{footerLinks.map(link => {
 					const className = 'text-stone-400 no-underline hover:underline dark:text-stone-500';
-
-					// next/link is for page navigations only; mailto/external links
-					// need a plain anchor so the browser handles them natively
-					if (!link.href.startsWith('/')) {
-						return (
-							<a key={link.href} href={link.href} className={className}>
-								{link.label}
-							</a>
-						);
-					}
 
 					return (
 						<Link key={link.href} href={link.href} className={className}>
