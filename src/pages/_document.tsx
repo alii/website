@@ -6,6 +6,12 @@ export default class WebsiteDocument extends Document {
 			<Html>
 				<Head>
 					<link
+						rel="alternate"
+						type="application/rss+xml"
+						title="Alistair Smith"
+						href="/feed.xml"
+					/>
+					<link
 						rel="preload"
 						href="/fonts/karla-latin.woff2"
 						as="font"
