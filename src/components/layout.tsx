@@ -5,7 +5,7 @@ import {wrap} from '../ui';
 
 const footerLinks = [
 	{href: '/', label: 'home'},
-	{href: 'https://github.com/alii', label: 'github'},
+	{href: 'https://github.com/alii/website', label: 'github'},
 	{href: 'https://x.com/intent/user?screen_name=alistaiir', label: 'twitter'},
 	{href: '/feed.xml', label: 'rss'},
 ];
