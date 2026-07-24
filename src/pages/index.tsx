@@ -1,7 +1,7 @@
 import {get} from '@prequist/lanyard';
 import type {GetStaticProps} from 'next';
 import Link from 'next/link';
-import {useLanyardWS, type Types} from 'use-lanyard';
+import {useLanyard, type Types} from 'use-lanyard';
 import {posts, sortPosts} from '../blog/posts';
 import {Layout} from '../components/layout';
 import {PostListing} from '../components/post-listing';
@@ -31,11 +31,14 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 };
 
 export default function Home(props: Props) {
-	const lanyard = useLanyardWS(discordId, props.lanyard ? {initialData: props.lanyard} : {});
-
-	const backupLanyard = useLanyardWS(
-		backupDiscordId,
-		props.backupLanyard ? {initialData: props.backupLanyard} : {},
+	const {[discordId]: lanyard, [backupDiscordId]: backupLanyard} = useLanyard(
+		[discordId, backupDiscordId],
+		{
+			initialData: {
+				[discordId]: props.lanyard ?? undefined,
+				[backupDiscordId]: props.backupLanyard ?? undefined,
+			},
+		},
 	);
 
 	const spotify = lanyard?.spotify ?? backupLanyard?.spotify ?? null;

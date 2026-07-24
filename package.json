@@ -41,7 +41,6 @@
 		"@marsidev/react-turnstile": "^1.5.3",
 		"@next/third-parties": "^16.2.10",
 		"@otters/monzo": "^2.1.2",
-		"@prequist/lanyard": "^1.1.0",
 		"@tailwindcss/typography": "^0.5.20",
 		"@vercel/og": "^0.11.1",
 		"alistair": "^1.17.0",
@@ -64,7 +63,7 @@
 		"react-icons": "^5.7.0",
 		"satori": "^0.26.0",
 		"shiki": "^4.3.1",
-		"use-lanyard": "^1.7.0",
+		"use-lanyard": "^2.0.0",
 		"uuid": "^14.0.1",
 		"zod": "^4.4.3"
 	}
