@@ -10,7 +10,8 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "eslint .",
+		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {
 		"@napi-rs/canvas": "^1.0.2",
@@ -24,7 +25,7 @@
 		"@types/react-dom": "^19.2.3",
 		"@types/uuid": "^11.0.0",
 		"discord-api-types": "^0.38.50",
-		"eslint": "10.5.0",
+		"eslint": "^9.39.5",
 		"eslint-config-next": "16.2.9",
 		"gifenc": "^1.0.3",
 		"postcss": "^8.5.19",
