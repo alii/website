@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {serialize} from 'cookie';
+import {stringifySetCookie} from 'cookie';
 import dayjs from 'dayjs';
 import type {RESTGetAPIUserResult} from 'discord-api-types/v10';
 import {sign} from 'jsonwebtoken';
@@ -55,8 +55,10 @@ async function exchangeCode(code: string) {
 /**
  * Generates the set-cookie header value from a given JWT token
  */
-function getCookieHeader(token: string) {
-	return serialize('token', token, {
+function getSetCookieHeader(token: string) {
+	return stringifySetCookie({
+		name: 'token',
+		value: token,
 		httpOnly: true,
 		path: '/',
 		secure: process.env.NODE_ENV !== 'development',
@@ -84,7 +86,7 @@ const handler: NextApiHandler<never> = async (req, res) => {
 	const token = sign(user, JWT_SECRET, {expiresIn: '24h'});
 
 	// Serialize a cookie and set it
-	const cookie = getCookieHeader(token);
+	const cookie = getSetCookieHeader(token);
 	res.setHeader('Set-Cookie', cookie);
 
 	// Redirect the user to wherever we want

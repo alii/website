@@ -45,7 +45,7 @@ export class ServerlessDiscordOAuth extends Post {
 				<Shell>
 					{stripIndent`
 						bun add axios cookie pathcat dayjs jsonwebtoken
-						bun add --dev discord-api-types @types/jsonwebtoken @types/cookie
+						bun add --dev discord-api-types @types/jsonwebtoken
 					`}
 				</Shell>
 				<h2>Code</h2>
@@ -61,7 +61,7 @@ export class ServerlessDiscordOAuth extends Post {
 					{stripIndent`
 						import type {NextApiHandler} from 'next';
 						import type {RESTGetAPIUserResult} from 'discord-api-types/v8';
-						import {serialize} from 'cookie';
+						import {stringifySetCookie} from 'cookie';
 						import {sign} from 'jsonwebtoken';
 						import dayjs from 'dayjs';
 						import {pathcat} from 'pathcat';
@@ -121,8 +121,10 @@ export class ServerlessDiscordOAuth extends Post {
 						/**
 						 * Generates the set-cookie header value from a given JWT token
 						 */
-						function getCookieHeader(token: string) {
-							return serialize('token', token, {
+						function getSetCookieHeader(token: string) {
+							return stringifySetCookie({
+								name: 'token',
+								value: token,
 								httpOnly: true,
 								path: '/',
 								secure: process.env.NODE_ENV !== 'development',
@@ -150,7 +152,7 @@ export class ServerlessDiscordOAuth extends Post {
 							const token = sign(user, JWT_SECRET, {expiresIn: '24h'});
 
 							// Serialize a cookie and set it
-							const cookie = getCookieHeader(token);
+							const cookie = getSetCookieHeader(token);
 							res.setHeader('Set-Cookie', cookie);
 
 							// Redirect the user to wherever we want

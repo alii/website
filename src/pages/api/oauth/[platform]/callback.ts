@@ -1,7 +1,7 @@
 import {z} from 'zod';
 import {api} from '../../../../server/api';
 import {monzoOAuthAPI} from '../../../../server/monzo';
-import {createSessionJWT, getCookieHeader} from '../../../../server/sessions';
+import {createSessionJWT, getSetCookieHeader} from '../../../../server/sessions';
 
 const querySchema = z.object({
 	code: z.string(),
@@ -29,7 +29,7 @@ export default api({
 			monzo_user_credentials: api.credentials,
 		});
 
-		res.setHeader('Set-Cookie', getCookieHeader(token));
+		res.setHeader('Set-Cookie', getSetCookieHeader(token));
 
 		return {
 			_redirect: '/monzo/dashboard',
