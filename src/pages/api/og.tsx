@@ -1,13 +1,29 @@
-import {findLargestUsableFontSize} from '@altano/satori-fit-text';
-import {unstable_createNodejsStream} from '@vercel/og';
+import {findLargestUsableFontSize, type Font} from '@altano/satori-fit-text';
 import type {NextApiRequest, NextApiResponse, ServerRuntime} from 'next';
-import type {Font} from 'satori';
+import satori from 'satori';
+import sharp from 'sharp';
 import {posts} from '../../blog/posts';
 
 export const runtime: ServerRuntime = 'nodejs';
 
-async function loadGoogleFont(font: string) {
-	const url = `https://fonts.googleapis.com/css2?family=${font}`;
+/** Site palette, from globals.css. Warm paper rather than the cold slate we used before. */
+const PAPER = '#faf8f4';
+const INK = '#292524';
+const MUTED = '#57534e';
+const FAINT = '#78716c';
+const ACCENT = '#9a3412';
+
+const DIMENSIONS = {width: 1200, height: 630};
+const PADDING = 60;
+const CONTENT_WIDTH = DIMENSIONS.width - PADDING * 2;
+
+/**
+ * Satori supports TTF/OTF/WOFF but not WOFF2, so the self-hosted fonts in
+ * `public/fonts` are unusable here. Requesting Google Fonts without a browser
+ * user-agent gets us TTF back instead, which satori can read.
+ */
+async function loadGoogleFont(family: string, weight: number) {
+	const url = `https://fonts.googleapis.com/css2?family=${family}:wght@${weight}`;
 	const css = await (await fetch(url)).text();
 	const resource = /src: url\((.+)\) format\('(opentype|truetype)'\)/.exec(css);
 
@@ -21,7 +37,7 @@ async function loadGoogleFont(font: string) {
 		}
 	}
 
-	throw new Error('failed to load font data');
+	throw new Error(`failed to load font data for ${family} ${weight}`);
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -39,80 +55,102 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		return;
 	}
 
-	const MONO: Font = {
-		name: 'JetBrains Mono',
-		data: await loadGoogleFont('JetBrains+Mono'),
-		style: 'normal',
-	};
+	const [loraBold, karlaRegular, karlaSemibold] = await Promise.all([
+		loadGoogleFont('Lora', 700),
+		loadGoogleFont('Karla', 400),
+		loadGoogleFont('Karla', 600),
+	]);
 
-	const SANS_SERIF: Font = {
-		name: 'Geist',
-		data: await loadGoogleFont('Geist'),
-		style: 'normal',
-	};
+	const SERIF: Font = {name: 'Lora', data: loraBold, weight: 700, style: 'normal'};
+	const SANS: Font = {name: 'Karla', data: karlaRegular, weight: 400, style: 'normal'};
+	const SANS_BOLD: Font = {name: 'Karla', data: karlaSemibold, weight: 600, style: 'normal'};
 
-	const dimensions = {
-		width: 1200,
-		height: 630,
-	};
-
-	const xPadding = 60;
+	// The title is the hero, so it gets sized first and the excerpt is capped
+	// against it. Doing this the other way round is what made excerpts loom
+	// larger than the titles they belong to.
+	const titleFontSize = await findLargestUsableFontSize({
+		text: post.name,
+		font: SERIF,
+		maxWidth: CONTENT_WIDTH,
+		maxHeight: 272,
+		lineHeight: 1.15,
+		// short titles get to be huge; maxHeight keeps multi-line ones in check
+		maxFontSize: 150,
+	});
 
 	const excerptFontSize = await findLargestUsableFontSize({
 		text: post.excerpt,
-		font: MONO,
-		maxWidth: dimensions.width - xPadding * 2,
-		maxHeight: (dimensions.height / 3) * 1.5,
-		lineHeight: 1.2,
-	});
-
-	const titleFontSize = await findLargestUsableFontSize({
-		text: post.name,
-		font: SANS_SERIF,
-		maxWidth: dimensions.width - xPadding * 2,
-		maxHeight: (dimensions.height / 3) * 0.5,
-		maxFontSize: Math.ceil(excerptFontSize - 12),
+		font: SANS,
+		// NOTE: a fractional maxWidth makes findLargestUsableFontSize return 1.
+		maxWidth: Math.floor(CONTENT_WIDTH * 0.96),
+		maxHeight: 152,
+		lineHeight: 1.4,
+		maxFontSize: Math.min(46, Math.round(titleFontSize * 0.46)),
 	});
 
 	const node = (
 		<div
-			tw="flex flex-col justify-center items-start w-full h-full text-zinc-400 font-mono"
 			style={{
-				padding: `0px ${xPadding}px`,
-				backgroundColor: '#030712',
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'space-between',
+				width: '100%',
+				height: '100%',
+				padding: PADDING,
+				backgroundColor: PAPER,
+				fontFamily: 'Karla, sans-serif',
 			}}
 		>
-			<div
-				tw="font-bold mb-6 leading-tight"
-				style={{fontSize: titleFontSize, fontFamily: `${SANS_SERIF.name}, sans-serif`}}
-			>
-				{post.name}
+			{/* brand mark — the slug trails off dimmer, like a browser address */}
+			<div style={{display: 'flex', alignItems: 'center'}}>
+				<div style={{width: 20, height: 20, backgroundColor: ACCENT, marginRight: 18}} />
+				<div style={{display: 'flex', fontSize: 40, fontWeight: 600, letterSpacing: '-0.02em'}}>
+					<div style={{color: INK}}>alistair.sh</div>
+					<div style={{color: FAINT}}>{`/${post.slug}`}</div>
+				</div>
 			</div>
-			<div
-				tw="font-normal text-white"
-				style={{fontSize: excerptFontSize, lineHeight: 1.2, fontFamily: `${MONO.name}, monospace`}}
-			>
-				{post.excerpt}
-			</div>
-			<div
-				tw="text-[35px] text-zinc-500 mt-10"
-				style={{fontFamily: `${SANS_SERIF.name}, sans-serif`}}
-			>
-				alistair.sh
+
+			{/* the post itself */}
+			<div style={{display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center'}}>
+				<div
+					style={{
+						fontFamily: 'Lora, serif',
+						fontWeight: 700,
+						fontSize: titleFontSize,
+						lineHeight: 1.15,
+						letterSpacing: '-0.02em',
+						color: INK,
+					}}
+				>
+					{post.name}
+				</div>
+				<div
+					style={{
+						marginTop: 30,
+						fontSize: excerptFontSize,
+						lineHeight: 1.4,
+						color: MUTED,
+						letterSpacing: '-0.01em',
+					}}
+				>
+					{post.excerpt}
+				</div>
 			</div>
 		</div>
 	);
 
-	const stream = await unstable_createNodejsStream(node, {
-		width: 1200,
-		height: 630,
-		fonts: [MONO, SANS_SERIF],
+	const svg = await satori(node, {
+		width: DIMENSIONS.width,
+		height: DIMENSIONS.height,
+		fonts: [SERIF, SANS, SANS_BOLD],
 	});
+
+	const png = await sharp(Buffer.from(svg)).png().toBuffer();
 
 	res.setHeader('Content-Type', 'image/png');
 	res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
 	res.statusCode = 200;
 	res.statusMessage = 'OK';
 
-	stream.pipe(res);
+	res.end(png);
 }

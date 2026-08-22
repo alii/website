@@ -1,6 +1,4 @@
 /node_modules
-/.pnp
-.pnp.js
 /build
 .DS_Store
 .env
@@ -15,15 +13,6 @@
 .next
 out
 *.tsbuildinfo
-# Yarn
-.yarn/*
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
-
-# bun
 *.bun
-
-# Cloud9 IDE files
 .c9
+tmp/

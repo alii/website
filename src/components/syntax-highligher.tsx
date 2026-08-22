@@ -1,14 +1,18 @@
 import clsx from 'clsx';
 import type {PropsWithChildren} from 'react';
-import {TbBrandCss3, TbBrandHtml5, TbBrandJavascript, TbBrandTypescript} from 'react-icons/tb';
+import {RiJavascriptFill} from 'react-icons/ri';
+import {SiGleam} from 'react-icons/si';
+import {TbBrandCss3, TbBrandHtml5, TbBrandTypescript} from 'react-icons/tb';
 
 // Fine-grained, synchronous Shiki. We preload only the languages/themes we use
 // and use the pure-JS regex engine (no oniguruma WASM), so codeToHtml is sync
 // and works at build time / in serverless with no async and no native deps.
+import type {HighlighterCore} from 'shiki';
 import {createHighlighterCoreSync} from 'shiki/core';
 import {createJavaScriptRegexEngine} from 'shiki/engine/javascript';
 import bash from 'shiki/langs/bash.mjs';
 import css from 'shiki/langs/css.mjs';
+import gleam from 'shiki/langs/gleam.mjs';
 import html from 'shiki/langs/html.mjs';
 import javascript from 'shiki/langs/javascript.mjs';
 import json from 'shiki/langs/json.mjs';
@@ -16,13 +20,16 @@ import markdown from 'shiki/langs/markdown.mjs';
 import typescript from 'shiki/langs/typescript.mjs';
 import {paperDark, paperLight} from './shiki-themes';
 
-const highlighter = createHighlighterCoreSync({
+const highlighter = ((
+	globalThis as typeof globalThis & {__shikiHighlighter?: HighlighterCore}
+).__shikiHighlighter ??= createHighlighterCoreSync({
 	engine: createJavaScriptRegexEngine({forgiving: true}),
 	themes: [paperLight, paperDark],
-	langs: [typescript, javascript, bash, json, css, html, markdown],
-});
+	langs: [typescript, javascript, bash, json, css, html, markdown, gleam],
+}));
 
-type Language = 'typescript' | 'javascript' | 'bash' | 'json' | 'css' | 'html' | 'markdown';
+type Language =
+	'typescript' | 'javascript' | 'bash' | 'json' | 'css' | 'html' | 'markdown' | 'gleam';
 
 export function Shell({
 	children,
@@ -63,11 +70,14 @@ function Filename({filename}: {readonly filename: string}) {
 			case filename.endsWith('.ts'):
 				return <TbBrandTypescript className="inline" />;
 			case filename.endsWith('.js'):
-				return <TbBrandJavascript className="inline" />;
+			case filename.endsWith('.mjs'):
+				return <RiJavascriptFill className="inline" />;
 			case filename.endsWith('.html'):
 				return <TbBrandHtml5 className="inline" />;
 			case filename.endsWith('.css'):
 				return <TbBrandCss3 className="inline" />;
+			case filename.endsWith('.gleam'):
+				return <SiGleam className="inline" />;
 			default:
 				return null;
 		}
@@ -75,7 +85,7 @@ function Filename({filename}: {readonly filename: string}) {
 
 	return (
 		<p className="m-0 border-b border-stone-200 bg-stone-100 px-3 py-1.5 font-mono text-xs text-stone-500 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-400">
-			<span className="mr-2">{icon}</span>
+			{icon && <span className="mr-2">{icon}</span>}
 			<span>{filename}</span>
 		</p>
 	);
@@ -96,7 +106,7 @@ export function Highlighter({
 	});
 
 	return (
-		<div className="not-prose overflow-hidden rounded-lg border border-stone-200 text-[12.5px] dark:border-stone-800">
+		<div className="not-prose my-5 overflow-hidden rounded-lg border border-stone-200 text-[12.5px] dark:border-stone-800">
 			{filename && <Filename filename={filename} />}
 			<div dangerouslySetInnerHTML={{__html: html}} />
 		</div>

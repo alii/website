@@ -6,6 +6,14 @@ import { config as dotenv } from 'dotenv';
 const config = {
 	env: dotenv().parsed,
 
+	experimental: {
+		// `typescript` is aliased to @typescript/typescript6 so typescript-eslint
+		// still has a JS API (TS 7 ships none). That package exposes `tsc6`, not
+		// `tsc`, so Next's default CLI type-check can't find a binary. Use the
+		// in-process API instead. The real TS 7 `tsc` lives at @typescript/native.
+		useTypeScriptCli: false,
+	},
+
 	images: {
 		remotePatterns: [
 			{

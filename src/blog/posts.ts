@@ -5,8 +5,10 @@ import {OpenSource} from './2022/03/open-source/open-source';
 import {StrictTSConfig} from './2022/08/strict-tsconfig/strict-tsconfig';
 import {ESM} from './2023/esm/esm';
 import {AmbientDeclarations} from './2025/ambient-declarations/ambient-declarations';
+import {GleamBunApps} from './2026/gleam-bun-apps/gleam-bun-apps';
 
 export const posts = [
+	new GleamBunApps(),
 	new AmbientDeclarations(),
 	new ESM(),
 	new OpenSource(),

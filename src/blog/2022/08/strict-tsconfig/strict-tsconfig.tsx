@@ -18,7 +18,7 @@ export class StrictTSConfig extends Post {
 					want. "Look ma, no errors!"
 				</p>
 
-				<Highlighter>
+				<Highlighter language="json">
 					{stripIndent`
 						{
 							"compilerOptions": {
@@ -27,6 +27,7 @@ export class StrictTSConfig extends Post {
 								"module": "NodeNext",
 								"target": "ESNext",
 								"strict": true,
+								"types": ["bun"],
 								"noEmit": true,
 								"useUnknownInCatchVariables": true,
 								"noImplicitOverride": true,
