@@ -218,6 +218,13 @@ export class GleamBunApps extends Post {
 					JavaScript target with bindings to frameworks like Electron might look like.
 				</p>
 				<p>Happy shipping.</p>
+				<br />
+				<div className="text-xs">
+					<p>
+						Thank you to <ExternalLink href="https://x.com/landon_xyz">Landon Boles</ExternalLink>{' '}
+						who helped me with a draft of this post.
+					</p>
+				</div>
 			</>
 		);
 	}
