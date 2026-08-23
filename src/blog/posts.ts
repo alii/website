@@ -6,8 +6,10 @@ import {StrictTSConfig} from './2022/08/strict-tsconfig/strict-tsconfig';
 import {ESM} from './2023/esm/esm';
 import {AmbientDeclarations} from './2025/ambient-declarations/ambient-declarations';
 import {GleamBunApps} from './2026/gleam-bun-apps/gleam-bun-apps';
+import {Railways} from './2026/railways/railways';
 
 export const posts = [
+	new Railways(),
 	new GleamBunApps(),
 	new AmbientDeclarations(),
 	new ESM(),

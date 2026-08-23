@@ -59,6 +59,8 @@ export default function PostPage({slug}: Props) {
 						// header above, so hide the duplicate leading heading
 						'[&>h1:first-child]:hidden',
 						'prose-headings:font-serif prose-headings:font-semibold',
+						// inline code: no backticks, a faint pill instead
+						'prose-code:rounded prose-code:bg-stone-900/[0.06] prose-code:px-1 prose-code:py-0.5 prose-code:font-normal prose-code:before:content-none prose-code:after:content-none dark:prose-code:bg-white/10',
 						'prose-img:w-full',
 						// the prose plugin's default pre color is pale gray meant for a dark
 						// background; we make pre transparent, so give it readable text again
