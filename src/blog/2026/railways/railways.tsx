@@ -6,7 +6,6 @@ import {Railway} from '../../../components/diagrams/railway';
 import {ResolveFlow} from '../../../components/diagrams/resolve-flow';
 import {Trace} from '../../../components/diagrams/trace';
 import {ExternalLink} from '../../../components/external-link';
-import {Note} from '../../../components/note';
 import {SafariConsole} from '../../../components/safari-console';
 import {Highlighter} from '../../../components/syntax-highligher';
 import {Terminal} from '../../../components/terminal';
@@ -45,20 +44,6 @@ export class Railways extends Post {
 	public render() {
 		return (
 			<>
-				<Note variant="warning" title="Draft">
-					<p>
-						Terminal outputs are real (Node 26.7, Bun 1.4.0 canary, Bun 1.3.14 via npx; trimmed to
-						the first error line). The Safari 26 console shows only rows we are sure of; paste
-						never.mjs into Safari 26 to confirm what the inspector prints. Safari 27 (macOS 27 beta)
-						has the fix. The WebKit PR says the bug came in with the C++ port of the promise jobs
-						(Oct 2025), but it is older: WebKit commit e592aeb6 (31 Aug 2020, bug 215996) added the{' '}
-						<code>speciesConstructor</code> call to <code>promiseResolveThenableJobFast</code> ahead
-						of <code>createResolvingFunctions</code>, so Safari has had it since roughly 14.1. Still
-						to check: the paragraph on how you found the bug was removed (it was invented); write
-						the real one. Also when <code>PromiseLayer</code> was added to gleam_javascript; the
-						final <code>use</code> example is a sketch.
-					</p>
-				</Note>
 				<p>Here is a program that, until July, never finished in Bun or Safari.</p>
 				<Highlighter filename="never.mjs" language="javascript">
 					{demo}
