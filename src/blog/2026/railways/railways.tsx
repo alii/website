@@ -113,7 +113,8 @@ export class Railways extends Post {
 				<p>
 					The builtin helper function <code>Promise.resolve(value)</code> does the same thing by
 					constructing a promise and immediately calling the <code>resolve</code> with the value you
-					passed. A simple userland implementation would look like this:
+					passed (with the exception that if <code>value</code> is already a promise, it is returned
+					as is). A simple userland implementation would look like this:
 				</p>
 				<Highlighter filename="promise-resolve.js" language="javascript">
 					{stripIndent`
@@ -125,13 +126,14 @@ export class Railways extends Post {
 				<p>
 					The same is also true for literally writing <code>await 42</code>. The engine creates a
 					promise and immediately calls <code>resolve(42)</code>, just like{' '}
-					<code>Promise.resolve()</code> does.
+					<code>Promise.resolve()</code> does. Similarly, awaiting something that is already a
+					promise skips this and uses that promise directly.
 				</p>
 				<p>
-					Many folks think of a promise as a value that can exit in two ways - resolved with a value
-					or a rejected with a reason. This is a reasonable mental model since it maps pretty
-					closely to how using promises actually feel when writing JavaScript day-to-day. Therefore,
-					a naive implementation of a promise might look like this:
+					Many folks think of a promise as a value that can end in two ways - resolved with a value
+					or rejected with a reason. This is a reasonable mental model since it maps pretty closely
+					to how using promises actually feel when writing JavaScript day-to-day. Therefore, a naive
+					implementation of a promise might look like this:
 				</p>
 				<Highlighter filename="mediocre-promise.ts" language="typescript">
 					{stripIndent`
@@ -162,7 +164,7 @@ export class Railways extends Post {
 					`}
 				</Highlighter>
 				<p>
-					Sadly, this implementation lacks an important difference between how resolving and
+					Sadly, this implementation misses an important difference between how resolving and
 					rejecting work.
 				</p>
 				<p>
@@ -184,13 +186,15 @@ export class Railways extends Post {
 					Sorry, that was a mouthful. There's a diagram in a sec to explain. Bear with me.
 				</p>
 				<p>
-					This asymmetry exists because a failure is not a pending operation. When something fails
-					then it has <i>already</i> failed. We are not expecting the failure in the future, because
-					it just happened. <b>We already have the failure!</b> So you already have the reason in
-					your code (presumably an error) and so you can call <code>reject()</code> immediately. On
-					the other side, a useful value can arrive later, for example waiting for a request stream
-					to finish so we could turn the body into JSON, so the waiting only ever happens on the{' '}
-					<code>resolve</code> side.
+					This asymmetry exists because{' '}
+					<i>
+						<b>a failure is not a pending operation</b>
+					</i>
+					. When something fails, you <b>already</b> have the reason in your code! (presumably an
+					error). So you can call <code>reject(reason)</code> immediately. This is, of course, not
+					the case for resolving, where a useful value might arrive later. For example a common case
+					is waiting for a request stream to finish so we can turn the body into JSON. This is why
+					the extra behaviour is only implemented in <code>resolve</code>.
 				</p>
 				<p>
 					The <code>resolve</code> function{' '}
@@ -198,9 +202,9 @@ export class Railways extends Post {
 						is defined in the spec
 					</ExternalLink>{' '}
 					as the <b>resolve procedure</b>. To find out whether <code>value</code> has a{' '}
-					<code>.then</code>, it reads <code>value.then</code>, and doing property read can run any
-					getters, and a getter can throw (just like in our program at the beginning). So, looking
-					for the <code>then()</code> method on a value can result in three possible states:
+					<code>.then</code>, it reads <code>value.then</code>, and a property read can run a
+					getter, and a getter can throw (just like in our program at the beginning). So, looking
+					for the <code>then()</code> method on a value can result in three possible outcomes:
 				</p>
 				<ResolveFlow />
 
@@ -208,17 +212,17 @@ export class Railways extends Post {
 
 				<p>
 					In the path where <code>value.then</code> is a function, the spec considers{' '}
-					<code>value</code> to be a <b>thenable</b>. Thus, Promises are also thenables because they
-					have a <code>.then()</code> method. A regular object that is <i>not</i> a promise but does
-					have a <code>.then()</code> method is also a thenable, just like a promise is, and so it
-					works everywhere a promise would. For example:
+					<code>value</code> to be a <b>thenable</b>. Promises are thenables, since they have a{' '}
+					<code>.then()</code> method. Anything else with a <code>.then()</code> method is one too,
+					and works everywhere a promise would. For example:
 				</p>
 				<Highlighter language="javascript">
 					{stripIndent`
 						// \`thenable\` is not a promise!
 						const thenable = {
-							then(resolve, _reject) { // \`resolve(thenable)\` will pass resolve
-								resolve(42);           // *and* reject to the \`.then()\`, so we accept both
+							// resolve(thenable) calls this with the outer promise's resolve and reject
+							then(resolve, _reject) {
+								resolve(42);
 							},
 						};
 
@@ -234,9 +238,9 @@ export class Railways extends Post {
 				</Highlighter>
 				<p>
 					The spec calls this process of passing the resolve/reject pair to a thenable{' '}
-					<i>"assimilation"</i>. Perhaps a friendlier term for this behaviour might be "flattening"
-					because instead of resolving with the inner promise, we wait for it instead. Our chain of
-					promises got "flattened" because we just moved what we were waiting for.
+					<i>"assimilation"</i>. Perhaps a friendlier term for this is "flattening": instead of
+					holding the inner promise as its value, the outer promise waits for it, so two layers
+					become one.
 				</p>
 
 				<p>A promise of a promise flattens to only one promise.</p>
