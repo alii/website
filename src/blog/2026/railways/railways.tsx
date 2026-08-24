@@ -479,6 +479,7 @@ export class Railways extends Post {
 					This is unlike promises, because <code>.then()</code> cannot define its failure because
 					the runtime can put anything on the rejected track.
 				</p>
+				<p>Promises are not railways!</p>
 				<h2>What could a new language do about this?</h2>
 				<p>
 					You might have seen me talk about{' '}
@@ -588,12 +589,23 @@ export class Railways extends Post {
 					`}
 				</Highlighter>
 				<p>
-					According to these signatures, the <code>map</code> function guarantees it will never
-					flatten a promise, and the <code>await</code> function guarantees to flatten exactly once.
-					Internally both of these functions will call <code>.then()</code>, but Gleam's type
-					checker can only trust <code>map</code> if the runtime really doesn't flatten! We already
-					know that the engine will flatten anything with a <code>.then()</code>, so the{' '}
-					<code>map</code> signature is making a promise the engine will not keep.
+					According to these signatures, <code>map</code> never flattens a promise and{' '}
+					<code>await</code> flattens exactly once. Both call <code>.then()</code> internally, which
+					is a problem for <code>map</code> when the callback returns a promise:
+				</p>
+				<Highlighter language="typescript">
+					{stripIndent`
+						const p = Promise.resolve(1);
+						const q = map(p, n => Promise.resolve(n + 1));
+						// the signature says q is a Promise<Promise<number>>
+
+						await q; // 2, the engine flattened it anyway
+					`}
+				</Highlighter>
+				<p>
+					The signature says <code>q</code> is a <code>Promise&lt;Promise&lt;number&gt;&gt;</code>,
+					but the engine flattened it, so <code>q</code> actually holds <code>2</code>. Gleam's type
+					checker would be wrong about <code>q</code>.
 				</p>
 				<p>
 					This is the problem we touched on earlier: <code>Promise&lt;Promise&lt;T&gt;&gt;</code>{' '}
