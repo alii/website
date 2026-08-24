@@ -208,7 +208,7 @@ export class Railways extends Post {
 					In the path where <code>value.then</code> is a function, the spec considers{' '}
 					<code>value</code> to be a <b>thenable</b>. Promises are thenables, since they have a{' '}
 					<code>.then()</code> method. Anything else with a <code>.then()</code> method is one too,
-					and work everywhere a promise would. For example:
+					and works everywhere a promise would. For example:
 				</p>
 				<Highlighter language="javascript">
 					{stripIndent`
@@ -317,8 +317,8 @@ export class Railways extends Post {
 					<ExternalLink href="https://tc39.es/ecma262/#sec-speciesconstructor">
 						<code>SpeciesConstructor</code>
 					</ExternalLink>
-					). Both are ordinary property reads and, as we found out, property reads can run getters
-					and getters, can throw.
+					). Both are ordinary property reads and, as we found out, property reads can run getters,
+					and getters can throw.
 				</p>
 				<p>
 					This is precisely what our original program at the beginning does!{' '}
@@ -340,7 +340,7 @@ export class Railways extends Post {
 				<p>
 					Luckily, the fix is simple, and might already be obvious to you! We must create our
 					resolve/reject functions before calling <code>.then()</code>, so that we actually have the
-					abililty to reject the promise if calling <code>.then()</code> throws. Creating the
+					ability to reject the promise if calling <code>.then()</code> throws. Creating the
 					resolving functions is just an allocation and allocations can't throw, and once the
 					functions exist then the existing error handling rejects the promise like any other
 					failure.
@@ -365,8 +365,9 @@ export class Railways extends Post {
 					fn validate(request: Request) -&gt; Result&lt;Request, ValidationError&gt;
 				</Highlighter>
 				<p>
-					The <code>Result</code> type enforces this: <code>validate</code>'s failure track can only
-					ever carry a <code>ValidationError</code>.
+					The <code>Result</code> type enforces this: <code>validate()</code>'s success track can
+					only carry a <code>Request</code> and its failure track can only ever carry a{' '}
+					<code>ValidationError</code>.
 				</p>
 				<p>
 					Once something is on the failure track it stays there, skipping every later step, until
@@ -384,8 +385,8 @@ export class Railways extends Post {
 					train={1}
 				/>
 				<p>
-					Promises kinda look a lot like this! There's a resolve track and a reject track, and{' '}
-					<code>.then(onResolved, onRejected)</code> is the switch between them.
+					Promises kinda look a lot like this! There's a fulfilled track and a rejected track, and{' '}
+					<code>.then(onFulfilled, onRejected)</code> is the switch between them.
 				</p>
 				<p>So is a promise a railway?</p>
 				<h2>A promise's failure track has no label</h2>
@@ -395,31 +396,27 @@ export class Railways extends Post {
 					`}
 				</Highlighter>
 				<p>
-					In TypeScript, the <code>Promise&lt;T&gt;</code> interface has exactly one type parameter.
-					There is no error type, and <code>.catch()</code> hands you <code>reason: any</code>.
-					People have been asking for this <code>Promise&lt;T, E&gt;</code> since{' '}
+					In TypeScript, the <code>Promise&lt;T&gt;</code> interface has only one type parameter, so
+					no room for an error type. TypeScript users have asked for a{' '}
+					<code>Promise&lt;T, E&gt;</code> since 2015 -{' '}
 					<ExternalLink href="https://github.com/microsoft/TypeScript/issues/6283">
-						2015
+						microsoft/TypeScript#6283
 					</ExternalLink>
-					!
+					! Ron Buckton, who used to work on TypeScript at Microsoft, closed this issue, writing:
 				</p>
-				<p>Ron Buckton, who used to work on TypeScript at Microsoft, closed this issue and said:</p>
 				<blockquote>
 					<p>we cannot guarantee the correct type of the exception at design time.</p>
 				</blockquote>
 				<p>
-					Which is true, but the real reason is more specific than "JavaScript can throw anything".
+					Which, we have now learnt, is true! We just saw the runtime reject a promise with{' '}
+					<code>boom</code>, a value that was thrown in a getter far way from any userland{' '}
+					<code>reject()</code> call. If the spec itself can put values on the reject track, then
+					even code that only ever calls <code>reject()</code> with one type cannot be given an{' '}
+					<code>E</code>. The failure track has to be <code>any</code> (okay, yes it could be
+					unknown, but adoption and backwards compatibility are also important things for a project
+					of TypeScript's scope and size to care about!).
 				</p>
-				Recall that the resolve procedure first looks for <code>value.then</code> and calls if it
-				exists, and that calling <code>then</code> on a promise runs the{' '}
-				<code>SpeciesConstructor</code>, which is two more property reads. Any of those reads can
-				hit a getter that throws, and so when one of them does, the runtime rejects <i>your</i>{' '}
-				promise with whatever came out of that. None of those thrown values came from your code! So,
-				concretely, the reason there is no <code>Promise&lt;T, E&gt;</code> is because the spec
-				itself might but arbitrary values on your rejection. To turn this into context of our
-				railway - the reason the failure track is typed as <code>any</code> is because we cannot
-				actually safely know at runtime what a promise will reject with, even if{' '}
-				<code>reject()</code> is only ever called with a specific value in userland code.
+				<p>Here's that represented as a railway:</p>
 				<Railway
 					input="resolve(value)"
 					steps={['read value.then', 'call value.then']}
@@ -427,12 +424,18 @@ export class Railways extends Post {
 					failure="anything!?!?"
 					untypedFailure
 				/>
-				<p>Phew, that was yet another mouthful.</p>
+				<p>
+					Generally I think engineers who have thought "why doesn't a promise type it's rejection?"
+					and tried to land on an answer will land on "JavaScript lets you throw anything". It's
+					good that engineers are thinking about these things and even better if they reach this
+					quite logical conclusion, and the real reason is so subtle!
+				</p>
+				<p>Phew.</p>
 				<h2>A promise can't carry a promise</h2>
 				<p>
 					We touched on this earlier, but to reiterate: <code>Promise&lt;Promise&lt;T&gt;&gt;</code>{' '}
-					cannot be constructed. Remember, if you resolve a promise with another promise, we just
-					wait for that second promise instead. Here's an example to drill it in:
+					cannot be constructed because, remember, if you resolve a promise with another promise
+					then we just wait for that second promise instead. Here's an example to drill it in:
 				</p>
 				<Highlighter language="javascript">
 					{stripIndent`
@@ -453,7 +456,7 @@ export class Railways extends Post {
 					]}
 				/>
 				<p>
-					Since typescript@4.5 there's the{' '}
+					In 4.5, the TypeScript team added the{' '}
 					<ExternalLink href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-5/#the-awaited-type-and-promise-improvements">
 						<code>Awaited&lt;T&gt;</code>
 					</ExternalLink>{' '}
@@ -462,19 +465,8 @@ export class Railways extends Post {
 					<code>Awaited&lt;Promise&lt;Promise&lt;number&gt;&gt;&gt;</code> is just{' '}
 					<code>number</code>.
 				</p>
-				{/* <p>
-					This means a <code>Promise</code> can hold anything <i>except</i> another promise. If you
-					build a generic <code>Channel&lt;T&gt;</code> or <code>Cache&lt;T&gt;</code> on top of
-					promises and someone instantiates it with a promise type,{' '}
-					<ExternalLink href="https://eighty-twenty.org/2024/01/24/more-pitfalls-of-js-promises">
-						it breaks at runtime
-					</ExternalLink>
-					, far away from the generic code. It's also the precise reason people say{' '}
-					<ExternalLink href="https://rybicki.io/blog/2023/12/23/promises-arent-monads.html">
-						promises are not monads
-					</ExternalLink>
-					: the operation that puts a value in the box doesn't work for one kind of value.
-				</p>
+
+				{/* 
 				<h2>Why flattening exists</h2>
 				<p>
 					Back in 2013 there were several competing promise libraries: jQuery's Deferreds, Q,
