@@ -1,10 +1,10 @@
 import {stripIndent} from 'common-tags';
-import Link from 'next/link';
-import {Carried} from '../../../components/diagrams/carried';
-import {JobOrder} from '../../../components/diagrams/job-order';
-import {Railway} from '../../../components/diagrams/railway';
+// import Link from 'next/link';
+// import {Carried} from '../../../components/diagrams/carried';
+// import {JobOrder} from '../../../components/diagrams/job-order';
+// import {Railway} from '../../../components/diagrams/railway';
 import {ResolveFlow} from '../../../components/diagrams/resolve-flow';
-import {Trace} from '../../../components/diagrams/trace';
+// import {Trace} from '../../../components/diagrams/trace';
 import {ExternalLink} from '../../../components/external-link';
 import {SafariConsole} from '../../../components/safari-console';
 import {Highlighter} from '../../../components/syntax-highligher';
@@ -48,9 +48,10 @@ export class Railways extends Post {
 					{demo}
 				</Highlighter>
 				<p>
-					Don't worry if you don't understand what's going on here. In short, the getter throws, so{' '}
-					<code>await p</code> should throw and the program should crash. Node does, but Bun 1.3.14
-					and Safari 26 print <code>'before'</code>, report the error, and never finish.
+					Don't worry if you don't understand what's going on. The spec says that, because the
+					getter throws, <code>await p</code> should also throw, then the program should crash.
+					Node.js does, but Safari 26 and Bun 1.3.14 print <code>'before'</code>, report the error,
+					and then never finish.
 				</p>
 				<figure className="not-prose my-8 grid gap-5 md:grid-cols-2">
 					<Terminal
@@ -86,14 +87,15 @@ export class Railways extends Post {
 					and <ExternalLink href="https://github.com/WebKit/WebKit/pull/68749">my fix</ExternalLink>{' '}
 					was only +16 lines!
 				</p>
+				<p>What went wrong?</p>
 				<h2>
 					What <code>resolve</code> does
 				</h2>
 				<p>Let's quickly brush up on promises.</p>
 				<p>
-					When you create a new promise in JavaScript, the engine creates two functions,{' '}
-					<code>resolve</code> and <code>reject</code>, and it passes them to the callback you pass
-					to the promise constructor.
+					When you construct a new promise in JavaScript, the engine creates two functions,{' '}
+					<code>resolve</code> and <code>reject</code>, and the engine passes them to the callback
+					you pass to the promise constructor.
 				</p>
 				<Highlighter filename="new-promise.js" language="javascript">
 					{stripIndent`
@@ -133,22 +135,25 @@ export class Railways extends Post {
 				</p>
 				<Highlighter filename="mediocre-promise.ts" language="typescript">
 					{stripIndent`
-						class MediocrePromise<T> {
-							state: 'pending' | 'resolved' | 'rejected' = 'pending';
-							value: T | undefined = undefined;
-							callbacks: Array<() => void> = []; // registered by .then()
+						type PromiseState<T> =
+							| {type: 'pending'}
+							| {type: 'resolved', value: T}
+							| {type: 'rejected', value: unknown};
 
-							resolve(value: T) {
-								this.settle('resolved', value);
+						class MediocrePromise<T> {
+							private state: PromiseState<T>
+							private callbacks: Array<() => void> = []; // registered by .then()
+
+							private resolve(value: T) {
+								this.settle({type: 'resolved', value});
 							}
 
-							reject(reason: unknown) {
-								this.settle('rejected', reason);
+							private reject(reason: unknown) {
+								this.settle({type: 'resolved', reason});
 							}
 
 							private settle(state: 'resolved' | 'rejected', value: unknown) {
 								this.state = state;
-								this.value = value as T;
 								for (const callback of this.callbacks) callback();
 							}
 							
@@ -169,14 +174,14 @@ export class Railways extends Post {
 				<p>
 					Resolving is more complex. Calling <code>resolve(value)</code> does <i>not</i> store{' '}
 					<code>value</code> straight away. First, it checks whether <code>value</code> has a{' '}
-					<code>.then()</code> method. If it <b>does not</b> (e.g. a number, a string, an object
-					without one, ..) then the promise is fulfilled with <code>value</code>. Otherwise, if{' '}
-					<code>value</code> <b>does</b> have a <code>.then()</code> method, then <code>value</code>{' '}
-					is treated like <i>another</i> promise. Our original promise is <i>not</i> settled yet and
-					instead <code>resolve</code> passes itself and the reject function to{' '}
-					<code>value.then()</code>, and whichever of those <code>value.then()</code>{' '}
-					<i>eventually</i> calls is what settles the promise. Sorry, that was a mouthful. There's a
-					diagram in a sec to explain. Bear with me.
+					<code>.then()</code> method. If it <b>doesn't</b> (e.g. a number, a string, an object
+					without one, ..) then the promise is fulfilled with <code>value</code> and we are done.
+					Otherwise, if <code>value</code> <b>does</b> have a <code>.then()</code> method, then{' '}
+					<code>value</code> is treated like <i>another</i> promise. Our original promise is{' '}
+					<i>not</i> settled yet and, instead, <code>resolve</code> calls <code>value.then()</code>{' '}
+					with itself and the reject function: <code>value.then(resolve, reject)</code>. Whichever
+					of those <code>value.then()</code> <i>eventually</i> calls is what settles the promise.
+					Sorry, that was a mouthful. There's a diagram in a sec to explain. Bear with me.
 				</p>
 				<p>
 					This asymmetry exists because a failure is not a pending operation. When something fails
@@ -236,7 +241,7 @@ export class Railways extends Post {
 
 				<p>A promise of a promise flattens to only one promise.</p>
 
-				<h2>The job</h2>
+				{/* <h2>The job</h2>
 				<p>
 					The job queued on that branch is{' '}
 					<ExternalLink href="https://tc39.es/ecma262/#sec-newpromiseresolvethenablejob">
@@ -588,7 +593,7 @@ export class Railways extends Post {
 						The bug: JavaScriptCore did the step that can throw before building the failure track.
 						The fix builds the failure track first.
 					</li>
-				</ul>
+				</ul> */}
 			</>
 		);
 	}
