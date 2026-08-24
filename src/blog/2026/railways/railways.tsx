@@ -234,9 +234,9 @@ export class Railways extends Post {
 				</Highlighter>
 				<p>
 					The spec calls this process of passing the resolve/reject pair to a thenable{' '}
-					<i>"assimilation"</i>. Perhaps friendlier term for this behaviour might be "flattening"
-					because instead of resolving with the inner promise, we just wait for it instead, it got
-					"flattened" because we moved where we are waiting.
+					<i>"assimilation"</i>. Perhaps a friendlier term for this behaviour might be "flattening"
+					because instead of resolving with the inner promise, we wait for it instead. Our chain of
+					promises got "flattened" because we just moved what we were waiting for.
 				</p>
 
 				<p>A promise of a promise flattens to only one promise.</p>
