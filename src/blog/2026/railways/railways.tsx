@@ -1,4 +1,6 @@
 import {stripIndent} from 'common-tags';
+import Link from 'next/link';
+import {Carried} from '../../../components/diagrams/carried';
 import {JobOrder} from '../../../components/diagrams/job-order';
 import {Railway} from '../../../components/diagrams/railway';
 import {ResolveFlow} from '../../../components/diagrams/resolve-flow';
@@ -466,17 +468,23 @@ export class Railways extends Post {
 					<code>number</code>.
 				</p>
 
-				{/* 
-				<h2>Why flattening exists</h2>
 				<p>
-					Back in 2013 there were several competing promise libraries: jQuery's Deferreds, Q,
-					Bluebird, when.js, and more. The one thing they all had in common was a{' '}
-					<code>.then()</code> method. The{' '}
-					<ExternalLink href="https://promisesaplus.com/#the-promise-resolution-procedure">
-						Promises/A+ resolution procedure
-					</ExternalLink>{' '}
-					was the compromise that let them interoperate: anything with a <code>.then()</code> gets
-					followed. You can still read the arguments in{' '}
+					JavaScript implements this promise flattening behaviour because back when the promise spec
+					was being worked on in 2013 there were many competing userland implementations of
+					promises. You might've seen jQuery's deferreds, Q, Bluebird, etc in older code,
+					pre-promises JavaScript code. The one thing these libraries all had in common was that
+					they all had a <code>.then()</code> method - we now know those objects to be called{' '}
+					<b>thenable</b>s!
+				</p>
+
+				<p>
+					To ease the ecosystem into the migration, the team working on the spec decided to allow
+					any thenable to interop with another, and thus the behaviour of an outer promise waiting
+					on an inner promises was decided on.
+				</p>
+
+				<p>
+					Much of the original discussion is still preserved in{' '}
 					<ExternalLink href="https://esdiscuss.org/topic/a-challenge-problem-for-promise-designers-was-re-futures">
 						the es-discuss thread
 					</ExternalLink>
@@ -488,42 +496,44 @@ export class Railways extends Post {
 					<ExternalLink href="https://github.com/domenic/promises-unwrapping/issues/54">
 						promises-unwrapping #54
 					</ExternalLink>
-					, the repository that eventually became the spec text.
+					, which is the repository that eventually became the spec text.
 				</p>
+
 				<p>
-					The cost of that compromise is that <code>.then()</code> does two jobs, map and flatMap,
-					and decides which one at runtime by inspecting your return value. That inspection is the{' '}
-					<code>Get(value, "then")</code> in the resolve procedure. It runs on every single resolve,
-					it's observable, and it can throw.
+					The cost of that compromise is that every <code>resolve</code> has to look at the value it
+					was given and that is bascially everything I've talked about up until this point.
 				</p>
-				<h2>What a typed language does about it</h2>
+				<h2>What could a new language do about this?</h2>
 				<p>
-					I write a lot of <ExternalLink href="https://gleam.run/">Gleam</ExternalLink>. It is a
-					typed language that compiles to the BEAM and to{' '}
+					You might have seen me talk about{' '}
+					<ExternalLink href="https://gleam.run">Gleam</ExternalLink> before. It's really great and
+					I write a lot of it! It is a typed language that compiles to the BEAM and to{' '}
 					<ExternalLink href="https://gleam.run/news/v0.16-gleam-compiles-to-javascript/">
 						JavaScript
 					</ExternalLink>
 					, which is how <Link href="/gleam-bun-apps">my last post</Link> built Bun executables from
-					it. Running on JavaScript means dealing with JavaScript promises, and the library that
-					does that,{' '}
+					it. It's almost impossible to write JavaScript in 2026 without eventually handling
+					promises, so the library that does that in Gleam -{' '}
 					<ExternalLink href="https://hexdocs.pm/gleam_javascript/gleam/javascript/promise.html">
 						<code>gleam_javascript</code>
-					</ExternalLink>
-					, has to answer both problems above. Its promise type has one type parameter:
+					</ExternalLink>{' '}
+					- needs a promise type. It's defined like this:
 				</p>
 				<Highlighter language="gleam">
 					{stripIndent`
 						pub type Promise(value)
 					`}
 				</Highlighter>
+				<p>Very simple! And look carefully, no error type, just like TypeScript!</p>
 				<p>
-					The doc comment says why: it's "not generic over the error type as any Gleam panic or
+					The doc comment above it says "not generic over the error type as any Gleam panic or
 					JavaScript exception could alter the error value", which would make it "unsound and
-					untypable". In other words, the failure track is left unlabelled on purpose.
+					untypable". In other words, the failure track is intentionally left unlabelled, just like
+					TypeScript.
 				</p>
 				<p>
-					There's also no <code>then</code>. JavaScript's one method is split into the two jobs it
-					secretly does:
+					But interestingly, unlike TypeScript, <code>gleam_javascript</code>does not implement a{' '}
+					<code>.then()</code> method anywhere! Instead, it's split into two.
 				</p>
 				<Highlighter language="gleam">
 					{stripIndent`
@@ -532,12 +542,47 @@ export class Railways extends Post {
 					`}
 				</Highlighter>
 				<p>
-					<code>map</code> promises never to flatten, and <code>await</code> promises to flatten
-					exactly once. Underneath, both call <code>.then()</code>. But the type checker can only
-					trust <code>map</code> if the runtime really doesn't flatten, and we know the runtime will
-					flatten anything with a <code>.then()</code>. So the FFI hides the promise:
+					Sorry if this Gleam syntax is a bit new and scary. The lowercase letters are how Gleam
+					represents type-parameters. Below is the equivalent TypeScript to help you understand and
+					translate:
 				</p>
-				<Highlighter filename="gleam_javascript_ffi.mjs" language="javascript">
+				<Highlighter
+					language="typescript"
+					footer={
+						<>
+							Note: <code>await</code> is not a valid identifier in JavaScript, the function could
+							instead be named <code>await_</code>.
+						</>
+					}
+				>
+					{stripIndent`
+						export function map<A, B>(promise: Promise<A>, callback: (value: A) => B): Promise<B>
+						export function await<A, B>(promise: Promise<A>, callback: (value: A) => Promise<B>): Promise<B>
+					`}
+				</Highlighter>
+				<p>
+					According to these signatures, the <code>map</code> function guarantees it will never
+					flatten a promise, and the <code>await</code> function guarantees to flatten exactly once.
+					Internally both of these functions will call <code>.then()</code>, but Gleam's type
+					checker can only trust <code>map</code> if the runtime really doesn't flatten! We already
+					know that the engine will flatten anything with a <code>.then()</code>, so to get around
+					this, <code>gleam_javascript</code> hides the promise by wrapping it in an extra layer:
+				</p>
+				<Highlighter
+					filename="gleam_javascript_ffi.mjs"
+					language="javascript"
+					footer={
+						<>
+							Source:{' '}
+							<ExternalLink
+								className="text-inherit"
+								href="https://github.com/gleam-lang/javascript/blob/b51b4365c2b5fa3f9767a349a7e7a68a874264cb/src/gleam_javascript_ffi.mjs#L44"
+							>
+								github.com/gleam-lang/javascript#b51b4365c2b5fa3f9767a349a7e7a68a874264cb
+							</ExternalLink>
+						</>
+					}
+				>
 					{stripIndent`
 						// A wrapper around a promise to prevent \`Promise<Promise<T>>\`
 						// collapsing into \`Promise<T>\`.
@@ -548,6 +593,31 @@ export class Railways extends Post {
 						}
 					`}
 				</Highlighter>
+				<p>
+					Here is what <code>map</code> and <code>await</code> do with it, one step per line:
+				</p>
+				<Highlighter filename="gleam_javascript_ffi.mjs (unrolled)" language="javascript">
+					{stripIndent`
+						export function promise_map(promise, fn) {
+							return promise.then((value) => {
+								const unwrapped = PromiseLayer.unwrap(value); // take off any layer from the previous step
+								const result = fn(unwrapped);                 // run your callback
+								return PromiseLayer.wrap(result);             // if it returned a promise, hide it
+							});
+						}
+
+						export function promise_await(promise, fn) {
+							return promise.then((value) => {
+								const unwrapped = PromiseLayer.unwrap(value);
+								return fn(unwrapped);                         // no wrap: a returned promise gets followed
+							});
+						}
+					`}
+				</Highlighter>
+				<p>
+					If we try to resolve a promise with another promise wrapped in the PromiseLayer, the
+					engine does not follow it and the PromiseLayer is returned:
+				</p>
 				<Trace
 					events={[
 						{text: 'resolve(new PromiseLayer(inner))', note: 'the wrapper has no .then'},
@@ -555,13 +625,12 @@ export class Railways extends Post {
 					]}
 				/>
 				<p>
-					If your callback returns a promise and you used <code>map</code>, the promise gets wrapped
-					in an object with no <code>.then()</code>. The resolve procedure sees an ordinary object
-					and fulfils with it, and the wrapper is unwrapped again on the other side.
+					The <code>await</code> function does not <code>wrap</code>, so a returned promise is
+					followed, which is the flattening behaviour that its signature guarantees.
 				</p>
 				<p>
-					The reject track can't be typed, so instead the <code>Result</code> goes on the fulfil
-					track:
+					Because, just like TypeScript, the reject track can't be typed, the pattern in Gleam is to
+					always old a<code>Result</code> type in the <i>fulfil</i> track:
 				</p>
 				<Highlighter language="gleam">
 					{stripIndent`
@@ -571,12 +640,19 @@ export class Railways extends Post {
 						) -> Promise(Result(b, e))
 					`}
 				</Highlighter>
+				<p>Which might look like this if we draw it as train tracks:</p>
 				<Carried />
 				<p>
-					<code>Promise(Result(a, e))</code> is a one-track promise carrying a two-track value. The
-					promise's own reject track is still there, and still <code>any</code>, but now it's only
-					used for panics. <code>try_await</code> is <code>bind</code>, and with Gleam's{' '}
-					<code>use</code> syntax a chain of them reads like normal straight-line code:
+					So Gleam's pattern of <code>Promise(Result(a, e))</code> is encoding a two-track result
+					onto a one-track promise. The promise's own reject track is still there, and still{' '}
+					untyped, but now it's only ever used for absolute disasters. The <code>try_await</code>{' '}
+					function is Gleam's version of <code>bind</code> (which we talked about earlier), and with
+					Gleam's{' '}
+					<ExternalLink href="https://tour.gleam.run/advanced-features/use/">
+						<code>use</code>
+					</ExternalLink>{' '}
+					syntax, a chain of them reads like normal straight-line code, or code that is on a single
+					straight-line train track with no switches!
 				</p>
 				<Highlighter filename="src/app.gleam" language="gleam">
 					{stripIndent`
@@ -587,32 +663,21 @@ export class Railways extends Post {
 						}
 					`}
 				</Highlighter>
+				<p>Super tidy! Thank you Gleam, very cool.</p>
 				<p>
 					Every line can fail, every failure has a type, and nothing ever touches{' '}
-					<code>.catch()</code>. You can do the same in TypeScript with{' '}
-					<code>Promise&lt;Result&lt;T, E&gt;&gt;</code>, or with{' '}
+					<code>.catch()</code>! You could do the same in TypeScript by always using a result type
+					in promises: <code>Promise&lt;Result&lt;T, E&gt;&gt;</code>, or with something like{' '}
 					<ExternalLink href="https://github.com/supermacro/neverthrow">neverthrow</ExternalLink>
 					's <code>ResultAsync</code>.
 				</p>
-				<h2>Back to the bug</h2>
+				<h2>So are promises train tracks?</h2>
+				<p>Well, uh, no. Sorry. That question doesn't even really make sense.</p>
+
 				<p>
-					So: JavaScriptCore read <code>constructor[Symbol.species]</code> before it had created the
-					functions that could reject the promise. The getter threw, and step c wasn't there yet to
-					catch it. The spec's order, resolving functions first and <i>then</i> the call that can
-					throw, guarantees the failure track exists before anything can be put on it.
-					JavaScriptCore broke that order, and the result wasn't a crash or a wrong answer. It was a
-					promise that is never fulfilled or rejected.
+					With the two steps in the right order in JavaScriptCore, Bun 1.4 and Safari 27 now behave
+					like the spec, and like Node:
 				</p>
-				<p>
-					It had also never been tested. test262 had tests for a <code>then</code> getter that
-					throws, and for a custom <code>then</code> that resolves, but none for <code>then</code>{' '}
-					itself throwing. Step c was untested, so{' '}
-					<ExternalLink href="https://github.com/tc39/test262/pull/5078">
-						I added those tests too
-					</ExternalLink>
-					.
-				</p>
-				<p>With the two steps in the right order, Bun 1.4 and Safari 27 behave like Node:</p>
 				<figure className="not-prose my-8 md:max-w-[50%]">
 					<Terminal
 						title="bun 1.4"
@@ -624,32 +689,11 @@ export class Railways extends Post {
 						]}
 					/>
 				</figure>
-				<h2>tl;dr</h2>
-				<ul>
-					<li>
-						<code>resolve(value)</code> does not mean "fulfil with <code>value</code>". If{' '}
-						<code>value</code> has a <code>.then()</code>, the promise follows <code>value</code>{' '}
-						instead. That's flattening, and it's why <code>await</code> works at all.
-					</li>
-					<li>
-						Flattening is why <code>Promise&lt;T&gt;</code> has no error type: resolving reads
-						properties on an object you don't control, and any of them can throw onto your reject
-						track.
-					</li>
-					<li>
-						Flattening is why <code>Promise&lt;Promise&lt;T&gt;&gt;</code> can't exist, why{' '}
-						<code>Awaited&lt;T&gt;</code> is recursive, and why promises are not monads.
-					</li>
-					<li>
-						Railway oriented programming needs both tracks typed. Promises only give you one. Put a{' '}
-						<code>Result</code> on the fulfil track instead: <code>Promise(Result(a, e))</code> in
-						Gleam, <code>Promise&lt;Result&lt;T, E&gt;&gt;</code> in TypeScript.
-					</li>
-					<li>
-						The bug: JavaScriptCore did the step that can throw before building the failure track.
-						The fix builds the failure track first.
-					</li>
-				</ul> */}
+
+				<p>
+					If you really did make it this far then I'm glad you are as excited about promises as I
+					am. Thank you very much for reading!
+				</p>
 			</>
 		);
 	}

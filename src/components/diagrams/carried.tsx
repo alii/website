@@ -114,7 +114,7 @@ export function Carried() {
 				fontSize={SMALL}
 				className={MUTED.text}
 			>
-				disasters only
+				only ever disasters we don't know about
 			</text>
 		</Figure>
 	);

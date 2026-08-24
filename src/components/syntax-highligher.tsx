@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import type {PropsWithChildren} from 'react';
+import type {PropsWithChildren, ReactNode} from 'react';
 import {RiJavascriptFill} from 'react-icons/ri';
 import {SiGleam} from 'react-icons/si';
 import {TbBrandCss3, TbBrandHtml5, TbBrandTypescript} from 'react-icons/tb';
@@ -96,10 +96,12 @@ export function Highlighter({
 	children,
 	language = 'typescript',
 	filename,
+	footer,
 }: PropsWithChildren<{
 	readonly children: string;
 	readonly language?: Language;
 	readonly filename?: string;
+	readonly footer?: ReactNode;
 }>) {
 	const html = highlighter.codeToHtml(children.replace(/\n$/, ''), {
 		lang: language,
@@ -110,6 +112,11 @@ export function Highlighter({
 		<div className="not-prose my-5 overflow-hidden rounded-lg border border-stone-200 text-[12.5px] dark:border-stone-800">
 			{filename && <Filename filename={filename} />}
 			<div dangerouslySetInnerHTML={{__html: html}} />
+			{footer !== undefined && (
+				<p className="px-4 py-1.5 font-sans text-xs [&_code]:rounded-xs [&_code]:bg-neutral-200 [&_code]:px-0.5 dark:[&_code]:bg-neutral-800">
+					{footer}
+				</p>
+			)}
 		</div>
 	);
 }
