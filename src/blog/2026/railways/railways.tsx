@@ -126,7 +126,7 @@ export class Railways extends Post {
 					promise skips this and uses that promise directly.
 				</p>
 				<p>
-					Many folks think of a promise as a value that can end in two ways - resolved with a value
+					Many folks think of a promise as a value that can end in two ways - fulfilled with a value
 					or rejected with a reason. This is a reasonable approximation since it maps pretty closely
 					to how using promises actually feel when writing JavaScript day-to-day. Therefore, a naive
 					implementation of a promise might look like this:
@@ -173,9 +173,9 @@ export class Railways extends Post {
 					Resolving is more complex. Calling <code>resolve(value)</code> does <i>not</i> store{' '}
 					<code>value</code> straight away. First, it checks whether <code>value</code> has a{' '}
 					<code>.then()</code> method. If it <b>doesn't</b> (e.g. a number, a string, an object
-					without one, ..) then the promise is fulfilled with <code>value</code> and we are done.
-					Otherwise, if <code>value</code> <b>does</b> have a <code>.then()</code> method, then{' '}
-					<code>value</code> is treated like <i>another</i> promise. Our original promise is{' '}
+					without one, ..) then the promise is <b>fulfilled</b> with <code>value</code> and we are
+					done. Otherwise, if <code>value</code> <b>does</b> have a <code>.then()</code> method,
+					then <code>value</code> is treated like <i>another</i> promise. Our original promise is{' '}
 					<i>not</i> settled yet and, instead, <code>resolve</code> calls <code>value.then()</code>{' '}
 					with itself and the reject function: <code>value.then(resolve, reject)</code>. Whichever
 					of those <code>value.then()</code> <i>eventually</i> calls is what settles the promise.
@@ -232,11 +232,25 @@ export class Railways extends Post {
 				</Highlighter>
 				<p>
 					The spec calls this process of passing the resolve/reject pair to a thenable{' '}
-					<i>"assimilation"</i>. Perhaps a friendlier term for this is "flattening": instead of
-					holding the inner promise as its value, the outer promise waits for it, so two layers
-					become one.
+					<i>"assimilation"</i>. Perhaps a friendlier word is "flattening": instead of holding the
+					inner promise as its value, the outer promise waits for it, so two layers become one.
 				</p>
-				<p>A promise of a promise flattens to only one promise.</p>
+				<p>
+					Note that "resolved" isn't a state. MediocrePromise also got this one wrong! Once{' '}
+					<code>resolve</code> has been called the outcome can no longer change, but the promise can
+					still be pending:
+				</p>
+				<Highlighter language="javascript">
+					{stripIndent`
+						const inner = new Promise(() => {}); // never settles
+						const outer = new Promise(resolve => resolve(inner));
+					`}
+				</Highlighter>
+				<p>
+					Here, <code>outer</code> was resolved, but it stays pending forever because{' '}
+					<code>inner</code> never settles. MediocrePromise's <code>resolved</code> state was
+					actually the spec's definition of fulfilled.
+				</p>
 				<h2>The job</h2>
 				<p>As a reminder, here's that diagram again:</p>
 				<ResolveFlow />
@@ -276,23 +290,42 @@ export class Railways extends Post {
 					</li>
 				</ol>
 				<p>
-					Remember that <code>.then</code> is just whatever the thenable gave us. Even the real{' '}
-					<code>Promise.prototype.then</code> does a bit of work before it looks at its arguments:
-					it runs{' '}
+					Remember that <code>.then</code> is simply whatever is defined on the thenable. When the
+					thenable is a real promise, the <code>.then</code> is the one defined on the promise's
+					prototype - <code>Promise.prototype.then</code>.
+				</p>
+				<p>
+					Why would <code>Promise.prototype.then</code> care about <code>Symbol.species</code>?
+				</p>
+				<p>
+					It cares because <code>.then()</code> returns a <i>new</i> promise, which is what lets you
+					chain <code>.then().then()</code>. If you subclass <code>Promise</code>, you'd expect{' '}
+					<code>.then()</code> to hand back an instance of your subclass, not a plain{' '}
+					<code>Promise</code>:
+				</p>
+				<Highlighter language="javascript">
+					{stripIndent`
+						class MyPromise extends Promise {}
+						MyPromise.resolve(1).then(x => x) instanceof MyPromise; // true
+					`}
+				</Highlighter>
+				<p>
+					So before a real promise's <code>then</code> does anything with its arguments, it works
+					out which constructor to build the <i>new</i> promise with. It does this by first reading{' '}
+					<code>this.constructor</code>, then by reading <code>constructor[Symbol.species]</code>{' '}
+					(the spec calls this step{' '}
 					<ExternalLink href="https://tc39.es/ecma262/#sec-speciesconstructor">
 						<code>SpeciesConstructor</code>
 					</ExternalLink>
-					, which reads <code>this.constructor</code> and then{' '}
-					<code>constructor[Symbol.species]</code> to work out which constructor to build the new
-					promise with. Both of those are property reads and, as we now know, property reads can run
-					getters, and getters can throw.
+					). Both are ordinary property reads and, as we found out, property reads can run getters
+					and getters, can throw.
 				</p>
 				<p>
-					That is precisely what our program at the beginning does! <code>p.constructor</code> has a{' '}
-					<code>[Symbol.species]</code> getter that throws, so <code>p.then(resolve, reject)</code>{' '}
-					throws before it ever reaches its arguments. Step c of the{' '}
-					<code>NewPromiseResolveThenableJob</code> is designed to catch and reject our promise with{' '}
-					<code>boom</code>. That's the spec-correct behaviour we saw in V8/Node.js.
+					This is precisely what our original program at the beginning does!{' '}
+					<code>p.constructor</code> has a <code>[Symbol.species]</code> getter that throws, so{' '}
+					<code>p.then(resolve, reject)</code> throws before it ever reaches its arguments. Step c
+					of the <code>NewPromiseResolveThenableJob</code> is designed to catch and reject our
+					promise with <code>boom</code>. That's the spec-correct behaviour we saw in V8/Node.js.
 				</p>
 				<p>So why did JavaScriptCore get this wrong?</p>
 				<p>
