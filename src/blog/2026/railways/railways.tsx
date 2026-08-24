@@ -46,10 +46,10 @@ export class Railways extends Post {
 					{demo}
 				</Highlighter>
 				<p>
-					Don't worry if you don't understand this code yet. The spec says that because the getter
-					throws, then <code>await p</code> should also throw, and so the program should crash.
-					Node.js does, but Safari 26 and Bun 1.3.14 print <code>'before'</code>, report the error,
-					and then never finish.
+					Don't worry if this looks confusing. The spec says that because the getter throws then{' '}
+					<code>await p</code> should also throw, and so the program should crash. Node.js does, but
+					Safari 26 and Bun 1.3.14 print <code>'before'</code>, report the error, and then never
+					finish.
 				</p>
 				<figure className="not-prose my-8 grid gap-5 md:grid-cols-2">
 					<Terminal
@@ -209,8 +209,8 @@ export class Railways extends Post {
 				<p>
 					In the path where <code>value.then</code> is a function, the spec considers{' '}
 					<code>value</code> to be a <b>thenable</b>. Promises are thenables, since they have a{' '}
-					<code>.then()</code> method. Anything else with a <code>.then()</code> method is one too,
-					and works everywhere a promise would. For example:
+					<code>.then()</code> method. Any other object with a <code>.then()</code> method is a
+					thenable too. Thenables work everywhere a promise would. For example:
 				</p>
 				<Highlighter language="javascript">
 					{stripIndent`
@@ -233,9 +233,10 @@ export class Railways extends Post {
 					`}
 				</Highlighter>
 				<p>
-					The spec calls this process of passing the resolve/reject pair to a thenable{' '}
-					<i>"assimilation"</i>. Perhaps a friendlier word is "flattening": instead of holding the
-					inner promise as its value, the outer promise waits for it, so two layers become one.
+					The spec calls this process of passing the resolve/reject functions to a thenable's{' '}
+					<code>.then()</code> <i>"assimilation"</i>. Perhaps a friendlier word is "flattening":
+					instead of holding the inner thenable as its value, the outer promise waits for it, so two
+					layers become one.
 				</p>
 				<p>
 					Note that "resolved" isn't a state. MediocrePromise also got this one wrong! Once{' '}
@@ -265,7 +266,7 @@ export class Railways extends Post {
 					</ExternalLink>{' '}
 					and it is defined as follows:
 				</p>
-				<blockquote>
+				<blockquote className="[quotes:none]">
 					<p>
 						a. Let <i>resolvingFunctions</i> be CreateResolvingFunctions(<i>promiseToResolve</i>
 						).
@@ -293,16 +294,21 @@ export class Railways extends Post {
 				</ol>
 				<p>
 					Remember that <code>.then</code> is simply whatever is defined on the thenable. When the
-					thenable is a real promise, the <code>.then</code> is the one defined on the promise's
-					prototype - <code>Promise.prototype.then</code>.
+					thenable is a real promise, then the <code>.then</code> being called is the one defined on
+					the promise's prototype, which is <code>Promise.prototype.then</code>.
 				</p>
 				<p>
-					Why would <code>Promise.prototype.then</code> care about <code>Symbol.species</code>?
+					In our original program, we made the <code>Symbol.species</code> getter throw on the
+					Promise constructor. We've also learnt that the engine will call <code>.then()</code> on a
+					thenable when you pass one to <code>resolve()</code>. So, naturally, because we saw the
+					program crash eventually, we can deduce that <code>Promise.prototype.then</code> is
+					somehow eventually calling <code>p.constructor[Symbol.species]</code>, right? But why on
+					earth would <code>Promise.prototype.then</code> care about <code>Symbol.species</code>?
 				</p>
 				<p>
 					It cares because <code>.then()</code> returns a <i>new</i> promise, which is what lets you
 					chain <code>.then().then()</code>. If you subclass <code>Promise</code>, you'd expect{' '}
-					<code>.then()</code> to hand back an instance of your subclass, not a plain{' '}
+					<code>.then()</code> to return an instance of your subclass, not a plain{' '}
 					<code>Promise</code>:
 				</p>
 				<Highlighter language="javascript">
@@ -320,7 +326,7 @@ export class Railways extends Post {
 						<code>SpeciesConstructor</code>
 					</ExternalLink>
 					). Both are ordinary property reads and, as we found out, property reads can run getters,
-					and getters can throw.
+					and getters can throw!
 				</p>
 				<p>
 					This is precisely what our original program at the beginning does!{' '}
@@ -348,20 +354,21 @@ export class Railways extends Post {
 					failure.
 				</p>
 				<h2>Railways</h2>
+				<p>Let's go down a quick tangent.</p>
 				<p>
-					Scott Wlaschin's{' '}
+					Scott Wlaschin's article{' '}
 					<ExternalLink href="https://fsharpforfunandprofit.com/rop/">
 						Railway Oriented Programming
 					</ExternalLink>{' '}
-					draws any step that can fail as a piece of track with one input and two outputs: a success
-					track and a failure track.
+					draws fallible code as a piece of track with one input and two outputs: a success track
+					and a failure track.
 				</p>
 				<Railway input="request" steps={['validate()']} success="success" failure="failure" />
 				<p>
-					Each chunk of the railway is a function returning a <code>Result</code>. Most
-					implementations of a <code>Result</code> type will accept <b>two type parameters</b>, the
-					success type and the failure type, one per track. In Rust you could imagine this
-					function's signature being:
+					You can think of each piece of the railway as a function returning a <code>Result</code>.
+					Most implementations of a <code>Result</code> type will accept <b>two type parameters</b>,
+					the success type and the failure type, one per track. In Rust you could imagine this{' '}
+					<code>validate</code> function's signature being:
 				</p>
 				<Highlighter language="rust">
 					fn validate(request: Request) -&gt; Result&lt;Request, ValidationError&gt;
@@ -372,23 +379,55 @@ export class Railways extends Post {
 					<code>ValidationError</code>.
 				</p>
 				<p>
-					Once something is on the failure track it stays there, skipping every later step, until
-					something at the end deals with the result. You might join two pieces with one operation
-					(Wlaschin calls this <code>bind</code> - not to be confused with JavaScript's{' '}
-					<code>fn.bind()</code> method). Rust folks might know this joining operation as{' '}
-					<code>and_then</code>, or the <code>?</code> operator. The result has the same shape as
-					the pieces, so you can keep joining.
+					Once a request hit the failure track it stays there, skipping every later step, until
+					something at the end deals with the result. Joining two pieces is one operation, which
+					Wlaschin calls <code>bind</code> (not to be confused with JavaScript's{' '}
+					<code>fn.bind()</code>). Rust calls it <code>and_then</code>, or the <code>?</code>{' '}
+					operator: run the next piece only if the previous one succeeded, otherwise pass the
+					failure straight through.
+				</p>
+				<p>
+					To chain <code>validate()</code> with the other steps using <code>and_then</code>, every
+					piece has to fail with the <i>same</i> type. So instead of <code>ValidationError</code>,
+					each function returns an <code>AppError</code>, an enum of every way a request can fail:
+				</p>
+				<Highlighter language="rust">
+					{stripIndent`
+						enum AppError {
+							Validation(ValidationError),
+							Database(DatabaseError),
+							Network(NetworkError),
+						}
+
+						fn validate(request: Request) -> Result<Request, AppError> { /* ... */ }
+						fn update(request: Request) -> Result<Record, AppError> { /* ... */ }
+						fn send(record: Record) -> Result<Receipt, AppError> { /* ... */ }
+
+						validate(request).and_then(update).and_then(send) // Result<Receipt, AppError>
+					`}
+				</Highlighter>
+				<p>
+					This is also a nice way to model the business domain. <code>validate()</code>,{' '}
+					<code>update()</code> and <code>send()</code> each have their own kind of error, but the
+					request handler only cares about one question: why did this request fail?{' '}
+					<code>AppError</code> is that answer, and each step's own error type becomes one variant
+					of it.
+				</p>
+				<p>
+					The chain is itself could be considered a piece of the railway, too. It is a function that
+					might return <code>Result&lt;Receipt, AppError&gt;</code> - this is the same shape as each
+					existing piece, so naturally you can keep joining:
 				</p>
 				<Railway
-					input="request"
+					input="Request"
 					steps={['validate()', 'update()', 'send()']}
-					success="success"
-					failure="failure"
+					success="Receipt"
+					failure="AppError"
 					train={1}
 				/>
 				<p>
-					Promises kinda look a lot like this! There's a fulfilled track and a rejected track, and{' '}
-					<code>.then(onFulfilled, onRejected)</code> is the switch between them.
+					Promises in JavaScript kinda look a lot like this! There's a fulfilled track and a
+					rejected track, and <code>.then(onFulfilled, onRejected)</code> is a switch between them.
 				</p>
 				<p>So is a promise a railway?</p>
 				<h2>A promise's failure track has no label</h2>
@@ -398,9 +437,10 @@ export class Railways extends Post {
 					`}
 				</Highlighter>
 				<p>
-					In TypeScript, the <code>Promise&lt;T&gt;</code> interface has only one type parameter, so
-					no room for an error type. TypeScript users have asked for a{' '}
-					<code>Promise&lt;T, E&gt;</code> since 2015 -{' '}
+					In TypeScript, the <code>Promise&lt;T&gt;</code> interface has only one type parameter and
+					offers no way for a developer to express ways in which the promise might reject.
+					TypeScript users have asked for a <code>Promise&lt;T, E&gt;</code> to exist since 2015 -
+					see this issue:{' '}
 					<ExternalLink href="https://github.com/microsoft/TypeScript/issues/6283">
 						microsoft/TypeScript#6283
 					</ExternalLink>
@@ -410,32 +450,153 @@ export class Railways extends Post {
 					<p>we cannot guarantee the correct type of the exception at design time.</p>
 				</blockquote>
 				<p>
-					Which, we have now learnt, is true! We just saw the runtime reject a promise with{' '}
+					Which, we have now learnt, is true! Earlier, we saw the runtime reject a promise with{' '}
 					<code>boom</code>, a value that was thrown in a getter far way from any userland{' '}
 					<code>reject()</code> call. If the spec itself can put values on the reject track, then
 					even code that only ever calls <code>reject()</code> with one type cannot be given an{' '}
-					<code>E</code>. The failure track has to be <code>any</code> (okay, yes it could be
-					unknown, but adoption and backwards compatibility are also important things for a project
-					of TypeScript's scope and size to care about!).
+					<code>E</code>. The failure track has to be <code>any</code> (okay, yes, it could
+					technically be <code>unknown</code>, but adoption and backwards compatibility are also
+					important things for a project of TypeScript's scope and size to care about!).
 				</p>
 				<p>Here's that represented as a railway:</p>
 				<Railway
 					input="resolve(value)"
 					steps={['read value.then', 'call value.then']}
 					success="T"
-					failure="anything!?!?"
+					failure="any"
 					untypedFailure
 				/>
 				<p>
 					Generally I think engineers who have thought "why doesn't a promise type it's rejection?"
 					and tried to land on an answer will land on "JavaScript lets you throw anything". It's
-					good that engineers are thinking about these things and even better if they reach this
-					quite logical conclusion, and the real reason is so subtle!
+					good that engineers will think about these things and try to answer them, and even better
+					if they land on this this quite logical conclusion. Especially since the real reason is so
+					subtle!
 				</p>
-				<p>Phew.</p>
-				<h2>A promise can't carry a promise</h2>
 				<p>
-					We touched on this earlier, but to reiterate: <code>Promise&lt;Promise&lt;T&gt;&gt;</code>{' '}
+					So, in my opinion, this is the difference between a promise and a railway. Rust's{' '}
+					<code>and_then</code> works because each switch in the railway defines its failure type.{' '}
+					This is unlike promises, because <code>.then()</code> cannot define its failure because
+					the runtime can put anything on the rejected track.
+				</p>
+				<h2>What could a new language do about this?</h2>
+				<p>
+					You might have seen me talk about{' '}
+					<ExternalLink href="https://gleam.run">Gleam</ExternalLink> before. It's really great and
+					I write a lot of it! It is a typed language that compiles to the BEAM and to{' '}
+					<ExternalLink href="https://gleam.run/news/v0.16-gleam-compiles-to-javascript/">
+						JavaScript
+					</ExternalLink>
+					, which is how <Link href="/gleam-bun-apps">my last post</Link> built Bun executables from
+					it. It's almost impossible to write JavaScript in 2026 without eventually handling
+					promises, so the library that does that in Gleam -{' '}
+					<ExternalLink href="https://hexdocs.pm/gleam_javascript/gleam/javascript/promise.html">
+						<code>gleam_javascript</code>
+					</ExternalLink>{' '}
+					- needs a promise type. It's defined like this:
+				</p>
+				<Highlighter language="gleam">
+					{stripIndent`
+						pub type Promise(value)
+					`}
+				</Highlighter>
+				<p>Very simple! And look carefully, no error type, just like TypeScript!</p>
+				<p>
+					In the Gleam source, there's a doc comment above it that says "not generic over the error
+					type as any Gleam panic or JavaScript exception could alter the error value", which would
+					make it "unsound and untypable". In other words, the failure track is intentionally left
+					unlabelled, just like TypeScript.
+				</p>
+				<p>
+					Since the reject track can't be typed, Gleam doesn't use it. Instead, the pattern in Gleam
+					is to always hold a <code>Result</code> in the <i>fulfilled</i> track instead. For
+					example, here are two functions you might see in some Gleam code:
+				</p>
+				<Highlighter language="gleam">
+					{stripIndent`
+						// In your userland code:
+						fn get_user() -> Promise(Result(User, DatabaseError)) {
+							todo
+						}
+
+						// Or using a particular builtin promise function:
+						pub fn try_await(
+							promise: Promise(Result(a, e)),
+							callback: fn(a) -> Promise(Result(b, e)),
+						) -> Promise(Result(b, e))
+					`}
+				</Highlighter>
+				<p>Can we draw this on train tracks? Yes! But in a slightly different way:</p>
+				<Carried />
+				<p>
+					Gleam's pattern of <code>Promise(Result(a, e))</code> encodes a two-track result onto a
+					one-track promise. The promise's own reject track is still there, and still untyped, but
+					now it's only ever used for absolute disasters. The <code>try_await</code> function is
+					Gleam's version of <code>bind</code> (which we talked about earlier), and with Gleam's{' '}
+					<ExternalLink href="https://tour.gleam.run/advanced-features/use/">
+						<code>use</code>
+					</ExternalLink>{' '}
+					syntax, a chain of them reads like normal straight-line code, or code that is on a single
+					straight-line train track.
+				</p>
+				<Highlighter filename="src/app.gleam" language="gleam">
+					{stripIndent`
+						pub fn main() {
+							use version <- promise.try_await(read_version("./VERSION"))
+							use range <- promise.try_await(parse_range("^2.0.0"))
+							promise.resolve(Ok(semver.satisfies(version, range)))
+						}
+					`}
+				</Highlighter>
+				<p>Super tidy! Thank you Gleam, very cool.</p>
+				<p>
+					In this example each of the promises are fallible, and every failure is a well-known type,
+					and yet nothing ever calls a <code>.catch()</code>! You could do the same in TypeScript by
+					always using a result type in promises: <code>Promise&lt;Result&lt;T, E&gt;&gt;</code>, or
+					with something like{' '}
+					<ExternalLink href="https://github.com/supermacro/neverthrow">neverthrow</ExternalLink>
+					's <code>ResultAsync</code>.
+				</p>
+				<p>There is one thing in the way, though.</p>
+				<p>
+					Unlike TypeScript, <code>gleam_javascript</code> does not have a <code>.then()</code> or
+					even an equivalent-but-differently-named method anywhere! Instead it's split into two
+					separate methods. These are:
+				</p>
+				<Highlighter language="gleam">
+					{stripIndent`
+						pub fn map(promise: Promise(a), callback: fn(a) -> b) -> Promise(b)
+						pub fn await(promise: Promise(a), callback: fn(a) -> Promise(b)) -> Promise(b)
+					`}
+				</Highlighter>
+				<p>
+					Sorry if this Gleam syntax is a bit new and scary. The lowercase letters are how Gleam
+					represents type-parameters. Below is the equivalent TypeScript to help you understand and
+					translate:
+				</p>
+				<Highlighter
+					language="typescript"
+					footer={
+						<>
+							Note: <code>await</code> is not actually a valid identifier in JavaScript
+						</>
+					}
+				>
+					{stripIndent`
+						export function map<A, B>(promise: Promise<A>, callback: (value: A) => B): Promise<B>
+						export function await<A, B>(promise: Promise<A>, callback: (value: A) => Promise<B>): Promise<B>
+					`}
+				</Highlighter>
+				<p>
+					According to these signatures, the <code>map</code> function guarantees it will never
+					flatten a promise, and the <code>await</code> function guarantees to flatten exactly once.
+					Internally both of these functions will call <code>.then()</code>, but Gleam's type
+					checker can only trust <code>map</code> if the runtime really doesn't flatten! We already
+					know that the engine will flatten anything with a <code>.then()</code>, so the{' '}
+					<code>map</code> signature is making a promise the engine will not keep.
+				</p>
+				<p>
+					This is the problem we touched on earlier: <code>Promise&lt;Promise&lt;T&gt;&gt;</code>{' '}
 					cannot be constructed because, remember, if you resolve a promise with another promise
 					then we just wait for that second promise instead. Here's an example to drill it in:
 				</p>
@@ -467,7 +628,6 @@ export class Railways extends Post {
 					<code>Awaited&lt;Promise&lt;Promise&lt;number&gt;&gt;&gt;</code> is just{' '}
 					<code>number</code>.
 				</p>
-
 				<p>
 					JavaScript implements this promise flattening behaviour because back when the promise spec
 					was being worked on in 2013 there were many competing userland implementations of
@@ -503,70 +663,9 @@ export class Railways extends Post {
 					The cost of that compromise is that every <code>resolve</code> has to look at the value it
 					was given and that is bascially everything I've talked about up until this point.
 				</p>
-				<h2>What could a new language do about this?</h2>
 				<p>
-					You might have seen me talk about{' '}
-					<ExternalLink href="https://gleam.run">Gleam</ExternalLink> before. It's really great and
-					I write a lot of it! It is a typed language that compiles to the BEAM and to{' '}
-					<ExternalLink href="https://gleam.run/news/v0.16-gleam-compiles-to-javascript/">
-						JavaScript
-					</ExternalLink>
-					, which is how <Link href="/gleam-bun-apps">my last post</Link> built Bun executables from
-					it. It's almost impossible to write JavaScript in 2026 without eventually handling
-					promises, so the library that does that in Gleam -{' '}
-					<ExternalLink href="https://hexdocs.pm/gleam_javascript/gleam/javascript/promise.html">
-						<code>gleam_javascript</code>
-					</ExternalLink>{' '}
-					- needs a promise type. It's defined like this:
-				</p>
-				<Highlighter language="gleam">
-					{stripIndent`
-						pub type Promise(value)
-					`}
-				</Highlighter>
-				<p>Very simple! And look carefully, no error type, just like TypeScript!</p>
-				<p>
-					The doc comment above it says "not generic over the error type as any Gleam panic or
-					JavaScript exception could alter the error value", which would make it "unsound and
-					untypable". In other words, the failure track is intentionally left unlabelled, just like
-					TypeScript.
-				</p>
-				<p>
-					But interestingly, unlike TypeScript, <code>gleam_javascript</code>does not implement a{' '}
-					<code>.then()</code> method anywhere! Instead, it's split into two.
-				</p>
-				<Highlighter language="gleam">
-					{stripIndent`
-						pub fn map(promise: Promise(a), callback: fn(a) -> b) -> Promise(b)
-						pub fn await(promise: Promise(a), callback: fn(a) -> Promise(b)) -> Promise(b)
-					`}
-				</Highlighter>
-				<p>
-					Sorry if this Gleam syntax is a bit new and scary. The lowercase letters are how Gleam
-					represents type-parameters. Below is the equivalent TypeScript to help you understand and
-					translate:
-				</p>
-				<Highlighter
-					language="typescript"
-					footer={
-						<>
-							Note: <code>await</code> is not a valid identifier in JavaScript, the function could
-							instead be named <code>await_</code>.
-						</>
-					}
-				>
-					{stripIndent`
-						export function map<A, B>(promise: Promise<A>, callback: (value: A) => B): Promise<B>
-						export function await<A, B>(promise: Promise<A>, callback: (value: A) => Promise<B>): Promise<B>
-					`}
-				</Highlighter>
-				<p>
-					According to these signatures, the <code>map</code> function guarantees it will never
-					flatten a promise, and the <code>await</code> function guarantees to flatten exactly once.
-					Internally both of these functions will call <code>.then()</code>, but Gleam's type
-					checker can only trust <code>map</code> if the runtime really doesn't flatten! We already
-					know that the engine will flatten anything with a <code>.then()</code>, so to get around
-					this, <code>gleam_javascript</code> hides the promise by wrapping it in an extra layer:
+					So, to give <code>map</code> an honest type, <code>gleam_javascript</code> hides the
+					promise by wrapping it in an extra layer:
 				</p>
 				<Highlighter
 					filename="gleam_javascript_ffi.mjs"
@@ -628,58 +727,7 @@ export class Railways extends Post {
 					The <code>await</code> function does not <code>wrap</code>, so a returned promise is
 					followed, which is the flattening behaviour that its signature guarantees.
 				</p>
-				<p>
-					Because, just like TypeScript, the reject track can't be typed, the pattern in Gleam is to
-					always old a<code>Result</code> type in the <i>fulfil</i> track:
-				</p>
-				<Highlighter language="gleam">
-					{stripIndent`
-						pub fn try_await(
-							promise: Promise(Result(a, e)),
-							callback: fn(a) -> Promise(Result(b, e)),
-						) -> Promise(Result(b, e))
-					`}
-				</Highlighter>
-				<p>Which might look like this if we draw it as train tracks:</p>
-				<Carried />
-				<p>
-					So Gleam's pattern of <code>Promise(Result(a, e))</code> is encoding a two-track result
-					onto a one-track promise. The promise's own reject track is still there, and still{' '}
-					untyped, but now it's only ever used for absolute disasters. The <code>try_await</code>{' '}
-					function is Gleam's version of <code>bind</code> (which we talked about earlier), and with
-					Gleam's{' '}
-					<ExternalLink href="https://tour.gleam.run/advanced-features/use/">
-						<code>use</code>
-					</ExternalLink>{' '}
-					syntax, a chain of them reads like normal straight-line code, or code that is on a single
-					straight-line train track with no switches!
-				</p>
-				<Highlighter filename="src/app.gleam" language="gleam">
-					{stripIndent`
-						pub fn main() {
-							use version <- promise.try_await(read_version("./VERSION"))
-							use range <- promise.try_await(parse_range("^2.0.0"))
-							promise.resolve(Ok(semver.satisfies(version, range)))
-						}
-					`}
-				</Highlighter>
-				<p>Super tidy! Thank you Gleam, very cool.</p>
-				<p>
-					Every line can fail, every failure has a type, and nothing ever touches{' '}
-					<code>.catch()</code>! You could do the same in TypeScript by always using a result type
-					in promises: <code>Promise&lt;Result&lt;T, E&gt;&gt;</code>, or with something like{' '}
-					<ExternalLink href="https://github.com/supermacro/neverthrow">neverthrow</ExternalLink>
-					's <code>ResultAsync</code>.
-				</p>
-				<h2>So are promises train tracks?</h2>
-				<p>Well, uh, no. Sorry. That question doesn't even really make sense. My fault.</p>
-				<p>
-					A promise does have two tracks, but it's impossible to type the failure track and since
-					promises are always flattened [todo]. In comparison, a <code>Result</code> has both its
-					well-known failure type, and the ability to hold another <code>Result</code>, with{' '}
-					<code>bind</code> removing a layer only when you ask it to.
-				</p>
-
+				<h2>Back to the bug</h2>
 				<p>
 					With the two steps in the right order in JavaScriptCore, Bun 1.4 and Safari 27 now behave
 					like the spec, and like Node:
@@ -695,7 +743,6 @@ export class Railways extends Post {
 						]}
 					/>
 				</figure>
-
 				<p>
 					If you really did make it this far then I'm glad you are as excited about promises as I
 					am. Thank you very much for reading!
