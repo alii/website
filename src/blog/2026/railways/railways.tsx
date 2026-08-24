@@ -38,8 +38,7 @@ export class Railways extends Post {
 		'gleam',
 		'typescript',
 	];
-	public excerpt =
-		'A two-line ordering bug in JavaScriptCore, and the 2013 decision about promises that made it possible';
+	public excerpt = 'How JavaScript promises settle using train tracks as an example';
 
 	public render() {
 		return (
@@ -49,9 +48,9 @@ export class Railways extends Post {
 					{demo}
 				</Highlighter>
 				<p>
-					The getter throws, so <code>await p</code> should throw and the program should crash. Node
-					does that. Bun 1.3.14 prints <code>before</code>, reports the error as uncaught, and never
-					exits.
+					Don't worry if you don't understand what's going on here. In short, the getter throws, so{' '}
+					<code>await p</code> should throw and the program should crash. Node does, but Bun 1.3.14
+					and Safari 26 print <code>'before'</code>, report the error, and never finish.
 				</p>
 				<figure className="not-prose my-8 grid gap-5 md:grid-cols-2">
 					<Terminal
@@ -69,7 +68,7 @@ export class Railways extends Post {
 						running
 					/>
 				</figure>
-				<p>Safari 26 does the same:</p>
+				<p>Safari 26 fails the same way as Bun:</p>
 				<SafariConsole
 					title="Safari 26"
 					code={demo}
@@ -79,74 +78,142 @@ export class Railways extends Post {
 					]}
 				/>
 				<p>
-					Bun and Safari both embed JavaScriptCore. In both, the error is reported as uncaught, the
-					promise stays pending, and <code>done</code> never prints.
-				</p>
-				<p>
-					This is{' '}
+					Bun and Safari both embed JavaScriptCore so the behaviour is the same - the promise is
+					never settled! This was{' '}
 					<ExternalLink href="https://bugs.webkit.org/show_bug.cgi?id=318399">
 						WebKit bug 318399
-					</ExternalLink>
-					. The <ExternalLink href="https://github.com/WebKit/WebKit/pull/68749">fix</ExternalLink>{' '}
-					is 57 lines, most of them a test. The change itself is two steps done in the other order.
+					</ExternalLink>{' '}
+					and <ExternalLink href="https://github.com/WebKit/WebKit/pull/68749">my fix</ExternalLink>{' '}
+					was only +16 lines!
 				</p>
-
 				<h2>
-					<code>resolve</code> does not mean "fulfil"
+					What <code>resolve</code> does
 				</h2>
+				<p>Let's quickly brush up on promises.</p>
 				<p>
-					<code>new Promise(executor)</code> calls <code>executor</code> with two functions,{' '}
-					<code>resolve</code> and <code>reject</code>. <code>Promise.resolve(value)</code> and{' '}
-					<code>await x</code> create a promise and call the same <code>resolve</code> with{' '}
-					<code>value</code>.
+					When you create a new promise in JavaScript, the engine creates two functions,{' '}
+					<code>resolve</code> and <code>reject</code>, and it passes them to the callback you pass
+					to the promise constructor.
+				</p>
+				<Highlighter filename="new-promise.js" language="javascript">
+					{stripIndent`
+						new Promise((resolve, reject) => {
+							console.log("I got my resolve function!", resolve);
+							console.log("I got my reject function!", reject);
+							resolve(42);
+						});
+
+						// In V8 this logs:
+						//		I got my resolve function! ƒ () { [native code] }
+						//		I got my reject function! ƒ () { [native code] }
+					`}
+				</Highlighter>
+				<p>
+					The builtin helper function <code>Promise.resolve(value)</code> does the same thing by
+					constructing a promise and immediately calling the <code>resolve</code> with the value you
+					passed. A simple userland implementation would look like this:
+				</p>
+				<Highlighter filename="promise-resolve.js" language="javascript">
+					{stripIndent`
+						function PromiseDotResolve(value) {
+							return new Promise(resolve => resolve(value))
+						}
+					`}
+				</Highlighter>
+				<p>
+					The same is also true for literally writing <code>await 42</code>. The engine creates a
+					promise and immediately calls <code>resolve(42)</code>, just like{' '}
+					<code>Promise.resolve()</code> does.
 				</p>
 				<p>
-					The usual description of a promise is a box with two exits: <code>resolve(value)</code>{' '}
-					and <code>reject(error)</code>. It is right about <code>reject</code> and wrong about{' '}
-					<code>resolve</code>. The names give it away: the second function is not called{' '}
-					<code>fulfil</code>.
+					Many folks think of a promise as a value that can exit in two ways - resolved with a value
+					or a rejected with a reason. This is a reasonable mental model since it maps pretty
+					closely to how using promises actually feel when writing JavaScript day-to-day. Therefore,
+					a naive implementation of a promise might look like this:
+				</p>
+				<Highlighter filename="mediocre-promise.ts" language="typescript">
+					{stripIndent`
+						class MediocrePromise<T> {
+							state: 'pending' | 'resolved' | 'rejected' = 'pending';
+							value: T | undefined = undefined;
+							callbacks: Array<() => void> = []; // registered by .then()
+
+							resolve(value: T) {
+								this.settle('resolved', value);
+							}
+
+							reject(reason: unknown) {
+								this.settle('rejected', reason);
+							}
+
+							private settle(state: 'resolved' | 'rejected', value: unknown) {
+								this.state = state;
+								this.value = value as T;
+								for (const callback of this.callbacks) callback();
+							}
+							
+							// For example's sake this is missing \`constructor\`, \`then\`, etc.
+						}
+					`}
+				</Highlighter>
+				<p>
+					Sadly, this implementation lacks an important difference between how resolving and
+					rejecting work.
 				</p>
 				<p>
-					<code>reject(reason)</code> marks the promise rejected with <code>reason</code>. It does
-					not look at <code>reason</code> and it does not wait.
+					Let's start with rejections. Rejecting a promise is simple! Calling{' '}
+					<code>reject(reason)</code> will mark the promise as rejected, with <code>reason</code> as
+					the rejected value. Excellent. Our <code>MediocrePromise</code> implements rejections
+					correctly!
 				</p>
 				<p>
-					<code>resolve(value)</code> settles the promise using <code>value</code>. If{' '}
-					<code>value</code> is not a thenable, the promise is fulfilled with it. If{' '}
-					<code>value</code> is a promise, or any object with a <code>.then</code> method,{' '}
-					<code>value</code> is not the answer yet. It is another box with the answer inside.{' '}
-					<code>resolve</code> waits for <code>value</code> to settle and copies the result, whether
-					that is a value or a rejection.
+					Resolving is more complex. Calling <code>resolve(value)</code> does <i>not</i> store{' '}
+					<code>value</code> straight away. First, it checks whether <code>value</code> has a{' '}
+					<code>.then()</code> method. If it <b>does not</b> (e.g. a number, a string, an object
+					without one, ..) then the promise is fulfilled with <code>value</code>. Otherwise, if{' '}
+					<code>value</code> <b>does</b> have a <code>.then()</code> method, then <code>value</code>{' '}
+					is treated like <i>another</i> promise. Our original promise is <i>not</i> settled yet and
+					instead <code>resolve</code> passes itself and the reject function to{' '}
+					<code>value.then()</code>, and whichever of those <code>value.then()</code>{' '}
+					<i>eventually</i> calls is what settles the promise. Sorry, that was a mouthful. There's a
+					diagram in a sec to explain. Bear with me.
 				</p>
 				<p>
-					The asymmetry exists because a reason is never pending. When something fails you already
-					have the failure. A value can arrive later, so the waiting happens on the{' '}
-					<code>resolve</code> side. JavaScript has no <code>fulfil</code> function: there is no way
-					to say that the value of a promise is another promise.
+					This asymmetry exists because a failure is not a pending operation. When something fails
+					then it has <i>already</i> failed. We are not expecting the failure in the future, because
+					it just happened. <b>We already have the failure!</b> So you already have the reason in
+					your code (presumably an error) and so you can call <code>reject()</code> immediately. On
+					the other side, a useful value can arrive later, for example waiting for a request stream
+					to finish so we could turn the body into JSON, so the waiting only ever happens on the{' '}
+					<code>resolve</code> side.
 				</p>
 				<p>
-					The spec calls what <code>resolve</code> does the resolve procedure (
+					The <code>resolve</code> function{' '}
 					<ExternalLink href="https://tc39.es/ecma262/#sec-promise-resolve-functions">
-						Promise Resolve Functions
-					</ExternalLink>
-					). To find out whether <code>value</code> has a <code>.then</code>, it reads{' '}
-					<code>value.then</code>. A property read can run a getter, and a getter can throw, so the
-					read has three possible results:
+						is defined in the spec
+					</ExternalLink>{' '}
+					as the <b>resolve procedure</b>. To find out whether <code>value</code> has a{' '}
+					<code>.then</code>, it reads <code>value.then</code>, and doing property read can run any
+					getters, and a getter can throw (just like in our program at the beginning). So, looking
+					for the <code>then()</code> method on a value can result in three possible states:
 				</p>
 				<ResolveFlow />
+
+				<p>Our MediocrePromise is missing the extra check and additional behaviour!</p>
+
 				<p>
-					If <code>value.then</code> is a function, the spec calls <code>value</code> a thenable,
-					and the promise does not take <code>value</code> as its value. It calls{' '}
-					<code>value.then(resolve, reject)</code> and lets <code>value</code> decide. An object
-					that is not a promise, only something with a <code>then</code> method, works everywhere a
-					promise would:
+					In the path where <code>value.then</code> is a function, the spec considers{' '}
+					<code>value</code> to be a <b>thenable</b>. Thus, Promises are also thenables because they
+					have a <code>.then()</code> method. A regular object that is <i>not</i> a promise but does
+					have a <code>.then()</code> method is also a thenable, just like a promise is, and so it
+					works everywhere a promise would. For example:
 				</p>
 				<Highlighter language="javascript">
 					{stripIndent`
-						// not a promise, just an object with a then method
+						// \`thenable\` is not a promise!
 						const thenable = {
-							then(resolve) {
-								resolve(42);
+							then(resolve, _reject) { // \`resolve(thenable)\` will pass resolve
+								resolve(42);           // *and* reject to the \`.then()\`, so we accept both
 							},
 						};
 
@@ -161,9 +228,13 @@ export class Railways extends Post {
 					`}
 				</Highlighter>
 				<p>
-					The spec calls this assimilation. Below it is called flattening: a promise of a promise
-					becomes a promise.
+					The spec calls this process of passing the resolve/reject pair to a thenable{' '}
+					<i>"assimilation"</i>. Perhaps friendlier term for this behaviour might be "flattening"
+					because instead of resolving with the inner promise, we just wait for it instead, it got
+					"flattened" because we moved where we are waiting.
 				</p>
+
+				<p>A promise of a promise flattens to only one promise.</p>
 
 				<h2>The job</h2>
 				<p>
@@ -295,8 +366,9 @@ export class Railways extends Post {
 
 				<h2>A promise can't carry a promise</h2>
 				<p>
-					<code>Promise&lt;Promise&lt;T&gt;&gt;</code> cannot be constructed. Every way of making a
-					promise's value a promise goes through the resolve procedure, which flattens it.
+					<code>Promise&lt;Promise&lt;T&gt;&gt;</code> cannot be constructed. JavaScript gives you{' '}
+					<code>resolve</code> and never <code>fulfil</code>, so every way of setting a promise's
+					value goes through the resolve procedure, which flattens it.
 				</p>
 				<Highlighter language="javascript">
 					{stripIndent`
