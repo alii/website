@@ -672,7 +672,13 @@ export class Railways extends Post {
 					's <code>ResultAsync</code>.
 				</p>
 				<h2>So are promises train tracks?</h2>
-				<p>Well, uh, no. Sorry. That question doesn't even really make sense.</p>
+				<p>Well, uh, no. Sorry. That question doesn't even really make sense. My fault.</p>
+				<p>
+					A promise does have two tracks, but it's impossible to type the failure track and since
+					promises are always flattened [todo]. In comparison, a <code>Result</code> has both its
+					well-known failure type, and the ability to hold another <code>Result</code>, with{' '}
+					<code>bind</code> removing a layer only when you ask it to.
+				</p>
 
 				<p>
 					With the two steps in the right order in JavaScriptCore, Bun 1.4 and Safari 27 now behave
