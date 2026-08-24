@@ -1,32 +1,28 @@
 import {stripIndent} from 'common-tags';
-// import Link from 'next/link';
-// import {Carried} from '../../../components/diagrams/carried';
-// import {JobOrder} from '../../../components/diagrams/job-order';
-// import {Railway} from '../../../components/diagrams/railway';
+import {JobOrder} from '../../../components/diagrams/job-order';
+import {Railway} from '../../../components/diagrams/railway';
 import {ResolveFlow} from '../../../components/diagrams/resolve-flow';
-// import {Trace} from '../../../components/diagrams/trace';
+import {Trace} from '../../../components/diagrams/trace';
 import {ExternalLink} from '../../../components/external-link';
 import {SafariConsole} from '../../../components/safari-console';
 import {Highlighter} from '../../../components/syntax-highligher';
 import {Terminal} from '../../../components/terminal';
 import {Post} from '../../Post';
 
-const demo = stripIndent`
-	const p = Promise.resolve(1);
-	p.constructor = {
-		get [Symbol.species]() {
-			throw new Error("boom");
-		},
-	};
+const demo = `const p = Promise.resolve(1);
+p.constructor = {
+	get [Symbol.species]() {
+		throw new Error("boom");
+	},
+};
 
-	console.log("before");
-	await p;
-	console.log("done");
-`;
+console.log("before");
+await p;
+console.log("done");`;
 
 export class Railways extends Post {
 	public name = 'Fixing a WebKit bug to explain railways';
-	public slug = 'railways';
+	public slug = 'webkit-railways';
 	public date = new Date('23 Aug 2026');
 	public hidden = true;
 	public keywords = [
@@ -38,7 +34,7 @@ export class Railways extends Post {
 		'gleam',
 		'typescript',
 	];
-	public excerpt = 'How JavaScript promises settle using train tracks as an example';
+	public excerpt = 'An in-depth guide to JavaScript promises';
 
 	public render() {
 		return (
@@ -48,8 +44,8 @@ export class Railways extends Post {
 					{demo}
 				</Highlighter>
 				<p>
-					Don't worry if you don't understand what's going on. The spec says that, because the
-					getter throws, <code>await p</code> should also throw, then the program should crash.
+					Don't worry if you don't understand this code yet. The spec says that because the getter
+					throws, then <code>await p</code> should also throw, and so the program should crash.
 					Node.js does, but Safari 26 and Bun 1.3.14 print <code>'before'</code>, report the error,
 					and then never finish.
 				</p>
@@ -131,7 +127,7 @@ export class Railways extends Post {
 				</p>
 				<p>
 					Many folks think of a promise as a value that can end in two ways - resolved with a value
-					or rejected with a reason. This is a reasonable mental model since it maps pretty closely
+					or rejected with a reason. This is a reasonable approximation since it maps pretty closely
 					to how using promises actually feel when writing JavaScript day-to-day. Therefore, a naive
 					implementation of a promise might look like this:
 				</p>
@@ -143,7 +139,7 @@ export class Railways extends Post {
 							| {type: 'rejected', value: unknown};
 
 						class MediocrePromise<T> {
-							private state: PromiseState<T>
+							private state: PromiseState<T> = {type: 'pending'};
 							private callbacks: Array<() => void> = []; // registered by .then()
 
 							private resolve(value: T) {
@@ -151,14 +147,14 @@ export class Railways extends Post {
 							}
 
 							private reject(reason: unknown) {
-								this.settle({type: 'resolved', reason});
+								this.settle({type: 'rejected', value: reason});
 							}
 
-							private settle(state: 'resolved' | 'rejected', value: unknown) {
+							private settle(state: PromiseState<T>) {
 								this.state = state;
 								for (const callback of this.callbacks) callback();
 							}
-							
+
 							// For example's sake this is missing \`constructor\`, \`then\`, etc.
 						}
 					`}
@@ -207,14 +203,12 @@ export class Railways extends Post {
 					for the <code>then()</code> method on a value can result in three possible outcomes:
 				</p>
 				<ResolveFlow />
-
 				<p>Our MediocrePromise is missing the extra check and additional behaviour!</p>
-
 				<p>
 					In the path where <code>value.then</code> is a function, the spec considers{' '}
 					<code>value</code> to be a <b>thenable</b>. Promises are thenables, since they have a{' '}
 					<code>.then()</code> method. Anything else with a <code>.then()</code> method is one too,
-					and works everywhere a promise would. For example:
+					and work everywhere a promise would. For example:
 				</p>
 				<Highlighter language="javascript">
 					{stripIndent`
@@ -242,16 +236,18 @@ export class Railways extends Post {
 					holding the inner promise as its value, the outer promise waits for it, so two layers
 					become one.
 				</p>
-
 				<p>A promise of a promise flattens to only one promise.</p>
-
-				{/* <h2>The job</h2>
+				<h2>The job</h2>
+				<p>As a reminder, here's that diagram again:</p>
+				<ResolveFlow />
 				<p>
-					The job queued on that branch is{' '}
+					In the path on the right, where <code>value.then</code> is a function, the engine does not
+					call the <code>.then()</code> immediately. Instead, the engine queues a job, which we call
+					a microtask. The spec names this particular job a{' '}
 					<ExternalLink href="https://tc39.es/ecma262/#sec-newpromiseresolvethenablejob">
 						<code>NewPromiseResolveThenableJob</code>
-					</ExternalLink>
-					:
+					</ExternalLink>{' '}
+					and it is defined as follows:
 				</p>
 				<blockquote>
 					<p>
@@ -268,77 +264,97 @@ export class Railways extends Post {
 						<i>resolvingFunctions</i>.[[Reject]], undefined, « <i>thenCallResult</i>.[[Value]] »).
 					</p>
 				</blockquote>
+				<p>Sorry, that's another mouthful. Let me translate:</p>
+				<ol type="a">
+					<li>Create a new resolve/reject function pair</li>
+					<li>
+						Call the thenable's <code>.then(resolve, reject)</code> function (with the newly created
+						resolve/reject functions)
+					</li>
+					<li>
+						If calling <code>.then()</code> throws, reject the promise with whatever was thrown
+					</li>
+				</ol>
 				<p>
-					In English: create a resolve/reject pair for the promise, call the thenable's{' '}
-					<code>then</code> with them, and if calling <code>then</code> throws, reject the promise
-					with what was thrown.
-				</p>
-				<p>
-					<code>then</code> is whatever the thenable provides. Even the real{' '}
-					<code>Promise.prototype.then</code> does work before it looks at its arguments: it runs{' '}
+					Remember that <code>.then</code> is just whatever the thenable gave us. Even the real{' '}
+					<code>Promise.prototype.then</code> does a bit of work before it looks at its arguments:
+					it runs{' '}
 					<ExternalLink href="https://tc39.es/ecma262/#sec-speciesconstructor">
 						<code>SpeciesConstructor</code>
 					</ExternalLink>
 					, which reads <code>this.constructor</code> and then{' '}
-					<code>constructor[Symbol.species]</code> to decide which constructor to use for the new
-					promise. Both are property reads, so both can run getters that throw.
+					<code>constructor[Symbol.species]</code> to work out which constructor to build the new
+					promise with. Both of those are property reads and, as we now know, property reads can run
+					getters, and getters can throw.
 				</p>
 				<p>
-					In the program above, <code>p.constructor[Symbol.species]</code> is a getter that throws.{' '}
-					<code>p.then(resolve, reject)</code> throws before it reaches either argument, step c
-					catches it, and the promise is rejected with <code>boom</code>. That is the Node output.
+					That is precisely what our program at the beginning does! <code>p.constructor</code> has a{' '}
+					<code>[Symbol.species]</code> getter that throws, so <code>p.then(resolve, reject)</code>{' '}
+					throws before it ever reaches its arguments. Step c of the{' '}
+					<code>NewPromiseResolveThenableJob</code> is designed to catch and reject our promise with{' '}
+					<code>boom</code>. That's the spec-correct behaviour we saw in V8/Node.js.
 				</p>
+				<p>So why did JavaScriptCore get this wrong?</p>
 				<p>
-					JavaScriptCore had a fast path for the case where the thenable is a real promise. It did
-					the species lookup first and created the resolving functions afterwards. When the lookup
-					threw there were no resolving functions yet, so there was nothing to reject with. The
-					exception left the job, which is the <code>Error: boom</code> in the inspector, and the
-					promise stayed pending.
+					JavaScriptCore had a fast path for the most-common case where the thenable is a real,
+					normal promise, and that fast path did the species lookup <i>first</i>, only creating the
+					resolve/reject functions afterwards. When the lookup threw, the resolving functions didn't
+					exist yet, so there was nothing to reject with. The exception escaped the job entirely
+					(that's the red <code>Error: boom</code> in the inspector) and our promise stayed pending
+					forever.
 				</p>
 				<JobOrder />
 				<p>
-					The fix is to do step a before step b. Creating the resolving functions is an allocation
-					and cannot throw, and once they exist the function's error handling rejects the promise
-					like any other failure.
+					Luckily, the fix is simple, and might already be obvious to you! We must create our
+					resolve/reject functions before calling <code>.then()</code>, so that we actually have the
+					abililty to reject the promise if calling <code>.then()</code> throws. Creating the
+					resolving functions is just an allocation and allocations can't throw, and once the
+					functions exist then the existing error handling rejects the promise like any other
+					failure.
 				</p>
-
 				<h2>Railways</h2>
 				<p>
 					Scott Wlaschin's{' '}
 					<ExternalLink href="https://fsharpforfunandprofit.com/rop/">
 						Railway Oriented Programming
 					</ExternalLink>{' '}
-					draws a function that can fail as a piece of track with one input and two outputs, a
-					success track and a failure track.
+					draws any step that can fail as a piece of track with one input and two outputs: a success
+					track and a failure track.
 				</p>
-				<Railway input="request" steps={['validate']} success="success" failure="failure" />
+				<Railway input="request" steps={['validate()']} success="success" failure="failure" />
 				<p>
-					Once something is on the failure track it stays there, past every later step, until
-					something at the end handles it. Joining two pieces is one operation, <code>bind</code>{' '}
-					(Rust's <code>and_then</code>, or the <code>?</code> operator), and the result has the
-					same shape as the pieces.
+					Each chunk of the railway is a function returning a <code>Result</code>. Most
+					implementations of a <code>Result</code> type will accept <b>two type parameters</b>, the
+					success type and the failure type, one per track. In Rust you could imagine this
+					function's signature being:
+				</p>
+				<Highlighter language="rust">
+					fn validate(request: Request) -&gt; Result&lt;Request, ValidationError&gt;
+				</Highlighter>
+				<p>
+					The <code>Result</code> type enforces this: <code>validate</code>'s failure track can only
+					ever carry a <code>ValidationError</code>.
+				</p>
+				<p>
+					Once something is on the failure track it stays there, skipping every later step, until
+					something at the end deals with the result. You might join two pieces with one operation
+					(Wlaschin calls this <code>bind</code> - not to be confused with JavaScript's{' '}
+					<code>fn.bind()</code> method). Rust folks might know this joining operation as{' '}
+					<code>and_then</code>, or the <code>?</code> operator. The result has the same shape as
+					the pieces, so you can keep joining.
 				</p>
 				<Railway
 					input="request"
-					steps={['validate', 'update', 'send']}
+					steps={['validate()', 'update()', 'send()']}
 					success="success"
 					failure="failure"
 					train={1}
 				/>
 				<p>
-					Both tracks are typed. In Rust the function above is{' '}
-					<code>fn validate(request: Request) -&gt; Result&lt;Request, ValidationError&gt;</code>:
-					the failure track says what can travel on it.
+					Promises kinda look a lot like this! There's a resolve track and a reject track, and{' '}
+					<code>.then(onResolved, onRejected)</code> is the switch between them.
 				</p>
-				<p>
-					A promise has a fulfil track and a reject track, and{' '}
-					<code>.then(onFulfilled, onRejected)</code> switches between them (
-					<ExternalLink href="https://hallski.org/blog/rop-with-promises">
-						Hallendal maps one onto the other
-					</ExternalLink>
-					).
-				</p>
-
+				<p>So is a promise a railway?</p>
 				<h2>A promise's failure track has no label</h2>
 				<Highlighter language="typescript">
 					{stripIndent`
@@ -346,44 +362,50 @@ export class Railways extends Post {
 					`}
 				</Highlighter>
 				<p>
-					<code>Promise&lt;T&gt;</code> has one type parameter. There is no error type, and{' '}
-					<code>.catch</code> gives you <code>reason: any</code>. <code>Promise&lt;T, E&gt;</code>{' '}
-					has been requested since{' '}
+					In TypeScript, the <code>Promise&lt;T&gt;</code> interface has exactly one type parameter.
+					There is no error type, and <code>.catch()</code> hands you <code>reason: any</code>.
+					People have been asking for this <code>Promise&lt;T, E&gt;</code> since{' '}
 					<ExternalLink href="https://github.com/microsoft/TypeScript/issues/6283">
 						2015
 					</ExternalLink>
-					; the issue was closed as working as intended:
+					!
 				</p>
+				<p>Ron Buckton, who used to work on TypeScript at Microsoft, closed this issue and said:</p>
 				<blockquote>
 					<p>we cannot guarantee the correct type of the exception at design time.</p>
 				</blockquote>
 				<p>
-					The reason is more specific than "JavaScript can throw anything". The resolve procedure
-					reads <code>value.then</code>, and calling <code>then</code> runs{' '}
-					<code>SpeciesConstructor</code>, two more property reads. Any of those reads can run a
-					getter that throws, and when one does, the runtime rejects the promise with whatever was
-					thrown. None of those values come from the code awaiting the promise. The reject track is{' '}
-					<code>any</code> because the spec puts arbitrary values on it.
+					Which is true, but the real reason is more specific than "JavaScript can throw anything".
 				</p>
+				Recall that the resolve procedure first looks for <code>value.then</code> and calls if it
+				exists, and that calling <code>then</code> on a promise runs the{' '}
+				<code>SpeciesConstructor</code>, which is two more property reads. Any of those reads can
+				hit a getter that throws, and so when one of them does, the runtime rejects <i>your</i>{' '}
+				promise with whatever came out of that. None of those thrown values came from your code! So,
+				concretely, the reason there is no <code>Promise&lt;T, E&gt;</code> is because the spec
+				itself might but arbitrary values on your rejection. To turn this into context of our
+				railway - the reason the failure track is typed as <code>any</code> is because we cannot
+				actually safely know at runtime what a promise will reject with, even if{' '}
+				<code>reject()</code> is only ever called with a specific value in userland code.
 				<Railway
 					input="resolve(value)"
 					steps={['read value.then', 'call value.then']}
 					success="T"
-					failure="any"
+					failure="anything!?!?"
 					untypedFailure
 				/>
-
+				<p>Phew, that was yet another mouthful.</p>
 				<h2>A promise can't carry a promise</h2>
 				<p>
-					<code>Promise&lt;Promise&lt;T&gt;&gt;</code> cannot be constructed. JavaScript gives you{' '}
-					<code>resolve</code> and never <code>fulfil</code>, so every way of setting a promise's
-					value goes through the resolve procedure, which flattens it.
+					We touched on this earlier, but to reiterate: <code>Promise&lt;Promise&lt;T&gt;&gt;</code>{' '}
+					cannot be constructed. Remember, if you resolve a promise with another promise, we just
+					wait for that second promise instead. Here's an example to drill it in:
 				</p>
 				<Highlighter language="javascript">
 					{stripIndent`
 						const inner = new Promise(resolve => resolve(42));
 						const outer = new Promise(resolve => resolve(inner));
-						const v = await outer; // 42, not a promise
+						const v = await outer; // we got 42, not the inner promise
 					`}
 				</Highlighter>
 				<p>
@@ -398,36 +420,38 @@ export class Railways extends Post {
 					]}
 				/>
 				<p>
-					TypeScript models this. Since 4.5,{' '}
+					Since typescript@4.5 there's the{' '}
 					<ExternalLink href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-5/#the-awaited-type-and-promise-improvements">
 						<code>Awaited&lt;T&gt;</code>
 					</ExternalLink>{' '}
-					models "the way that <code>await</code> and <code>.then</code> recursively unwrap
-					Promises": <code>Awaited&lt;Promise&lt;Promise&lt;number&gt;&gt;&gt;</code> is{' '}
+					type, which the release notes describe as modelling "the way that <code>await</code> and{' '}
+					<code>.then</code> recursively unwrap Promises" - so{' '}
+					<code>Awaited&lt;Promise&lt;Promise&lt;number&gt;&gt;&gt;</code> is just{' '}
 					<code>number</code>.
 				</p>
-				<p>
-					<code>Promise</code> can hold anything except another promise. A generic{' '}
-					<code>Channel&lt;T&gt;</code> or <code>Cache&lt;T&gt;</code> built on promises{' '}
+				{/* <p>
+					This means a <code>Promise</code> can hold anything <i>except</i> another promise. If you
+					build a generic <code>Channel&lt;T&gt;</code> or <code>Cache&lt;T&gt;</code> on top of
+					promises and someone instantiates it with a promise type,{' '}
 					<ExternalLink href="https://eighty-twenty.org/2024/01/24/more-pitfalls-of-js-promises">
-						breaks at runtime
-					</ExternalLink>{' '}
-					when <code>T</code> is a promise type. It is also why{' '}
+						it breaks at runtime
+					</ExternalLink>
+					, far away from the generic code. It's also the precise reason people say{' '}
 					<ExternalLink href="https://rybicki.io/blog/2023/12/23/promises-arent-monads.html">
 						promises are not monads
 					</ExternalLink>
-					: the operation that puts a value in the box fails for one kind of value.
+					: the operation that puts a value in the box doesn't work for one kind of value.
 				</p>
-
 				<h2>Why flattening exists</h2>
 				<p>
-					In 2013 jQuery's Deferreds, Q, Bluebird and when.js each had their own promise, and the
-					one thing they shared was a <code>.then</code> method. The{' '}
+					Back in 2013 there were several competing promise libraries: jQuery's Deferreds, Q,
+					Bluebird, when.js, and more. The one thing they all had in common was a{' '}
+					<code>.then()</code> method. The{' '}
 					<ExternalLink href="https://promisesaplus.com/#the-promise-resolution-procedure">
 						Promises/A+ resolution procedure
 					</ExternalLink>{' '}
-					made anything with a <code>.then</code> get followed, so the libraries could interoperate.
-					The discussion is in{' '}
+					was the compromise that let them interoperate: anything with a <code>.then()</code> gets
+					followed. You can still read the arguments in{' '}
 					<ExternalLink href="https://esdiscuss.org/topic/a-challenge-problem-for-promise-designers-was-re-futures">
 						the es-discuss thread
 					</ExternalLink>
@@ -439,15 +463,14 @@ export class Railways extends Post {
 					<ExternalLink href="https://github.com/domenic/promises-unwrapping/issues/54">
 						promises-unwrapping #54
 					</ExternalLink>
-					, the repository that became the spec text.
+					, the repository that eventually became the spec text.
 				</p>
 				<p>
-					The cost is that <code>.then</code> does two jobs, map and flatMap, and chooses between
-					them at runtime by inspecting the return value. That inspection is the{' '}
-					<code>Get(value, "then")</code> in the resolve procedure. It runs on every resolve, it is
-					observable, and it can throw.
+					The cost of that compromise is that <code>.then()</code> does two jobs, map and flatMap,
+					and decides which one at runtime by inspecting your return value. That inspection is the{' '}
+					<code>Get(value, "then")</code> in the resolve procedure. It runs on every single resolve,
+					it's observable, and it can throw.
 				</p>
-
 				<h2>What a typed language does about it</h2>
 				<p>
 					I write a lot of <ExternalLink href="https://gleam.run/">Gleam</ExternalLink>. It is a
@@ -469,11 +492,13 @@ export class Railways extends Post {
 					`}
 				</Highlighter>
 				<p>
-					The doc comment: it is "not generic over the error type as any Gleam panic or JavaScript
-					exception could alter the error value", which would make it "unsound and untypable".
+					The doc comment says why: it's "not generic over the error type as any Gleam panic or
+					JavaScript exception could alter the error value", which would make it "unsound and
+					untypable". In other words, the failure track is left unlabelled on purpose.
 				</p>
 				<p>
-					There is no <code>then</code>. The JavaScript method is split into the two things it does:
+					There's also no <code>then</code>. JavaScript's one method is split into the two jobs it
+					secretly does:
 				</p>
 				<Highlighter language="gleam">
 					{stripIndent`
@@ -482,10 +507,10 @@ export class Railways extends Post {
 					`}
 				</Highlighter>
 				<p>
-					<code>map</code> never flattens and <code>await</code> flattens exactly once. Both call{' '}
-					<code>.then</code>. The type checker can only trust <code>map</code> if the runtime does
-					not flatten, and the runtime flattens anything with a <code>.then</code>, so the FFI hides
-					the promise:
+					<code>map</code> promises never to flatten, and <code>await</code> promises to flatten
+					exactly once. Underneath, both call <code>.then()</code>. But the type checker can only
+					trust <code>map</code> if the runtime really doesn't flatten, and we know the runtime will
+					flatten anything with a <code>.then()</code>. So the FFI hides the promise:
 				</p>
 				<Highlighter filename="gleam_javascript_ffi.mjs" language="javascript">
 					{stripIndent`
@@ -505,12 +530,13 @@ export class Railways extends Post {
 					]}
 				/>
 				<p>
-					A promise returned from a <code>map</code> callback is wrapped in an object with no{' '}
-					<code>.then</code>. The resolve procedure fulfils with the wrapper, and the wrapper is
-					removed on the other side.
+					If your callback returns a promise and you used <code>map</code>, the promise gets wrapped
+					in an object with no <code>.then()</code>. The resolve procedure sees an ordinary object
+					and fulfils with it, and the wrapper is unwrapped again on the other side.
 				</p>
 				<p>
-					The reject track cannot be typed, so the <code>Result</code> goes on the fulfil track:
+					The reject track can't be typed, so instead the <code>Result</code> goes on the fulfil
+					track:
 				</p>
 				<Highlighter language="gleam">
 					{stripIndent`
@@ -523,9 +549,9 @@ export class Railways extends Post {
 				<Carried />
 				<p>
 					<code>Promise(Result(a, e))</code> is a one-track promise carrying a two-track value. The
-					promise's own reject track still exists and is still <code>any</code>; it is only used for
-					panics. <code>try_await</code> is <code>bind</code>, and with <code>use</code> a chain of
-					them reads as straight-line code:
+					promise's own reject track is still there, and still <code>any</code>, but now it's only
+					used for panics. <code>try_await</code> is <code>bind</code>, and with Gleam's{' '}
+					<code>use</code> syntax a chain of them reads like normal straight-line code:
 				</p>
 				<Highlighter filename="src/app.gleam" language="gleam">
 					{stripIndent`
@@ -537,30 +563,31 @@ export class Railways extends Post {
 					`}
 				</Highlighter>
 				<p>
-					Every line can fail, every failure has a type, and nothing touches <code>.catch</code>. In
-					TypeScript the same shape is <code>Promise&lt;Result&lt;T, E&gt;&gt;</code>, or{' '}
+					Every line can fail, every failure has a type, and nothing ever touches{' '}
+					<code>.catch()</code>. You can do the same in TypeScript with{' '}
+					<code>Promise&lt;Result&lt;T, E&gt;&gt;</code>, or with{' '}
 					<ExternalLink href="https://github.com/supermacro/neverthrow">neverthrow</ExternalLink>
 					's <code>ResultAsync</code>.
 				</p>
-
 				<h2>Back to the bug</h2>
 				<p>
-					JavaScriptCore read <code>constructor[Symbol.species]</code> before it had created the
-					functions that could reject the promise. The getter threw, and step c was not there to
-					catch it. The spec's order, resolving functions first and then the call that can throw,
-					guarantees the failure track exists before anything can be put on it. The result of
-					breaking that order was not a crash or a wrong answer but a promise that is never
-					fulfilled or rejected.
+					So: JavaScriptCore read <code>constructor[Symbol.species]</code> before it had created the
+					functions that could reject the promise. The getter threw, and step c wasn't there yet to
+					catch it. The spec's order, resolving functions first and <i>then</i> the call that can
+					throw, guarantees the failure track exists before anything can be put on it.
+					JavaScriptCore broke that order, and the result wasn't a crash or a wrong answer. It was a
+					promise that is never fulfilled or rejected.
 				</p>
 				<p>
-					test262 had tests for a <code>then</code> getter that throws and for a custom{' '}
-					<code>then</code> that resolves, but{' '}
+					It had also never been tested. test262 had tests for a <code>then</code> getter that
+					throws, and for a custom <code>then</code> that resolves, but none for <code>then</code>{' '}
+					itself throwing. Step c was untested, so{' '}
 					<ExternalLink href="https://github.com/tc39/test262/pull/5078">
-						none for <code>then</code> itself throwing
+						I added those tests too
 					</ExternalLink>
-					. Step c was untested.
+					.
 				</p>
-				<p>With the two steps in the right order, Bun 1.4 and Safari 27 match Node:</p>
+				<p>With the two steps in the right order, Bun 1.4 and Safari 27 behave like Node:</p>
 				<figure className="not-prose my-8 md:max-w-[50%]">
 					<Terminal
 						title="bun 1.4"
@@ -575,23 +602,23 @@ export class Railways extends Post {
 				<h2>tl;dr</h2>
 				<ul>
 					<li>
-						<code>resolve(value)</code> does not mean fulfil with <code>value</code>. If{' '}
-						<code>value</code> has a <code>.then</code>, the promise follows <code>value</code>.
-						That is flattening, and it is why <code>await</code> works.
+						<code>resolve(value)</code> does not mean "fulfil with <code>value</code>". If{' '}
+						<code>value</code> has a <code>.then()</code>, the promise follows <code>value</code>{' '}
+						instead. That's flattening, and it's why <code>await</code> works at all.
 					</li>
 					<li>
 						Flattening is why <code>Promise&lt;T&gt;</code> has no error type: resolving reads
-						properties on an object the awaiting code does not control, and any of them can throw
-						onto the reject track.
+						properties on an object you don't control, and any of them can throw onto your reject
+						track.
 					</li>
 					<li>
-						Flattening is why <code>Promise&lt;Promise&lt;T&gt;&gt;</code> cannot exist, why{' '}
+						Flattening is why <code>Promise&lt;Promise&lt;T&gt;&gt;</code> can't exist, why{' '}
 						<code>Awaited&lt;T&gt;</code> is recursive, and why promises are not monads.
 					</li>
 					<li>
-						Railway oriented programming needs both tracks typed. Promises give you one. Put a{' '}
-						<code>Result</code> on the fulfil track: <code>Promise(Result(a, e))</code> in Gleam,{' '}
-						<code>Promise&lt;Result&lt;T, E&gt;&gt;</code> in TypeScript.
+						Railway oriented programming needs both tracks typed. Promises only give you one. Put a{' '}
+						<code>Result</code> on the fulfil track instead: <code>Promise(Result(a, e))</code> in
+						Gleam, <code>Promise&lt;Result&lt;T, E&gt;&gt;</code> in TypeScript.
 					</li>
 					<li>
 						The bug: JavaScriptCore did the step that can throw before building the failure track.

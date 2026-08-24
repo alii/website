@@ -17,6 +17,7 @@ import html from 'shiki/langs/html.mjs';
 import javascript from 'shiki/langs/javascript.mjs';
 import json from 'shiki/langs/json.mjs';
 import markdown from 'shiki/langs/markdown.mjs';
+import rust from 'shiki/langs/rust.mjs';
 import typescript from 'shiki/langs/typescript.mjs';
 import {paperDark, paperLight} from './shiki-themes';
 
@@ -25,11 +26,11 @@ const highlighter = ((
 ).__shikiHighlighter ??= createHighlighterCoreSync({
 	engine: createJavaScriptRegexEngine({forgiving: true}),
 	themes: [paperLight, paperDark],
-	langs: [typescript, javascript, bash, json, css, html, markdown, gleam],
+	langs: [typescript, javascript, bash, json, css, html, markdown, gleam, rust],
 }));
 
 type Language =
-	'typescript' | 'javascript' | 'bash' | 'json' | 'css' | 'html' | 'markdown' | 'gleam';
+	'typescript' | 'javascript' | 'bash' | 'json' | 'css' | 'html' | 'markdown' | 'gleam' | 'rust';
 
 export function Shell({
 	children,
