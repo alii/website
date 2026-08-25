@@ -175,25 +175,14 @@ export class Railways extends Post {
 					Resolving is more complex. Calling <code>resolve(value)</code> does <i>not</i> store{' '}
 					<code>value</code> straight away. First, it checks whether <code>value</code> has a{' '}
 					<code>.then()</code> method. If it <b>doesn't</b> (e.g. a number, a string, an object
-					without one, ..) then the promise is <b>fulfilled</b> with <code>value</code> and we are
-					done. Otherwise, if <code>value</code> <b>does</b> have a <code>.then()</code> method,
-					then <code>value</code> is treated like <i>another</i> promise. Our original promise is{' '}
-					<i>not</i> settled yet and, instead, <code>resolve</code> calls <code>value.then()</code>{' '}
-					with itself and the reject function: <code>value.then(resolve, reject)</code>. Whichever
-					of those <code>value.then()</code> <i>eventually</i> calls is what settles the promise.
-					Sorry, that was a mouthful. There's a diagram in a sec to explain. Bear with me.
+					without one, ..) the promise is <b>fulfilled</b> with <code>value</code> and we are done.
+					Otherwise, if it <b>does</b>, <code>value</code> is treated like <i>another</i> promise.
+					Our original promise is <i>not</i> settled yet. Instead, <code>resolve</code> passes
+					itself and the reject function to <code>value.then(resolve, reject)</code>, and whichever
+					of those two <code>value.then()</code> <i>eventually</i> calls is what settles the
+					promise. Sorry, that was a mouthful. There's a diagram in a sec to explain. Bear with me.
 				</p>
-				<p>
-					This asymmetry exists because{' '}
-					<i>
-						<b>a failure is not a pending operation</b>
-					</i>
-					. When something fails, you <b>already</b> have the reason in your code! (presumably an
-					error). So you can call <code>reject(reason)</code> immediately. This is, of course, not
-					the case for resolving, where a useful value might arrive later. For example a common case
-					is waiting for a request stream to finish so we can turn the body into JSON. This is why
-					the extra behaviour is only implemented in <code>resolve</code>.
-				</p>
+				<ResolveFlow />
 				<p>
 					The <code>resolve</code> function{' '}
 					<ExternalLink href="https://tc39.es/ecma262/#sec-promise-resolve-functions">
@@ -201,11 +190,29 @@ export class Railways extends Post {
 					</ExternalLink>{' '}
 					as the <b>resolve procedure</b>. To find out whether <code>value</code> has a{' '}
 					<code>.then</code>, it reads <code>value.then</code>, and a property read can run a
-					getter, and a getter can throw (just like in our program at the beginning). So, looking
-					for the <code>then()</code> method on a value can result in three possible outcomes:
+					getter, and a getter can throw (just like in our program at the beginning).
 				</p>
-				<ResolveFlow />
 				<p>Our MediocrePromise is missing the extra check and additional behaviour!</p>
+
+				<p>
+					This asymmetry exists because{' '}
+					<i>
+						<b>a failure is not a pending operation</b>
+					</i>
+					. When something fails, you <b>already</b> have the reason in your code! (presumably an
+					error). So you can call <code>reject(reason)</code> immediately. This is, of course, not
+					the case for resolving, where a useful value might arrive later:
+				</p>
+				<Highlighter language="javascript">
+					{stripIndent`
+						reject(new Error("bad request")); // the reason is right here
+						resolve(response.json());         // the body is still arriving
+					`}
+				</Highlighter>
+				<p>
+					This is why the extra behaviour is only implemented in <code>resolve</code>.
+				</p>
+
 				<p>
 					In the path where <code>value.then</code> is a function, the spec considers{' '}
 					<code>value</code> to be a <b>thenable</b>. Promises are thenables, since they have a{' '}
@@ -253,105 +260,6 @@ export class Railways extends Post {
 					Here, <code>outer</code> was resolved, but it stays pending forever because{' '}
 					<code>inner</code> never settles. MediocrePromise's <code>resolved</code> state was
 					actually the spec's definition of fulfilled.
-				</p>
-				<h2>The job</h2>
-				<p>As a reminder, here's that diagram again:</p>
-				<ResolveFlow />
-				<p>
-					In the path on the right, where <code>value.then</code> is a function, the engine does not
-					call the <code>.then()</code> immediately. Instead, the engine queues a job, which we call
-					a microtask. The spec names this particular job a{' '}
-					<ExternalLink href="https://tc39.es/ecma262/#sec-newpromiseresolvethenablejob">
-						<code>NewPromiseResolveThenableJob</code>
-					</ExternalLink>{' '}
-					and it is defined as follows:
-				</p>
-				<blockquote className="[quotes:none]">
-					<p>
-						a. Let <i>resolvingFunctions</i> be CreateResolvingFunctions(<i>promiseToResolve</i>
-						).
-					</p>
-					<p>
-						b. Let <i>thenCallResult</i> be Completion(HostCallJobCallback(<i>then</i>,{' '}
-						<i>thenable</i>, « <i>resolvingFunctions</i>.[[Resolve]], <i>resolvingFunctions</i>
-						.[[Reject]] »)).
-					</p>
-					<p>
-						c. If <i>thenCallResult</i> is an abrupt completion, return ? Call(
-						<i>resolvingFunctions</i>.[[Reject]], undefined, « <i>thenCallResult</i>.[[Value]] »).
-					</p>
-				</blockquote>
-				<p>Sorry, that's another mouthful. Let me translate:</p>
-				<ol type="a">
-					<li>Create a new resolve/reject function pair</li>
-					<li>
-						Call the thenable's <code>.then(resolve, reject)</code> function (with the newly created
-						resolve/reject functions)
-					</li>
-					<li>
-						If calling <code>.then()</code> throws, reject the promise with whatever was thrown
-					</li>
-				</ol>
-				<p>
-					Remember that <code>.then</code> is simply whatever is defined on the thenable. When the
-					thenable is a real promise, then the <code>.then</code> being called is the one defined on
-					the promise's prototype, which is <code>Promise.prototype.then</code>.
-				</p>
-				<p>
-					In our original program, we made the <code>Symbol.species</code> getter throw on the
-					Promise constructor. We've also learnt that the engine will call <code>.then()</code> on a
-					thenable when you pass one to <code>resolve()</code>. So, naturally, because we saw the
-					program crash eventually, we can deduce that <code>Promise.prototype.then</code> is
-					somehow eventually calling <code>p.constructor[Symbol.species]</code>, right? But why on
-					earth would <code>Promise.prototype.then</code> care about <code>Symbol.species</code>?
-				</p>
-				<p>
-					It cares because <code>.then()</code> returns a <i>new</i> promise, which is what lets you
-					chain <code>.then().then()</code>. If you subclass <code>Promise</code>, you'd expect{' '}
-					<code>.then()</code> to return an instance of your subclass, not a plain{' '}
-					<code>Promise</code>:
-				</p>
-				<Highlighter language="javascript">
-					{stripIndent`
-						class MyPromise extends Promise {}
-						MyPromise.resolve(1).then(x => x) instanceof MyPromise; // true
-					`}
-				</Highlighter>
-				<p>
-					So before a real promise's <code>then</code> does anything with its arguments, it works
-					out which constructor to build the <i>new</i> promise with. It does this by first reading{' '}
-					<code>this.constructor</code>, then by reading <code>constructor[Symbol.species]</code>{' '}
-					(the spec calls this step{' '}
-					<ExternalLink href="https://tc39.es/ecma262/#sec-speciesconstructor">
-						<code>SpeciesConstructor</code>
-					</ExternalLink>
-					). Both are ordinary property reads and, as we found out, property reads can run getters,
-					and getters can throw!
-				</p>
-				<p>
-					This is precisely what our original program at the beginning does!{' '}
-					<code>p.constructor</code> has a <code>[Symbol.species]</code> getter that throws, so{' '}
-					<code>p.then(resolve, reject)</code> throws before it ever reaches its arguments. Step c
-					of the <code>NewPromiseResolveThenableJob</code> is designed to catch and reject our
-					promise with <code>boom</code>. That's the spec-correct behaviour we saw in V8/Node.js.
-				</p>
-				<p>So why did JavaScriptCore get this wrong?</p>
-				<p>
-					JavaScriptCore had a fast path for the most-common case where the thenable is a real,
-					normal promise, and that fast path did the species lookup <i>first</i>, only creating the
-					resolve/reject functions afterwards. When the lookup threw, the resolving functions didn't
-					exist yet, so there was nothing to reject with. The exception escaped the job entirely
-					(that's the red <code>Error: boom</code> in the inspector) and our promise stayed pending
-					forever.
-				</p>
-				<JobOrder />
-				<p>
-					Luckily, the fix is simple, and might already be obvious to you! We must create our
-					resolve/reject functions before calling <code>.then()</code>, so that we actually have the
-					ability to reject the promise if calling <code>.then()</code> throws. Creating the
-					resolving functions is just an allocation and allocations can't throw, and once the
-					functions exist then the existing error handling rejects the promise like any other
-					failure.
 				</p>
 				<h2>Railways</h2>
 				<p>Let's go down a quick tangent.</p>
@@ -429,8 +337,108 @@ export class Railways extends Post {
 					Promises in JavaScript kinda look a lot like this! There's a fulfilled track and a
 					rejected track, and <code>.then(onFulfilled, onRejected)</code> is a switch between them.
 				</p>
-				<p>So is a promise a railway?</p>
+				<h2>The job</h2>
+				<p>As a reminder, here's that diagram again:</p>
+				<ResolveFlow />
+				<p>
+					In the path on the right, where <code>value.then</code> is a function, the engine does not
+					call the <code>.then()</code> immediately. Instead, the engine queues a job, which we call
+					a microtask. The spec names this particular job a{' '}
+					<ExternalLink href="https://tc39.es/ecma262/#sec-newpromiseresolvethenablejob">
+						<code>NewPromiseResolveThenableJob</code>
+					</ExternalLink>{' '}
+					and it is defined as follows:
+				</p>
+				<blockquote className="[quotes:none]">
+					<p>
+						a. Let <i>resolvingFunctions</i> be CreateResolvingFunctions(<i>promiseToResolve</i>
+						).
+					</p>
+					<p>
+						b. Let <i>thenCallResult</i> be Completion(HostCallJobCallback(<i>then</i>,{' '}
+						<i>thenable</i>, « <i>resolvingFunctions</i>.[[Resolve]], <i>resolvingFunctions</i>
+						.[[Reject]] »)).
+					</p>
+					<p>
+						c. If <i>thenCallResult</i> is an abrupt completion, return ? Call(
+						<i>resolvingFunctions</i>.[[Reject]], undefined, « <i>thenCallResult</i>.[[Value]] »).
+					</p>
+				</blockquote>
+				<p>Sorry, that's another mouthful. Let me translate:</p>
+				<ol type="a">
+					<li>Create a new resolve/reject function pair</li>
+					<li>
+						Call the thenable's <code>.then(resolve, reject)</code> function (with the newly created
+						resolve/reject functions)
+					</li>
+					<li>
+						If calling <code>.then()</code> throws, reject the promise with whatever was thrown
+					</li>
+				</ol>
+				<p>
+					Remember that <code>.then</code> is simply whatever is defined on the thenable. If the
+					thenable is a real promise, the method being called is the one on the prototype,{' '}
+					<code>Promise.prototype.then</code>.
+				</p>
+				<p>
+					In our original program, we made the <code>Symbol.species</code> getter throw on the
+					Promise constructor. We've also learnt that the engine will call <code>.then()</code> on a
+					thenable when you pass one to <code>resolve()</code>. So, naturally, because we saw the
+					program crash eventually, we can deduce that <code>Promise.prototype.then</code> is
+					somehow eventually calling <code>p.constructor[Symbol.species]</code>, right? But why on
+					earth would <code>Promise.prototype.then</code> care about <code>Symbol.species</code>?
+				</p>
+				<p>
+					It cares because <code>.then()</code> returns a <i>new</i> promise, which is what lets you
+					chain <code>.then().then()</code>. If you subclass <code>Promise</code>, you'd expect{' '}
+					<code>.then()</code> to return an instance of your subclass, not a plain{' '}
+					<code>Promise</code>:
+				</p>
+				<Highlighter language="javascript">
+					{stripIndent`
+						class MyPromise extends Promise {}
+						MyPromise.resolve(1).then(x => x) instanceof MyPromise; // true
+					`}
+				</Highlighter>
+				<p>
+					So before a real promise's <code>then</code> does anything with its arguments, it works
+					out which constructor to build the <i>new</i> promise with. It does this by first reading{' '}
+					<code>this.constructor</code>, then by reading <code>constructor[Symbol.species]</code>{' '}
+					(the spec calls this step{' '}
+					<ExternalLink href="https://tc39.es/ecma262/#sec-speciesconstructor">
+						<code>SpeciesConstructor</code>
+					</ExternalLink>
+					). Both are ordinary property reads and, as we found out, property reads can run getters,
+					and getters can throw!
+				</p>
+				<p>
+					This is precisely what our original program at the beginning does!{' '}
+					<code>p.constructor</code> has a <code>[Symbol.species]</code> getter that throws, so{' '}
+					<code>p.then(resolve, reject)</code> throws before it ever reaches its arguments. Step c
+					of the <code>NewPromiseResolveThenableJob</code> is designed to catch and reject our
+					promise with <code>boom</code>. That's the spec-correct behaviour we saw in V8/Node.js.
+				</p>
+				<p>So why did JavaScriptCore get this wrong?</p>
+				<p>
+					JavaScriptCore had a fast path for the most-common case where the thenable is a real,
+					normal promise, and that fast path did the species lookup <i>first</i>, only creating the
+					resolve/reject functions afterwards. When the lookup threw, the resolving functions didn't
+					exist yet, so there was nothing to reject with. The exception escaped the job entirely
+					(that's the red <code>Error: boom</code> in the inspector) and our promise stayed pending
+					forever.
+				</p>
+				<p>Drawn as a railway:</p>
+				<JobOrder />
+				<p>
+					Luckily, the fix is simple, and might already be obvious to you! We must create our
+					resolve/reject functions before calling <code>.then()</code>, so that we actually have the
+					ability to reject the promise if calling <code>.then()</code> throws. Creating the
+					resolving functions is just an allocation and allocations can't throw, and once the
+					functions exist then the existing error handling rejects the promise like any other
+					failure.
+				</p>
 				<h2>A promise's failure track has no label</h2>
+				<p>So, is a promise a railway?</p>
 				<Highlighter language="typescript">
 					{stripIndent`
 						declare const p: Promise<number>;
@@ -475,7 +483,7 @@ export class Railways extends Post {
 				</p>
 				<p>
 					So, in my opinion, this is the difference between a promise and a railway. Rust's{' '}
-					<code>and_then</code> works because each switch in the railway defines its failure type.{' '}
+					<code>and_then</code> works because each switch in the railway defines its failure type.
 					This is unlike promises, because <code>.then()</code> cannot define its failure because
 					the runtime can put anything on the rejected track.
 				</p>
