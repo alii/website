@@ -46,10 +46,10 @@ export class Railways extends Post {
 					{demo}
 				</Highlighter>
 				<p>
-					Don't worry if this looks confusing. The spec says that because the getter throws then{' '}
-					<code>await p</code> should also throw, and so the program should crash. Node.js does, but
-					Safari 26 and Bun 1.3.14 print <code>'before'</code>, report the error, and then never
-					finish.
+					Don't worry if this looks confusing. The spec says that because the getter throws an
+					error, then <code>await p</code> should also throw, and so the program should crash.
+					Node.js does, but Safari 26 and Bun 1.3.14 print <code>'before'</code>, report the error,
+					and then never finish.
 				</p>
 				<figure className="not-prose my-8 grid gap-5 md:grid-cols-2">
 					<Terminal
@@ -519,7 +519,7 @@ export class Railways extends Post {
 				<p>
 					Since the reject track can't be typed, Gleam doesn't use it. Instead, the pattern in Gleam
 					is to always hold a <code>Result</code> in the <i>fulfilled</i> track. For example, here
-					are two functions you might functions with these signatures in your Gleam code:
+					are two functions with signatures you might see in your Gleam code:
 				</p>
 				<Highlighter language="gleam">
 					{stripIndent`
