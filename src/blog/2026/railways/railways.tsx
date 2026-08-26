@@ -162,25 +162,30 @@ export class Railways extends Post {
 					`}
 				</Highlighter>
 				<p>
-					Sadly, this implementation misses an important difference between how resolving and
-					rejecting work.
+					I've called it MediocrePromise. It has a pending state, a way to resolve with a value, and
+					a way to reject with a reason. It even has a list of callbacks to run, just like a real
+					promise! Is this a good implementation?
+				</p>
+				<p>
+					Sadly, no. It is not a good implementation. MediocrePromise misses an important difference
+					between how resolving and rejecting work.
 				</p>
 				<p>
 					Let's start with rejections. Rejecting a promise is simple! Calling{' '}
-					<code>reject(reason)</code> will mark the promise as rejected, with <code>reason</code> as
-					the rejected value. Excellent. Our <code>MediocrePromise</code> implements rejections
-					correctly!
+					<code>reject(reason)</code> marks the promise as rejected, with <code>reason</code> as the
+					rejected value. Excellent! MediocrePromise implements rejections correctly!
 				</p>
 				<p>
 					Resolving is more complex. Calling <code>resolve(value)</code> does <i>not</i> store{' '}
 					<code>value</code> straight away. First, it checks whether <code>value</code> has a{' '}
 					<code>.then()</code> method. If it <b>doesn't</b> (e.g. a number, a string, an object
 					without one, ..) the promise is <b>fulfilled</b> with <code>value</code> and we are done.
-					Otherwise, if it <b>does</b>, <code>value</code> is treated like <i>another</i> promise.
-					Our original promise is <i>not</i> settled yet. Instead, <code>resolve</code> passes
-					itself and the reject function to <code>value.then(resolve, reject)</code>, and whichever
-					of those two <code>value.then()</code> <i>eventually</i> calls is what settles the
-					promise. Sorry, that was a mouthful. There's a diagram in a sec to explain. Bear with me.
+					Otherwise, if it <b>does</b> have a <code>.then()</code> method, <code>value</code> is
+					treated like <i>another</i> promise. Our original promise is <i>not</i> settled yet and
+					instead, <code>resolve</code> passes itself and the reject function to{' '}
+					<code>value.then(resolve, reject)</code>. Whichever of those functions{' '}
+					<code>value.then()</code> <i>eventually</i> calls is what settles the promise. Sorry, that
+					was a mouthful. There's a diagram in a sec to explain. Bear with me.
 				</p>
 				<ResolveFlow />
 				<p>
