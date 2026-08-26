@@ -422,10 +422,9 @@ export class Railways extends Post {
 					This is precisely what our original program at the beginning does! We made{' '}
 					<code>p.constructor</code> have a <code>Symbol.species</code> getter that throws, so{' '}
 					<code>p.then(resolve, reject)</code> throws during the species lookup, before it has
-					stored <code>resolve</code> and <code>reject</code> as callbacks. <code>p</code> will
-					never call either of them. Recall that Step c of <code>NewPromiseResolveThenableJob</code>{' '}
-					makes the engine reject the promise if calling <code>.then()</code> throws. This is the
-					spec-correct behaviour we saw in V8/Node.js.
+					stored <code>resolve</code> and <code>reject</code> as callbacks. Recall that Step c of{' '}
+					<code>NewPromiseResolveThenableJob</code> makes the engine reject the promise if calling{' '}
+					<code>.then()</code> throws - this is the spec-correct behaviour we saw in V8/Node.js.
 				</p>
 				<p>So why do Safari and Bun hang instead of rejecting the promise?</p>
 				<p>
@@ -436,40 +435,45 @@ export class Railways extends Post {
 					exception escaped the job entirely (that's the red <code>Error: boom</code> in the
 					inspector) and our promise stayed pending forever.
 				</p>
-				<p>
-					Here's that as a railway. We effectively derailed, and didn't even get the chance to
-					finish our journey on either track!
-				</p>
+				<p>Here's that as a railway:</p>
 				<JobOrder />
+				<p>
+					Our train had effectively derailed! We didn't even get the chance to finish our journey on
+					either track and so the original program hung because the train never even arrived at the
+					station!
+				</p>
 				<p>
 					Luckily, the fix is simple, and might already be obvious to you! We must create our
 					resolve/reject functions before calling <code>.then()</code>, so that we actually have the
 					ability to reject the promise if calling <code>.then()</code> throws. Creating the
 					resolving functions is just an allocation and allocations can't throw, and once the
-					functions exist, the existing error handling rejects the promise like any other failure.
+					functions exist, the existing error handling rejects the promise just like any other
+					failure would.
 				</p>
-				<h2>A promise's failure track has no label</h2>
-				<p>So, is a promise a railway?</p>
+				<h2>So is a promise a railway?</h2>
+				<p>Well.. uh.. that question doesn't really make sense. Sorry.</p>
+				<p>
+					In TypeScript, the <code>Promise&lt;T&gt;</code> interface has only one type parameter and
+					offers no way for a developer to express ways in which the promise might reject:
+				</p>
 				<Highlighter language="typescript">
 					{stripIndent`
 						declare const p: Promise<number>;
 					`}
 				</Highlighter>
 				<p>
-					In TypeScript, the <code>Promise&lt;T&gt;</code> interface has only one type parameter and
-					offers no way for a developer to express ways in which the promise might reject.
 					TypeScript users have asked for a <code>Promise&lt;T, E&gt;</code> to exist since 2015 -
 					see this issue:{' '}
 					<ExternalLink href="https://github.com/microsoft/TypeScript/issues/6283">
 						microsoft/TypeScript#6283
 					</ExternalLink>
-					! Ron Buckton, who used to work on TypeScript at Microsoft, closed this issue, writing:
+					! Ron Buckton, who used to work on TypeScript at Microsoft, closed this issue, stating:
 				</p>
 				<blockquote>
 					<p>we cannot guarantee the correct type of the exception at design time.</p>
 				</blockquote>
 				<p>
-					Which, we have now learnt, is true! Earlier, we saw the runtime reject a promise with{' '}
+					Which we have now learnt is true! Earlier, we saw the runtime reject a promise with{' '}
 					<code>boom</code>: <code>p.then()</code> read a <code>Symbol.species</code> getter that
 					threw, and step c of the job rejected the promise with it, very far away from any userland{' '}
 					<code>reject()</code> call! If the spec itself can put values on the reject track, then
