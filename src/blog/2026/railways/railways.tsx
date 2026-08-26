@@ -491,7 +491,7 @@ export class Railways extends Post {
 				/>
 				<p>
 					Look - we have no control over that failure track! This means we <i>can</i> draw promises
-					as railways, but it's a bit less useful than a real result type like Rust's.
+					as railways but it's a bit less useful than a real result type, like Rust's.
 				</p>
 				<h2>What could a new language do about this?</h2>
 				<p>
