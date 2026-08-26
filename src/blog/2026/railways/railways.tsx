@@ -333,7 +333,7 @@ export class Railways extends Post {
 					train={1}
 				/>
 				<p>
-					This is very nice way to model the business domain. <code>validate()</code>,{' '}
+					This is a very nice way to model the business domain. <code>validate()</code>,{' '}
 					<code>update()</code> and <code>send()</code> each have their own kind of error but the
 					request handler only cares about one question: why did this request fail?
 				</p>
