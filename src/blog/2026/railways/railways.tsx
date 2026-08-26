@@ -336,7 +336,9 @@ export class Railways extends Post {
 					rejected track, and <code>.then(onFulfilled, onRejected)</code> is a switch between them.
 				</p>
 				<h2>The job</h2>
-				<p>As a reminder, here's that diagram again:</p>
+				<p>
+					As a reminder, here's that <b>resolve procedure</b> diagram again:
+				</p>
 				<ResolveFlow />
 				<p>
 					In the path on the right, where <code>value.then</code> is a function, the engine does not
