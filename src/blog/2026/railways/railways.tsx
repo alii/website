@@ -507,7 +507,7 @@ export class Railways extends Post {
 						JavaScript
 					</ExternalLink>
 					, which is how <Link href="/gleam-bun-apps">my last post</Link> built Bun executables from
-					it. It's almost impossible to write JavaScript in 2026 without eventually handling
+					it. It's almost impossible to write modern JavaScript without eventually handling
 					promises, so the library that does that in Gleam -{' '}
 					<ExternalLink href="https://hexdocs.pm/gleam_javascript/gleam/javascript/promise.html">
 						<code>gleam_javascript</code>
