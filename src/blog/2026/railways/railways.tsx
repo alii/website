@@ -496,8 +496,8 @@ export class Railways extends Post {
 				<h2>What could a new language do about this?</h2>
 				<p>
 					You might have seen me talk about{' '}
-					<ExternalLink href="https://gleam.run">Gleam</ExternalLink> before. It's really great and
-					I write a lot of it! It is a typed language that compiles to the BEAM and to{' '}
+					<ExternalLink href="https://gleam.run">Gleam</ExternalLink> before. It's really good, and
+					I write lots of it. It is a typed language that compiles to the BEAM and to{' '}
 					<ExternalLink href="https://gleam.run/news/v0.16-gleam-compiles-to-javascript/">
 						JavaScript
 					</ExternalLink>
