@@ -391,9 +391,9 @@ export class Railways extends Post {
 					In our original program, we made the <code>Symbol.species</code> getter throw on the
 					Promise constructor. We've also learnt that the engine will call <code>.then()</code> on a
 					thenable when you pass one to <code>resolve()</code>. So, because we saw the program crash
-					we can deduce that <code>Promise.prototype.then</code> is somehow eventually calling{' '}
+					we can deduce that <code>Promise.prototype.then</code> is, somehow, eventually accessing{' '}
 					<code>p.constructor[Symbol.species]</code>. But why on earth would{' '}
-					<code>Promise.prototype.then</code> care about <code>Symbol.species</code>?
+					<code>Promise.prototype.then</code> care about a <code>Symbol.species</code> getter?
 				</p>
 				<p>
 					It cares because <code>.then()</code> returns a <i>new</i> promise, which is what lets you
@@ -410,7 +410,7 @@ export class Railways extends Post {
 				<p>
 					So before a real promise's <code>then</code> does anything with its arguments, it works
 					out which constructor to build the <i>new</i> promise with. It does this by first reading{' '}
-					<code>this.constructor</code>, then by reading <code>constructor[Symbol.species]</code>{' '}
+					<code>this.constructor</code> and then by reading <code>constructor[Symbol.species]</code>{' '}
 					(the spec calls this step{' '}
 					<ExternalLink href="https://tc39.es/ecma262/#sec-speciesconstructor">
 						<code>SpeciesConstructor</code>
@@ -419,11 +419,12 @@ export class Railways extends Post {
 					and getters can throw!
 				</p>
 				<p>
-					This is precisely what our original program at the beginning does!{' '}
-					<code>p.constructor</code> has a <code>[Symbol.species]</code> getter that throws, so{' '}
-					<code>p.then(resolve, reject)</code> throws before it ever reaches its arguments. Step c
-					of the <code>NewPromiseResolveThenableJob</code> is designed to catch and reject our
-					promise with <code>boom</code>. That's the spec-correct behaviour we saw in V8/Node.js.
+					This is precisely what our original program at the beginning does! We made{' '}
+					<code>p.constructor</code> have a <code>Symbol.species</code> getter that throws, so{' '}
+					<code>p.then(resolve, reject)</code> throws before it ever reaches its arguments. Recall
+					that Step c of the <code>NewPromiseResolveThenableJob</code> makes the engine reject the
+					promise if calling <code>.then()</code> throws. This is the spec-correct behaviour we saw
+					in V8/Node.js.
 				</p>
 				<p>So why did JavaScriptCore get this wrong?</p>
 				<p>
