@@ -335,6 +335,13 @@ export class Railways extends Post {
 					Promises in JavaScript kinda look a lot like this! There's a fulfilled track and a
 					rejected track, and <code>.then(onFulfilled, onRejected)</code> is a switch between them.
 				</p>
+				<Railway
+					input="promise"
+					steps={['.then(validate)', '.then(update)', '.then(send)']}
+					success="fulfilled"
+					failure="rejected"
+					train={1}
+				/>
 				<h2>The job</h2>
 				<p>
 					As a reminder, here's that <b>resolve procedure</b> diagram again:
