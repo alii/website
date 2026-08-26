@@ -492,7 +492,7 @@ export class Railways extends Post {
 				/>
 				<p>But look - we have no control over that failure track!</p>
 				<p>
-					So, in my opinion, this is the difference between a promise and a railway. Binding train
+					In my opinion, this is the difference between a promise and a railway. Binding train
 					tracks together, like Rust's <code>and_then</code>, works because each switch in the
 					railway defines its failure type. This is unlike promises: <code>.then()</code> cannot
 					define its failure, since the runtime can put anything on the rejected track.
