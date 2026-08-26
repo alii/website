@@ -284,6 +284,24 @@ export class Railways extends Post {
 				</p>
 				<Railway input="request" steps={['validate()']} success="success" failure="failure" />
 				<p>
+					Once a request hits the failure track it stays there, skipping every later step, until
+					something at the end deals with the result. Wlaschin calls joining two pieces of the
+					railway <i>binding</i> - not to be confused with JavaScript's <code>fn.bind()</code>. Rust
+					folks might know binding as <code>and_then</code>, or maybe the <code>?</code> operator.
+					They all mean the same thing: run the next bit of code only if the previous bit succeeded,
+					otherwise pass the failure straight through.
+				</p>
+				<p>
+					Look at how the last step is skipped because the <code>update()</code> failed:
+				</p>
+				<Railway
+					input="request"
+					steps={['validate()', 'update()', 'send()']}
+					success="success"
+					failure="failure"
+					train={1}
+				/>
+				<p>
 					You can think of each piece of the railway as a function returning a <code>Result</code>.
 					In strongly typed languages, most implementations of a <code>Result</code> type will
 					accept <b>two type parameters</b>, the success type and the failure type, one per track.
@@ -292,14 +310,6 @@ export class Railways extends Post {
 				<Highlighter language="rust">
 					fn validate(request: Request) -&gt; Result&lt;Request, ValidationError&gt;
 				</Highlighter>
-				<p>
-					Once a request hits the failure track it stays there, skipping every later step, until
-					something at the end deals with the result. Wlaschin calls joining two pieces of the
-					railway <i>binding</i> - not to be confused with JavaScript's <code>fn.bind()</code>. Rust
-					folks might know binding as <code>and_then</code>, or maybe the <code>?</code> operator.
-					They all mean the same thing: run the next bit of code only if the previous bit succeeded,
-					otherwise pass the failure straight through.
-				</p>
 				<p>
 					To chain <code>validate()</code> with the other steps using <code>and_then</code>, every
 					piece has to fail with the <i>same</i> type. So instead of <code>ValidationError</code>,
@@ -321,22 +331,6 @@ export class Railways extends Post {
 						validate(request).and_then(update).and_then(send) // Result<Receipt, AppError>
 					`}
 				</Highlighter>
-				<p>
-					We can draw this code quite nicely as a Railway! Look at how the last step is skipped
-					because the <code>update()</code> failed.
-				</p>
-				<Railway
-					input="Request"
-					steps={['validate()', 'update()', 'send()']}
-					success="Receipt"
-					failure="AppError"
-					train={1}
-				/>
-				<p>
-					This is a very nice way to model the business domain. <code>validate()</code>,{' '}
-					<code>update()</code> and <code>send()</code> each have their own kind of error but the
-					request handler only cares about one question: why did this request fail?
-				</p>
 				<p>
 					Promises in JavaScript kinda look a lot like this! There's a fulfilled track and a
 					rejected track, and <code>.then(onFulfilled, onRejected)</code> is a switch between them.
