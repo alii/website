@@ -490,20 +490,14 @@ export class Railways extends Post {
 					failure="any"
 					untypedFailure
 				/>
+				<p>But look - we have no control over that failure track!</p>
 				<p>
-					Generally I think engineers who have thought "why doesn't a promise type its rejection?"
-					and tried to land on an answer will land on "JavaScript lets you throw anything". It's
-					good that engineers will think about these things and try to answer them, and even better
-					if they land on this quite logical conclusion. Especially since the real reason is so
-					subtle!
+					So, in my opinion, this is the difference between a promise and a railway. Binding train
+					tracks together, like Rust's <code>and_then</code>, works because each switch in the
+					railway defines its failure type. This is unlike promises: <code>.then()</code> cannot
+					define its failure, since the runtime can put anything on the rejected track.
 				</p>
-				<p>
-					So, in my opinion, this is the difference between a promise and a railway. Rust's{' '}
-					<code>and_then</code> works because each switch in the railway defines its failure type.
-					This is unlike promises: <code>.then()</code> cannot define its failure, since the runtime
-					can put anything on the rejected track.
-				</p>
-				<p>Promises are not railways!</p>
+				<p>Promises are not railways. Whatever that means...</p>
 				<h2>What could a new language do about this?</h2>
 				<p>
 					You might have seen me talk about{' '}
