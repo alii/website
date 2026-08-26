@@ -390,10 +390,10 @@ export class Railways extends Post {
 				<p>
 					In our original program, we made the <code>Symbol.species</code> getter throw on the
 					Promise constructor. We've also learnt that the engine will call <code>.then()</code> on a
-					thenable when you pass one to <code>resolve()</code>. So, naturally, because we saw the
-					program crash eventually, we can deduce that <code>Promise.prototype.then</code> is
-					somehow eventually calling <code>p.constructor[Symbol.species]</code>, right? But why on
-					earth would <code>Promise.prototype.then</code> care about <code>Symbol.species</code>?
+					thenable when you pass one to <code>resolve()</code>. So, because we saw the program crash
+					we can deduce that <code>Promise.prototype.then</code> is somehow eventually calling{' '}
+					<code>p.constructor[Symbol.species]</code>. But why on earth would{' '}
+					<code>Promise.prototype.then</code> care about <code>Symbol.species</code>?
 				</p>
 				<p>
 					It cares because <code>.then()</code> returns a <i>new</i> promise, which is what lets you
