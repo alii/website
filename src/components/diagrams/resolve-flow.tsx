@@ -33,7 +33,7 @@ const BOX_W = 184;
 const OUTCOMES: readonly {x: number; label: string; text: string; sub: string; tone: Tone}[] = [
 	{
 		x: RESOLVE_X - 150,
-		label: 'missing or not a function',
+		label: 'missing, or not a function',
 		text: 'fulfil',
 		sub: 'with value',
 		tone: OK,

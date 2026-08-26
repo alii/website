@@ -195,7 +195,7 @@ export class Railways extends Post {
 					as the <b>resolve procedure</b>. To find out whether <code>value</code> has a{' '}
 					<code>.then</code>, it reads <code>value.then</code>, and a property read can run a
 					getter, and a getter can throw (just like in our program at the beginning). So, looking
-					for the <code>then()</code> method on a value can result in three possible outcomes:
+					for a <code>.then()</code> method on some value can result in three possible outcomes:
 				</p>
 				<ResolveFlow />
 				<p>Our MediocrePromise is missing the extra check and additional behaviour!</p>
@@ -206,8 +206,8 @@ export class Railways extends Post {
 						<b>a failure is not a pending operation</b>
 					</i>
 					. When something fails, you <b>already</b> have the reason in your code (presumably an
-					error)! So you can call <code>reject(reason)</code> immediately. This is, of course, not
-					the case for resolving, where a useful value might arrive later:
+					error)! So you can call <code>reject(reason)</code> immediately. This is not the case for
+					the happy path of resolving, where a useful value might arrive later:
 				</p>
 				<Highlighter language="javascript">
 					{stripIndent`
@@ -220,11 +220,16 @@ export class Railways extends Post {
 				</p>
 
 				<p>
-					In the path where <code>value.then</code> is a function, the spec considers{' '}
+					In the path where <code>value.then</code> <i>is</i> a function, the spec considers{' '}
 					<code>value</code> to be a <b>thenable</b>. Promises are thenables, since they have a{' '}
 					<code>.then()</code> method. Any other object with a <code>.then()</code> method is a
-					thenable too. Thenables work everywhere a promise would. For example:
+					thenable too. Thenables work everywhere a promise would.
 				</p>
+				<p>
+					Simply put: a <b>thenable</b> is any value with a <code>.then()</code> method. Therefore,
+					any promise is also a thenable.
+				</p>
+				<p>For example:</p>
 				<Highlighter language="javascript">
 					{stripIndent`
 						// \`thenable\` is not a promise!
@@ -246,15 +251,15 @@ export class Railways extends Post {
 					`}
 				</Highlighter>
 				<p>
-					The spec calls this process of passing the resolve/reject functions to a thenable's{' '}
-					<code>.then()</code> <i>"assimilation"</i>. Perhaps a friendlier word is "flattening":
-					instead of holding the inner thenable as its value, the outer promise waits for it, so two
-					layers become one.
+					The spec calls the aforementioned process of passing the resolve/reject functions to a
+					thenable's <code>.then()</code> <b>assimilation</b>. But, perhaps a friendlier word is{' '}
+					<b>flattening</b>: instead of holding the inner thenable as its value, the outer promise
+					waits for it, so two layers become one.
 				</p>
 				<p>
-					Note that "resolved" isn't a state. MediocrePromise also got this one wrong! Once{' '}
-					<code>resolve</code> has been called the outcome can no longer change, but the promise can
-					still be pending:
+					Lastly, note that "resolved" isn't a real promise state. MediocrePromise also got this one
+					wrong! The outcome cannot change once <code>resolve</code> has been called, but the
+					promise can absolutely still be pending:
 				</p>
 				<Highlighter language="javascript">
 					{stripIndent`
@@ -280,9 +285,9 @@ export class Railways extends Post {
 				<Railway input="request" steps={['validate()']} success="success" failure="failure" />
 				<p>
 					You can think of each piece of the railway as a function returning a <code>Result</code>.
-					Most implementations of a <code>Result</code> type will accept <b>two type parameters</b>,
-					the success type and the failure type, one per track. In Rust you could imagine this{' '}
-					<code>validate</code> function's signature being:
+					In strongly typed languages, most implementations of a <code>Result</code> type will
+					accept <b>two type parameters</b>, the success type and the failure type, one per track.
+					For example in Rust you could imagine a <code>validate</code> function's signature being:
 				</p>
 				<Highlighter language="rust">
 					fn validate(request: Request) -&gt; Result&lt;Request, ValidationError&gt;
