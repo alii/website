@@ -421,21 +421,25 @@ export class Railways extends Post {
 				<p>
 					This is precisely what our original program at the beginning does! We made{' '}
 					<code>p.constructor</code> have a <code>Symbol.species</code> getter that throws, so{' '}
-					<code>p.then(resolve, reject)</code> throws before it ever reaches its arguments. Recall
-					that Step c of the <code>NewPromiseResolveThenableJob</code> makes the engine reject the
-					promise if calling <code>.then()</code> throws. This is the spec-correct behaviour we saw
-					in V8/Node.js.
+					<code>p.then(resolve, reject)</code> throws during the species lookup, before it has
+					stored <code>resolve</code> and <code>reject</code> as callbacks. <code>p</code> will
+					never call either of them. Recall that Step c of <code>NewPromiseResolveThenableJob</code>{' '}
+					makes the engine reject the promise if calling <code>.then()</code> throws. This is the
+					spec-correct behaviour we saw in V8/Node.js.
 				</p>
-				<p>So why did JavaScriptCore get this wrong?</p>
+				<p>So why do Safari and Bun hang instead of rejecting the promise?</p>
 				<p>
 					JavaScriptCore had a fast path for the most-common case where the thenable is a real,
 					normal promise, and that fast path did the species lookup <i>first</i>, only creating the
-					resolve/reject functions afterwards. When the lookup threw, the resolving functions didn't
-					exist yet, so there was nothing to reject with. The exception escaped the job entirely
-					(that's the red <code>Error: boom</code> in the inspector) and our promise stayed pending
-					forever.
+					resolve/reject functions afterwards. When the lookup threw (like how our program does),
+					the resolving functions didn't exist yet, so there was nothing to reject with. The
+					exception escaped the job entirely (that's the red <code>Error: boom</code> in the
+					inspector) and our promise stayed pending forever.
 				</p>
-				<p>Drawn as a railway:</p>
+				<p>
+					Here's that as a railway. We effectively derailed, and didn't even get the chance to
+					finish our journey on either track!
+				</p>
 				<JobOrder />
 				<p>
 					Luckily, the fix is simple, and might already be obvious to you! We must create our
