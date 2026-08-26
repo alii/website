@@ -524,18 +524,11 @@ export class Railways extends Post {
 				<p>
 					Since the reject track can't be typed, Gleam doesn't use it. Instead, the pattern in Gleam
 					is to always hold a <code>Result</code> in the <i>fulfilled</i> track. For example, here
-					are two functions with signatures you might see in your Gleam code:
+					is a function signature you might see in your Gleam code:
 				</p>
 				<Highlighter language="gleam">
 					{stripIndent`
-						// In your userland code:
 						fn get_user() -> Promise(Result(User, DatabaseError))
-
-						// Or this builtin function
-						pub fn try_await(
-							promise: Promise(Result(a, e)),
-							callback: fn(a) -> Promise(Result(b, e)),
-						) -> Promise(Result(b, e))
 					`}
 				</Highlighter>
 				<p>Can we draw this on train tracks? Yes! But in a slightly different way:</p>
@@ -543,8 +536,34 @@ export class Railways extends Post {
 				<p>
 					Gleam's pattern of <code>Promise(Result(a, e))</code> encodes a two-track result onto a
 					one-track promise. The promise's own reject track is still there, and still untyped, but
-					now it's only ever used for absolute disasters. The <code>try_await</code> function is
-					Gleam's version of <code>bind</code> (which we talked about earlier), and with Gleam's{' '}
+					now it's only ever used for absolute disasters.
+				</p>
+				<p>
+					The <code>try_await</code> function is Gleam's version of binding.
+				</p>
+				<Highlighter language="gleam">
+					{stripIndent`
+						pub fn try_await(
+							promise: Promise(Result(a, e)),
+							callback: fn(a) -> Promise(Result(b, e)),
+						) -> Promise(Result(b, e))
+					`}
+				</Highlighter>
+				<p>
+					Sorry if this syntax looks a bit new and scary. The lowercase letters are how Gleam
+					represents type-parameters. Below is the equivalent TypeScript to help you understand and
+					translate:
+				</p>
+				<Highlighter language="typescript">
+					{stripIndent`
+						function tryAwait<A, B, E>(
+							promise: Promise<Result<A, E>>,
+							callback: (value: A) => Promise<Result<B, E>>,
+						): Promise<Result<B, E>>
+					`}
+				</Highlighter>
+				<p>
+					With Gleam's{' '}
 					<ExternalLink href="https://tour.gleam.run/advanced-features/use/">
 						<code>use</code>
 					</ExternalLink>{' '}
@@ -562,18 +581,18 @@ export class Railways extends Post {
 				</Highlighter>
 				<p>Super tidy! Thank you Gleam, very cool.</p>
 				<p>
-					In this example each of the promises are fallible, and every failure is a well-known type,
-					and yet nothing ever calls <code>.catch()</code>! You could totally do the same in
-					TypeScript by always using a result type in promises:{' '}
-					<code>Promise&lt;Result&lt;T, E&gt;&gt;</code>, or with something like{' '}
+					In this example each of the promises are fallible and every failure is a well-known type,
+					yet nothing ever calls <code>.catch()</code>! You could totally do the same in TypeScript
+					by always using a result type in promises: <code>Promise&lt;Result&lt;T, E&gt;&gt;</code>,
+					or with something like{' '}
 					<ExternalLink href="https://github.com/supermacro/neverthrow">neverthrow</ExternalLink>
 					's <code>ResultAsync</code>.
 				</p>
 				<p>There is one thing in the way, though.</p>
 				<p>
-					Unlike TypeScript, <code>gleam_javascript</code> does not even have a <code>.then()</code>
-					, or even an equivalent-but-differently-named method anywhere! Instead the continuation
-					behaviour is split into two separate methods. These are named map and await:
+					Unlike TypeScript, <code>gleam_javascript</code> does not offer a way to call{' '}
+					<code>.then()</code>, and not even an equivalent-but-differently-named method! Instead the
+					continuation behaviour is split into two separate methods. These are named map and await:
 				</p>
 				<Highlighter language="gleam">
 					{stripIndent`
@@ -582,27 +601,9 @@ export class Railways extends Post {
 					`}
 				</Highlighter>
 				<p>
-					Sorry if this Gleam syntax is a bit new and scary. The lowercase letters are how Gleam
-					represents type-parameters. Below is the equivalent TypeScript to help you understand and
-					translate:
-				</p>
-				<Highlighter
-					language="typescript"
-					footer={
-						<>
-							Note: <code>await</code> is not actually a valid identifier in JavaScript
-						</>
-					}
-				>
-					{stripIndent`
-						export function map<A, B>(promise: Promise<A>, callback: (value: A) => B): Promise<B>
-						export function await<A, B>(promise: Promise<A>, callback: (value: A) => Promise<B>): Promise<B>
-					`}
-				</Highlighter>
-				<p>
-					According to these signatures, <code>map</code> never flattens a promise and{' '}
-					<code>await</code> flattens exactly once. Both call <code>.then()</code> internally, which
-					is a problem for <code>map</code> when the callback returns a promise:
+					According to these signatures, <code>map</code> will never flatten a promise and{' '}
+					<code>await</code> will flatten exactly once. Both call <code>.then()</code> internally,
+					which is a problem for <code>map</code> when the callback returns a promise:
 				</p>
 				<Highlighter language="typescript">
 					{stripIndent`
