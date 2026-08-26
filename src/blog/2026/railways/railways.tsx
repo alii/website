@@ -451,7 +451,6 @@ export class Railways extends Post {
 					failure would.
 				</p>
 				<h2>So is a promise a railway?</h2>
-				<p>Well.. uh.. that question doesn't really make sense. Sorry.</p>
 				<p>
 					In TypeScript, the <code>Promise&lt;T&gt;</code> interface has only one type parameter and
 					offers no way for a developer to express ways in which the promise might reject:
@@ -491,8 +490,8 @@ export class Railways extends Post {
 					untypedFailure
 				/>
 				<p>
-					But look - we have no control over that failure track! This means we <i>can</i> draw
-					promises as railways, but it's a bit less useful than a real result type like Rust's.
+					Look - we have no control over that failure track! This means we <i>can</i> draw promises
+					as railways, but it's a bit less useful than a real result type like Rust's.
 				</p>
 				<h2>What could a new language do about this?</h2>
 				<p>
