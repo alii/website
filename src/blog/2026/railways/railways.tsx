@@ -303,7 +303,8 @@ export class Railways extends Post {
 				<p>
 					To chain <code>validate()</code> with the other steps using <code>and_then</code>, every
 					piece has to fail with the <i>same</i> type. So instead of <code>ValidationError</code>,
-					each function returns an <code>AppError</code>, an enum of every way a request can fail:
+					lets make each function return an <code>AppError</code>, an enum of every way a request
+					can fail:
 				</p>
 				<Highlighter language="rust">
 					{stripIndent`
@@ -321,16 +322,8 @@ export class Railways extends Post {
 					`}
 				</Highlighter>
 				<p>
-					This is also a nice way to model the business domain. <code>validate()</code>,{' '}
-					<code>update()</code> and <code>send()</code> each have their own kind of error, but the
-					request handler only cares about one question: why did this request fail?{' '}
-					<code>AppError</code> is that answer, and each step's own error type becomes one variant
-					of it.
-				</p>
-				<p>
-					The chain itself could be considered a piece of the railway, too. It is a function that
-					might return <code>Result&lt;Receipt, AppError&gt;</code> - this is the same shape as each
-					existing piece, so naturally you can keep joining:
+					We can draw this code quite nicely as a Railway! Look at how the last step is skipped
+					because the <code>update()</code> failed.
 				</p>
 				<Railway
 					input="Request"
@@ -339,6 +332,11 @@ export class Railways extends Post {
 					failure="AppError"
 					train={1}
 				/>
+				<p>
+					This is very nice way to model the business domain. <code>validate()</code>,{' '}
+					<code>update()</code> and <code>send()</code> each have their own kind of error but the
+					request handler only cares about one question: why did this request fail?
+				</p>
 				<p>
 					Promises in JavaScript kinda look a lot like this! There's a fulfilled track and a
 					rejected track, and <code>.then(onFulfilled, onRejected)</code> is a switch between them.
