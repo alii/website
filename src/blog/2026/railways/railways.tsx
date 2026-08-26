@@ -422,7 +422,7 @@ export class Railways extends Post {
 					This is precisely what our original program at the beginning does! We made{' '}
 					<code>p.constructor</code> have a <code>Symbol.species</code> getter that throws, so{' '}
 					<code>p.then(resolve, reject)</code> throws during the species lookup, before it has
-					stored <code>resolve</code> and <code>reject</code> as callbacks. Recall that Step c of{' '}
+					stored <code>resolve</code> and <code>reject</code> as callbacks. Recall that Step C of{' '}
 					<code>NewPromiseResolveThenableJob</code> makes the engine reject the promise if calling{' '}
 					<code>.then()</code> throws - this is the spec-correct behaviour we saw in V8/Node.js.
 				</p>
@@ -475,10 +475,10 @@ export class Railways extends Post {
 				<p>
 					Which we have now learnt is true! Earlier, we saw the runtime reject a promise with{' '}
 					<code>boom</code>: <code>p.then()</code> read a <code>Symbol.species</code> getter that
-					threw, and step c of the job rejected the promise with it, very far away from any userland{' '}
-					<code>reject()</code> call! If the spec itself can put values on the reject track, then
-					even code that only ever calls <code>reject()</code> with one type cannot be given an{' '}
-					<code>E</code>. The failure track has to be <code>any</code> (okay, yes, it could
+					threw the error, and Step C of the job rejected the promise with it, very far away from
+					any userland <code>reject()</code> call! If the spec itself can put values on the reject
+					track, then even code that only ever calls <code>reject()</code> with one type cannot be
+					given an <code>E</code>. The failure track has to be <code>any</code> (okay, yes, it could
 					technically be <code>unknown</code>, but adoption and backwards compatibility are also
 					important things for a project of TypeScript's scope and size to care about!).
 				</p>
@@ -490,14 +490,10 @@ export class Railways extends Post {
 					failure="any"
 					untypedFailure
 				/>
-				<p>But look - we have no control over that failure track!</p>
 				<p>
-					In my opinion, this is the difference between a promise and a railway. Binding train
-					tracks together, like Rust's <code>and_then</code>, works because each switch in the
-					railway defines its failure type. This is unlike promises: <code>.then()</code> cannot
-					define its failure, since the runtime can put anything on the rejected track.
+					But look - we have no control over that failure track! This means we <i>can</i> draw
+					promises as railways, but it's a bit less useful than a real result type like Rust's.
 				</p>
-				<p>Promises are not railways. Whatever that means...</p>
 				<h2>What could a new language do about this?</h2>
 				<p>
 					You might have seen me talk about{' '}
