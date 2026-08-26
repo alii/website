@@ -187,7 +187,6 @@ export class Railways extends Post {
 					<code>value.then()</code> <i>eventually</i> calls is what settles the promise. Sorry, that
 					was a mouthful. There's a diagram in a sec to explain. Bear with me.
 				</p>
-				<ResolveFlow />
 				<p>
 					The <code>resolve</code> function{' '}
 					<ExternalLink href="https://tc39.es/ecma262/#sec-promise-resolve-functions">
@@ -195,8 +194,10 @@ export class Railways extends Post {
 					</ExternalLink>{' '}
 					as the <b>resolve procedure</b>. To find out whether <code>value</code> has a{' '}
 					<code>.then</code>, it reads <code>value.then</code>, and a property read can run a
-					getter, and a getter can throw (just like in our program at the beginning).
+					getter, and a getter can throw (just like in our program at the beginning). So, looking
+					for the <code>then()</code> method on a value can result in three possible outcomes:
 				</p>
+				<ResolveFlow />
 				<p>Our MediocrePromise is missing the extra check and additional behaviour!</p>
 
 				<p>
