@@ -294,11 +294,11 @@ export class Railways extends Post {
 				</Highlighter>
 				<p>
 					Once a request hits the failure track it stays there, skipping every later step, until
-					something at the end deals with the result. Joining two pieces is one operation, which
-					Wlaschin calls <code>bind</code> (not to be confused with JavaScript's{' '}
-					<code>fn.bind()</code>). Rust calls it <code>and_then</code>, or the <code>?</code>{' '}
-					operator: run the next piece only if the previous one succeeded, otherwise pass the
-					failure straight through.
+					something at the end deals with the result. Wlaschin calls joining two pieces of the
+					railway <i>binding</i> - not to be confused with JavaScript's <code>fn.bind()</code>. Rust
+					folks might know binding as <code>and_then</code>, or maybe the <code>?</code> operator.
+					They all mean the same thing: run the next bit of code only if the previous bit succeeded,
+					otherwise pass the failure straight through.
 				</p>
 				<p>
 					To chain <code>validate()</code> with the other steps using <code>and_then</code>, every
