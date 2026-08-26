@@ -92,8 +92,8 @@ export class Railways extends Post {
 				<p>Let's quickly brush up on promises.</p>
 				<p>
 					When you construct a new promise in JavaScript, the engine creates two functions,{' '}
-					<code>resolve</code> and <code>reject</code>, and the engine passes them to the callback
-					you pass to the promise constructor.
+					<code>resolve</code> and <code>reject</code>, and passes them to the callback you pass to
+					the promise constructor.
 				</p>
 				<Highlighter filename="new-promise.js" language="javascript">
 					{stripIndent`
@@ -110,7 +110,7 @@ export class Railways extends Post {
 				</Highlighter>
 				<p>
 					The builtin helper function <code>Promise.resolve(value)</code> does the same thing by
-					constructing a promise and immediately calling the <code>resolve</code> with the value you
+					constructing a promise and immediately calling <code>resolve</code> with the value you
 					passed (with the exception that if <code>value</code> is already a promise, it is returned
 					as is). A simple userland implementation would look like this:
 				</p>
@@ -130,8 +130,8 @@ export class Railways extends Post {
 				<p>
 					Many folks think of a promise as a value that can end in two ways - fulfilled with a value
 					or rejected with a reason. This is a reasonable approximation since it maps pretty closely
-					to how using promises actually feel when writing JavaScript day-to-day. Therefore, a naive
-					implementation of a promise might look like this:
+					to how using promises actually feels when writing JavaScript day-to-day. Therefore, a
+					naive implementation of a promise might look like this:
 				</p>
 				<Highlighter filename="mediocre-promise.ts" language="typescript">
 					{stripIndent`
@@ -199,8 +199,8 @@ export class Railways extends Post {
 					<i>
 						<b>a failure is not a pending operation</b>
 					</i>
-					. When something fails, you <b>already</b> have the reason in your code! (presumably an
-					error). So you can call <code>reject(reason)</code> immediately. This is, of course, not
+					. When something fails, you <b>already</b> have the reason in your code (presumably an
+					error)! So you can call <code>reject(reason)</code> immediately. This is, of course, not
 					the case for resolving, where a useful value might arrive later:
 				</p>
 				<Highlighter language="javascript">
@@ -287,7 +287,7 @@ export class Railways extends Post {
 					<code>ValidationError</code>.
 				</p>
 				<p>
-					Once a request hit the failure track it stays there, skipping every later step, until
+					Once a request hits the failure track it stays there, skipping every later step, until
 					something at the end deals with the result. Joining two pieces is one operation, which
 					Wlaschin calls <code>bind</code> (not to be confused with JavaScript's{' '}
 					<code>fn.bind()</code>). Rust calls it <code>and_then</code>, or the <code>?</code>{' '}
@@ -322,7 +322,7 @@ export class Railways extends Post {
 					of it.
 				</p>
 				<p>
-					The chain is itself could be considered a piece of the railway, too. It is a function that
+					The chain itself could be considered a piece of the railway, too. It is a function that
 					might return <code>Result&lt;Receipt, AppError&gt;</code> - this is the same shape as each
 					existing piece, so naturally you can keep joining:
 				</p>
@@ -434,8 +434,7 @@ export class Railways extends Post {
 					resolve/reject functions before calling <code>.then()</code>, so that we actually have the
 					ability to reject the promise if calling <code>.then()</code> throws. Creating the
 					resolving functions is just an allocation and allocations can't throw, and once the
-					functions exist then the existing error handling rejects the promise like any other
-					failure.
+					functions exist, the existing error handling rejects the promise like any other failure.
 				</p>
 				<h2>A promise's failure track has no label</h2>
 				<p>So, is a promise a railway?</p>
@@ -459,8 +458,9 @@ export class Railways extends Post {
 				</blockquote>
 				<p>
 					Which, we have now learnt, is true! Earlier, we saw the runtime reject a promise with{' '}
-					<code>boom</code>, a value that was thrown in a getter far way from any userland{' '}
-					<code>reject()</code> call. If the spec itself can put values on the reject track, then
+					<code>boom</code>: <code>p.then()</code> read a <code>Symbol.species</code> getter that
+					threw, and step c of the job rejected the promise with it, very far away from any userland{' '}
+					<code>reject()</code> call! If the spec itself can put values on the reject track, then
 					even code that only ever calls <code>reject()</code> with one type cannot be given an{' '}
 					<code>E</code>. The failure track has to be <code>any</code> (okay, yes, it could
 					technically be <code>unknown</code>, but adoption and backwards compatibility are also
@@ -475,17 +475,17 @@ export class Railways extends Post {
 					untypedFailure
 				/>
 				<p>
-					Generally I think engineers who have thought "why doesn't a promise type it's rejection?"
+					Generally I think engineers who have thought "why doesn't a promise type its rejection?"
 					and tried to land on an answer will land on "JavaScript lets you throw anything". It's
 					good that engineers will think about these things and try to answer them, and even better
-					if they land on this this quite logical conclusion. Especially since the real reason is so
+					if they land on this quite logical conclusion. Especially since the real reason is so
 					subtle!
 				</p>
 				<p>
 					So, in my opinion, this is the difference between a promise and a railway. Rust's{' '}
 					<code>and_then</code> works because each switch in the railway defines its failure type.
-					This is unlike promises, because <code>.then()</code> cannot define its failure because
-					the runtime can put anything on the rejected track.
+					This is unlike promises: <code>.then()</code> cannot define its failure, since the runtime
+					can put anything on the rejected track.
 				</p>
 				<p>Promises are not railways!</p>
 				<h2>What could a new language do about this?</h2>
@@ -518,17 +518,15 @@ export class Railways extends Post {
 				</p>
 				<p>
 					Since the reject track can't be typed, Gleam doesn't use it. Instead, the pattern in Gleam
-					is to always hold a <code>Result</code> in the <i>fulfilled</i> track instead. For
-					example, here are two functions you might see in some Gleam code:
+					is to always hold a <code>Result</code> in the <i>fulfilled</i> track. For example, here
+					are two functions you might functions with these signatures in your Gleam code:
 				</p>
 				<Highlighter language="gleam">
 					{stripIndent`
 						// In your userland code:
-						fn get_user() -> Promise(Result(User, DatabaseError)) {
-							todo
-						}
+						fn get_user() -> Promise(Result(User, DatabaseError))
 
-						// Or using a particular builtin promise function:
+						// Or this builtin function
 						pub fn try_await(
 							promise: Promise(Result(a, e)),
 							callback: fn(a) -> Promise(Result(b, e)),
@@ -560,17 +558,17 @@ export class Railways extends Post {
 				<p>Super tidy! Thank you Gleam, very cool.</p>
 				<p>
 					In this example each of the promises are fallible, and every failure is a well-known type,
-					and yet nothing ever calls a <code>.catch()</code>! You could do the same in TypeScript by
-					always using a result type in promises: <code>Promise&lt;Result&lt;T, E&gt;&gt;</code>, or
-					with something like{' '}
+					and yet nothing ever calls <code>.catch()</code>! You could totally do the same in
+					TypeScript by always using a result type in promises:{' '}
+					<code>Promise&lt;Result&lt;T, E&gt;&gt;</code>, or with something like{' '}
 					<ExternalLink href="https://github.com/supermacro/neverthrow">neverthrow</ExternalLink>
 					's <code>ResultAsync</code>.
 				</p>
 				<p>There is one thing in the way, though.</p>
 				<p>
-					Unlike TypeScript, <code>gleam_javascript</code> does not have a <code>.then()</code> or
-					even an equivalent-but-differently-named method anywhere! Instead it's split into two
-					separate methods. These are:
+					Unlike TypeScript, <code>gleam_javascript</code> does not even have a <code>.then()</code>
+					, or even an equivalent-but-differently-named method anywhere! Instead the continuation
+					behaviour is split into two separate methods. These are named map and await:
 				</p>
 				<Highlighter language="gleam">
 					{stripIndent`
@@ -651,16 +649,15 @@ export class Railways extends Post {
 				<p>
 					JavaScript implements this promise flattening behaviour because back when the promise spec
 					was being worked on in 2013 there were many competing userland implementations of
-					promises. You might've seen jQuery's deferreds, Q, Bluebird, etc in older code,
-					pre-promises JavaScript code. The one thing these libraries all had in common was that
-					they all had a <code>.then()</code> method - we now know those objects to be called{' '}
-					<b>thenable</b>s!
+					promises. You might've seen jQuery's deferreds, Q, Bluebird, etc in older, pre-promises
+					JavaScript code. The one thing these libraries all had in common was that they all had a{' '}
+					<code>.then()</code> method - now we know those objects are called <b>thenable</b>s!
 				</p>
 
 				<p>
 					To ease the ecosystem into the migration, the team working on the spec decided to allow
 					any thenable to interop with another, and thus the behaviour of an outer promise waiting
-					on an inner promises was decided on.
+					on an inner promise (thenable) was decided on.
 				</p>
 
 				<p>
@@ -678,10 +675,9 @@ export class Railways extends Post {
 					</ExternalLink>
 					, which is the repository that eventually became the spec text.
 				</p>
-
 				<p>
-					The cost of that compromise is that every <code>resolve</code> has to look at the value it
-					was given and that is bascially everything I've talked about up until this point.
+					The flattening behaviour of <code>resolve</code> having to look at the value it was given
+					is the cost of this compromise.
 				</p>
 				<p>
 					So, to give <code>map</code> an honest type, <code>gleam_javascript</code> hides the
