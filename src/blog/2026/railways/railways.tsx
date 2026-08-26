@@ -293,11 +293,6 @@ export class Railways extends Post {
 					fn validate(request: Request) -&gt; Result&lt;Request, ValidationError&gt;
 				</Highlighter>
 				<p>
-					The <code>Result</code> type enforces this: <code>validate()</code>'s success track can
-					only carry a <code>Request</code> and its failure track can only ever carry a{' '}
-					<code>ValidationError</code>.
-				</p>
-				<p>
 					Once a request hits the failure track it stays there, skipping every later step, until
 					something at the end deals with the result. Joining two pieces is one operation, which
 					Wlaschin calls <code>bind</code> (not to be confused with JavaScript's{' '}
