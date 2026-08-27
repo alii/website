@@ -26,7 +26,7 @@ export class Railways extends Post {
 	public name = 'Fixing a WebKit bug to see if promises are made of train tracks';
 	public slug = 'webkit-promise-railway';
 	public date = new Date('26 Aug 2026');
-	public hidden = false;
+	public hidden = true;
 	public keywords = [
 		'javascript',
 		'promises',
