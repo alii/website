@@ -23,10 +23,10 @@ await p;
 console.log("done");`;
 
 export class Railways extends Post {
-	public name = 'Fixing a WebKit bug to explain railways';
-	public slug = 'webkit-railways';
-	public date = new Date('23 Aug 2026');
-	public hidden = true;
+	public name = 'Fixing a WebKit bug to see if promises are made of train tracks';
+	public slug = 'webkit-promise-railway';
+	public date = new Date('26 Aug 2026');
+	public hidden = false;
 	public keywords = [
 		'javascript',
 		'promises',
@@ -36,7 +36,7 @@ export class Railways extends Post {
 		'gleam',
 		'typescript',
 	];
-	public excerpt = 'An in-depth guide to JavaScript promises';
+	public excerpt = 'An in-depth explanation of promises in JavaScript, while fixing a WebKit bug';
 
 	public render() {
 		return (
@@ -78,7 +78,7 @@ export class Railways extends Post {
 				/>
 				<p>
 					Bun and Safari both embed JavaScriptCore so the behaviour is the same - the promise is
-					never settled! This was{' '}
+					never settled! It is neither fulfilled nor rejected, so it stays pending forever. This was{' '}
 					<ExternalLink href="https://bugs.webkit.org/show_bug.cgi?id=318399">
 						WebKit bug 318399
 					</ExternalLink>{' '}
@@ -111,8 +111,9 @@ export class Railways extends Post {
 				<p>
 					The builtin helper function <code>Promise.resolve(value)</code> does the same thing by
 					constructing a promise and immediately calling <code>resolve</code> with the value you
-					passed (with the exception that if <code>value</code> is already a promise, it is returned
-					as is). A simple userland implementation would look like this:
+					passed (with the exception that if <code>value</code> is already a promise whose{' '}
+					<code>constructor</code> is <code>Promise</code>, it is returned as is). A simple userland
+					implementation would look like this:
 				</p>
 				<Highlighter filename="promise-resolve.js" language="javascript">
 					{stripIndent`
@@ -124,8 +125,7 @@ export class Railways extends Post {
 				<p>
 					The same is also true for literally writing <code>await 42</code>. The engine creates a
 					promise and immediately calls <code>resolve(42)</code>, just like{' '}
-					<code>Promise.resolve()</code> does. Similarly, awaiting something that is already a
-					promise skips this and uses that promise directly.
+					<code>Promise.resolve()</code> does, and the same exception applies.
 				</p>
 				<p>
 					Many folks think of a promise as a value that can end in two ways - fulfilled with a value
@@ -258,8 +258,8 @@ export class Railways extends Post {
 				</p>
 				<p>
 					Lastly, note that "resolved" isn't a real promise state. MediocrePromise also got this one
-					wrong! The outcome cannot change once <code>resolve</code> has been called, but the
-					promise can absolutely still be pending:
+					wrong! Once <code>resolve</code> has been called the promise is <b>locked-in</b> to an
+					outcome, but it can absolutely still be pending:
 				</p>
 				<Highlighter language="javascript">
 					{stripIndent`
@@ -387,13 +387,29 @@ export class Railways extends Post {
 					thenable is a real promise, the method being called is the one on the prototype,{' '}
 					<code>Promise.prototype.then</code>.
 				</p>
+				<p>Here's the important line of our program again:</p>
+				<Highlighter language="javascript">
+					{stripIndent`
+						p.constructor = {
+							get [Symbol.species]() {
+								throw new Error("boom");
+							},
+						};
+					`}
+				</Highlighter>
 				<p>
-					In our original program, we made the <code>Symbol.species</code> getter throw on the
-					Promise constructor. We've also learnt that the engine will call <code>.then()</code> on a
-					thenable when you pass one to <code>resolve()</code>. So, because we saw the program crash
-					we can deduce that <code>Promise.prototype.then</code> is, somehow, eventually accessing{' '}
-					<code>p.constructor[Symbol.species]</code>. But why on earth would{' '}
-					<code>Promise.prototype.then</code> care about a <code>Symbol.species</code> getter?
+					We only changed <code>p</code> here, so the global <code>Promise</code> is untouched.
+				</p>
+				<p>
+					<code>await p</code> only reuses <code>p</code> when <code>p.constructor</code> is{' '}
+					<code>Promise</code>, so it makes a new promise and calls <code>resolve(p)</code> instead.
+				</p>
+				<p>
+					<code>p</code> has a <code>.then()</code>, so it is a thenable, so <code>resolve</code>{' '}
+					calls <code>p.then(resolve, reject)</code>. Now, we saw our program crash, so{' '}
+					<code>Promise.prototype.then</code> must somehow eventually be accessing{' '}
+					<code>p.constructor[Symbol.species]</code>, right? But why on earth would{' '}
+					<code>.then()</code> care about a <code>Symbol.species</code> getter?
 				</p>
 				<p>
 					It cares because <code>.then()</code> returns a <i>new</i> promise, which is what lets you
@@ -514,7 +530,7 @@ export class Railways extends Post {
 						pub type Promise(value)
 					`}
 				</Highlighter>
-				<p>Very simple! And look carefully, no error type, just like TypeScript!</p>
+				<p>Very simple! And look, just like TypeScript, there's no error type parameter.</p>
 				<p>
 					In the Gleam source, there's a doc comment above it that says "not generic over the error
 					type as any Gleam panic or JavaScript exception could alter the error value", which would
@@ -603,87 +619,37 @@ export class Railways extends Post {
 				<p>
 					According to these signatures, <code>map</code> will never flatten a promise and{' '}
 					<code>await</code> will flatten exactly once. Both call <code>.then()</code> internally,
-					which is a problem for <code>map</code> when the callback returns a promise:
-				</p>
-				<Highlighter language="typescript">
-					{stripIndent`
-						const p = Promise.resolve(1);
-						const q = map(p, n => Promise.resolve(n + 1));
-						// the signature says q is a Promise<Promise<number>>
-
-						await q; // 2, the engine flattened it anyway
-					`}
-				</Highlighter>
-				<p>
-					The signature says <code>q</code> is a <code>Promise&lt;Promise&lt;number&gt;&gt;</code>,
-					but the engine flattened it, so <code>q</code> actually holds <code>2</code>. Gleam's type
-					checker would be wrong about <code>q</code>.
+					which is a problem for <code>map</code> when the callback returns a promise.
 				</p>
 				<p>
-					This is the problem we touched on earlier: <code>Promise&lt;Promise&lt;T&gt;&gt;</code>{' '}
-					cannot be constructed because, remember, if you resolve a promise with another promise
-					then we just wait for that second promise instead. Here's an example to drill it in:
+					Let's try to implement a naive version of Gleam's <code>promise.map</code> function:
 				</p>
 				<Highlighter language="javascript">
 					{stripIndent`
-						const inner = new Promise(resolve => resolve(42));
-						const outer = new Promise(resolve => resolve(inner));
-						const v = await outer; // we got 42, not the inner promise
+						// a very naive map: just .then()
+						const map = (promise, callback) => promise.then(callback);
+
+						const q = map(Promise.resolve(1), n => Promise.resolve(n + 1));
+						await q; // 2, the engine flattened it
 					`}
 				</Highlighter>
 				<p>
-					<code>outer</code>'s <code>resolve</code> runs twice:
+					The signature says <code>q</code> is a <code>Promise(Promise(Int))</code>, but the engine
+					flattened it, so <code>q</code> actually holds <code>2</code>. Gleam's type checker would
+					be wrong about <code>q</code>! Anything that trusts that type will crash, because{' '}
+					<code>map</code> tries to call <code>.then()</code> on a value that is actually{' '}
+					<code>2</code>:
 				</p>
-				<Trace
-					events={[
-						{text: 'resolve(inner)', note: 'inner.then is a function'},
-						{text: 'outer follows inner', tone: 'wait', note: "inner hands 42 to outer's resolve"},
-						{text: 'resolve(42)', note: '42 is not an object'},
-						{text: 'outer fulfilled with 42', tone: 'ok'},
-					]}
-				/>
+				<Highlighter language="gleam">
+					{stripIndent`
+						use inner <- promise.await(q)     // inner: Promise(Int), says the compiler
+						promise.map(inner, int.to_string) // TypeError: promise.then is not a function
+					`}
+				</Highlighter>
 				<p>
-					In 4.5, the TypeScript team added the{' '}
-					<ExternalLink href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-5/#the-awaited-type-and-promise-improvements">
-						<code>Awaited&lt;T&gt;</code>
-					</ExternalLink>{' '}
-					type, which the release notes describe as modelling "the way that <code>await</code> and{' '}
-					<code>.then</code> recursively unwrap Promises" - so{' '}
-					<code>Awaited&lt;Promise&lt;Promise&lt;number&gt;&gt;&gt;</code> is just{' '}
-					<code>number</code>.
-				</p>
-				<p>
-					JavaScript implements this promise flattening behaviour because back when the promise spec
-					was being worked on in 2013 there were many competing userland implementations of
-					promises. You might've seen jQuery's deferreds, Q, Bluebird, etc in older, pre-promises
-					JavaScript code. The one thing these libraries all had in common was that they all had a{' '}
-					<code>.then()</code> method - now we know those objects are called <b>thenable</b>s!
-				</p>
-
-				<p>
-					To ease the ecosystem into the migration, the team working on the spec decided to allow
-					any thenable to interop with another, and thus the behaviour of an outer promise waiting
-					on an inner promise (thenable) was decided on.
-				</p>
-
-				<p>
-					Much of the original discussion is still preserved in{' '}
-					<ExternalLink href="https://esdiscuss.org/topic/a-challenge-problem-for-promise-designers-was-re-futures">
-						the es-discuss thread
-					</ExternalLink>
-					, Forbes Lindesay's{' '}
-					<ExternalLink href="https://gist.github.com/ForbesLindesay/5392612">
-						Against Promises For Promises
-					</ExternalLink>
-					, and{' '}
-					<ExternalLink href="https://github.com/domenic/promises-unwrapping/issues/54">
-						promises-unwrapping #54
-					</ExternalLink>
-					, which is the repository that eventually became the spec text.
-				</p>
-				<p>
-					The flattening behaviour of <code>resolve</code> having to look at the value it was given
-					is the cost of this compromise.
+					This is the problem we touched on earlier: <code>Promise&lt;Promise&lt;T&gt;&gt;</code>{' '}
+					cannot be constructed because, remember, if you resolve a promise with another promise
+					then we just wait for that second promise instead.
 				</p>
 				<p>
 					So, to give <code>map</code> an honest type, <code>gleam_javascript</code> hides the
@@ -749,7 +715,80 @@ export class Railways extends Post {
 					The <code>await</code> function does not <code>wrap</code>, so a returned promise is
 					followed, which is the flattening behaviour that its signature guarantees.
 				</p>
-				<h2>Back to the bug</h2>
+				<p>
+					TypeScript decided to tackle this problem the other way and instead of <i>stopping</i> the
+					flattening, they made the type system understand flattening.
+				</p>
+				<p>
+					In 4.5, the TypeScript team added the{' '}
+					<ExternalLink href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-5/#the-awaited-type-and-promise-improvements">
+						<code>Awaited&lt;T&gt;</code>
+					</ExternalLink>{' '}
+					type, which the release notes describe as modelling "the way that <code>await</code> and{' '}
+					<code>.then</code> recursively unwrap Promises" - so{' '}
+					<code>Awaited&lt;Promise&lt;Promise&lt;number&gt;&gt;&gt;</code> is just{' '}
+					<code>number</code>.
+				</p>
+				<p>
+					JavaScript implements this promise flattening behaviour because back when the promise spec
+					was being worked on in 2013 there were many competing userland implementations of
+					promises. You might've seen jQuery's deferreds, Q, Bluebird, etc in older, pre-promises
+					JavaScript code. The one thing these libraries all had in common was that they all had a{' '}
+					<code>.then()</code> method - now we know those objects are called <b>thenable</b>s!
+				</p>
+
+				<p>
+					To ease the ecosystem into the migration, the team working on the spec decided to allow
+					any thenable to interop with another, and thus the behaviour of an outer promise waiting
+					on an inner promise (thenable) was decided on.
+				</p>
+
+				<p>
+					Much of the original discussion is still preserved in{' '}
+					<ExternalLink href="https://esdiscuss.org/topic/a-challenge-problem-for-promise-designers-was-re-futures">
+						the es-discuss thread
+					</ExternalLink>
+					, Forbes Lindesay's{' '}
+					<ExternalLink href="https://gist.github.com/ForbesLindesay/5392612">
+						Against Promises For Promises
+					</ExternalLink>
+					, and{' '}
+					<ExternalLink href="https://github.com/domenic/promises-unwrapping/issues/54">
+						promises-unwrapping #54
+					</ExternalLink>
+					, which is the repository that eventually became the spec text.
+				</p>
+				<h2>What did we learn?</h2>
+				<p>Let's summarise!</p>
+				<ul>
+					<li>
+						<code>resolve(value)</code> does not immediately fulfil a promise. It reads{' '}
+						<code>value.then</code> first, and if that is a function the promise follows{' '}
+						<code>value</code> instead.
+					</li>
+					<li>"Resolved" is not a state because a resolved promise can still be pending.</li>
+					<li>
+						Reading <code>value.then</code>, and reading <code>constructor[Symbol.species]</code>{' '}
+						inside <code>Promise.prototype.then</code>, are ordinary property reads. Getters can
+						throw, and the spec puts whatever they throw on the rejected track.
+					</li>
+					<li>
+						JavaScriptCore did the species read before creating the resolving functions, so when it
+						threw there was nothing to reject with. The fix was to create the functions first and
+						call them when the getter throws.
+					</li>
+					<li>
+						A promise has the shape of a railway, but its failure track can't be labelled, because
+						the engine shares it with you. That is why TypeScript's <code>Promise&lt;T&gt;</code>{' '}
+						has no <code>E</code>, and why Gleam's <code>Promise(value)</code> has none either.
+					</li>
+					<li>
+						Promises flatten because of 2013 thenable interop, so{' '}
+						<code>Promise&lt;Promise&lt;T&gt;&gt;</code> can't exist. Gleam works around this with a{' '}
+						<code>PromiseLayer</code> class that hides the inner promise from the engine's
+						flattening behaviour.
+					</li>
+				</ul>
 				<p>
 					With the two steps in the right order in JavaScriptCore, Bun 1.4 and Safari 27 now behave
 					like the spec, and like Node:
@@ -765,8 +804,10 @@ export class Railways extends Post {
 						]}
 					/>
 				</figure>
+				<p>Excellent.</p>
+				<br />
 				<p>
-					If you really did make it this far then I'm glad you are as excited about promises as I
+					If you read all the way to the end, then I am glad you are as excited about promises as I
 					am. Thank you very much for reading!
 				</p>
 			</>
