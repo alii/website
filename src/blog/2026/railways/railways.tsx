@@ -810,6 +810,15 @@ export class Railways extends Post {
 					If you read all the way to the end, then I am glad you are as excited about promises as I
 					am. Thank you very much for reading!
 				</p>
+				<br />
+				<div className="text-xs">
+					<p>
+						Thank you to <ExternalLink href="https://x.com/landon_xyz">Landon Boles</ExternalLink>,{' '}
+						<ExternalLink href="https://x.com/fat">Jacob Thornton</ExternalLink> and{' '}
+						<ExternalLink href="https://x.com/amadeus">Amadeus Demarzi</ExternalLink>, who all
+						helped me review a draft of this post.
+					</p>
+				</div>
 			</>
 		);
 	}
