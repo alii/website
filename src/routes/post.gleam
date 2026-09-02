@@ -1,14 +1,15 @@
 //// `pages/[slug]`: one blog post.
 
 import attribute as a
+import codec.{type Codec}
 import gleam/javascript/promise.{type Promise}
 import gleam/list
-import gleam/option.{None, Some}
+import gleam/option.{None}
 import gleam/string
 import html
 import next/head
 import next/link
-import next/page.{type StaticPaths, type StaticProps, type StaticPropsContext}
+import page.{type Loaded, type Paths, Found, NotFound}
 import react.{type Element}
 import site/date
 import site/layout
@@ -16,15 +17,43 @@ import site/note
 import site/posts
 import site/ui
 
-pub type Props {
-  Props(slug: String)
-}
-
 pub type Params {
   Params(slug: String)
 }
 
-pub fn page(props: Props) -> Element {
+pub fn params() -> Codec(Params) {
+  codec.object1(
+    Params,
+    codec.field("slug", codec.string(), fn(p: Params) { p.slug }),
+  )
+}
+
+pub type Props {
+  Props(slug: String)
+}
+
+pub fn props() -> Codec(Props) {
+  codec.object1(
+    Props,
+    codec.field("slug", codec.string(), fn(p: Props) { p.slug }),
+  )
+}
+
+pub fn paths() -> Promise(Paths(Params)) {
+  posts.all()
+  |> list.map(fn(post) { Params(slug: posts.slug(post)) })
+  |> page.prerender(others: page.RenderOnDemand)
+  |> promise.resolve
+}
+
+pub fn load(params: Params) -> Promise(Loaded(Props)) {
+  promise.resolve(case posts.find(params.slug) {
+    Ok(post) -> Found(Props(slug: posts.slug(post)), revalidate: None)
+    Error(Nil) -> NotFound
+  })
+}
+
+pub fn view(props: Props) -> Element {
   let assert Ok(post) = posts.find(props.slug)
   let name = posts.name(post)
   let excerpt = posts.excerpt(post)
@@ -106,25 +135,4 @@ fn prose() -> String {
     ],
     " ",
   )
-}
-
-pub fn get_static_props(
-  context: StaticPropsContext,
-) -> Promise(StaticProps(Props)) {
-  let found = case page.param(context, "slug") {
-    Some(slug) -> posts.find(slug)
-    None -> Error(Nil)
-  }
-  promise.resolve(case found {
-    Ok(post) ->
-      page.static_props(Props(slug: posts.slug(post)), revalidate: None)
-    Error(Nil) -> page.not_found()
-  })
-}
-
-pub fn get_static_paths(_context) -> Promise(StaticPaths) {
-  posts.all()
-  |> list.map(fn(post) { Params(slug: posts.slug(post)) })
-  |> page.static_paths(page.Blocking)
-  |> promise.resolve
 }

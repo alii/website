@@ -7,7 +7,7 @@ import react.{type Element}
 import site/layout
 import site/ui
 
-pub fn page(_props) -> Element {
+pub fn view() -> Element {
   layout.layout([
     html.h1([a.class("mb-4 " <> ui.page_title)], [html.text("404")]),
     html.p([a.class("mb-4 text-stone-500 dark:text-stone-400")], [

@@ -1,11 +1,11 @@
 import attribute as a
+import codec.{type Codec}
 import gleam/javascript/promise.{type Promise}
-import gleam/option.{None, Some}
+import gleam/option.{type Option, None, Some}
 import gleam/string
 import html
-import js.{type Nullable}
 import next/link
-import next/page.{type StaticProps}
+import page.{type Loaded, Found}
 import react.{type Element}
 import site/constants
 import site/env
@@ -16,13 +16,26 @@ import site/ui
 
 pub type Props {
   Props(
-    lanyard: Nullable(Presence),
-    backup_lanyard: Nullable(Presence),
+    lanyard: Option(Presence),
+    backup_lanyard: Option(Presence),
     location: String,
   )
 }
 
-pub fn get_static_props(_context) -> Promise(StaticProps(Props)) {
+pub fn props() -> Codec(Props) {
+  codec.object3(
+    Props,
+    codec.field("lanyard", codec.option(lanyard.codec()), fn(p: Props) {
+      p.lanyard
+    }),
+    codec.field("backup_lanyard", codec.option(lanyard.codec()), fn(p: Props) {
+      p.backup_lanyard
+    }),
+    codec.field("location", codec.string(), fn(p: Props) { p.location }),
+  )
+}
+
+pub fn load() -> Promise(Loaded(Props)) {
   use presence <- promise.await(lanyard.get(constants.discord_id))
   use backup_presence <- promise.await(lanyard.get(constants.backup_discord_id))
 
@@ -31,24 +44,20 @@ pub fn get_static_props(_context) -> Promise(StaticProps(Props)) {
     |> option.then(lanyard.location)
     |> option.unwrap(env.default_location())
 
-  promise.resolve(page.static_props(
-    Props(
-      lanyard: js.from_option(presence),
-      backup_lanyard: js.from_option(backup_presence),
-      location:,
-    ),
+  promise.resolve(Found(
+    Props(lanyard: presence, backup_lanyard: backup_presence, location:),
     revalidate: Some(10),
   ))
 }
 
-pub fn page(props: Props) -> Element {
+pub fn view(props: Props) -> Element {
   let id = constants.discord_id
   let backup_id = constants.backup_discord_id
 
   let presences =
     lanyard.use_lanyard([id, backup_id], [
-      #(id, js.to_option(props.lanyard)),
-      #(backup_id, js.to_option(props.backup_lanyard)),
+      #(id, props.lanyard),
+      #(backup_id, props.backup_lanyard),
     ])
   let presence = lanyard.presence(presences, id)
   let backup_presence = lanyard.presence(presences, backup_id)

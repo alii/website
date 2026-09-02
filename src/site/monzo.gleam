@@ -1,8 +1,12 @@
 //// The Monzo dashboard's data: the page's JSON props and the Monzo API
 //// objects inside them, all opaque, read through `monzo_ffi.ts`.
 
+import codec.{type Codec}
+import gleam/dynamic.{type Dynamic}
+import gleam/dynamic/decode
 import gleam/int
 import gleam/javascript/array.{type Array}
+import gleam/json.{type Json}
 import gleam/option.{type Option, None, Some}
 import gleam/string
 import js.{type Nullable}
@@ -177,3 +181,15 @@ pub fn format(currency: String, pennies: Int) -> String {
     False -> formatted
   }
 }
+
+/// The dashboard props are JSON built on the server, and cross the
+/// server-to-browser boundary as themselves.
+pub fn codec() -> Codec(Dashboard) {
+  codec.custom(encode: as_json, decoder: decode.map(decode.dynamic, from_json))
+}
+
+@external(javascript, "../js_ffi.ts", "identity")
+fn as_json(value: Dashboard) -> Json
+
+@external(javascript, "../js_ffi.ts", "identity")
+fn from_json(json: Dynamic) -> Dashboard

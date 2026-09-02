@@ -1,23 +1,32 @@
 //// `pages/demos/serverless-discord-oauth`.
 
 import attribute as a
+import codec.{type Codec}
 import gleam/int
 import gleam/javascript/promise.{type Promise}
-import gleam/option.{None, Some}
+import gleam/option.{type Option, None, Some}
 import gleam/result
 import html
-import js.{type Nullable}
 import next/link
-import next/page.{type ServerSideProps, type ServerSidePropsContext}
+import page/server.{type Request, type Response, Render}
 import react.{type Element}
 import site/discord_demo.{type User}
 
 pub type Props {
-  Props(user: Nullable(User))
+  Props(user: Option(User))
 }
 
-pub fn page(props: Props) -> Element {
-  case js.to_option(props.user) {
+pub fn props() -> Codec(Props) {
+  codec.object1(
+    Props,
+    codec.field("user", codec.option(discord_demo.codec()), fn(p: Props) {
+      p.user
+    }),
+  )
+}
+
+pub fn view(props: Props) -> Element {
+  case props.user {
     None ->
       html.div([a.class("mx-auto max-w-md py-20")], [
         html.h1([], [html.text("you are not signed in!")]),
@@ -57,11 +66,9 @@ fn avatar_url(user: User) -> String {
   }
 }
 
-pub fn get_server_side_props(
-  context: ServerSidePropsContext,
-) -> Promise(ServerSideProps(Props)) {
+pub fn respond(request: Request) -> Promise(Response(Props)) {
   let user =
-    page.cookie(context, "token")
+    server.cookie(request, "token")
     |> option.then(fn(token) {
       case token {
         "" -> None
@@ -69,8 +76,7 @@ pub fn get_server_side_props(
       }
     })
     |> option.map(verify)
-    |> js.from_option
-  promise.resolve(page.server_side_props(Props(user:)))
+  promise.resolve(Render(Props(user:)))
 }
 
 /// Verify the session JWT. Throws on a bad token, like the original.

@@ -1,6 +1,10 @@
 //// A Discord user, as the OAuth demo's session JWT stores it.
 
+import codec.{type Codec}
+import gleam/dynamic.{type Dynamic}
+import gleam/dynamic/decode
 import gleam/int
+import gleam/json.{type Json}
 import gleam/list
 import gleam/option.{type Option}
 import gleam/result
@@ -50,3 +54,15 @@ fn divide(digits: List(Int), by divisor: Int) -> List(Int) {
 fn modulo(digits: List(Int), m: Int) -> Int {
   list.fold(digits, 0, fn(acc, digit) { { acc * 10 + digit } % m })
 }
+
+/// A user is the JSON payload of the session token, unchanged, so it
+/// crosses the server-to-browser boundary as itself.
+pub fn codec() -> Codec(User) {
+  codec.custom(encode: as_json, decoder: decode.map(decode.dynamic, from_json))
+}
+
+@external(javascript, "../js_ffi.ts", "identity")
+fn as_json(value: User) -> Json
+
+@external(javascript, "../js_ffi.ts", "identity")
+fn from_json(json: Dynamic) -> User
