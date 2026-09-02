@@ -7,10 +7,36 @@ const months = [
   "Dec",
 ]
 
+// en-GB spells September "Sept"
+const months_en_gb = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov",
+  "Dec",
+]
+
+@external(javascript, "./date_ffi.ts", "now")
+fn now_ms() -> Int
+
+pub fn current_year() -> Int {
+  let #(year, _month, _day) = civil(now_ms())
+  year
+}
+
+/// "12 Aug 2026"
 pub fn format_utc(ms: Int) -> String {
-  let #(year, month, day) = civil_from_days(floor_div(ms, 86_400_000))
+  let #(year, month, day) = civil(ms)
   let assert Ok(month) = at(months, month - 1)
   int.to_string(day) <> " " <> month <> " " <> int.to_string(year)
+}
+
+/// "Aug 2026", "Sept 2022"
+pub fn month_year(ms: Int) -> String {
+  let #(year, month, _day) = civil(ms)
+  let assert Ok(month) = at(months_en_gb, month - 1)
+  month <> " " <> int.to_string(year)
+}
+
+fn civil(ms: Int) -> #(Int, Int, Int) {
+  civil_from_days(floor_div(ms, 86_400_000))
 }
 
 /// Howard Hinnant's algorithm: days since 1970-01-01 to (year, month, day).
