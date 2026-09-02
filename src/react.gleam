@@ -28,12 +28,22 @@ pub fn component(
 @external(javascript, "./react_ffi.ts", "fragment")
 pub fn fragment(children: List(Element)) -> Element
 
+/// Reinterpret a JS value as another type. Only for cases where the runtime
+/// representation is already right, like the ones below.
 @external(javascript, "./react_ffi.ts", "identity")
-pub fn text(text: String) -> Element
+fn coerce(value: a) -> b
 
-@external(javascript, "./react_ffi.ts", "identity")
-pub fn to_dynamic(value: a) -> Dynamic
+/// A string is already a valid React child.
+pub fn text(text: String) -> Element {
+  coerce(text)
+}
 
-/// Renders nothing, like `null` in JSX.
-@external(javascript, "./react_ffi.ts", "none")
-pub fn none() -> Element
+pub fn to_dynamic(value: a) -> Dynamic {
+  coerce(value)
+}
+
+/// Renders nothing, like `null` in JSX. Gleam's `Nil` is `undefined` in
+/// JavaScript, which React also renders as nothing.
+pub fn none() -> Element {
+  coerce(Nil)
+}

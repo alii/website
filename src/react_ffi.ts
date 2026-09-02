@@ -26,5 +26,3 @@ export function fragment(children: List<ReactNode>) {
 }
 
 export const identity = <T>(value: T) => value;
-
-export const none = () => null;
