@@ -8,7 +8,7 @@ import next/head
 import react.{type Element}
 import site/analytics
 
-pub fn page(props: AppProps) -> Element {
+pub fn view(props: AppProps) -> Element {
   react.fragment([
     head.head([
       html.title([], [html.text("Alistair Smith")]),

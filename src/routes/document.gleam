@@ -5,7 +5,7 @@ import html
 import next/document
 import react.{type Element}
 
-pub fn page(_props) -> Element {
+pub fn view() -> Element {
   document.html([], [
     document.head([], [
       html.link([

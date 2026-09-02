@@ -1,7 +1,11 @@
 //// Discord presence via Lanyard (`use-lanyard`).
 
+import codec.{type Codec}
+import gleam/dynamic.{type Dynamic}
+import gleam/dynamic/decode
 import gleam/javascript/array.{type Array}
 import gleam/javascript/promise.{type Promise}
+import gleam/json.{type Json}
 import gleam/list
 import gleam/option.{type Option, None, Some}
 import js.{type Nullable}
@@ -77,3 +81,15 @@ fn artist_raw(spotify: Spotify) -> Nullable(String)
 pub fn artist(spotify: Spotify) -> Option(String) {
   js.to_option(artist_raw(spotify))
 }
+
+/// A presence is the JSON Lanyard returned, unchanged, so it crosses the
+/// server-to-browser boundary as itself.
+pub fn codec() -> Codec(Presence) {
+  codec.custom(encode: as_json, decoder: decode.map(decode.dynamic, from_json))
+}
+
+@external(javascript, "../js_ffi.ts", "identity")
+fn as_json(value: Presence) -> Json
+
+@external(javascript, "../js_ffi.ts", "identity")
+fn from_json(json: Dynamic) -> Presence

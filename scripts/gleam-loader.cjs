@@ -19,23 +19,9 @@ const {execFile} = require('node:child_process');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const NAMES = {
-	get_static_props: 'getStaticProps',
-	get_static_paths: 'getStaticPaths',
-	get_server_side_props: 'getServerSideProps',
-	get_initial_props: 'getInitialProps',
-	// app router route handlers
-	get: 'GET',
-	post: 'POST',
-	put: 'PUT',
-	patch: 'PATCH',
-	delete: 'DELETE',
-	head: 'HEAD',
-	options: 'OPTIONS',
-};
-
-// `pub fn page(props)` becomes the default export
-const DEFAULT = 'page';
+// A page module exports `view`, and some of `props`, `params`, `load`, `paths`,
+// `respond` (see src/page.gleam). The glue below hands them to next/runtime.
+const PAGE_EXPORTS = ['view', 'props', 'params', 'load', 'paths', 'respond'];
 
 function sources(dir, out = []) {
 	for (const entry of fs.readdirSync(dir, {withFileTypes: true})) {
@@ -126,19 +112,46 @@ module.exports = function gleamLoader() {
 					`${from}${JSON.stringify(relative(path.resolve(path.dirname(compiled), spec)))}`,
 			);
 
-			const exported = [...code.matchAll(/^export (?:function|const) ([A-Za-z0-9_$]+)/gm)].map(
-				m => m[1],
+			const exported = new Set(
+				[...code.matchAll(/^export function ([a-z_][a-z0-9_]*)\b/gm)]
+					.map(m => m[1])
+					.filter(name => PAGE_EXPORTS.includes(name)),
 			);
 
-			for (const name of exported) {
-				const target = NAMES[name];
-				if (target && target !== name)
-					code = code.replace(new RegExp(`\\b${name}\\b`, 'g'), target);
-			}
-
-			if (exported.includes(DEFAULT)) {
+			// a Gleam module imported from TS is not a page: leave it as it is
+			if (exported.has('view')) {
+				// The data functions must not be exports: Next strips getStaticProps and
+				// friends (and whatever only they reference) from the browser bundle, but
+				// it keeps every other export, server-only imports and all.
+				for (const name of ['load', 'paths', 'params', 'respond']) {
+					code = code.replace(new RegExp(`^export function ${name}\\b`, 'm'), `function ${name}`);
+				}
+				const runtime = relative(
+					path.join(root, 'build/dev/javascript', project, 'next/runtime.mjs'),
+				);
 				const component = `${pascal(path.basename(moduleName))}Page`;
-				code += `\n\nexport default function ${component}(props) {\n\treturn ${DEFAULT}(props);\n}\n`;
+				const glue = [`import * as $$runtime from ${JSON.stringify(runtime)};`];
+				if (exported.has('respond')) {
+					glue.push(
+						'export const getServerSideProps = context => $$runtime.server_props(respond, props(), context);',
+					);
+				}
+				if (exported.has('load')) {
+					glue.push(
+						exported.has('params')
+							? 'export const getStaticProps = context => $$runtime.static_props(load, params(), props(), context);'
+							: 'export const getStaticProps = context => $$runtime.static_props_without_params(load, props(), context);',
+					);
+				}
+				if (exported.has('paths')) {
+					glue.push('export const getStaticPaths = () => $$runtime.static_paths(paths, params());');
+				}
+				glue.push(
+					exported.has('props')
+						? `export default function ${component}(raw) {\n\treturn $$runtime.render(view, props(), raw);\n}`
+						: `export default function ${component}(raw) {\n\treturn view(raw);\n}`,
+				);
+				code += `\n\n${glue.join('\n')}\n`;
 			}
 
 			callback(null, prelude + code);

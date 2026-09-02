@@ -1,6 +1,7 @@
 //// `pages/monzo/dashboard`: my Monzo accounts, behind the Monzo OAuth flow.
 
 import attribute as a
+import codec.{type Codec}
 import gleam/int
 import gleam/javascript/array.{type Array}
 import gleam/javascript/promise.{type Promise}
@@ -10,13 +11,17 @@ import gleam/string
 import html
 import js.{type Nullable, type Thrown}
 import next/link
-import next/page.{type ServerSideProps, type ServerSidePropsContext}
+import page/server.{type Request, type Response, Redirect, Render}
 import react.{type Element}
 import site/monzo.{
   type Account, type Balance, type Body, type Dashboard, type Pot, type Webhook,
 }
 
-pub fn page(props: Dashboard) -> Element {
+pub fn props() -> Codec(Dashboard) {
+  monzo.codec()
+}
+
+pub fn view(props: Dashboard) -> Element {
   case monzo.outcome(props) {
     Ok(success) -> dashboard(monzo.accounts(success))
     Error(failure) -> failure_view(monzo.error(failure), monzo.body(failure))
@@ -245,24 +250,22 @@ fn webhooks_section(webhooks: List(Webhook)) -> Element {
 // Everything below is only reachable from `get_server_side_props`, so Next
 // drops it, and `monzo_dashboard_ffi.ts`, from the browser bundle.
 
-pub fn get_server_side_props(
-  context: ServerSidePropsContext,
-) -> Promise(ServerSideProps(Dashboard)) {
-  case page.cookie(context, "token") {
+pub fn respond(request: Request) -> Promise(Response(Dashboard)) {
+  case server.cookie(request, "token") {
     None -> promise.resolve(to_login())
     Some(token) ->
       load(token)
       |> promise.map(fn(loaded) {
         case loaded {
-          Ok(dashboard) -> page.server_side_props(dashboard)
+          Ok(dashboard) -> Render(dashboard)
           Error(Nil) -> to_login()
         }
       })
   }
 }
 
-fn to_login() -> ServerSideProps(Dashboard) {
-  page.redirect("/api/oauth/monzo/redirect", permanent: False)
+fn to_login() -> Response(Dashboard) {
+  Redirect(to: "/api/oauth/monzo/redirect", permanent: False)
 }
 
 /// A parsed session cookie.
