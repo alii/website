@@ -1,26 +1,21 @@
 //// A Discord user, as the OAuth demo's session JWT stores it.
 
 import gleam/option.{type Option}
-import js
 
 pub type User
 
-pub fn id(user: User) -> String {
-  js.get(user, "id")
-}
+@external(javascript, "./discord_demo_ffi.ts", "id")
+pub fn id(user: User) -> String
 
-pub fn username(user: User) -> String {
-  js.get(user, "username")
-}
+@external(javascript, "./discord_demo_ffi.ts", "username")
+pub fn username(user: User) -> String
 
-pub fn discriminator(user: User) -> String {
-  js.get(user, "discriminator")
-}
+@external(javascript, "./discord_demo_ffi.ts", "discriminator")
+pub fn discriminator(user: User) -> String
 
 /// Avatar hash, if the user has one.
-pub fn avatar(user: User) -> Option(String) {
-  js.get_optional(user, "avatar")
-}
+@external(javascript, "./discord_demo_ffi.ts", "avatar")
+pub fn avatar(user: User) -> Option(String)
 
 /// Which of Discord's default avatars a user without one gets. Snowflakes
 /// are too big for a JS number, so this stays in TS with BigInt.

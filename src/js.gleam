@@ -1,4 +1,6 @@
-//// Helpers for the JavaScript boundary.
+//// The JavaScript boundary. Values from JS are opaque types whose accessors
+//// are externals in that type's own `*_ffi.ts`, typed against the real JS
+//// type there. This module only bridges null.
 
 import gleam/option.{type Option}
 
@@ -10,12 +12,3 @@ pub fn to_option(value: Nullable(a)) -> Option(a)
 
 @external(javascript, "./js_ffi.ts", "fromOption")
 pub fn from_option(option: Option(a)) -> Nullable(a)
-
-/// Read a property off a JS object. Unchecked: the caller picks the type,
-/// so keep calls inside a binding module that knows the object's shape.
-@external(javascript, "./js_ffi.ts", "get")
-pub fn get(object: a, property: String) -> b
-
-pub fn get_optional(object: a, property: String) -> Option(b) {
-  to_option(get(object, property))
-}

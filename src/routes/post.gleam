@@ -3,13 +3,12 @@
 import attribute as a
 import gleam/javascript/promise.{type Promise}
 import gleam/list
-import gleam/option.{None}
+import gleam/option.{None, Some}
 import gleam/string
 import html
-import js
 import next/head
 import next/link
-import next/page.{type StaticPaths, type StaticProps}
+import next/page.{type StaticPaths, type StaticProps, type StaticPropsContext}
 import react.{type Element}
 import site/date
 import site/layout
@@ -109,10 +108,16 @@ fn prose() -> String {
   )
 }
 
-pub fn get_static_props(context) -> Promise(StaticProps(Props)) {
-  let slug: String = js.get(js.get(context, "params"), "slug")
-  promise.resolve(case posts.find(slug) {
-    Ok(_) -> page.static_props(Props(slug:), revalidate: None)
+pub fn get_static_props(
+  context: StaticPropsContext,
+) -> Promise(StaticProps(Props)) {
+  let found = case page.param(context, "slug") {
+    Some(slug) -> posts.find(slug)
+    None -> Error(Nil)
+  }
+  promise.resolve(case found {
+    Ok(post) ->
+      page.static_props(Props(slug: posts.slug(post)), revalidate: None)
     Error(Nil) -> page.not_found()
   })
 }

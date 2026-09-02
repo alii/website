@@ -1,9 +1,8 @@
-import {None, Some} from '@gleam/gleam_stdlib/gleam/option.mjs';
 import {GoogleAnalytics} from '@next/third-parties/google';
+import {createElement} from 'react';
 import {Toaster} from 'react-hot-toast';
+import {toOption} from '../js_ffi.ts';
 
-const tag = process.env.NEXT_PUBLIC_GTM_ID;
-
-export const gtmId = () => (tag ? new Some(tag) : new None());
-export const googleAnalytics = () => GoogleAnalytics;
-export const toaster = () => Toaster;
+export const gtmId = () => toOption(process.env.NEXT_PUBLIC_GTM_ID);
+export const googleAnalytics = (gaId: string) => createElement(GoogleAnalytics, {gaId});
+export const toaster = () => createElement(Toaster);

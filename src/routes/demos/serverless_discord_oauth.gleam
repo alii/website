@@ -3,12 +3,12 @@
 import attribute as a
 import gleam/int
 import gleam/javascript/promise.{type Promise}
-import gleam/option.{type Option, None, Some}
+import gleam/option.{None, Some}
 import gleam/result
 import html
 import js.{type Nullable}
 import next/link
-import next/page.{type ServerSideProps}
+import next/page.{type ServerSideProps, type ServerSidePropsContext}
 import react.{type Element}
 import site/discord_demo.{type User}
 import site/discord_demo_session
@@ -58,11 +58,11 @@ fn avatar_url(user: User) -> String {
   }
 }
 
-pub fn get_server_side_props(context) -> Promise(ServerSideProps(Props)) {
-  let token: Option(String) =
-    js.get_optional(js.get(js.get(context, "req"), "cookies"), "token")
+pub fn get_server_side_props(
+  context: ServerSidePropsContext,
+) -> Promise(ServerSideProps(Props)) {
   let user =
-    token
+    page.cookie(context, "token")
     |> option.then(fn(token) {
       case token {
         "" -> None

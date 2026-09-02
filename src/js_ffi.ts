@@ -5,6 +5,3 @@ export const toOption = <T>(value: T | null | undefined): Option$<T> =>
 
 export const fromOption = <T>(option: Option$<T>): T | null =>
 	option instanceof Some ? option[0] : null;
-
-export const get = (object: unknown, property: string): unknown =>
-	(object as Record<string, unknown>)[property];

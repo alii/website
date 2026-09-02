@@ -26,23 +26,18 @@ pub fn use_lanyard(
 @external(javascript, "./lanyard_ffi.ts", "presence")
 pub fn presence(map: PresenceMap, id: String) -> Option(Presence)
 
-pub fn spotify(presence: Presence) -> Option(Spotify) {
-  js.get_optional(presence, "spotify")
-}
+@external(javascript, "./lanyard_ffi.ts", "spotify")
+pub fn spotify(presence: Presence) -> Option(Spotify)
 
 /// The `location` key in the presence's KV store.
-pub fn location(presence: Presence) -> Option(String) {
-  js.get_optional(js.get(presence, "kv"), "location")
-}
+@external(javascript, "./lanyard_ffi.ts", "location")
+pub fn location(presence: Presence) -> Option(String)
 
-pub fn track_id(spotify: Spotify) -> String {
-  js.get(spotify, "track_id")
-}
+@external(javascript, "./lanyard_ffi.ts", "trackId")
+pub fn track_id(spotify: Spotify) -> String
 
-pub fn song(spotify: Spotify) -> String {
-  js.get(spotify, "song")
-}
+@external(javascript, "./lanyard_ffi.ts", "song")
+pub fn song(spotify: Spotify) -> String
 
-pub fn artist(spotify: Spotify) -> Option(String) {
-  js.get_optional(spotify, "artist")
-}
+@external(javascript, "./lanyard_ffi.ts", "artist")
+pub fn artist(spotify: Spotify) -> Option(String)

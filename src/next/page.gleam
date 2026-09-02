@@ -47,3 +47,17 @@ pub type ServerSideProps(props)
 
 @external(javascript, "./next_ffi.ts", "serverSideProps")
 pub fn server_side_props(props: props) -> ServerSideProps(props)
+
+/// The argument to `get_static_props`.
+pub type StaticPropsContext
+
+/// A route parameter, like `slug` for `pages/[slug]`.
+@external(javascript, "./next_ffi.ts", "param")
+pub fn param(context: StaticPropsContext, name: String) -> Option(String)
+
+/// The argument to `get_server_side_props`.
+pub type ServerSidePropsContext
+
+/// A cookie on the request.
+@external(javascript, "./next_ffi.ts", "cookie")
+pub fn cookie(context: ServerSidePropsContext, name: String) -> Option(String)

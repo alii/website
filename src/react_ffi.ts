@@ -35,3 +35,10 @@ export function withProps(
 }
 
 export const innerHtml = (html: string) => ({__html: html});
+
+// What JSX would pass as `children`: one child as is, several as a fragment.
+// For typed components whose props require `children`.
+export function childrenProp(children: List<ReactNode>): ReactNode {
+	const list = children.toArray();
+	return list.length === 1 ? list[0] : createElement(Fragment, null, ...list);
+}
