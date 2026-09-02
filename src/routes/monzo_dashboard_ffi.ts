@@ -2,7 +2,7 @@
 // (and this import) from the browser bundle.
 import {parseSessionJWT, type SessionData} from '@/server/sessions';
 import {MonzoAPI, type Id, type Models} from '@otters/monzo';
-import type {HTTPClientError} from 'alistair/http';
+import {HTTPClientError} from 'alistair/http';
 import type {AccountData, Dashboard, Webhook} from '../site/monzo_ffi.ts';
 
 export const parseSession = (token: string) => parseSessionJWT(token);

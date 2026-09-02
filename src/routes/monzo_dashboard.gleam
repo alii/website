@@ -307,13 +307,17 @@ fn success_props(accounts: Array(Account)) -> Dashboard
 @external(javascript, "./monzo_dashboard_ffi.ts", "failed")
 fn failure_props(error: String, body: Body) -> Dashboard
 
-/// `message` of a thrown `Error`; nothing for anything else thrown.
-@external(javascript, "./monzo_dashboard_ffi.ts", "errorMessage")
-fn error_message(thrown: Thrown) -> Nullable(String)
+/// A failed request to Monzo.
+type HttpClientError
 
-/// The response body of a thrown HTTP client error.
+@external(javascript, "./monzo_dashboard_ffi.ts", "httpClientError")
+fn http_client_error(thrown: Thrown) -> Nullable(HttpClientError)
+
+@external(javascript, "./monzo_dashboard_ffi.ts", "errorMessage")
+fn error_message(error: HttpClientError) -> String
+
 @external(javascript, "./monzo_dashboard_ffi.ts", "errorResponseJson")
-fn error_response_json(thrown: Thrown) -> Promise(Body)
+fn error_response_json(error: HttpClientError) -> Promise(Body)
 
 /// Anything else thrown, made JSON-safe.
 @external(javascript, "./monzo_dashboard_ffi.ts", "errorJsonValue")
@@ -382,6 +386,6 @@ fn failed_to_load(thrown: Thrown) -> Promise(Dashboard) {
         error_json_value(thrown),
       ))
     Some(message) ->
-      promise.map(error_response_json(thrown), failed(message, _))
+      promise.map(error_response_json(thrown), failure_props(message, _))
   }
 }
