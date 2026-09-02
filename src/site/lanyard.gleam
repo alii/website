@@ -1,8 +1,10 @@
 //// Discord presence via Lanyard (`use-lanyard`).
 
+import gleam/javascript/array.{type Array}
 import gleam/javascript/promise.{type Promise}
-import gleam/option.{type Option}
-import js.{type Nullable}
+import gleam/list
+import gleam/option.{type Option, None, Some}
+import js.{type Nullable, type Object}
 
 pub type Presence
 
@@ -11,27 +13,54 @@ pub type Spotify
 /// What `use_lanyard` returns: presences keyed by Discord id.
 pub type PresenceMap
 
-/// Fetch a presence over REST. `null` when the request fails, so it can be
-/// handed straight to Next as a page prop.
 @external(javascript, "./lanyard_ffi.ts", "get")
-pub fn get(id: String) -> Promise(Nullable(Presence))
+fn fetch(id: String) -> Promise(Presence)
+
+/// Fetch a presence over REST. `None` when the request fails.
+pub fn get(id: String) -> Promise(Option(Presence)) {
+  js.attempt(fetch(id))
+  |> promise.map(option.from_result)
+}
+
+@external(javascript, "./lanyard_ffi.ts", "useLanyard")
+fn use_lanyard_hook(ids: Array(String), initial_data: Object) -> PresenceMap
 
 /// The `useLanyard` hook: live presences over a socket, seeded with initial data.
-@external(javascript, "./lanyard_ffi.ts", "useLanyard")
 pub fn use_lanyard(
   ids: List(String),
   initial: List(#(String, Option(Presence))),
-) -> PresenceMap
+) -> PresenceMap {
+  let initial_data =
+    list.filter_map(initial, fn(pair) {
+      case pair {
+        #(id, Some(presence)) -> Ok(#(id, js.dynamic(presence)))
+        #(_, None) -> Error(Nil)
+      }
+    })
+  use_lanyard_hook(array.from_list(ids), js.object(initial_data))
+}
 
 @external(javascript, "./lanyard_ffi.ts", "presence")
-pub fn presence(map: PresenceMap, id: String) -> Option(Presence)
+fn presence_raw(map: PresenceMap, id: String) -> Nullable(Presence)
+
+pub fn presence(map: PresenceMap, id: String) -> Option(Presence) {
+  js.to_option(presence_raw(map, id))
+}
 
 @external(javascript, "./lanyard_ffi.ts", "spotify")
-pub fn spotify(presence: Presence) -> Option(Spotify)
+fn spotify_raw(presence: Presence) -> Nullable(Spotify)
+
+pub fn spotify(presence: Presence) -> Option(Spotify) {
+  js.to_option(spotify_raw(presence))
+}
+
+@external(javascript, "./lanyard_ffi.ts", "location")
+fn location_raw(presence: Presence) -> Nullable(String)
 
 /// The `location` key in the presence's KV store.
-@external(javascript, "./lanyard_ffi.ts", "location")
-pub fn location(presence: Presence) -> Option(String)
+pub fn location(presence: Presence) -> Option(String) {
+  js.to_option(location_raw(presence))
+}
 
 @external(javascript, "./lanyard_ffi.ts", "trackId")
 pub fn track_id(spotify: Spotify) -> String
@@ -40,4 +69,8 @@ pub fn track_id(spotify: Spotify) -> String
 pub fn song(spotify: Spotify) -> String
 
 @external(javascript, "./lanyard_ffi.ts", "artist")
-pub fn artist(spotify: Spotify) -> Option(String)
+fn artist_raw(spotify: Spotify) -> Nullable(String)
+
+pub fn artist(spotify: Spotify) -> Option(String) {
+  js.to_option(artist_raw(spotify))
+}

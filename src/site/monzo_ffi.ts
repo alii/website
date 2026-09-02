@@ -1,16 +1,4 @@
 import type {Id, Models} from '@otters/monzo';
-import {Error as GleamError, Ok, toList, type Result} from '@gleam/prelude.mjs';
-import {
-	Account,
-	Balance,
-	Failure,
-	PaymentDetails,
-	Pot,
-	Webhook,
-	type Account$,
-	type Failure$,
-} from '@gleam/website/site/monzo.mjs';
-import {toOption} from '../js_ffi.ts';
 
 export type AccountData = Models.Account & {
 	balance?: Models.Balance | null;
@@ -22,51 +10,49 @@ export type AccountData = Models.Account & {
 export type Dashboard =
 	{success: true; data: {accounts: AccountData[]}} | {success: false; error: string; body: unknown};
 
-export function accounts(dashboard: Dashboard): Result<Account$[], Failure$> {
-	if (!dashboard.success) {
-		return new GleamError(
-			new Failure(dashboard.error, JSON.stringify(dashboard.body, null, 4) ?? ''),
-		);
-	}
-	return new Ok(toList(dashboard.data.accounts.map(account)));
-}
+type Owner = Models.Account['owners'][number];
+type PaymentDetails = NonNullable<Models.Account['payment_details']>;
+export type Webhook = NonNullable<AccountData['webhooks']>[number];
 
-const account = (acct: AccountData) =>
-	new Account(
-		acct.id,
-		acct.type,
-		acct.description,
-		acct.closed,
-		acct.currency,
-		toList(acct.owners.map(owner => owner.preferred_first_name)),
-		toOption(acct.balance && new Balance(acct.balance.balance, acct.balance.spend_today)),
-		toOption(acct.pots && toList(acct.pots.map(pot))),
-		toOption(acct.webhooks && toList(acct.webhooks.map(hook => new Webhook(hook.id, hook.url)))),
-		toOption(
-			acct.payment_details &&
-				new PaymentDetails(
-					acct.payment_details.locale_uk.account_number,
-					acct.payment_details.locale_uk.sort_code,
-				),
-		),
-	);
+export const success = (dashboard: Dashboard) => (dashboard.success ? dashboard : null);
+export const failure = (dashboard: Dashboard) => (dashboard.success ? null : dashboard);
+export const accounts = (success: Extract<Dashboard, {success: true}>) => success.data.accounts;
+export const error = (failure: Extract<Dashboard, {success: false}>) => failure.error;
+export const body = (failure: Extract<Dashboard, {success: false}>) => failure.body;
 
-const pot = (pot: Models.Pot) =>
-	new Pot(
-		pot.id,
-		pot.name,
-		pot.deleted,
-		toOption(pot.round_up ? String(pot.round_up_multiplier) : null),
-		pot.balance,
-		toOption(typeof pot.goal_amount === 'number' ? pot.goal_amount : null),
-	);
+export const id = (account: AccountData) => account.id;
+export const kind = (account: AccountData) => account.type;
+export const description = (account: AccountData) => account.description;
+export const closed = (account: AccountData) => account.closed;
+export const currency = (account: AccountData) => account.currency;
+export const owners = (account: AccountData) => account.owners;
+export const preferredFirstName = (owner: Owner) => owner.preferred_first_name;
+export const balance = (account: AccountData) => account.balance;
+export const pots = (account: AccountData) => account.pots;
+export const webhooks = (account: AccountData) => account.webhooks;
+export const paymentDetails = (account: AccountData) => account.payment_details;
 
-export function format(currency: string, pennies: number) {
-	const formatter = new Intl.NumberFormat(undefined, {
+export const balanceAmount = (balance: Models.Balance) => balance.balance;
+export const spendToday = (balance: Models.Balance) => balance.spend_today;
+
+export const potId = (pot: Models.Pot) => pot.id;
+export const potName = (pot: Models.Pot) => pot.name;
+export const potDeleted = (pot: Models.Pot) => pot.deleted;
+export const potRoundUp = (pot: Models.Pot) => pot.round_up;
+export const potRoundUpMultiplier = (pot: Models.Pot) => pot.round_up_multiplier;
+export const potBalance = (pot: Models.Pot) => pot.balance;
+export const potGoalAmount = (pot: Models.Pot) => pot.goal_amount;
+
+export const webhookId = (webhook: Webhook) => webhook.id;
+export const webhookUrl = (webhook: Webhook) => webhook.url;
+
+export const accountNumber = (details: PaymentDetails) => details.locale_uk.account_number;
+export const sortCode = (details: PaymentDetails) => details.locale_uk.sort_code;
+
+export const formatCurrency = (currency: string, amount: number) =>
+	new Intl.NumberFormat(undefined, {
 		style: 'currency',
 		currency,
 		unitDisplay: 'narrow',
 		currencyDisplay: 'narrowSymbol',
-	});
-	return formatter.format(pennies / 100).replace(/\.00$/, '');
-}
+	}).format(amount);

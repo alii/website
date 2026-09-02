@@ -1,5 +1,6 @@
 //// The existing TSX <Note>.
 
+import gleam/javascript/array.{type Array}
 import react.{type Element}
 
 pub type Variant {
@@ -7,6 +8,13 @@ pub type Variant {
   Info
   Success
 }
+
+@external(javascript, "./note_ffi.ts", "note")
+fn note_component(
+  variant: String,
+  title: String,
+  children: Array(Element),
+) -> Element
 
 pub fn note(
   variant: Variant,
@@ -18,8 +26,5 @@ pub fn note(
     Info -> "info"
     Success -> "success"
   }
-  note_ffi(variant, title, children)
+  note_component(variant, title, array.from_list(children))
 }
-
-@external(javascript, "./note_ffi.ts", "note")
-fn note_ffi(variant: String, title: String, children: List(Element)) -> Element

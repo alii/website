@@ -28,12 +28,15 @@ pub fn get_static_props(_context) -> Promise(StaticProps(Props)) {
 
   let location =
     presence
-    |> js.to_option
     |> option.then(lanyard.location)
     |> option.unwrap(env.default_location())
 
   promise.resolve(page.static_props(
-    Props(lanyard: presence, backup_lanyard: backup_presence, location:),
+    Props(
+      lanyard: js.from_option(presence),
+      backup_lanyard: js.from_option(backup_presence),
+      location:,
+    ),
     revalidate: Some(10),
   ))
 }
