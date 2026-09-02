@@ -11,7 +11,6 @@ import next/link
 import next/page.{type ServerSideProps, type ServerSidePropsContext}
 import react.{type Element}
 import site/discord_demo.{type User}
-import site/discord_demo_session
 
 pub type Props {
   Props(user: Nullable(User))
@@ -69,7 +68,11 @@ pub fn get_server_side_props(
         _ -> Some(token)
       }
     })
-    |> option.map(discord_demo_session.verify)
+    |> option.map(verify)
     |> js.from_option
   promise.resolve(page.server_side_props(Props(user:)))
 }
+
+/// Verify the session JWT. Throws on a bad token, like the original.
+@external(javascript, "./serverless_discord_oauth_ffi.ts", "verify")
+fn verify(token: String) -> User

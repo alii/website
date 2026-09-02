@@ -1,11 +1,15 @@
 import {Some, type Option$} from '@gleam/gleam_stdlib/gleam/option.mjs';
 import type {List} from '@gleam/prelude.mjs';
 import type {GetServerSidePropsContext, GetStaticPropsContext} from 'next';
+import type {AppProps} from 'next/app';
 import Head from 'next/head';
 import Link from 'next/link';
 import {toOption} from '../js_ffi.ts';
 
 export const link = () => Link;
+
+export const component = (props: AppProps) => props.Component;
+export const pageProps = (props: AppProps) => props.pageProps;
 export const head = () => Head;
 
 // Next insists getStaticProps results are plain objects. A Gleam record is a
