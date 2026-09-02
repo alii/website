@@ -2,7 +2,7 @@ import attribute as a
 import codec.{type Codec}
 import gleam/javascript/promise.{type Promise}
 import gleam/list
-import gleam/option.{None}
+import gleam/option.{None, Some}
 import gleam/string
 import html
 import next/head
@@ -39,24 +39,24 @@ pub fn props() -> Codec(Props) {
 
 pub fn paths() -> Promise(Paths(Params)) {
   posts.all()
-  |> list.map(fn(post) { Params(slug: posts.slug(post)) })
+  |> list.map(fn(post) { Params(slug: post.slug) })
   |> page.prerender(others: page.RenderOnDemand)
   |> promise.resolve
 }
 
 pub fn load(params: Params) -> Promise(Loaded(Props)) {
   promise.resolve(case posts.find(params.slug) {
-    Ok(post) -> Found(Props(slug: posts.slug(post)), revalidate: None)
+    Ok(post) -> Found(Props(slug: post.slug), revalidate: None)
     Error(Nil) -> NotFound
   })
 }
 
 pub fn view(props: Props) -> Element {
   let assert Ok(post) = posts.find(props.slug)
-  let name = posts.name(post)
-  let excerpt = posts.excerpt(post)
-  let og_image = "https://alistair.sh/api/og?slug=" <> posts.slug(post)
-  let theme_color = case posts.hidden(post) {
+  let name = post.name
+  let excerpt = post.excerpt
+  let og_image = "https://alistair.sh/api/og?slug=" <> post.slug
+  let theme_color = case post.hidden {
     True -> "#ebb305"
     False -> "#ffffff"
   }
@@ -67,7 +67,7 @@ pub fn view(props: Props) -> Element {
       html.meta([a.name("description"), a.content(excerpt)]),
       html.meta([
         a.name("keywords"),
-        a.content(string.join(posts.keywords(post), ", ")),
+        a.content(string.join(post.keywords, ", ")),
       ]),
       html.meta([a.name("theme-color"), a.content(theme_color)]),
       html.meta([a.property("og:image"), a.content(og_image)]),
@@ -78,9 +78,9 @@ pub fn view(props: Props) -> Element {
       html.meta([a.name("twitter:site"), a.content("@alistaiir")]),
       html.meta([a.name("twitter:creator"), a.content("@alistaiir")]),
     ]),
-    case posts.hidden(post) {
+    case post.hidden {
       True ->
-        note.note(note.Warning, "Hidden post", [
+        note.note(note.Warning, Some("Hidden post"), [
           html.p([], [
             html.text(
               "This post is not listed on the homepage. Please don't share the link.",
@@ -95,10 +95,10 @@ pub fn view(props: Props) -> Element {
           html.text(name),
         ]),
         html.p([a.class("text-[13px] " <> ui.muted)], [
-          html.text(date.format_utc(posts.date_ms(post))),
+          html.text(date.format_utc(post.date)),
         ]),
       ]),
-      html.div([a.class(prose())], [posts.render(post)]),
+      html.div([a.class(prose())], [post.body()]),
       html.footer([a.class("mt-16 text-[15px]")], [
         link.link([a.href("/")], [html.text("← Home")]),
       ]),

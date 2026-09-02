@@ -87,3 +87,95 @@ pub fn script(attrs: List(Attribute)) -> Element {
 pub fn body(attrs: List(Attribute), children: List(Element)) -> Element {
   react.element("body", attrs, children)
 }
+
+pub fn code(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("code", attrs, children)
+}
+
+pub fn b(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("b", attrs, children)
+}
+
+pub fn em(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("em", attrs, children)
+}
+
+pub fn i(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("i", attrs, children)
+}
+
+pub fn h3(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("h3", attrs, children)
+}
+
+pub fn ul(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("ul", attrs, children)
+}
+
+pub fn td(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("td", attrs, children)
+}
+
+pub fn g(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("g", attrs, children)
+}
+
+pub fn strong(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("strong", attrs, children)
+}
+
+pub fn tr(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("tr", attrs, children)
+}
+
+pub fn th(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("th", attrs, children)
+}
+
+pub fn blockquote(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("blockquote", attrs, children)
+}
+
+pub fn ellipse(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("ellipse", attrs, children)
+}
+
+pub fn video(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("video", attrs, children)
+}
+
+pub fn u(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("u", attrs, children)
+}
+
+pub fn thead(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("thead", attrs, children)
+}
+
+pub fn tbody(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("tbody", attrs, children)
+}
+
+pub fn table(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("table", attrs, children)
+}
+
+pub fn svg(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("svg", attrs, children)
+}
+
+pub fn small(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("small", attrs, children)
+}
+
+pub fn path(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("path", attrs, children)
+}
+
+pub fn figure(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("figure", attrs, children)
+}
+
+pub fn br(attrs: List(Attribute)) -> Element {
+  react.element("br", attrs, [])
+}
