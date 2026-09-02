@@ -16,18 +16,8 @@ pub fn to_option(value: Nullable(a)) -> Option(a)
 @external(javascript, "./js_ffi.ts", "fromOption")
 pub fn from_option(option: Option(a)) -> Nullable(a)
 
-/// A plain JS object, as Next and React want them.
-pub type Object
-
-/// `{name: value, ...}`
-@external(javascript, "./js_ffi.ts", "object")
-pub fn object(fields: List(#(String, Dynamic))) -> Object
-
-/// `{...record}`: a record's fields as a plain object.
-@external(javascript, "./js_ffi.ts", "spread")
-pub fn plain(record: a) -> Object
-
-/// Forget a value's type, to put it in an `object`.
+/// Forget a value's type, for a place that takes any JS value, like a React
+/// prop.
 @external(javascript, "./js_ffi.ts", "identity")
 pub fn dynamic(value: a) -> Dynamic
 

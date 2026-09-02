@@ -4,7 +4,7 @@ import gleam/javascript/array.{type Array}
 import gleam/javascript/promise.{type Promise}
 import gleam/list
 import gleam/option.{type Option, None, Some}
-import js.{type Nullable, type Object}
+import js.{type Nullable}
 
 pub type Presence
 
@@ -23,21 +23,24 @@ pub fn get(id: String) -> Promise(Option(Presence)) {
 }
 
 @external(javascript, "./lanyard_ffi.ts", "useLanyard")
-fn use_lanyard_hook(ids: Array(String), initial_data: Object) -> PresenceMap
+fn use_lanyard_hook(
+  ids: Array(String),
+  initial: Array(#(String, Presence)),
+) -> PresenceMap
 
 /// The `useLanyard` hook: live presences over a socket, seeded with initial data.
 pub fn use_lanyard(
   ids: List(String),
   initial: List(#(String, Option(Presence))),
 ) -> PresenceMap {
-  let initial_data =
+  let initial =
     list.filter_map(initial, fn(pair) {
       case pair {
-        #(id, Some(presence)) -> Ok(#(id, js.dynamic(presence)))
+        #(id, Some(presence)) -> Ok(#(id, presence))
         #(_, None) -> Error(Nil)
       }
     })
-  use_lanyard_hook(array.from_list(ids), js.object(initial_data))
+  use_lanyard_hook(array.from_list(ids), array.from_list(initial))
 }
 
 @external(javascript, "./lanyard_ffi.ts", "presence")
