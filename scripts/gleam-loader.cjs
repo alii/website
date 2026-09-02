@@ -39,15 +39,36 @@ function sources(dir, out = []) {
 	return out;
 }
 
+// scripts/ensure-gleam.mjs installs one here when there is none on PATH
+function gleamBinary(root) {
+	const local = path.join(
+		root,
+		'node_modules',
+		'.bin',
+		process.platform === 'win32' ? 'gleam.exe' : 'gleam',
+	);
+	return process.env.GLEAM_BIN ?? (fs.existsSync(local) ? local : 'gleam');
+}
+
 // several pages compile at once; share one `gleam build` between them
 let building = null;
 function build(root) {
 	building ??= new Promise((resolve, reject) => {
-		execFile('gleam', ['build', '--target', 'javascript'], {cwd: root, encoding: 'utf8'}, (error, stdout, stderr) => {
-			building = null;
-			if (error) reject(new Error(`gleam build failed:\n${stderr || stdout || error.message}`));
-			else resolve();
-		});
+		execFile(
+			gleamBinary(root),
+			['build', '--target', 'javascript'],
+			{cwd: root, encoding: 'utf8'},
+			(error, stdout, stderr) => {
+				building = null;
+				if (error?.code === 'ENOENT')
+					reject(
+						new Error('gleam not found: `brew install gleam` or `node scripts/ensure-gleam.mjs`'),
+					);
+				else if (error)
+					reject(new Error(`gleam build failed:\n${stderr || stdout || error.message}`));
+				else resolve();
+			},
+		);
 	});
 	return building;
 }
@@ -64,7 +85,9 @@ module.exports = function gleamLoader() {
 
 	build(root)
 		.then(() => {
-			const project = /^name\s*=\s*"([^"]+)"/m.exec(fs.readFileSync(path.join(root, 'gleam.toml'), 'utf8'))[1];
+			const project = /^name\s*=\s*"([^"]+)"/m.exec(
+				fs.readFileSync(path.join(root, 'gleam.toml'), 'utf8'),
+			)[1];
 			const moduleName = path.relative(srcDir, this.resourcePath).replace(/\.gleam$/, '');
 			const compiled = path.join(root, 'build/dev/javascript', project, `${moduleName}.mjs`);
 			const here = path.dirname(this.resourcePath);
@@ -77,14 +100,18 @@ module.exports = function gleamLoader() {
 
 			code = code.replace(
 				/(\bfrom\s+)"(\.{1,2}\/[^"]+)"/g,
-				(_, from, spec) => `${from}${JSON.stringify(relative(path.resolve(path.dirname(compiled), spec)))}`,
+				(_, from, spec) =>
+					`${from}${JSON.stringify(relative(path.resolve(path.dirname(compiled), spec)))}`,
 			);
 
-			const exported = [...code.matchAll(/^export (?:function|const) ([A-Za-z0-9_$]+)/gm)].map(m => m[1]);
+			const exported = [...code.matchAll(/^export (?:function|const) ([A-Za-z0-9_$]+)/gm)].map(
+				m => m[1],
+			);
 
 			for (const name of exported) {
 				const target = NAMES[name];
-				if (target && target !== name) code = code.replace(new RegExp(`\\b${name}\\b`, 'g'), target);
+				if (target && target !== name)
+					code = code.replace(new RegExp(`\\b${name}\\b`, 'g'), target);
 			}
 
 			if (exported.includes(DEFAULT)) {

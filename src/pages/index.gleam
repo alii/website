@@ -24,7 +24,9 @@ pub type Props {
 
 pub fn get_static_props(_context) -> Promise(StaticProps) {
   use presence <- promise.await(lanyard.get(constants.discord_id()))
-  use backup_presence <- promise.await(lanyard.get(constants.backup_discord_id()))
+  use backup_presence <- promise.await(
+    lanyard.get(constants.backup_discord_id()),
+  )
 
   let location =
     presence
@@ -63,9 +65,12 @@ pub fn page(props: Props) -> Element {
   let visible = posts.all() |> posts.sort |> posts.visible
 
   layout.layout([
-    html.h1([a.class("mb-6 text-[15px] font-bold text-stone-950 dark:text-stone-50")], [
-      html.text("Alistair Smith"),
-    ]),
+    html.h1(
+      [a.class("mb-6 text-[15px] font-bold text-stone-950 dark:text-stone-50")],
+      [
+        html.text("Alistair Smith"),
+      ],
+    ),
     html.div([a.class("space-y-4")], [
       html.p([], [
         html.text("I work at"),
@@ -78,7 +83,10 @@ pub fn page(props: Props) -> Element {
         html.text(" "),
         html.text("and"),
         html.text(" "),
-        external_link("https://www.claude.com/product/claude-code", "Claude Code"),
+        external_link(
+          "https://www.claude.com/product/claude-code",
+          "Claude Code",
+        ),
         html.text("."),
       ]),
       html.p([], [
@@ -115,7 +123,10 @@ fn listening_to(spotify: Spotify) -> Element {
     ),
     case lanyard.artist(spotify) {
       Some(artist) ->
-        react.fragment([html.text(" by "), html.text(string.replace(artist, "; ", ", "))])
+        react.fragment([
+          html.text(" by "),
+          html.text(string.replace(artist, "; ", ", ")),
+        ])
       None -> react.none()
     },
     html.text("."),
