@@ -40,3 +40,7 @@ export function param(context: GetStaticPropsContext, name: string) {
 
 export const cookie = (context: GetServerSidePropsContext, name: string) =>
 	toOption(context.req.cookies[name]);
+
+export const redirect = (destination: string, permanent: boolean) => ({
+	redirect: {destination, permanent},
+});

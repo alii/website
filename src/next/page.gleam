@@ -61,3 +61,10 @@ pub type ServerSidePropsContext
 /// A cookie on the request.
 @external(javascript, "./next_ffi.ts", "cookie")
 pub fn cookie(context: ServerSidePropsContext, name: String) -> Option(String)
+
+/// `{redirect: {destination, permanent}}` from `get_server_side_props`.
+@external(javascript, "./next_ffi.ts", "redirect")
+pub fn redirect(
+  destination: String,
+  permanent permanent: Bool,
+) -> ServerSideProps(props)
