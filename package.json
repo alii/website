@@ -7,8 +7,8 @@
 	"private": true,
 	"packageManager": "bun@1.0.0",
 	"scripts": {
-		"dev": "next dev",
-		"build": "node scripts/ensure-gleam.mjs && next build",
+		"dev": "gleam build && next dev",
+		"build": "node scripts/ensure-gleam.mjs && gleam build && next build",
 		"start": "next start",
 		"lint": "eslint .",
 		"typecheck": "node scripts/ensure-gleam.mjs && gleam build && tsc --noEmit"
