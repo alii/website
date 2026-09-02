@@ -3,7 +3,7 @@ import nextTypescript from 'eslint-config-next/typescript';
 import {defineConfig, globalIgnores} from 'eslint/config';
 
 export default defineConfig([
-	globalIgnores(['.next/**', 'out/**', 'public/**', 'next-env.d.ts']),
+	globalIgnores(['.next/**', 'out/**', 'build/**', 'public/**', 'next-env.d.ts']),
 	nextCoreWebVitals,
 	nextTypescript,
 	{
@@ -14,7 +14,7 @@ export default defineConfig([
 		},
 	},
 	{
-		files: ['*.config.js'],
+		files: ['*.config.js', 'scripts/**/*.cjs'],
 		rules: {
 			'@typescript-eslint/no-require-imports': 'off',
 		},

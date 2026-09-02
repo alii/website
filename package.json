@@ -7,11 +7,11 @@
 	"private": true,
 	"packageManager": "bun@1.0.0",
 	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
+		"dev": "gleam build && next dev",
+		"build": "node scripts/ensure-gleam.mjs && gleam build && next build",
 		"start": "next start",
 		"lint": "eslint .",
-		"typecheck": "tsc --noEmit"
+		"typecheck": "node scripts/ensure-gleam.mjs && gleam build && tsc --noEmit"
 	},
 	"devDependencies": {
 		"@napi-rs/canvas": "^1.0.7",

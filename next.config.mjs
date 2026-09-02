@@ -6,6 +6,17 @@ import { config as dotenv } from 'dotenv';
 const config = {
 	env: dotenv().parsed,
 
+	pageExtensions: ['tsx', 'ts', 'gleam'],
+
+	turbopack: {
+		rules: {
+			'*.gleam': {
+				loaders: ['./scripts/gleam-loader.cjs'],
+				as: '*.js',
+			},
+		},
+	},
+
 	experimental: {
 		// `typescript` is aliased to @typescript/typescript6 so typescript-eslint
 		// still has a JS API (TS 7 ships none). That package exposes `tsc6`, not

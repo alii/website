@@ -29,7 +29,11 @@
 		"noImplicitReturns": true,
 		"noUncheckedIndexedAccess": true,
 		"isolatedModules": true,
-		"esModuleInterop": true
+		"esModuleInterop": true,
+		"paths": {
+			"@/*": ["./src/*"],
+			"@gleam/*": ["./build/dev/javascript/*"]
+		}
 	},
 	"include": [
 		"next-env.d.ts",
@@ -38,5 +42,5 @@
 		"**/*.tsx",
 		".next/dev/types/**/*.ts"
 	],
-	"exclude": ["node_modules", ".next"]
+	"exclude": ["node_modules", ".next", "build"]
 }
