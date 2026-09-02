@@ -31,7 +31,8 @@
 		"isolatedModules": true,
 		"esModuleInterop": true,
 		"paths": {
-			"@/*": ["./src/*"]
+			"@/*": ["./src/*"],
+			"@gleam/*": ["./build/dev/javascript/*"]
 		}
 	},
 	"include": [
@@ -41,5 +42,5 @@
 		"**/*.tsx",
 		".next/dev/types/**/*.ts"
 	],
-	"exclude": ["node_modules", ".next"]
+	"exclude": ["node_modules", ".next", "build"]
 }

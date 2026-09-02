@@ -13,17 +13,17 @@ pub type PresenceMap
 
 /// Fetch a presence over REST. `null` when the request fails, so it can be
 /// handed straight to Next as a page prop.
-@external(javascript, "./lanyard_ffi.mjs", "get")
+@external(javascript, "./lanyard_ffi.ts", "get")
 pub fn get(id: String) -> Promise(Nullable(Presence))
 
 /// The `useLanyard` hook: live presences over a socket, seeded with initial data.
-@external(javascript, "./lanyard_ffi.mjs", "useLanyard")
+@external(javascript, "./lanyard_ffi.ts", "useLanyard")
 pub fn use_lanyard(
   ids: List(String),
   initial: List(#(String, Option(Presence))),
 ) -> PresenceMap
 
-@external(javascript, "./lanyard_ffi.mjs", "presence")
+@external(javascript, "./lanyard_ffi.ts", "presence")
 pub fn presence(map: PresenceMap, id: String) -> Option(Presence)
 
 pub fn spotify(presence: Presence) -> Option(Spotify) {

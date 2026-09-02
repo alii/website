@@ -22,7 +22,7 @@ pub type Props {
   )
 }
 
-pub fn get_static_props(_context) -> Promise(StaticProps) {
+pub fn get_static_props(_context) -> Promise(StaticProps(Props)) {
   use presence <- promise.await(lanyard.get(constants.discord_id()))
   use backup_presence <- promise.await(
     lanyard.get(constants.backup_discord_id()),

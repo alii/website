@@ -1,6 +1,6 @@
 import react.{type Component, type Element}
 
-@external(javascript, "./layout_ffi.mjs", "layout")
+@external(javascript, "./layout_ffi.ts", "layout")
 fn layout_component() -> Component
 
 /// The existing TSX <Layout>, used from Gleam untouched.

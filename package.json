@@ -11,7 +11,7 @@
 		"build": "node scripts/ensure-gleam.mjs && next build",
 		"start": "next start",
 		"lint": "eslint .",
-		"typecheck": "tsc --noEmit"
+		"typecheck": "node scripts/ensure-gleam.mjs && gleam build && tsc --noEmit"
 	},
 	"devDependencies": {
 		"@napi-rs/canvas": "^1.0.7",

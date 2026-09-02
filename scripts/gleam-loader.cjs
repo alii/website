@@ -34,7 +34,7 @@ function sources(dir, out = []) {
 	for (const entry of fs.readdirSync(dir, {withFileTypes: true})) {
 		const full = path.join(dir, entry.name);
 		if (entry.isDirectory()) sources(full, out);
-		else if (/\.(gleam|mjs)$/.test(entry.name)) out.push(full);
+		else if (/\.gleam$|_ffi\.[cm]?[jt]s$/.test(entry.name)) out.push(full);
 	}
 	return out;
 }
@@ -80,7 +80,7 @@ module.exports = function gleamLoader() {
 	const root = this.rootContext;
 	const srcDir = path.join(root, 'src');
 
-	// any Gleam source or FFI change must re-run the compiler, not just this file
+	// any Gleam source or FFI (`*_ffi.ts`) change must re-run the compiler, not just this file
 	for (const file of sources(srcDir)) this.addDependency(file);
 
 	build(root)

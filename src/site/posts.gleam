@@ -8,7 +8,7 @@ import react.{type Element}
 /// A `Post` class instance.
 pub type Post
 
-@external(javascript, "./posts_ffi.mjs", "all")
+@external(javascript, "./posts_ffi.ts", "all")
 pub fn all() -> List(Post)
 
 pub fn name(post: Post) -> String {
@@ -23,7 +23,7 @@ pub fn hidden(post: Post) -> Bool {
   js.get(post, "hidden")
 }
 
-@external(javascript, "./posts_ffi.mjs", "dateMs")
+@external(javascript, "./posts_ffi.ts", "dateMs")
 pub fn date_ms(post: Post) -> Int
 
 /// Newest first.
@@ -36,5 +36,5 @@ pub fn visible(posts: List(Post)) -> List(Post) {
 }
 
 /// The existing TSX <PostListing>.
-@external(javascript, "./posts_ffi.mjs", "postListing")
+@external(javascript, "./posts_ffi.ts", "postListing")
 pub fn listing(posts: List(Post)) -> Element
