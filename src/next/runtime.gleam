@@ -1,7 +1,3 @@
-//// Next's page protocol, implemented once. The loader wires a page module's
-//// `view`, `props`, `params`, `load`, `paths` and `respond` to these, so no
-//// page ever sees a Next shape.
-
 import codec.{type Codec}
 import gleam/dynamic.{type Dynamic}
 import gleam/dynamic/decode
@@ -18,19 +14,14 @@ import page.{
 import page/server.{type Request, type Response, Redirect, Render}
 import react.{type Element}
 
-/// What Next passes to `getStaticProps`.
 pub type StaticContext
 
-/// What `getStaticProps` resolves to.
 pub type StaticResult
 
-/// What `getStaticPaths` resolves to.
 pub type PathsResult
 
-/// What `getServerSideProps` resolves to.
 pub type ServerResult
 
-/// `{params}`: one pre-rendered route, as Next lists them.
 type Path
 
 @external(javascript, "./runtime_ffi.ts", "contextParams")
@@ -63,7 +54,6 @@ fn server_props_ffi(props: Json) -> ServerResult
 @external(javascript, "./runtime_ffi.ts", "redirect")
 fn redirect(to: String, permanent: Bool) -> ServerResult
 
-/// `getStaticProps` for a parameterised page.
 pub fn static_props(
   load: fn(params) -> Promise(Loaded(props)),
   params: Codec(params),
@@ -76,7 +66,6 @@ pub fn static_props(
   }
 }
 
-/// `getStaticProps` for a page with a single route.
 pub fn static_props_without_params(
   load: fn() -> Promise(Loaded(props)),
   props: Codec(props),
@@ -95,7 +84,6 @@ fn loaded(loaded: Loaded(props), props: Codec(props)) -> StaticResult {
   }
 }
 
-/// `getStaticPaths`.
 pub fn static_paths(
   paths: fn() -> Promise(Paths(params)),
   params: Codec(params),
@@ -112,7 +100,6 @@ pub fn static_paths(
   }
 }
 
-/// `getServerSideProps`.
 pub fn server_props(
   respond: fn(Request) -> Promise(Response(props)),
   props: Codec(props),
@@ -126,7 +113,6 @@ pub fn server_props(
   }
 }
 
-/// The page component: decode the props Next hands back, then `view`.
 pub fn render(
   view: fn(props) -> Element,
   props: Codec(props),

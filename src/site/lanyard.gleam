@@ -1,5 +1,3 @@
-//// Discord presence via Lanyard (`use-lanyard`).
-
 import codec.{type Codec}
 import gleam/dynamic.{type Dynamic}
 import gleam/dynamic/decode
@@ -14,13 +12,11 @@ pub type Presence
 
 pub type Spotify
 
-/// What `use_lanyard` returns: presences keyed by Discord id.
 pub type PresenceMap
 
 @external(javascript, "./lanyard_ffi.ts", "get")
 fn fetch(id: String) -> Promise(Presence)
 
-/// Fetch a presence over REST. `None` when the request fails.
 pub fn get(id: String) -> Promise(Option(Presence)) {
   js.attempt(fetch(id))
   |> promise.map(option.from_result)
@@ -32,7 +28,6 @@ fn use_lanyard_hook(
   initial: Array(#(String, Presence)),
 ) -> PresenceMap
 
-/// The `useLanyard` hook: live presences over a socket, seeded with initial data.
 pub fn use_lanyard(
   ids: List(String),
   initial: List(#(String, Option(Presence))),
@@ -64,7 +59,6 @@ pub fn spotify(presence: Presence) -> Option(Spotify) {
 @external(javascript, "./lanyard_ffi.ts", "location")
 fn location_raw(presence: Presence) -> Nullable(String)
 
-/// The `location` key in the presence's KV store.
 pub fn location(presence: Presence) -> Option(String) {
   js.to_option(location_raw(presence))
 }
@@ -82,8 +76,6 @@ pub fn artist(spotify: Spotify) -> Option(String) {
   js.to_option(artist_raw(spotify))
 }
 
-/// A presence is the JSON Lanyard returned, unchanged, so it crosses the
-/// server-to-browser boundary as itself.
 pub fn codec() -> Codec(Presence) {
   codec.custom(encode: as_json, decoder: decode.map(decode.dynamic, from_json))
 }

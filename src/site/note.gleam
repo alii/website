@@ -1,5 +1,3 @@
-//// The existing TSX <Note>.
-
 import gleam/javascript/array.{type Array}
 import react.{type Element}
 

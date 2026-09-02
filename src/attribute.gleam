@@ -73,13 +73,11 @@ pub fn suppress_hydration_warning(value: Bool) -> Attribute {
   Flag("suppressHydrationWarning", value)
 }
 
-/// The `{__html}` object `dangerouslySetInnerHTML` takes.
 pub type InnerHtml
 
 @external(javascript, "./attribute_ffi.ts", "innerHtml")
 fn inner_html_value(html: String) -> InnerHtml
 
-/// `dangerouslySetInnerHTML`
 pub fn inner_html(html: String) -> Attribute {
   Property("dangerouslySetInnerHTML", js.dynamic(inner_html_value(html)))
 }

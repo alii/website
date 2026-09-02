@@ -1,26 +1,18 @@
-// Lets `.gleam` files be Next.js pages (and be imported from TS/TSX).
+// Turbopack loader that makes `.gleam` files Next.js pages.
 //
-// Some Next file names are not valid Gleam module names (`_app`, `[slug]`, `404`,
-// anything with a hyphen). For those, a pointer file `src/pages/_app.gleam.mjs`
-// holds `export * from '../routes/app.gleam';` and Next treats the pointer as
-// the page. Any other lines in the pointer (say `import '../globals.css';`) are
-// kept in front of the inlined module, which is how `_app` gets its global CSS:
-// Next only allows that import from the `_app` entry itself.
+// Gleam refuses module names like `_app`, `[slug]`, `404` or anything with a
+// hyphen, so those pages are a pointer file (`src/pages/_app.gleam.mjs` holding
+// `export * from '../routes/app.gleam';`). Extra lines in a pointer, like the
+// `globals.css` import, are kept in front of the module: Next only allows that
+// import from the `_app` entry itself.
 //
-// Gleam compiles the whole project with `gleam build` into build/dev/javascript,
-// one ES module per Gleam module, with named snake_case exports only. Next wants
-// a default export and camelCase names like `getStaticProps`. So for a .gleam
-// file we run the compiler, take the compiled module, point its relative imports
-// back at the build directory, rename the exports Next looks for, and add a
-// default export. Inlining (rather than re-exporting) matters: Next's SSG
-// transform strips `getStaticProps` and the imports only it used out of the
-// browser bundle, and it can only do that when they are in the page module.
+// The compiled module is inlined rather than re-exported so that Next's
+// server-code stripping sees `getStaticProps` and friends in the entry and can
+// drop them, and their imports, from the browser bundle.
 const {execFile} = require('node:child_process');
 const fs = require('node:fs');
 const path = require('node:path');
 
-// A page module exports `view`, and some of `props`, `params`, `load`, `paths`,
-// `respond` (see src/page.gleam). The glue below hands them to next/runtime.
 const PAGE_EXPORTS = ['view', 'props', 'params', 'load', 'paths', 'respond'];
 
 function sources(dir, out = []) {
@@ -76,7 +68,6 @@ module.exports = function gleamLoader() {
 	// any Gleam source or FFI (`*_ffi.ts`) change must re-run the compiler, not just this file
 	for (const file of sources(srcDir)) this.addDependency(file);
 
-	// pointer file: `export * from '../routes/app.gleam';` plus optional extra lines
 	let source = this.resourcePath;
 	let prelude = '';
 	if (source.endsWith('.gleam.mjs')) {

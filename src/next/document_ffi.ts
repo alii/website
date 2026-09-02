@@ -1,5 +1,4 @@
-// Only routes/document.gleam (the `_document` page) uses these.
-/* eslint-disable @next/next/no-document-import-in-page */
+/* eslint-disable @next/next/no-document-import-in-page -- only the _document page uses these */
 import {Head, Html, Main, NextScript} from 'next/document';
 
 export const documentHtml = () => Html;

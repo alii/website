@@ -1,6 +1,3 @@
-//// The Monzo dashboard's data: the page's JSON props and the Monzo API
-//// objects inside them, all opaque, read through `monzo_ffi.ts`.
-
 import codec.{type Codec}
 import gleam/dynamic.{type Dynamic}
 import gleam/dynamic/decode
@@ -11,13 +8,10 @@ import gleam/option.{type Option, None, Some}
 import gleam/string
 import js.{type Nullable}
 
-/// The page's props as Next stores them.
 pub type Dashboard
 
-/// The props when the accounts loaded.
 pub type Success
 
-/// The props when they did not.
 pub type Failure
 
 @external(javascript, "./monzo_ffi.ts", "success")
@@ -44,13 +38,11 @@ pub fn accounts(success: Success) -> List(Account) {
 @external(javascript, "./monzo_ffi.ts", "error")
 pub fn error(failure: Failure) -> String
 
-/// The error response from Monzo, whatever shape it has.
 pub type Body
 
 @external(javascript, "./monzo_ffi.ts", "body")
 fn body_raw(failure: Failure) -> Body
 
-/// The error response, pretty-printed.
 pub fn body(failure: Failure) -> String {
   js.json(body_raw(failure), 4)
   |> js.to_option
@@ -72,7 +64,6 @@ pub type PaymentDetails
 @external(javascript, "./monzo_ffi.ts", "id")
 pub fn id(account: Account) -> String
 
-/// `uk_retail`, `uk_monzo_flex_backing_loan`, and so on.
 @external(javascript, "./monzo_ffi.ts", "kind")
 pub fn kind(account: Account) -> String
 
@@ -173,7 +164,6 @@ pub fn sort_code(details: PaymentDetails) -> String
 @external(javascript, "./monzo_ffi.ts", "formatCurrency")
 fn format_currency(currency: String, amount: Float) -> String
 
-/// Pennies as a currency string: "£12.34", or "£12" for a whole amount.
 pub fn format(currency: String, pennies: Int) -> String {
   let formatted = format_currency(currency, int.to_float(pennies) /. 100.0)
   case string.ends_with(formatted, ".00") {
@@ -182,8 +172,6 @@ pub fn format(currency: String, pennies: Int) -> String {
   }
 }
 
-/// The dashboard props are JSON built on the server, and cross the
-/// server-to-browser boundary as themselves.
 pub fn codec() -> Codec(Dashboard) {
   codec.custom(encode: as_json, decoder: decode.map(decode.dynamic, from_json))
 }

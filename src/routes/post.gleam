@@ -1,5 +1,3 @@
-//// `pages/[slug]`: one blog post.
-
 import attribute as a
 import codec.{type Codec}
 import gleam/javascript/promise.{type Promise}
@@ -108,7 +106,6 @@ pub fn view(props: Props) -> Element {
   ])
 }
 
-/// Classes for the post body.
 fn prose() -> String {
   string.join(
     [

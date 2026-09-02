@@ -1,5 +1,3 @@
-//// `pages/_error`.
-
 import attribute as a
 import html
 import react.{type Element}

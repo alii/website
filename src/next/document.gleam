@@ -1,5 +1,3 @@
-//// `next/document`: the pieces of `pages/_document`.
-
 import react.{type Attribute, type Component, type Element}
 
 @external(javascript, "./document_ffi.ts", "documentHtml")

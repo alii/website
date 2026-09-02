@@ -1,5 +1,3 @@
-//// `pages/404`.
-
 import attribute as a
 import html
 import next/link

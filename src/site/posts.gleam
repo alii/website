@@ -1,11 +1,8 @@
-//// Blog posts, from `src/blog/posts.ts`.
-
 import gleam/int
 import gleam/javascript/array.{type Array}
 import gleam/list
 import react.{type Element}
 
-/// A `Post` class instance.
 pub type Post
 
 @external(javascript, "./posts_ffi.ts", "all")
@@ -34,11 +31,9 @@ pub fn keywords(post: Post) -> List(String) {
   array.to_list(keywords_raw(post))
 }
 
-/// Publication date, in milliseconds since the Unix epoch.
 @external(javascript, "./posts_ffi.ts", "dateMs")
 pub fn date_ms(post: Post) -> Int
 
-/// The post body, a React tree.
 @external(javascript, "./posts_ffi.ts", "render")
 pub fn render(post: Post) -> Element
 
@@ -58,7 +53,6 @@ pub fn find(wanted: String) -> Result(Post, Nil) {
 @external(javascript, "./posts_ffi.ts", "postListing")
 fn post_listing(posts: Array(Post)) -> Element
 
-/// The existing TSX <PostListing>.
 pub fn listing(posts: List(Post)) -> Element {
   post_listing(array.from_list(posts))
 }

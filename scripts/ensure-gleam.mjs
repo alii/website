@@ -1,9 +1,5 @@
-// Makes sure a `gleam` compiler exists for scripts/gleam-loader.cjs.
-//
-// Locally you most likely have one already (`brew install gleam`). Build
-// machines such as Vercel do not, so this downloads the release binary into
-// node_modules/.bin, which is on PATH for package scripts and is cached
-// between deploys.
+// Downloads the Gleam compiler into node_modules/.bin when none is on PATH,
+// which is the case on Vercel.
 import {execFileSync} from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';

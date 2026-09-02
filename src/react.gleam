@@ -3,23 +3,15 @@ import gleam/javascript/array.{type Array}
 import gleam/list
 import js
 
-/// A React element (the thing JSX would produce).
 pub type Element
 
-/// A React component value, e.g. the default export of `next/link`.
 pub type Component
 
-/// A props object: React prop names to values.
 pub type Props
 
-/// One prop on an element. `name` is the React prop name (`className`, `href`).
 pub type Attribute {
-  /// A string-valued prop: `className`, `href`, `src`...
   Attribute(name: String, value: String)
-  /// A boolean prop: `async`, `defer`, `suppressHydrationWarning`...
   Flag(name: String, value: Bool)
-  /// A prop whose value is some other JS value, like the `{__html}` object
-  /// of `dangerouslySetInnerHTML`.
   Property(name: String, value: Dynamic)
 }
 
@@ -33,7 +25,7 @@ pub fn props(attrs: List(Attribute)) -> Props {
   |> props_ffi
 }
 
-/// The one place a typed attribute becomes an untyped React prop value.
+// the one place a typed attribute becomes an untyped prop value
 fn entry(attr: Attribute) -> #(String, Dynamic) {
   case attr {
     Attribute(name, value) -> #(name, js.dynamic(value))
@@ -71,7 +63,6 @@ pub fn component(
   create_component(component, props(attrs), array.from_list(children))
 }
 
-/// Render a component with a props object as is, no attribute list.
 pub fn with_props(component: Component, props: Props) -> Element {
   create_component(component, props, array.from_list([]))
 }
@@ -80,12 +71,10 @@ pub fn fragment(children: List(Element)) -> Element {
   create_component(fragment_component(), props([]), array.from_list(children))
 }
 
-/// A string is already a valid React child, so this is the identity function
-/// with a more precise type.
+// a string is already a valid child: identity with a narrower type
 @external(javascript, "./js_ffi.ts", "identity")
 pub fn text(text: String) -> Element
 
-/// Renders nothing, like `null` in JSX: an empty fragment.
 pub fn none() -> Element {
   fragment([])
 }
