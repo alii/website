@@ -1,76 +1,76 @@
 import js
-import react.{type Attribute, Attribute}
+import react.{type Attribute, Attribute, Flag, Property}
 
 pub fn attr(name: String, value: String) -> Attribute {
-  Attribute(name, js.dynamic(value))
+  Attribute(name, value)
 }
 
 pub fn class(value: String) -> Attribute {
-  attr("className", value)
+  Attribute("className", value)
 }
 
 pub fn href(value: String) -> Attribute {
-  attr("href", value)
+  Attribute("href", value)
 }
 
 pub fn target(value: String) -> Attribute {
-  attr("target", value)
+  Attribute("target", value)
 }
 
 pub fn key(value: String) -> Attribute {
-  attr("key", value)
+  Attribute("key", value)
 }
 
 pub fn rel(value: String) -> Attribute {
-  attr("rel", value)
+  Attribute("rel", value)
 }
 
 pub fn type_(value: String) -> Attribute {
-  attr("type", value)
+  Attribute("type", value)
 }
 
 pub fn title(value: String) -> Attribute {
-  attr("title", value)
+  Attribute("title", value)
 }
 
 pub fn as_(value: String) -> Attribute {
-  attr("as", value)
+  Attribute("as", value)
 }
 
 pub fn cross_origin(value: String) -> Attribute {
-  attr("crossOrigin", value)
+  Attribute("crossOrigin", value)
 }
 
 pub fn src(value: String) -> Attribute {
-  attr("src", value)
+  Attribute("src", value)
 }
 
 pub fn alt(value: String) -> Attribute {
-  attr("alt", value)
+  Attribute("alt", value)
 }
 
 pub fn name(value: String) -> Attribute {
-  attr("name", value)
+  Attribute("name", value)
 }
 
 pub fn content(value: String) -> Attribute {
-  attr("content", value)
+  Attribute("content", value)
 }
 
 pub fn property(value: String) -> Attribute {
-  attr("property", value)
+  Attribute("property", value)
 }
 
 pub fn async(value: Bool) -> Attribute {
-  Attribute("async", js.dynamic(value))
+  Flag("async", value)
 }
 
 pub fn defer(value: Bool) -> Attribute {
-  Attribute("defer", js.dynamic(value))
+  Flag("defer", value)
 }
 
 pub fn suppress_hydration_warning(value: Bool) -> Attribute {
-  Attribute("suppressHydrationWarning", js.dynamic(value))
+  Flag("suppressHydrationWarning", value)
 }
 
 /// The `{__html}` object `dangerouslySetInnerHTML` takes.
@@ -81,5 +81,5 @@ fn inner_html_value(html: String) -> InnerHtml
 
 /// `dangerouslySetInnerHTML`
 pub fn inner_html(html: String) -> Attribute {
-  Attribute("dangerouslySetInnerHTML", js.dynamic(inner_html_value(html)))
+  Property("dangerouslySetInnerHTML", js.dynamic(inner_html_value(html)))
 }

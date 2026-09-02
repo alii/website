@@ -1,6 +1,7 @@
 import gleam/dynamic.{type Dynamic}
 import gleam/javascript/array.{type Array}
 import gleam/list
+import js
 
 /// A React element (the thing JSX would produce).
 pub type Element
@@ -13,7 +14,13 @@ pub type Props
 
 /// One prop on an element. `name` is the React prop name (`className`, `href`).
 pub type Attribute {
-  Attribute(name: String, value: Dynamic)
+  /// A string-valued prop: `className`, `href`, `src`...
+  Attribute(name: String, value: String)
+  /// A boolean prop: `async`, `defer`, `suppressHydrationWarning`...
+  Flag(name: String, value: Bool)
+  /// A prop whose value is some other JS value, like the `{__html}` object
+  /// of `dangerouslySetInnerHTML`.
+  Property(name: String, value: Dynamic)
 }
 
 @external(javascript, "./react_ffi.ts", "props")
@@ -21,9 +28,18 @@ fn props_ffi(entries: Array(#(String, Dynamic))) -> Props
 
 pub fn props(attrs: List(Attribute)) -> Props {
   attrs
-  |> list.map(fn(attr) { #(attr.name, attr.value) })
+  |> list.map(entry)
   |> array.from_list
   |> props_ffi
+}
+
+/// The one place a typed attribute becomes an untyped React prop value.
+fn entry(attr: Attribute) -> #(String, Dynamic) {
+  case attr {
+    Attribute(name, value) -> #(name, js.dynamic(value))
+    Flag(name, value) -> #(name, js.dynamic(value))
+    Property(name, value) -> #(name, value)
+  }
 }
 
 @external(javascript, "./react_ffi.ts", "create")
