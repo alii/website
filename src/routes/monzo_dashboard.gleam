@@ -271,6 +271,9 @@ type Session
 /// A Monzo API client for one access token.
 type Client
 
+/// A failed request to Monzo.
+type HttpClientError
+
 @external(javascript, "./monzo_dashboard_ffi.ts", "parseSession")
 fn parse_session(token: String) -> Nullable(Session)
 
@@ -306,9 +309,6 @@ fn success_props(accounts: Array(Account)) -> Dashboard
 
 @external(javascript, "./monzo_dashboard_ffi.ts", "failed")
 fn failure_props(error: String, body: Body) -> Dashboard
-
-/// A failed request to Monzo.
-type HttpClientError
 
 @external(javascript, "./monzo_dashboard_ffi.ts", "httpClientError")
 fn http_client_error(thrown: Thrown) -> Nullable(HttpClientError)
@@ -379,13 +379,14 @@ fn or_null(fetched: Promise(a)) -> Promise(Nullable(a)) {
 }
 
 fn failed_to_load(thrown: Thrown) -> Promise(Dashboard) {
-  case js.to_option(error_message(thrown)) {
+  case js.to_option(http_client_error(thrown)) {
+    Some(error) ->
+      error_response_json(error)
+      |> promise.map(failure_props(error_message(error), _))
     None ->
-      promise.resolve(failed(
+      promise.resolve(failure_props(
         "An unknown error occurred",
         error_json_value(thrown),
       ))
-    Some(message) ->
-      promise.map(error_response_json(thrown), failure_props(message, _))
   }
 }

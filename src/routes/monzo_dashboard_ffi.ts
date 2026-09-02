@@ -23,8 +23,10 @@ export const withExtras = (
 export const loaded = (accounts: AccountData[]): Dashboard => ({success: true, data: {accounts}});
 export const failed = (error: string, body: unknown): Dashboard => ({success: false, error, body});
 
-export const errorMessage = (error: unknown) => (error instanceof Error ? error.message : null);
-export const errorResponseJson = (error: unknown): Promise<unknown> =>
-	(error as HTTPClientError).response.json();
+export const httpClientError = (error: unknown) =>
+	error instanceof HTTPClientError ? error : null;
+export const errorMessage = (error: HTTPClientError) => error.message;
+export const errorResponseJson = (error: HTTPClientError): Promise<unknown> =>
+	error.response.json();
 // so Next never sees something it cannot serialise
 export const errorJsonValue = (error: unknown): unknown => JSON.parse(JSON.stringify(error));
