@@ -31,11 +31,6 @@ fn create_component(
 @external(javascript, "./react_ffi.ts", "fragment")
 fn fragment_component() -> Component
 
-/// Reinterpret a JS value as another type. Only where the runtime
-/// representation is already right, like the two uses below.
-@external(javascript, "./js_ffi.ts", "identity")
-fn coerce(value: a) -> b
-
 pub fn element(
   tag: String,
   attrs: List(Attribute),
@@ -69,13 +64,12 @@ fn props(attrs: List(Attribute)) -> Object {
   js.object(list.map(attrs, fn(attr) { #(attr.name, attr.value) }))
 }
 
-/// A string is already a valid React child.
-pub fn text(text: String) -> Element {
-  coerce(text)
-}
+/// A string is already a valid React child, so this is the identity function
+/// with a more precise type.
+@external(javascript, "./js_ffi.ts", "identity")
+pub fn text(text: String) -> Element
 
-/// Renders nothing, like `null` in JSX. Gleam's `Nil` is `undefined` in
-/// JavaScript, which React also renders as nothing.
+/// Renders nothing, like `null` in JSX: an empty fragment.
 pub fn none() -> Element {
-  coerce(Nil)
+  fragment([])
 }

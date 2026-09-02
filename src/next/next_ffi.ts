@@ -16,3 +16,14 @@ export const param = (context: GetStaticPropsContext, name: string) => {
 
 export const cookie = (context: GetServerSidePropsContext, name: string) =>
 	context.req.cookies[name];
+
+export const staticProps = (props: object) => ({props});
+export const staticPropsRevalidating = (props: object, revalidate: number) => ({props, revalidate});
+export const notFound = () => ({notFound: true as const});
+export const path = (params: object) => ({params});
+export const staticPaths = (paths: object[], fallback: boolean) => ({paths, fallback});
+export const staticPathsBlocking = (paths: object[]) => ({paths, fallback: 'blocking' as const});
+export const serverSideProps = (props: object) => ({props});
+export const redirect = (destination: string, permanent: boolean) => ({
+	redirect: {destination, permanent},
+});

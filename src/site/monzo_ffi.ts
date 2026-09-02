@@ -12,7 +12,7 @@ export type Dashboard =
 
 type Owner = Models.Account['owners'][number];
 type PaymentDetails = NonNullable<Models.Account['payment_details']>;
-type Webhook = NonNullable<AccountData['webhooks']>[number];
+export type Webhook = NonNullable<AccountData['webhooks']>[number];
 
 export const success = (dashboard: Dashboard) => (dashboard.success ? dashboard : null);
 export const failure = (dashboard: Dashboard) => (dashboard.success ? null : dashboard);

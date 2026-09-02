@@ -40,8 +40,11 @@ pub fn accounts(success: Success) -> List(Account) {
 @external(javascript, "./monzo_ffi.ts", "error")
 pub fn error(failure: Failure) -> String
 
+/// The error response from Monzo, whatever shape it has.
+pub type Body
+
 @external(javascript, "./monzo_ffi.ts", "body")
-fn body_raw(failure: Failure) -> js.Object
+fn body_raw(failure: Failure) -> Body
 
 /// The error response, pretty-printed.
 pub fn body(failure: Failure) -> String {

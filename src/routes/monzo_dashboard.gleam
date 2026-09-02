@@ -1,7 +1,6 @@
 //// `pages/monzo/dashboard`: my Monzo accounts, behind the Monzo OAuth flow.
 
 import attribute as a
-import gleam/dynamic.{type Dynamic}
 import gleam/int
 import gleam/javascript/array.{type Array}
 import gleam/javascript/promise.{type Promise}
@@ -9,20 +8,22 @@ import gleam/list
 import gleam/option.{None, Some}
 import gleam/string
 import html
-import js
+import js.{type Nullable, type Thrown}
 import next/link
 import next/page.{type ServerSideProps, type ServerSidePropsContext}
 import react.{type Element}
-import site/monzo.{type Account, type Dashboard, type Pot, type Webhook}
+import site/monzo.{
+  type Account, type Balance, type Body, type Dashboard, type Pot, type Webhook,
+}
 
 pub fn page(props: Dashboard) -> Element {
   case monzo.outcome(props) {
     Ok(success) -> dashboard(monzo.accounts(success))
-    Error(failure) -> failed(monzo.error(failure), monzo.body(failure))
+    Error(failure) -> failure_view(monzo.error(failure), monzo.body(failure))
   }
 }
 
-fn failed(error: String, body: String) -> Element {
+fn failure_view(error: String, body: String) -> Element {
   html.div(
     [
       a.class(
@@ -271,10 +272,10 @@ type Session
 type Client
 
 @external(javascript, "./monzo_dashboard_ffi.ts", "parseSession")
-fn parse_session(token: String) -> js.Nullable(Session)
+fn parse_session(token: String) -> Nullable(Session)
 
 @external(javascript, "./monzo_dashboard_ffi.ts", "monzoAccessToken")
-fn monzo_access_token(session: Session) -> js.Nullable(String)
+fn monzo_access_token(session: Session) -> Nullable(String)
 
 @external(javascript, "./monzo_dashboard_ffi.ts", "monzoClient")
 fn monzo_client(access_token: String) -> Client
@@ -283,25 +284,40 @@ fn monzo_client(access_token: String) -> Client
 fn get_accounts(client: Client) -> Promise(Array(Account))
 
 @external(javascript, "./monzo_dashboard_ffi.ts", "getBalance")
-fn get_balance(client: Client, account_id: String) -> Promise(Dynamic)
+fn get_balance(client: Client, account_id: String) -> Promise(Balance)
 
 @external(javascript, "./monzo_dashboard_ffi.ts", "listWebhooks")
-fn list_webhooks(client: Client, account_id: String) -> Promise(Dynamic)
+fn list_webhooks(client: Client, account_id: String) -> Promise(Array(Webhook))
 
 @external(javascript, "./monzo_dashboard_ffi.ts", "getPots")
-fn get_pots(client: Client, account_id: String) -> Promise(Dynamic)
+fn get_pots(client: Client, account_id: String) -> Promise(Array(Pot))
 
+/// `{...account, pots, balance, webhooks}`
+@external(javascript, "./monzo_dashboard_ffi.ts", "withExtras")
+fn with_extras(
+  account: Account,
+  balance: Nullable(Balance),
+  webhooks: Nullable(Array(Webhook)),
+  pots: Nullable(Array(Pot)),
+) -> Account
+
+@external(javascript, "./monzo_dashboard_ffi.ts", "loaded")
+fn success_props(accounts: Array(Account)) -> Dashboard
+
+@external(javascript, "./monzo_dashboard_ffi.ts", "failed")
+fn failure_props(error: String, body: Body) -> Dashboard
+
+/// `message` of a thrown `Error`; nothing for anything else thrown.
 @external(javascript, "./monzo_dashboard_ffi.ts", "errorMessage")
-fn error_message(error: Dynamic) -> js.Nullable(String)
+fn error_message(thrown: Thrown) -> Nullable(String)
 
+/// The response body of a thrown HTTP client error.
 @external(javascript, "./monzo_dashboard_ffi.ts", "errorResponseJson")
-fn error_response_json(error: Dynamic) -> Promise(Dynamic)
+fn error_response_json(thrown: Thrown) -> Promise(Body)
 
+/// Anything else thrown, made JSON-safe.
 @external(javascript, "./monzo_dashboard_ffi.ts", "errorJsonValue")
-fn error_json_value(error: Dynamic) -> Dynamic
-
-@external(javascript, "../js_ffi.ts", "identity")
-fn coerce(value: a) -> b
+fn error_json_value(thrown: Thrown) -> Body
 
 /// Load the accounts with the session's Monzo credentials. `Error` means
 /// there is no usable session: send the user through the OAuth flow.
@@ -323,75 +339,49 @@ fn load(token: String) -> Promise(Result(Dashboard, Nil)) {
           |> list.map(expand(client, _))
           |> promise.await_list
         })
-        |> promise.map(Ok)
-        |> promise.rescue(Error)
+        |> js.attempt
 
       use attempt <- promise.await(attempt)
       case attempt {
-        Ok(accounts) -> promise.resolve(Ok(loaded(accounts)))
-        Error(error) -> promise.map(failed_to_load(error), Ok)
+        Ok(accounts) ->
+          promise.resolve(Ok(success_props(array.from_list(accounts))))
+        Error(thrown) -> promise.map(failed_to_load(thrown), Ok)
       }
     }
   }
 }
 
 /// An open account with its balance, pots and webhooks fetched alongside.
-/// Any of the three that fails to load is `null`, like before.
-fn expand(client: Client, account: Account) -> Promise(Dynamic) {
+/// The three are fetched at once; any that fails is `null`, like before.
+fn expand(client: Client, account: Account) -> Promise(Account) {
   case monzo.closed(account) {
-    True -> promise.resolve(js.dynamic(account))
+    True -> promise.resolve(account)
     False -> {
       let id = monzo.id(account)
-      let extras =
-        promise.await_list([
-          or_null(get_balance(client, id)),
-          or_null(list_webhooks(client, id)),
-          or_null(get_pots(client, id)),
-        ])
-      use extras <- promise.map(extras)
-      let assert [balance, webhooks, pots] = extras
-      js.dynamic(js.merge(
-        account,
-        js.object([
-          #("pots", pots),
-          #("balance", balance),
-          #("webhooks", webhooks),
-        ]),
-      ))
+      let balance = or_null(get_balance(client, id))
+      let webhooks = or_null(list_webhooks(client, id))
+      let pots = or_null(get_pots(client, id))
+      use balance <- promise.await(balance)
+      use webhooks <- promise.await(webhooks)
+      use pots <- promise.await(pots)
+      promise.resolve(with_extras(account, balance, webhooks, pots))
     }
   }
 }
 
-fn or_null(fetched: Promise(Dynamic)) -> Promise(Dynamic) {
-  promise.rescue(fetched, fn(_) { js.dynamic(js.from_option(None)) })
+fn or_null(fetched: Promise(a)) -> Promise(Nullable(a)) {
+  js.attempt(fetched)
+  |> promise.map(fn(result) { js.from_option(option.from_result(result)) })
 }
 
-fn loaded(accounts: List(Dynamic)) -> Dashboard {
-  let data = js.object([#("accounts", js.dynamic(array.from_list(accounts)))])
-  coerce(
-    js.object([#("success", js.dynamic(True)), #("data", js.dynamic(data))]),
-  )
-}
-
-fn failed_to_load(error: Dynamic) -> Promise(Dashboard) {
-  case js.to_option(error_message(error)) {
-    // Not an Error: keep whatever it was, made JSON-safe, like before.
+fn failed_to_load(thrown: Thrown) -> Promise(Dashboard) {
+  case js.to_option(error_message(thrown)) {
     None ->
-      promise.resolve(failure(
+      promise.resolve(failed(
         "An unknown error occurred",
-        error_json_value(error),
+        error_json_value(thrown),
       ))
     Some(message) ->
-      promise.map(error_response_json(error), failure(message, _))
+      promise.map(error_response_json(thrown), failed(message, _))
   }
-}
-
-fn failure(error: String, body: Dynamic) -> Dashboard {
-  coerce(
-    js.object([
-      #("success", js.dynamic(False)),
-      #("error", js.dynamic(error)),
-      #("body", body),
-    ]),
-  )
 }

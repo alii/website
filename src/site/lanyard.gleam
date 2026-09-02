@@ -18,9 +18,8 @@ fn fetch(id: String) -> Promise(Presence)
 
 /// Fetch a presence over REST. `None` when the request fails.
 pub fn get(id: String) -> Promise(Option(Presence)) {
-  fetch(id)
-  |> promise.map(Some)
-  |> promise.rescue(fn(_) { None })
+  js.attempt(fetch(id))
+  |> promise.map(option.from_result)
 }
 
 @external(javascript, "./lanyard_ffi.ts", "useLanyard")

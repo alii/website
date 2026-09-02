@@ -4,6 +4,7 @@
 //// value. Conversions and logic live in Gleam.
 
 import gleam/dynamic.{type Dynamic}
+import gleam/javascript/promise.{type Promise}
 import gleam/option.{type Option}
 
 /// A JS value that may be `null` or `undefined`.
@@ -26,14 +27,17 @@ pub fn object(fields: List(#(String, Dynamic))) -> Object
 @external(javascript, "./js_ffi.ts", "spread")
 pub fn plain(record: a) -> Object
 
-/// `{...base, ...extra}`
-@external(javascript, "./js_ffi.ts", "merge")
-pub fn merge(base: a, extra: Object) -> Object
-
-/// Forget a value's type.
+/// Forget a value's type, to put it in an `object`.
 @external(javascript, "./js_ffi.ts", "identity")
 pub fn dynamic(value: a) -> Dynamic
 
 /// `JSON.stringify(value, null, indent)`. Nothing for `undefined`.
 @external(javascript, "./js_ffi.ts", "json")
 pub fn json(value: a, indent: Int) -> Nullable(String)
+
+/// Whatever a JS promise rejected with.
+pub type Thrown
+
+/// Run a promise, catching a rejection instead of propagating it.
+@external(javascript, "./js_ffi.ts", "attempt")
+pub fn attempt(promise: Promise(a)) -> Promise(Result(a, Thrown))
