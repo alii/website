@@ -1,5 +1,4 @@
-// Server only: `get_server_side_props` is the only user, and Next drops it
-// (and this import) from the browser bundle.
+// server only: reachable from `respond` alone, so Next drops it from the browser bundle
 import {parseSessionJWT, type SessionData} from '@/server/sessions';
 import {MonzoAPI, type Id, type Models} from '@otters/monzo';
 import {HTTPClientError} from 'alistair/http';

@@ -1,8 +1,3 @@
-//// A codec describes the shape of a value once and gives both directions:
-//// Gleam to JSON on the server, JSON back to Gleam in the browser. Pages
-//// describe their props with one, and `next/runtime` applies it at the
-//// boundary, so a page only ever sees its own record types.
-
 import gleam/dynamic/decode.{type Decoder}
 import gleam/json.{type Json}
 import gleam/option.{type Option}
@@ -19,7 +14,6 @@ pub fn decoder(codec: Codec(a)) -> Decoder(a) {
   codec.decoder
 }
 
-/// For a type whose JSON form its own module vouches for.
 pub fn custom(
   encode encode: fn(a) -> Json,
   decoder decoder: Decoder(a),
@@ -43,7 +37,6 @@ pub fn bool() -> Codec(Bool) {
   Codec(json.bool, decode.bool)
 }
 
-/// `None` is `null`.
 pub fn option(inner: Codec(a)) -> Codec(Option(a)) {
   Codec(
     encode: fn(value) { json.nullable(value, inner.encode) },
@@ -58,8 +51,6 @@ pub fn list(inner: Codec(a)) -> Codec(List(a)) {
   )
 }
 
-/// One field of a record: its JSON name, its codec, and how to read it off
-/// the record.
 pub opaque type Field(record, a) {
   Field(name: String, codec: Codec(a), get: fn(record) -> a)
 }

@@ -1,8 +1,7 @@
 //// Shared Tailwind class presets for the plain-text theme: one narrow centered
 //// column, warm paper tones, serif headings, no boxes or chrome. Everything is
 //// Tailwind utilities with `dark:` variants (system dark mode).
-////
-//// `src/ui.ts` re-exports these for the TSX that has not moved yet.
+//// `src/ui.ts` re-exports these until the TSX that uses them moves.
 
 pub const wrap = "mx-auto w-full max-w-[650px] px-4"
 

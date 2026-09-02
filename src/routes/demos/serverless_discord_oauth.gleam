@@ -1,5 +1,3 @@
-//// `pages/demos/serverless-discord-oauth`.
-
 import attribute as a
 import codec.{type Codec}
 import gleam/int
@@ -79,6 +77,6 @@ pub fn respond(request: Request) -> Promise(Response(Props)) {
   promise.resolve(Render(Props(user:)))
 }
 
-/// Verify the session JWT. Throws on a bad token, like the original.
+// throws on a bad token, like the original
 @external(javascript, "./serverless_discord_oauth_ffi.ts", "verify")
 fn verify(token: String) -> User

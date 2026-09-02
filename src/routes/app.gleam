@@ -1,4 +1,4 @@
-//// `pages/_app`. The pointer `pages/_app.gleam.mjs` imports the global CSS.
+//// The pointer `pages/_app.gleam.mjs` imports the global CSS.
 
 import attribute as a
 import gleam/option.{None, Some}

@@ -2,7 +2,6 @@ import type {GetStaticPropsContext} from 'next';
 
 export const contextParams = (context: GetStaticPropsContext) => context.params ?? {};
 
-// `props` is a JSON value built by a codec; Next serialises it as is.
 export const staticProps = (props: unknown) => ({props});
 export const staticPropsRevalidating = (props: unknown, revalidate: number) => ({
 	props,

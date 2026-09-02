@@ -1,5 +1,3 @@
-//// `pages/_document`.
-
 import attribute as a
 import html
 import next/document

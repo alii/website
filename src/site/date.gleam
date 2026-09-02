@@ -1,6 +1,4 @@
-//// Dates without a library. The post page shows "12 Aug 2026" in UTC; that
-//// needs about fifteen lines, and gleam_time would add far more than that
-//// to the browser bundle.
+//// Hand-rolled: gleam_time would add far more to the browser bundle than this.
 
 import gleam/int
 
@@ -9,7 +7,6 @@ const months = [
   "Dec",
 ]
 
-/// Milliseconds since the Unix epoch, formatted like "12 Aug 2026" in UTC.
 pub fn format_utc(ms: Int) -> String {
   let #(year, month, day) = civil_from_days(floor_div(ms, 86_400_000))
   let assert Ok(month) = at(months, month - 1)

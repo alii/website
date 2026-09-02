@@ -1,5 +1,3 @@
-//// `pages/monzo/dashboard`: my Monzo accounts, behind the Monzo OAuth flow.
-
 import attribute as a
 import codec.{type Codec}
 import gleam/int
@@ -246,10 +244,7 @@ fn webhooks_section(webhooks: List(Webhook)) -> Element {
   ])
 }
 
-// ---- server side ----------------------------------------------------------
-// Everything below is only reachable from `get_server_side_props`, so Next
-// drops it, and `monzo_dashboard_ffi.ts`, from the browser bundle.
-
+// only `respond` reaches anything below, so Next drops it all from the browser bundle
 pub fn respond(request: Request) -> Promise(Response(Dashboard)) {
   case server.cookie(request, "token") {
     None -> promise.resolve(to_login())
@@ -268,13 +263,10 @@ fn to_login() -> Response(Dashboard) {
   Redirect(to: "/api/oauth/monzo/redirect", permanent: False)
 }
 
-/// A parsed session cookie.
 type Session
 
-/// A Monzo API client for one access token.
 type Client
 
-/// A failed request to Monzo.
 type HttpClientError
 
 @external(javascript, "./monzo_dashboard_ffi.ts", "parseSession")
@@ -298,7 +290,6 @@ fn list_webhooks(client: Client, account_id: String) -> Promise(Array(Webhook))
 @external(javascript, "./monzo_dashboard_ffi.ts", "getPots")
 fn get_pots(client: Client, account_id: String) -> Promise(Array(Pot))
 
-/// `{...account, pots, balance, webhooks}`
 @external(javascript, "./monzo_dashboard_ffi.ts", "withExtras")
 fn with_extras(
   account: Account,
@@ -322,12 +313,9 @@ fn error_message(error: HttpClientError) -> String
 @external(javascript, "./monzo_dashboard_ffi.ts", "errorResponseJson")
 fn error_response_json(error: HttpClientError) -> Promise(Body)
 
-/// Anything else thrown, made JSON-safe.
 @external(javascript, "./monzo_dashboard_ffi.ts", "errorJsonValue")
 fn error_json_value(thrown: Thrown) -> Body
 
-/// Load the accounts with the session's Monzo credentials. `Error` means
-/// there is no usable session: send the user through the OAuth flow.
 fn load(token: String) -> Promise(Result(Dashboard, Nil)) {
   let access_token =
     parse_session(token)
@@ -358,8 +346,7 @@ fn load(token: String) -> Promise(Result(Dashboard, Nil)) {
   }
 }
 
-/// An open account with its balance, pots and webhooks fetched alongside.
-/// The three are fetched at once; any that fails is `null`, like before.
+// fetched together; any that fails is null, like before
 fn expand(client: Client, account: Account) -> Promise(Account) {
   case monzo.closed(account) {
     True -> promise.resolve(account)
