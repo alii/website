@@ -1,4 +1,10 @@
-import gleam/option.{type Option}
+import gleam/javascript/array
+import gleam/list
+import gleam/option.{type Option, None, Some}
+import js
+
+@external(javascript, "../js_ffi.ts", "identity")
+fn coerce(value: a) -> b
 
 /// What a page's `get_static_props` resolves to. The type parameter is the
 /// page's props record, so the annotation on `get_static_props` pins down
@@ -6,15 +12,22 @@ import gleam/option.{type Option}
 pub type StaticProps(props)
 
 /// `props` is any record; its fields become the page's props.
-@external(javascript, "./next_ffi.ts", "staticProps")
 pub fn static_props(
   props: props,
   revalidate revalidate: Option(Int),
-) -> StaticProps(props)
+) -> StaticProps(props) {
+  let fields = [#("props", js.dynamic(js.plain(props)))]
+  let fields = case revalidate {
+    Some(seconds) -> [#("revalidate", js.dynamic(seconds)), ..fields]
+    None -> fields
+  }
+  coerce(js.object(fields))
+}
 
 /// `{notFound: true}`: render the 404 page.
-@external(javascript, "./next_ffi.ts", "notFound")
-pub fn not_found() -> StaticProps(props)
+pub fn not_found() -> StaticProps(props) {
+  coerce(js.object([#("notFound", js.dynamic(True))]))
+}
 
 /// What `get_static_paths` resolves to.
 pub type StaticPaths
@@ -32,39 +45,63 @@ pub type Fallback {
 /// `params` is any record; its fields become the route params.
 pub fn static_paths(params: List(params), fallback: Fallback) -> StaticPaths {
   let fallback = case fallback {
-    Blocking -> "blocking"
-    Disabled -> "false"
-    Enabled -> "true"
+    Blocking -> js.dynamic("blocking")
+    Disabled -> js.dynamic(False)
+    Enabled -> js.dynamic(True)
   }
-  static_paths_ffi(params, fallback)
+  let paths =
+    list.map(params, fn(params) {
+      js.object([#("params", js.dynamic(js.plain(params)))])
+    })
+  coerce(
+    js.object([
+      #("paths", js.dynamic(array.from_list(paths))),
+      #("fallback", fallback),
+    ]),
+  )
 }
-
-@external(javascript, "./next_ffi.ts", "staticPaths")
-fn static_paths_ffi(params: List(params), fallback: String) -> StaticPaths
 
 /// What a page's `get_server_side_props` resolves to.
 pub type ServerSideProps(props)
 
-@external(javascript, "./next_ffi.ts", "serverSideProps")
-pub fn server_side_props(props: props) -> ServerSideProps(props)
+pub fn server_side_props(props: props) -> ServerSideProps(props) {
+  coerce(js.object([#("props", js.dynamic(js.plain(props)))]))
+}
+
+/// `{redirect: {destination, permanent}}` from `get_server_side_props`.
+pub fn redirect(
+  destination: String,
+  permanent permanent: Bool,
+) -> ServerSideProps(props) {
+  let redirect =
+    js.object([
+      #("destination", js.dynamic(destination)),
+      #("permanent", js.dynamic(permanent)),
+    ])
+  coerce(js.object([#("redirect", js.dynamic(redirect))]))
+}
 
 /// The argument to `get_static_props`.
 pub type StaticPropsContext
 
-/// A route parameter, like `slug` for `pages/[slug]`.
 @external(javascript, "./next_ffi.ts", "param")
-pub fn param(context: StaticPropsContext, name: String) -> Option(String)
+fn param_raw(context: StaticPropsContext, name: String) -> js.Nullable(String)
+
+/// A route parameter, like `slug` for `pages/[slug]`.
+pub fn param(context: StaticPropsContext, name: String) -> Option(String) {
+  js.to_option(param_raw(context, name))
+}
 
 /// The argument to `get_server_side_props`.
 pub type ServerSidePropsContext
 
-/// A cookie on the request.
 @external(javascript, "./next_ffi.ts", "cookie")
-pub fn cookie(context: ServerSidePropsContext, name: String) -> Option(String)
+fn cookie_raw(
+  context: ServerSidePropsContext,
+  name: String,
+) -> js.Nullable(String)
 
-/// `{redirect: {destination, permanent}}` from `get_server_side_props`.
-@external(javascript, "./next_ffi.ts", "redirect")
-pub fn redirect(
-  destination: String,
-  permanent permanent: Bool,
-) -> ServerSideProps(props)
+/// A cookie on the request.
+pub fn cookie(context: ServerSidePropsContext, name: String) -> Option(String) {
+  js.to_option(cookie_raw(context, name))
+}

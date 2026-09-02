@@ -1,6 +1,7 @@
 //// Blog posts, from `src/blog/posts.ts`.
 
 import gleam/int
+import gleam/javascript/array.{type Array}
 import gleam/list
 import react.{type Element}
 
@@ -8,7 +9,11 @@ import react.{type Element}
 pub type Post
 
 @external(javascript, "./posts_ffi.ts", "all")
-pub fn all() -> List(Post)
+fn all_raw() -> Array(Post)
+
+pub fn all() -> List(Post) {
+  array.to_list(all_raw())
+}
 
 @external(javascript, "./posts_ffi.ts", "name")
 pub fn name(post: Post) -> String
@@ -23,7 +28,11 @@ pub fn hidden(post: Post) -> Bool
 pub fn excerpt(post: Post) -> String
 
 @external(javascript, "./posts_ffi.ts", "keywords")
-pub fn keywords(post: Post) -> List(String)
+fn keywords_raw(post: Post) -> Array(String)
+
+pub fn keywords(post: Post) -> List(String) {
+  array.to_list(keywords_raw(post))
+}
 
 /// Publication date, in milliseconds since the Unix epoch.
 @external(javascript, "./posts_ffi.ts", "dateMs")
@@ -46,6 +55,10 @@ pub fn find(wanted: String) -> Result(Post, Nil) {
   list.find(all(), fn(post) { slug(post) == wanted })
 }
 
-/// The existing TSX <PostListing>.
 @external(javascript, "./posts_ffi.ts", "postListing")
-pub fn listing(posts: List(Post)) -> Element
+fn post_listing(posts: Array(Post)) -> Element
+
+/// The existing TSX <PostListing>.
+pub fn listing(posts: List(Post)) -> Element {
+  post_listing(array.from_list(posts))
+}

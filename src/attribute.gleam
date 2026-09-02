@@ -1,7 +1,8 @@
+import js
 import react.{type Attribute, Attribute}
 
 pub fn attr(name: String, value: String) -> Attribute {
-  Attribute(name, react.to_dynamic(value))
+  Attribute(name, js.dynamic(value))
 }
 
 pub fn class(value: String) -> Attribute {
@@ -61,24 +62,21 @@ pub fn property(value: String) -> Attribute {
 }
 
 pub fn async(value: Bool) -> Attribute {
-  Attribute("async", react.to_dynamic(value))
+  Attribute("async", js.dynamic(value))
 }
 
 pub fn defer(value: Bool) -> Attribute {
-  Attribute("defer", react.to_dynamic(value))
+  Attribute("defer", js.dynamic(value))
 }
 
 pub fn suppress_hydration_warning(value: Bool) -> Attribute {
-  Attribute("suppressHydrationWarning", react.to_dynamic(value))
+  Attribute("suppressHydrationWarning", js.dynamic(value))
 }
-
-@external(javascript, "./react_ffi.ts", "innerHtml")
-fn inner_html_object(html: String) -> a
 
 /// `dangerouslySetInnerHTML`
 pub fn inner_html(html: String) -> Attribute {
   Attribute(
     "dangerouslySetInnerHTML",
-    react.to_dynamic(inner_html_object(html)),
+    js.dynamic(js.object([#("__html", js.dynamic(html))])),
   )
 }
