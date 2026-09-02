@@ -1,3 +1,4 @@
+import {backup_discord_id, discord_id} from '@gleam/website/site/constants.mjs';
 import type {Types} from 'use-lanyard';
 
 export const UKTimeFormatter = new Intl.DateTimeFormat(undefined, {
@@ -11,8 +12,8 @@ export const RelativeTimeFormatter = new Intl.RelativeTimeFormat('en', {
 	style: 'long',
 });
 
-export const discordId: Types.Snowflake = '268798547439255572';
-export const backupDiscordId: Types.Snowflake = '1448512517209981028';
+export const discordId = discord_id as Types.Snowflake;
+export const backupDiscordId = backup_discord_id as Types.Snowflake;
 
 export const dob = new Date('2004-11-02');
 export const age = new Date(Date.now() - dob.getTime()).getUTCFullYear() - 1970;

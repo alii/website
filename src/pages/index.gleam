@@ -23,10 +23,8 @@ pub type Props {
 }
 
 pub fn get_static_props(_context) -> Promise(StaticProps(Props)) {
-  use presence <- promise.await(lanyard.get(constants.discord_id()))
-  use backup_presence <- promise.await(
-    lanyard.get(constants.backup_discord_id()),
-  )
+  use presence <- promise.await(lanyard.get(constants.discord_id))
+  use backup_presence <- promise.await(lanyard.get(constants.backup_discord_id))
 
   let location =
     presence
@@ -41,8 +39,8 @@ pub fn get_static_props(_context) -> Promise(StaticProps(Props)) {
 }
 
 pub fn page(props: Props) -> Element {
-  let id = constants.discord_id()
-  let backup_id = constants.backup_discord_id()
+  let id = constants.discord_id
+  let backup_id = constants.backup_discord_id
 
   let presences =
     lanyard.use_lanyard([id, backup_id], [
@@ -94,7 +92,7 @@ pub fn page(props: Props) -> Element {
           "I'm interested in language specifications and type systems. I've been called a TypeScript wizard at least a few times. It's nice to meet you.",
         ),
       ]),
-      html.p([a.class(ui.muted())], [
+      html.p([a.class(ui.muted)], [
         html.text("Currently in"),
         html.text(" "),
         external_link("https://maps.apple.com/?q=" <> location, location),
@@ -106,7 +104,7 @@ pub fn page(props: Props) -> Element {
       ]),
     ]),
     html.section([a.class("mt-16")], [
-      html.h2([a.class(ui.box_hd())], [html.text("writing")]),
+      html.h2([a.class(ui.box_hd)], [html.text("writing")]),
       posts.listing(visible),
     ]),
   ])

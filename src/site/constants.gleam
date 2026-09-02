@@ -1,7 +1,5 @@
-//// From `src/utils/constants.ts`.
+//// `src/utils/constants.ts` re-exports these for the TS that has not moved yet.
 
-@external(javascript, "./constants_ffi.ts", "discordId")
-pub fn discord_id() -> String
+pub const discord_id = "268798547439255572"
 
-@external(javascript, "./constants_ffi.ts", "backupDiscordId")
-pub fn backup_discord_id() -> String
+pub const backup_discord_id = "1448512517209981028"
