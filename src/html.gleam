@@ -47,3 +47,43 @@ pub fn ol(attrs: List(Attribute), children: List(Element)) -> Element {
 pub fn li(attrs: List(Attribute), children: List(Element)) -> Element {
   react.element("li", attrs, children)
 }
+
+pub fn article(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("article", attrs, children)
+}
+
+pub fn header(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("header", attrs, children)
+}
+
+pub fn pre(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("pre", attrs, children)
+}
+
+pub fn hr(attrs: List(Attribute)) -> Element {
+  react.element("hr", attrs, [])
+}
+
+pub fn img(attrs: List(Attribute)) -> Element {
+  react.element("img", attrs, [])
+}
+
+pub fn title(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("title", attrs, children)
+}
+
+pub fn meta(attrs: List(Attribute)) -> Element {
+  react.element("meta", attrs, [])
+}
+
+pub fn link(attrs: List(Attribute)) -> Element {
+  react.element("link", attrs, [])
+}
+
+pub fn script(attrs: List(Attribute)) -> Element {
+  react.element("script", attrs, [])
+}
+
+pub fn body(attrs: List(Attribute), children: List(Element)) -> Element {
+  react.element("body", attrs, children)
+}

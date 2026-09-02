@@ -47,3 +47,10 @@ pub fn to_dynamic(value: a) -> Dynamic {
 pub fn none() -> Element {
   coerce(Nil)
 }
+
+/// A ready-made props object, like the `pageProps` Next hands to `_app`.
+pub type Props
+
+/// Render a component with a props object as is, no attribute list.
+@external(javascript, "./react_ffi.ts", "withProps")
+pub fn with_props(component: Component, props: Props) -> Element

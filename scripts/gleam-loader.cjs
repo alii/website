@@ -1,5 +1,12 @@
 // Lets `.gleam` files be Next.js pages (and be imported from TS/TSX).
 //
+// Some Next file names are not valid Gleam module names (`_app`, `[slug]`, `404`,
+// anything with a hyphen). For those, a pointer file `src/pages/_app.gleam.mjs`
+// holds `export * from '../routes/app.gleam';` and Next treats the pointer as
+// the page. Any other lines in the pointer (say `import '../globals.css';`) are
+// kept in front of the inlined module, which is how `_app` gets its global CSS:
+// Next only allows that import from the `_app` entry itself.
+//
 // Gleam compiles the whole project with `gleam build` into build/dev/javascript,
 // one ES module per Gleam module, with named snake_case exports only. Next wants
 // a default export and camelCase names like `getStaticProps`. So for a .gleam
@@ -83,12 +90,27 @@ module.exports = function gleamLoader() {
 	// any Gleam source or FFI (`*_ffi.ts`) change must re-run the compiler, not just this file
 	for (const file of sources(srcDir)) this.addDependency(file);
 
+	// pointer file: `export * from '../routes/app.gleam';` plus optional extra lines
+	let source = this.resourcePath;
+	let prelude = '';
+	if (source.endsWith('.gleam.mjs')) {
+		const pointer = fs.readFileSync(source, 'utf8');
+		const target = /^export \* from ['"]([^'"]+\.gleam)['"];?\s*$/m.exec(pointer);
+		if (!target)
+			return callback(
+				new Error(`${source}: expected a line like export * from '../routes/app.gleam';`),
+			);
+		source = path.resolve(path.dirname(source), target[1]);
+		prelude = pointer.replace(target[0], '').trim();
+		if (prelude) prelude += '\n\n';
+	}
+
 	build(root)
 		.then(() => {
 			const project = /^name\s*=\s*"([^"]+)"/m.exec(
 				fs.readFileSync(path.join(root, 'gleam.toml'), 'utf8'),
 			)[1];
-			const moduleName = path.relative(srcDir, this.resourcePath).replace(/\.gleam$/, '');
+			const moduleName = path.relative(srcDir, source).replace(/\.gleam$/, '');
 			const compiled = path.join(root, 'build/dev/javascript', project, `${moduleName}.mjs`);
 			const here = path.dirname(this.resourcePath);
 			const relative = target => {
@@ -115,11 +137,11 @@ module.exports = function gleamLoader() {
 			}
 
 			if (exported.includes(DEFAULT)) {
-				const component = pascal(path.basename(moduleName)) || 'Page';
+				const component = `${pascal(path.basename(moduleName))}Page`;
 				code += `\n\nexport default function ${component}(props) {\n\treturn ${DEFAULT}(props);\n}\n`;
 			}
 
-			callback(null, code);
+			callback(null, prelude + code);
 		})
 		.catch(callback);
 };
