@@ -38,3 +38,18 @@ pub fn visible(posts: List(Post)) -> List(Post) {
 /// The existing TSX <PostListing>.
 @external(javascript, "./posts_ffi.ts", "postListing")
 pub fn listing(posts: List(Post)) -> Element
+
+pub fn excerpt(post: Post) -> String {
+  js.get(post, "excerpt")
+}
+
+@external(javascript, "./posts_ffi.ts", "keywords")
+pub fn keywords(post: Post) -> List(String)
+
+/// The post body, a React tree.
+@external(javascript, "./posts_ffi.ts", "render")
+pub fn render(post: Post) -> Element
+
+pub fn find(wanted: String) -> Result(Post, Nil) {
+  list.find(all(), fn(post) { slug(post) == wanted })
+}

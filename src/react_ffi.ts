@@ -26,3 +26,12 @@ export function fragment(children: List<ReactNode>) {
 }
 
 export const identity = <T>(value: T) => value;
+
+export function withProps(
+	component: ComponentType<Record<string, unknown>>,
+	props: Record<string, unknown>,
+) {
+	return createElement(component, props);
+}
+
+export const innerHtml = (html: string) => ({__html: html});

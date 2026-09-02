@@ -8,3 +8,5 @@ export const all = () => toList<Post>([...posts]);
 export const dateMs = (post: Post) => post.date.getTime();
 export const postListing = (list: List<Post>) =>
 	createElement(PostListing, {posts: list.toArray()});
+export const keywords = (post: Post) => toList(post.keywords);
+export const render = (post: Post) => post.render();
