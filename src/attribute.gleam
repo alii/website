@@ -1,3 +1,4 @@
+import gleam/javascript/array.{type Array}
 import js
 import react.{type Attribute, Attribute, Flag, Property}
 
@@ -61,6 +62,10 @@ pub fn property(value: String) -> Attribute {
   Attribute("property", value)
 }
 
+pub fn flag(name: String, value: Bool) -> Attribute {
+  Flag(name, value)
+}
+
 pub fn async(value: Bool) -> Attribute {
   Flag("async", value)
 }
@@ -80,4 +85,14 @@ fn inner_html_value(html: String) -> InnerHtml
 
 pub fn inner_html(html: String) -> Attribute {
   Property("dangerouslySetInnerHTML", js.dynamic(inner_html_value(html)))
+}
+
+pub type Style
+
+@external(javascript, "./attribute_ffi.ts", "style")
+fn style_value(entries: Array(#(String, String))) -> Style
+
+/// React's `style` prop: camelCase property names
+pub fn style(entries: List(#(String, String))) -> Attribute {
+  Property("style", js.dynamic(style_value(array.from_list(entries))))
 }

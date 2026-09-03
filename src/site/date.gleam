@@ -16,6 +16,11 @@ const months_en_gb = [
 @external(javascript, "./date_ffi.ts", "now")
 fn now_ms() -> Int
 
+/// Midnight UTC on that day, in milliseconds since the Unix epoch.
+pub fn utc(year: Int, month: Int, day: Int) -> Int {
+  days_from_civil(year, month, day) * 86_400_000
+}
+
 pub fn current_year() -> Int {
   let #(year, _month, _day) = civil(now_ms())
   year
@@ -58,6 +63,22 @@ fn civil_from_days(days: Int) -> #(Int, Int, Int) {
     False -> year
   }
   #(year, month, day)
+}
+
+fn days_from_civil(year: Int, month: Int, day: Int) -> Int {
+  let year = case month <= 2 {
+    True -> year - 1
+    False -> year
+  }
+  let era = floor_div(year, 400)
+  let yoe = year - era * 400
+  let mp = case month > 2 {
+    True -> month - 3
+    False -> month + 9
+  }
+  let doy = { 153 * mp + 2 } / 5 + day - 1
+  let doe = yoe * 365 + yoe / 4 - yoe / 100 + doy
+  era * 146_097 + doe - 719_468
 }
 
 fn floor_div(a: Int, b: Int) -> Int {
