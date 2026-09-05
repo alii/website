@@ -23,7 +23,11 @@ const highlighter = ((
 	langs: [typescript, javascript, bash, json, css, html, markdown, gleam, rust],
 }));
 
-type Language = 'typescript' | 'javascript' | 'bash' | 'json' | 'css' | 'html' | 'markdown' | 'gleam' | 'rust';
+type Language =
+	'typescript' | 'javascript' | 'bash' | 'json' | 'css' | 'html' | 'markdown' | 'gleam' | 'rust';
 
 export const highlight = (source: string, language: Language) =>
-	highlighter.codeToHtml(source, {lang: language, themes: {light: 'paper-light', dark: 'paper-dark'}});
+	highlighter.codeToHtml(source, {
+		lang: language,
+		themes: {light: 'paper-light', dark: 'paper-dark'},
+	});

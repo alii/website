@@ -1,6 +1,7 @@
+import gleam/int
 import gleam/javascript/array.{type Array}
 import js
-import react.{type Attribute, Attribute, Flag, Property}
+import react.{type Attribute, Attribute, Flag, Number, Property}
 
 pub fn attr(name: String, value: String) -> Attribute {
   Attribute(name, value)
@@ -60,6 +61,15 @@ pub fn content(value: String) -> Attribute {
 
 pub fn property(value: String) -> Attribute {
   Attribute("property", value)
+}
+
+/// A numeric attribute, formatted by React the way JS prints numbers.
+pub fn number(name: String, value: Float) -> Attribute {
+  Number(name, value)
+}
+
+pub fn int(name: String, value: Int) -> Attribute {
+  Number(name, int.to_float(value))
 }
 
 pub fn flag(name: String, value: Bool) -> Attribute {

@@ -12,6 +12,7 @@ pub type Props
 pub type Attribute {
   Attribute(name: String, value: String)
   Flag(name: String, value: Bool)
+  Number(name: String, value: Float)
   Property(name: String, value: Dynamic)
 }
 
@@ -30,6 +31,7 @@ fn entry(attr: Attribute) -> #(String, Dynamic) {
   case attr {
     Attribute(name, value) -> #(name, js.dynamic(value))
     Flag(name, value) -> #(name, js.dynamic(value))
+    Number(name, value) -> #(name, js.dynamic(value))
     Property(name, value) -> #(name, value)
   }
 }
