@@ -13,7 +13,7 @@ const {execFile} = require('node:child_process');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const PAGE_EXPORTS = ['view', 'props', 'params', 'load', 'paths', 'respond'];
+const PAGE_EXPORTS = ['view', 'props', 'params', 'load', 'paths', 'respond', 'handle', 'get'];
 
 function sources(dir, out = []) {
 	for (const entry of fs.readdirSync(dir, {withFileTypes: true})) {
@@ -109,8 +109,16 @@ module.exports = function gleamLoader() {
 					.filter(name => PAGE_EXPORTS.includes(name)),
 			);
 
+			const runtime = relative(
+				path.join(root, 'build/dev/javascript', project, 'next/runtime.mjs'),
+			);
+			if (exported.has('handle')) {
+				code += `\n\nimport * as $$runtime from ${JSON.stringify(runtime)};\nexport default (req, res) => $$runtime.api(handle, req, res);\n`;
+			} else if (exported.has('get')) {
+				code += `\n\nimport * as $$runtime from ${JSON.stringify(runtime)};\nexport const GET = () => $$runtime.route(get);\n`;
+			}
 			// a Gleam module imported from TS is not a page: leave it as it is
-			if (exported.has('view')) {
+			else if (exported.has('view')) {
 				// The data functions must not be exports: Next strips getStaticProps and
 				// friends (and whatever only they reference) from the browser bundle, but
 				// it keeps every other export, server-only imports and all.

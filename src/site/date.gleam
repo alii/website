@@ -1,6 +1,7 @@
 //// Hand-rolled: gleam_time would add far more to the browser bundle than this.
 
 import gleam/int
+import gleam/string
 
 const months = [
   "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
@@ -13,8 +14,9 @@ const months_en_gb = [
   "Dec",
 ]
 
+/// Milliseconds since the Unix epoch.
 @external(javascript, "./date_ffi.ts", "now")
-fn now_ms() -> Int
+pub fn now() -> Int
 
 /// Midnight UTC on that day, in milliseconds since the Unix epoch.
 pub fn utc(year: Int, month: Int, day: Int) -> Int {
@@ -22,8 +24,68 @@ pub fn utc(year: Int, month: Int, day: Int) -> Int {
 }
 
 pub fn current_year() -> Int {
-  let #(year, _month, _day) = civil(now_ms())
+  let #(year, _month, _day) = civil(now())
   year
+}
+
+pub const day_ms = 86_400_000
+
+const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+
+/// "2026-08-21T00:00:00.000Z", like `Date#toISOString`
+pub fn iso(ms: Int) -> String {
+  let #(year, month, day) = civil(ms)
+  let #(hours, minutes, seconds, millis) = clock(ms)
+  int.to_string(year)
+  <> "-"
+  <> pad(month, 2)
+  <> "-"
+  <> pad(day, 2)
+  <> "T"
+  <> pad(hours, 2)
+  <> ":"
+  <> pad(minutes, 2)
+  <> ":"
+  <> pad(seconds, 2)
+  <> "."
+  <> pad(millis, 3)
+  <> "Z"
+}
+
+/// "Fri, 21 Aug 2026 00:00:00 GMT", like `Date#toUTCString`
+pub fn http(ms: Int) -> String {
+  let days = floor_div(ms, day_ms)
+  let #(year, month, day) = civil_from_days(days)
+  let #(hours, minutes, seconds, _millis) = clock(ms)
+  let assert Ok(weekday) = at(weekdays, floor_mod(days + 4, 7))
+  let assert Ok(month) = at(months, month - 1)
+  weekday
+  <> ", "
+  <> pad(day, 2)
+  <> " "
+  <> month
+  <> " "
+  <> int.to_string(year)
+  <> " "
+  <> pad(hours, 2)
+  <> ":"
+  <> pad(minutes, 2)
+  <> ":"
+  <> pad(seconds, 2)
+  <> " GMT"
+}
+
+fn clock(ms: Int) -> #(Int, Int, Int, Int) {
+  let in_day = floor_mod(ms, day_ms)
+  #(in_day / 3_600_000, in_day / 60_000 % 60, in_day / 1000 % 60, in_day % 1000)
+}
+
+fn pad(n: Int, width: Int) -> String {
+  string.pad_start(int.to_string(n), width, "0")
+}
+
+fn floor_mod(a: Int, b: Int) -> Int {
+  a - floor_div(a, b) * b
 }
 
 /// "12 Aug 2026"
