@@ -1,5 +1,3 @@
-import {stringifySetCookie} from 'cookie';
-import dayjs from 'dayjs';
 import {sign, verify} from 'jsonwebtoken';
 import {env} from './env';
 
@@ -34,16 +32,4 @@ export function parseSessionJWT(token: string): SessionData | null {
 	} catch {
 		return null;
 	}
-}
-
-export function getSetCookieHeader(token: string) {
-	return stringifySetCookie({
-		name: 'token',
-		value: token,
-		httpOnly: true,
-		path: '/',
-		secure: process.env.NODE_ENV !== 'development',
-		expires: dayjs().add(1, 'day').toDate(),
-		sameSite: 'strict',
-	});
 }
