@@ -7,7 +7,8 @@ import {VscCheck, VscInfo, VscWarning} from 'react-icons/vsc';
 export const vscWarning = (className: string) => createElement(VscWarning, {className});
 export const vscInfo = (className: string) => createElement(VscInfo, {className});
 export const vscCheck = (className: string) => createElement(VscCheck, {className});
-export const tbBrandTypescript = (className: string) => createElement(TbBrandTypescript, {className});
+export const tbBrandTypescript = (className: string) =>
+	createElement(TbBrandTypescript, {className});
 export const riJavascriptFill = (className: string) => createElement(RiJavascriptFill, {className});
 export const tbBrandHtml5 = (className: string) => createElement(TbBrandHtml5, {className});
 export const tbBrandCss3 = (className: string) => createElement(TbBrandCss3, {className});
