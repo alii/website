@@ -8,7 +8,7 @@ import site/lanyard
 
 pub fn handle(request: Request) -> Promise(Response) {
   use <- api.only(request, http.Get)
-  use presence <- promise.map(lanyard.get(constants.discord_id))
+  use presence <- promise.map(lanyard.get(constants.discord_id()))
   let location = option.then(presence, lanyard.location)
   let theme = case api.query(request, "theme") {
     Some("light") -> Ok(apple_maps.Light)

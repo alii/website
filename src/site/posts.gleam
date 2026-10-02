@@ -1,15 +1,57 @@
-import attribute as a
-import blog/post.{type Post}
-import blog/posts
+//// The posts are TSX; `src/blog/posts.ts` owns them and their metadata.
+
 import gleam/int
+import gleam/javascript/array.{type Array}
 import gleam/list
-import html
-import react.{type Element}
-import site/date
-import site/ui
+
+pub type Post {
+  Post(
+    name: String,
+    slug: String,
+    /// Milliseconds since the Unix epoch.
+    date: Int,
+    hidden: Bool,
+    excerpt: String,
+    keywords: List(String),
+  )
+}
+
+type Source
+
+@external(javascript, "./posts_ffi.ts", "all")
+fn all_raw() -> Array(Source)
+
+@external(javascript, "./posts_ffi.ts", "name")
+fn name(post: Source) -> String
+
+@external(javascript, "./posts_ffi.ts", "slug")
+fn slug(post: Source) -> String
+
+@external(javascript, "./posts_ffi.ts", "date")
+fn date(post: Source) -> Int
+
+@external(javascript, "./posts_ffi.ts", "hidden")
+fn hidden(post: Source) -> Bool
+
+@external(javascript, "./posts_ffi.ts", "excerpt")
+fn excerpt(post: Source) -> String
+
+@external(javascript, "./posts_ffi.ts", "keywords")
+fn keywords(post: Source) -> Array(String)
 
 pub fn all() -> List(Post) {
-  posts.all()
+  all_raw()
+  |> array.to_list
+  |> list.map(fn(post) {
+    Post(
+      name: name(post),
+      slug: slug(post),
+      date: date(post),
+      hidden: hidden(post),
+      excerpt: excerpt(post),
+      keywords: array.to_list(keywords(post)),
+    )
+  })
 }
 
 /// Newest first.
@@ -19,23 +61,4 @@ pub fn sort(posts: List(Post)) -> List(Post) {
 
 pub fn visible(posts: List(Post)) -> List(Post) {
   list.filter(posts, fn(post) { !post.hidden })
-}
-
-pub fn find(slug: String) -> Result(Post, Nil) {
-  list.find(all(), fn(post) { post.slug == slug })
-}
-
-pub fn listing(posts: List(Post)) -> Element {
-  html.ol([a.class(ui.listing)], list.map(posts, listed))
-}
-
-fn listed(post: Post) -> Element {
-  html.li([a.class(ui.thing), a.key(post.slug)], [
-    html.a([a.href("/" <> post.slug)], [html.text(post.name)]),
-    html.text(" "),
-    html.span([a.class(ui.muted), a.suppress_hydration_warning(True)], [
-      html.text("· "),
-      html.text(date.month_year(post.date)),
-    ]),
-  ])
 }

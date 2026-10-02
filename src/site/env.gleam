@@ -3,9 +3,6 @@
 @external(javascript, "./env_ffi.ts", "isDevelopment")
 pub fn is_development() -> Bool
 
-@external(javascript, "./env_ffi.ts", "defaultLocation")
-pub fn default_location() -> String
-
 @external(javascript, "./env_ffi.ts", "turnstileSecretKey")
 pub fn turnstile_secret_key() -> String
 

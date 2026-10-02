@@ -1,7 +1,6 @@
 import {env} from '@/server/env';
 
 export const isDevelopment = () => process.env.NODE_ENV === 'development';
-export const defaultLocation = () => env.DEFAULT_LOCATION;
 export const turnstileSecretKey = () => env.TURNSTILE_SECRET_KEY;
 export const discordWebhook = () => env.DISCORD_WEBHOOK;
 export const appleTeamId = () => env.APPLE_TEAM_ID;

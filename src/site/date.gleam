@@ -1,4 +1,4 @@
-//// Hand-rolled: gleam_time would add far more to the browser bundle than this.
+//// Hand-rolled: gleam_time is far more than two date formats need.
 
 import gleam/int
 import gleam/string
@@ -8,25 +8,9 @@ const months = [
   "Dec",
 ]
 
-// en-GB spells September "Sept"
-const months_en_gb = [
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov",
-  "Dec",
-]
-
 /// Milliseconds since the Unix epoch.
 @external(javascript, "./date_ffi.ts", "now")
 pub fn now() -> Int
-
-/// Midnight UTC on that day, in milliseconds since the Unix epoch.
-pub fn utc(year: Int, month: Int, day: Int) -> Int {
-  days_from_civil(year, month, day) * 86_400_000
-}
-
-pub fn current_year() -> Int {
-  let #(year, _month, _day) = civil(now())
-  year
-}
 
 pub const day_ms = 86_400_000
 
@@ -88,20 +72,6 @@ fn floor_mod(a: Int, b: Int) -> Int {
   a - floor_div(a, b) * b
 }
 
-/// "12 Aug 2026"
-pub fn format_utc(ms: Int) -> String {
-  let #(year, month, day) = civil(ms)
-  let assert Ok(month) = at(months, month - 1)
-  int.to_string(day) <> " " <> month <> " " <> int.to_string(year)
-}
-
-/// "Aug 2026", "Sept 2022"
-pub fn month_year(ms: Int) -> String {
-  let #(year, month, _day) = civil(ms)
-  let assert Ok(month) = at(months_en_gb, month - 1)
-  month <> " " <> int.to_string(year)
-}
-
 fn civil(ms: Int) -> #(Int, Int, Int) {
   civil_from_days(floor_div(ms, 86_400_000))
 }
@@ -125,22 +95,6 @@ fn civil_from_days(days: Int) -> #(Int, Int, Int) {
     False -> year
   }
   #(year, month, day)
-}
-
-fn days_from_civil(year: Int, month: Int, day: Int) -> Int {
-  let year = case month <= 2 {
-    True -> year - 1
-    False -> year
-  }
-  let era = floor_div(year, 400)
-  let yoe = year - era * 400
-  let mp = case month > 2 {
-    True -> month - 3
-    False -> month + 9
-  }
-  let doy = { 153 * mp + 2 } / 5 + day - 1
-  let doe = yoe * 365 + yoe / 4 - yoe / 100 + doy
-  era * 146_097 + doe - 719_468
 }
 
 fn floor_div(a: Int, b: Int) -> Int {

@@ -1,19 +1,15 @@
-// Turbopack loader that makes `.gleam` files Next.js pages.
+// Turbopack loader that makes Gleam modules Next.js API routes.
 //
-// Gleam refuses module names like `_app`, `[slug]`, `404` or anything with a
-// hyphen, so those pages are a pointer file (`src/pages/_app.gleam.mjs` holding
-// `export * from '../routes/app.gleam';`). Extra lines in a pointer, like the
-// `globals.css` import, are kept in front of the module: Next only allows that
-// import from the `_app` entry itself.
-//
-// The compiled module is inlined rather than re-exported so that Next's
-// server-code stripping sees `getStaticProps` and friends in the entry and can
-// drop them, and their imports, from the browser bundle.
+// Gleam refuses module names like `[platform]` or anything with a hyphen, so a
+// route is a pointer file (`src/pages/api/ping.gleam.mjs` holding
+// `export * from '../../routes/api/ping.gleam';`). Extra lines in a pointer,
+// like `export const dynamic = 'force-static';`, are kept in front of the
+// compiled module.
 const {execFile} = require('node:child_process');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const PAGE_EXPORTS = ['view', 'props', 'params', 'load', 'paths', 'respond', 'handle', 'get'];
+const ROUTE_EXPORTS = ['handle', 'get'];
 
 function sources(dir, out = []) {
 	for (const entry of fs.readdirSync(dir, {withFileTypes: true})) {
@@ -58,8 +54,6 @@ function build(root) {
 	return building;
 }
 
-const pascal = name => name.replace(/(?:^|[^a-z0-9])([a-z0-9])/gi, (_, c) => c.toUpperCase());
-
 module.exports = function gleamLoader() {
 	const callback = this.async();
 	const root = this.rootContext;
@@ -68,19 +62,17 @@ module.exports = function gleamLoader() {
 	// any Gleam source or FFI (`*_ffi.ts`) change must re-run the compiler, not just this file
 	for (const file of sources(srcDir)) this.addDependency(file);
 
-	let source = this.resourcePath;
-	let prelude = '';
-	if (source.endsWith('.gleam.mjs')) {
-		const pointer = fs.readFileSync(source, 'utf8');
-		const target = /^export \* from ['"]([^'"]+\.gleam)['"];?\s*$/m.exec(pointer);
-		if (!target)
-			return callback(
-				new Error(`${source}: expected a line like export * from '../routes/app.gleam';`),
-			);
-		source = path.resolve(path.dirname(source), target[1]);
-		prelude = pointer.replace(target[0], '').trim();
-		if (prelude) prelude += '\n\n';
-	}
+	const pointer = fs.readFileSync(this.resourcePath, 'utf8');
+	const target = /^export \* from ['"]([^'"]+\.gleam)['"];?\s*$/m.exec(pointer);
+	if (!target)
+		return callback(
+			new Error(
+				`${this.resourcePath}: expected a line like export * from '../../routes/api/ping.gleam';`,
+			),
+		);
+	const source = path.resolve(path.dirname(this.resourcePath), target[1]);
+	let prelude = pointer.replace(target[0], '').trim();
+	if (prelude) prelude += '\n\n';
 
 	build(root)
 		.then(() => {
@@ -106,7 +98,7 @@ module.exports = function gleamLoader() {
 			const exported = new Set(
 				[...code.matchAll(/^export function ([a-z_][a-z0-9_]*)\b/gm)]
 					.map(m => m[1])
-					.filter(name => PAGE_EXPORTS.includes(name)),
+					.filter(name => ROUTE_EXPORTS.includes(name)),
 			);
 
 			const runtime = relative(
@@ -116,41 +108,6 @@ module.exports = function gleamLoader() {
 				code += `\n\nimport * as $$runtime from ${JSON.stringify(runtime)};\nexport default (req, res) => $$runtime.api(handle, req, res);\n`;
 			} else if (exported.has('get')) {
 				code += `\n\nimport * as $$runtime from ${JSON.stringify(runtime)};\nexport const GET = () => $$runtime.route(get);\n`;
-			}
-			// a Gleam module imported from TS is not a page: leave it as it is
-			else if (exported.has('view')) {
-				// The data functions must not be exports: Next strips getStaticProps and
-				// friends (and whatever only they reference) from the browser bundle, but
-				// it keeps every other export, server-only imports and all.
-				for (const name of ['load', 'paths', 'params', 'respond']) {
-					code = code.replace(new RegExp(`^export function ${name}\\b`, 'm'), `function ${name}`);
-				}
-				const runtime = relative(
-					path.join(root, 'build/dev/javascript', project, 'next/runtime.mjs'),
-				);
-				const component = `${pascal(path.basename(moduleName))}Page`;
-				const glue = [`import * as $$runtime from ${JSON.stringify(runtime)};`];
-				if (exported.has('respond')) {
-					glue.push(
-						'export const getServerSideProps = context => $$runtime.server_props(respond, props(), context);',
-					);
-				}
-				if (exported.has('load')) {
-					glue.push(
-						exported.has('params')
-							? 'export const getStaticProps = context => $$runtime.static_props(load, params(), props(), context);'
-							: 'export const getStaticProps = context => $$runtime.static_props_without_params(load, props(), context);',
-					);
-				}
-				if (exported.has('paths')) {
-					glue.push('export const getStaticPaths = () => $$runtime.static_paths(paths, params());');
-				}
-				glue.push(
-					exported.has('props')
-						? `export default function ${component}(raw) {\n\treturn $$runtime.render(view, props(), raw);\n}`
-						: `export default function ${component}(raw) {\n\treturn view(raw);\n}`,
-				);
-				code += `\n\n${glue.join('\n')}\n`;
 			}
 
 			callback(null, prelude + code);

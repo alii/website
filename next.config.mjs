@@ -6,14 +6,10 @@ import { config as dotenv } from 'dotenv';
 const config = {
 	env: dotenv().parsed,
 
-	pageExtensions: ['tsx', 'ts', 'gleam', 'gleam.mjs'],
+	pageExtensions: ['tsx', 'ts', 'gleam.mjs'],
 
 	turbopack: {
 		rules: {
-			'*.gleam': {
-				loaders: ['./scripts/gleam-loader.cjs'],
-				as: '*.js',
-			},
 			'*.gleam.mjs': {
 				loaders: ['./scripts/gleam-loader.cjs'],
 				as: '*.js',

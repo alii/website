@@ -1,11 +1,10 @@
 //// `/feed.xml`
 
 import api.{type Response}
-import blog/post.{type Post}
 import gleam/list
 import gleam/string
 import site/date
-import site/posts
+import site/posts.{type Post}
 
 pub fn get() -> Response {
   let visible = posts.all() |> posts.sort |> posts.visible

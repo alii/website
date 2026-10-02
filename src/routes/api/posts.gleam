@@ -1,10 +1,9 @@
 import api.{type Request, type Response}
-import blog/post.{type Post}
 import gleam/http
 import gleam/javascript/promise.{type Promise}
 import gleam/json.{type Json}
 import site/date
-import site/posts
+import site/posts.{type Post}
 
 pub fn handle(request: Request) -> Promise(Response) {
   use <- api.only(request, http.Get)
