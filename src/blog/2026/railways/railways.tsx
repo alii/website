@@ -81,9 +81,12 @@ export class Railways extends Post {
 					never settled! It is neither fulfilled nor rejected, so it stays pending forever. This was{' '}
 					<ExternalLink href="https://bugs.webkit.org/show_bug.cgi?id=318399">
 						WebKit bug 318399
-					</ExternalLink>{' '}
-					and <ExternalLink href="https://github.com/WebKit/WebKit/pull/68749">my fix</ExternalLink>{' '}
-					was only +16 lines!
+					</ExternalLink>
+					. I fixed it in{' '}
+					<ExternalLink href="https://github.com/WebKit/WebKit/pull/68749">
+						WebKit/WebKit#68749
+					</ExternalLink>
+					, and the fix was only +16 lines!
 				</p>
 				<p>What went wrong?</p>
 				<h2>
@@ -466,6 +469,27 @@ export class Railways extends Post {
 					functions exist, the existing error handling rejects the promise just like any other
 					failure would.
 				</p>
+				<p>
+					With the two steps in the right order, Bun 1.4 and Safari 27 now behave like the spec, and
+					like Node:
+				</p>
+				<figure className="not-prose my-8 md:max-w-[50%]">
+					<Terminal
+						title="bun 1.4"
+						lines={[
+							{kind: 'cmd', text: 'bun never.mjs'},
+							'before',
+							'error: boom',
+							{kind: 'dim', text: 'exit 1'},
+						]}
+					/>
+				</figure>
+				<p>
+					Bug fixed! But it left me with a question. Earlier I drew promises as railways, with a
+					fulfilled track and a rejected track. However, we just watched the engine put an error on
+					the rejected track that no line of our code ever passed to <code>reject()</code>. So does
+					that mean we can't actually ever know what's on that track?
+				</p>
 				<h2>So is a promise a railway?</h2>
 				<p>
 					In TypeScript, the <code>Promise&lt;T&gt;</code> interface has only one type parameter and
@@ -511,9 +535,15 @@ export class Railways extends Post {
 				</p>
 				<h2>What could a new language do about this?</h2>
 				<p>
-					You might have seen me talk about{' '}
+					TypeScript had to add types to JavaScript after the fact, so maybe it just inherited the
+					problem. What would a language that has typed errors from day one do, if it still had to
+					run on JavaScript's promises?
+				</p>
+				<p>
+					Gleam is one of those languages. You might have seen me talk about{' '}
 					<ExternalLink href="https://gleam.run">Gleam</ExternalLink> before. It's really good, and
-					I write lots of it. It is a typed language that compiles to the BEAM and to{' '}
+					I write lots of it. Don't worry if you've never read any; I'll put TypeScript next to the
+					Gleam as we go. It is a typed language that compiles to the BEAM and to{' '}
 					<ExternalLink href="https://gleam.run/news/v0.16-gleam-compiles-to-javascript/">
 						JavaScript
 					</ExternalLink>
@@ -545,6 +575,15 @@ export class Railways extends Post {
 				<Highlighter language="gleam">
 					{stripIndent`
 						fn get_user() -> Promise(Result(User, DatabaseError))
+					`}
+				</Highlighter>
+				<p>
+					Gleam writes type parameters with parentheses instead of angle brackets, so in TypeScript
+					that would be:
+				</p>
+				<Highlighter language="typescript">
+					{stripIndent`
+						function getUser(): Promise<Result<User, DatabaseError>>
 					`}
 				</Highlighter>
 				<p>Can we draw this on train tracks? Yes! But in a slightly different way:</p>
@@ -584,7 +623,9 @@ export class Railways extends Post {
 						<code>use</code>
 					</ExternalLink>{' '}
 					syntax, a chain of them reads like normal straight-line code, or code that is on a single
-					straight-line train track.
+					straight-line train track. Each <code>use x &lt;- promise.try_await(...)</code> line is a
+					bit like <code>const x = await ...</code>, except it stops early on an <code>Error</code>{' '}
+					instead of throwing:
 				</p>
 				<Highlighter filename="src/app.gleam" language="gleam">
 					{stripIndent`
@@ -616,6 +657,17 @@ export class Railways extends Post {
 						pub fn await(promise: Promise(a), callback: fn(a) -> Promise(b)) -> Promise(b)
 					`}
 				</Highlighter>
+				<p>Or in TypeScript:</p>
+				<Highlighter language="typescript">
+					{stripIndent`
+						function promiseMap<A, B>(promise: Promise<A>, callback: (value: A) => B): Promise<B>
+						function promiseAwait<A, B>(promise: Promise<A>, callback: (value: A) => Promise<B>): Promise<B>
+					`}
+				</Highlighter>
+				<p>
+					The only difference is the callback's return type. <code>map</code>'s callback returns any{' '}
+					<code>B</code>, and <code>await</code>'s callback returns a <code>Promise&lt;B&gt;</code>.
+				</p>
 				<p>
 					According to these signatures, <code>map</code> will never flatten a promise and{' '}
 					<code>await</code> will flatten exactly once. Both call <code>.then()</code> internally,
@@ -774,8 +826,11 @@ export class Railways extends Post {
 					</li>
 					<li>
 						JavaScriptCore did the species read before creating the resolving functions, so when it
-						threw there was nothing to reject with. The fix was to create the functions first and
-						call them when the getter throws.
+						threw there was nothing to reject with. The fix (
+						<ExternalLink href="https://github.com/WebKit/WebKit/pull/68749">
+							WebKit/WebKit#68749
+						</ExternalLink>
+						) was to create the functions first and call them when the getter throws.
 					</li>
 					<li>
 						A promise has the shape of a railway, but its failure track can't be labelled, because
@@ -789,22 +844,6 @@ export class Railways extends Post {
 						flattening behaviour.
 					</li>
 				</ul>
-				<p>
-					With the two steps in the right order in JavaScriptCore, Bun 1.4 and Safari 27 now behave
-					like the spec, and like Node:
-				</p>
-				<figure className="not-prose my-8 md:max-w-[50%]">
-					<Terminal
-						title="bun 1.4"
-						lines={[
-							{kind: 'cmd', text: 'bun never.mjs'},
-							'before',
-							'error: boom',
-							{kind: 'dim', text: 'exit 1'},
-						]}
-					/>
-				</figure>
-				<p>Excellent.</p>
 				<br />
 				<p>
 					If you read all the way to the end, then I am glad you are as excited about promises as I

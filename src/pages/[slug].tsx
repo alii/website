@@ -54,7 +54,7 @@ export default function PostPage({slug}: Props) {
 						// serif body for long-form reading; the rest of the site stays sans.
 						// tracking resets to normal: the body's tightened letter-spacing is
 						// tuned for Karla and cramps Lora at reading size
-						'prose prose-stone dark:prose-invert max-w-none font-serif text-[17px] tracking-normal',
+						'prose prose-stone dark:prose-invert max-w-none font-serif text-[17px] tracking-normal text-pretty',
 						// the post body renders its own <h1> title; we already show it in the
 						// header above, so hide the duplicate leading heading
 						'[&>h1:first-child]:hidden',

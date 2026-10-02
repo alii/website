@@ -81,7 +81,7 @@ export function SafariConsole({
 }) {
 	return (
 		<figure className="not-prose my-8">
-			<MacWindow title={title}>
+			<MacWindow title={title} className="w-full">
 				<div className={clsx(MONO, 'text-[#1d1d1f] dark:text-[#e6e6e6]')}>
 					<div className={clsx('flex items-start gap-2 border-b px-3 py-2', RULE)}>
 						<Chevron dir="right" className="text-[#7a7a7a] dark:text-[#9a9a9a]" />
