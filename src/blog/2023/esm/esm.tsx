@@ -84,17 +84,17 @@ export class ESM extends Post {
 				</p>
 
 				<p>
-					Andrew's first reply didn't go near any of that. He zeroed in on the one field I'd have bet
-					money on: the root <code>types</code>. One <code>.d.ts</code>, he said, cannot describe
-					both builds, because a <code>.d.ts</code> isn't only types — it carries a module{' '}
-					<em>format</em>. That sentence is the whole article. It took me an embarrassingly long time
-					to feel why it was true, and the moment it clicked was the moment I admitted I didn't
+					Andrew's first reply didn't go near any of that. He zeroed in on the one field I'd have
+					bet money on: the root <code>types</code>. One <code>.d.ts</code>, he said, cannot
+					describe both builds, because a <code>.d.ts</code> isn't only types — it carries a module{' '}
+					<em>format</em>. That sentence is the whole article. It took me an embarrassingly long
+					time to feel why it was true, and the moment it clicked was the moment I admitted I didn't
 					actually know what happens when I type <code>import</code>.
 				</p>
 
 				<p>
-					Reading the thread back, my tweet was wrong in more ways than one. Roughly, in order of how
-					wrong:
+					Reading the thread back, my tweet was wrong in more ways than one. Roughly, in order of
+					how wrong:
 				</p>
 
 				<ul>
@@ -107,8 +107,8 @@ export class ESM extends Post {
 						other runtimes copied.
 					</li>
 					<li>
-						I thought a <code>.d.ts</code> was just types, the same in any context. It isn't — it has
-						a format, ESM or CJS, baked in.
+						I thought a <code>.d.ts</code> was just types, the same in any context. It isn't — it
+						has a format, ESM or CJS, baked in.
 					</li>
 					<li>
 						I aimed one root <code>types</code> at both builds, which quietly tells every CommonJS
@@ -160,7 +160,8 @@ export class ESM extends Post {
 					<code>'y'</code> in <code>import x from 'y'</code> — is called a <i>specifier</i>, and it
 					turns out to be the only thing the machinery gets to start from. And the thing that
 					actually carries out the phases is the <i>engine</i>; for now just picture "the program
-					running your JavaScript," and trust that we'll pin down exactly what that means in a minute.
+					running your JavaScript," and trust that we'll pin down exactly what that means in a
+					minute.
 				</p>
 
 				<p>
@@ -171,11 +172,11 @@ export class ESM extends Post {
 				<ul>
 					<li>
 						<strong>Parse.</strong> The engine reads the source text and turns it into a{' '}
-						<i>Module Record</i>. Because <code>import</code> and <code>export</code> are syntax, not
-						function calls, it learns the complete list of your imports and exports right here — by
-						reading, without running a single line. This is the whole reason ESM can be statically
-						analysed and CommonJS can't: <code>require()</code> is just a function, and it could be
-						hiding behind an <code>if</code>.
+						<i>Module Record</i>. Because <code>import</code> and <code>export</code> are syntax,
+						not function calls, it learns the complete list of your imports and exports right here —
+						by reading, without running a single line. This is the whole reason ESM can be
+						statically analysed and CommonJS can't: <code>require()</code> is just a function, and
+						it could be hiding behind an <code>if</code>.
 					</li>
 					<li>
 						<strong>Link.</strong> The engine takes every specifier it found while parsing and
@@ -194,28 +195,27 @@ export class ESM extends Post {
 				</ul>
 
 				<p>
-					Notice where the file lookup lives. It's in <strong>link</strong> — "resolve each specifier
-					to another Module Record." That is the step that has to turn <code>'y'</code> into a file.
-					And it is the exact step the spec quietly refuses to do itself.
+					Notice where the file lookup lives. It's in <strong>link</strong> — "resolve each
+					specifier to another Module Record." That is the step that has to turn <code>'y'</code>{' '}
+					into a file. And it is the exact step the spec quietly refuses to do itself.
 				</p>
 
 				<p>
 					When the spec reaches that step and needs the module hiding behind the specifier, it does
-					not go looking for it. It calls a host hook -{' '}
-					<code>HostLoadImportedModule</code>, or its older synchronous self,{' '}
-					<code>HostResolveImportedModule</code> - and stops there. "Host" is spec-speak for "not
-					me, ask whoever is running this." It nails down <em>when</em> a module is needed. It says
-					nothing about <em>which file</em> that is.
+					not go looking for it. It calls a host hook - <code>HostLoadImportedModule</code>, or its
+					older synchronous self, <code>HostResolveImportedModule</code> - and stops there. "Host"
+					is spec-speak for "not me, ask whoever is running this." It nails down <em>when</em> a
+					module is needed. It says nothing about <em>which file</em> that is.
 				</p>
 
 				<p>
 					Read that twice, because it's the load-bearing sentence of the whole post: the
-					specification — the document everyone cites as the source of truth for JavaScript — gets to{' '}
-					<code>import x from 'y'</code>, needs the file behind <code>'y'</code>, and{' '}
+					specification — the document everyone cites as the source of truth for JavaScript — gets
+					to <code>import x from 'y'</code>, needs the file behind <code>'y'</code>, and{' '}
 					<em>delegates</em>. It has no opinion. The opinion lives one layer down, in whatever the
-					spec keeps calling the host. Which leaves exactly one question, the one the spec spends its
-					whole length dodging: who <em>is</em> the host? The rest of this post is just answering
-					that.
+					spec keeps calling the host. Which leaves exactly one question, the one the spec spends
+					its whole length dodging: who <em>is</em> the host? The rest of this post is just
+					answering that.
 				</p>
 
 				<h3>The engine runs it, and still doesn't do the lookup</h3>
@@ -228,12 +228,13 @@ export class ESM extends Post {
 
 				<p>
 					It's worth knowing that not all specifiers are equal, because the runtime branches on
-					exactly this. A <em>relative</em> specifier (<code>'./util'</code>, <code>'../lib/x'</code>)
-					is resolved against the file doing the importing. An <em>absolute</em> one — a full path,
-					or a <code>file:</code>/<code>https:</code> URL in a browser — is taken as-is. And a{' '}
-					<em>bare</em> specifier (<code>'lodash'</code>, <code>'react'</code>, no dot and no slash to
-					anchor it) is the hard one: it names a <em>package</em>, not a location, and turning a
-					package name into a file on disk is where the entire mess we're untangling actually lives.
+					exactly this. A <em>relative</em> specifier (<code>'./util'</code>,{' '}
+					<code>'../lib/x'</code>) is resolved against the file doing the importing. An{' '}
+					<em>absolute</em> one — a full path, or a <code>file:</code>/<code>https:</code> URL in a
+					browser — is taken as-is. And a <em>bare</em> specifier (<code>'lodash'</code>,{' '}
+					<code>'react'</code>, no dot and no slash to anchor it) is the hard one: it names a{' '}
+					<em>package</em>, not a location, and turning a package name into a file on disk is where
+					the entire mess we're untangling actually lives.
 				</p>
 
 				<p>
@@ -248,15 +249,15 @@ export class ESM extends Post {
 
 				<p>
 					That embedder - the thing on the other end of the callback, answering "what file is{' '}
-					<code>'y'</code>" - is the runtime, and it's the <em>host</em> the spec kept pointing at the
-					whole time. Well known runtimes are Bun, Node, Deno, and a browser, like the one you're
-					reading this in now. Each one wraps an engine: Node embeds V8, Bun embeds JavaScriptCore,
-					your browser embeds whichever engine ships with it. That's the boundary, finally drawn — the
-					engine runs your code, and the runtime around it decides what your code even is: where{' '}
-					<code>'y'</code> lives, whether <code>node_modules</code> is even a concept. Generally the
-					surface most JavaScript engineers think of as "how imports work" lives here in the runtime,
-					and the parse/link/evaluate lifecycle in the engine is sort of an opaque &amp; unnecessary
-					detail that we are lucky we don't need to worry about.
+					<code>'y'</code>" - is the runtime, and it's the <em>host</em> the spec kept pointing at
+					the whole time. Well known runtimes are Bun, Node, Deno, and a browser, like the one
+					you're reading this in now. Each one wraps an engine: Node embeds V8, Bun embeds
+					JavaScriptCore, your browser embeds whichever engine ships with it. That's the boundary,
+					finally drawn — the engine runs your code, and the runtime around it decides what your
+					code even is: where <code>'y'</code> lives, whether <code>node_modules</code> is even a
+					concept. Generally the surface most JavaScript engineers think of as "how imports work"
+					lives here in the runtime, and the parse/link/evaluate lifecycle in the engine is sort of
+					an opaque &amp; unnecessary detail that we are lucky we don't need to worry about.
 				</p>
 
 				<p>How does Bun or Node.js resolve my 1kb ai slop JavaScript library then?</p>
@@ -278,13 +279,13 @@ export class ESM extends Post {
 					<li>
 						if it has an <code>exports</code> field, <em>that field decides everything</em> — it's
 						matched against the conditions in play (<code>import</code> vs <code>require</code>,{' '}
-						<code>types</code>, <code>node</code>, <code>browser</code>, <code>default</code>), first
-						match wins, and anything not listed is simply not reachable
+						<code>types</code>, <code>node</code>, <code>browser</code>, <code>default</code>),
+						first match wins, and anything not listed is simply not reachable
 					</li>
 					<li>
-						if there's no <code>exports</code>, fall back to the old way: the <code>main</code> field,
-						then guessing extensions (<code>.js</code>, <code>.mjs</code>, <code>.cjs</code>) and{' '}
-						<code>/index.js</code>
+						if there's no <code>exports</code>, fall back to the old way: the <code>main</code>{' '}
+						field, then guessing extensions (<code>.js</code>, <code>.mjs</code>, <code>.cjs</code>)
+						and <code>/index.js</code>
 					</li>
 					<li>
 						on the web there's no <code>node_modules</code> at all — specifiers resolve against a
@@ -293,11 +294,12 @@ export class ESM extends Post {
 				</ul>
 
 				<Note variant="info" title="exports is a door, not a hint">
-					The thing that trips people up: when <code>exports</code> is present it doesn't <em>add</em>{' '}
-					to the old extension-guessing, it <em>replaces</em> it. Files you don't list stop existing
-					as far as the resolver is concerned, even when they're right there on disk. That's the
-					feature — it's how a package finally gets to control its own public surface — but it's a
-					sharp edge if you're used to reaching into <code>some-pkg/lib/internal.js</code>.
+					The thing that trips people up: when <code>exports</code> is present it doesn't{' '}
+					<em>add</em> to the old extension-guessing, it <em>replaces</em> it. Files you don't list
+					stop existing as far as the resolver is concerned, even when they're right there on disk.
+					That's the feature — it's how a package finally gets to control its own public surface —
+					but it's a sharp edge if you're used to reaching into{' '}
+					<code>some-pkg/lib/internal.js</code>.
 				</Note>
 
 				<p>
@@ -312,16 +314,17 @@ export class ESM extends Post {
 				<h3>Why this took the whole industry a decade</h3>
 
 				<p>
-					None of this was anyone being stupid. It was a contract the spec left blank on purpose, and
-					a decade of every layer independently guessing at it.
+					None of this was anyone being stupid. It was a contract the spec left blank on purpose,
+					and a decade of every layer independently guessing at it.
 				</p>
 
 				<p>
-					ES2015 standardised modules, but only the half I described up top: the <code>import</code>/
-					<code>export</code> syntax and the parse/link/evaluate lifecycle. Resolution and loading
-					were handed to the host deliberately, because a browser and a server fundamentally disagree
-					about what a module even <em>is</em> — one fetches a URL over the network, the other reads
-					a file off a disk. There was no single answer to standardise, so they standardised none.
+					ES2015 standardised modules, but only the half I described up top: the <code>import</code>
+					/<code>export</code> syntax and the parse/link/evaluate lifecycle. Resolution and loading
+					were handed to the host deliberately, because a browser and a server fundamentally
+					disagree about what a module even <em>is</em> — one fetches a URL over the network, the
+					other reads a file off a disk. There was no single answer to standardise, so they
+					standardised none.
 				</p>
 
 				<p>
@@ -329,28 +332,29 @@ export class ESM extends Post {
 					several-hundred-thousand-package head start. CommonJS is everything ESM isn't:{' '}
 					<code>require()</code> is a plain synchronous function, resolved while the code runs,
 					returning whatever object you assigned to <code>module.exports</code>. ESM is static,
-					asynchronous, and live-bound. You cannot quietly alias one onto the other, and Node couldn't
-					break the millions of packages that already existed. So for years there simply was no agreed
-					way to even load an ES module in Node — proposals shipped and were ripped out,{' '}
-					<code>.mjs</code> fought <code>"type": "module"</code>, and unflagged ESM didn't really land
-					until Node 12–13 around 2019.
+					asynchronous, and live-bound. You cannot quietly alias one onto the other, and Node
+					couldn't break the millions of packages that already existed. So for years there simply
+					was no agreed way to even load an ES module in Node — proposals shipped and were ripped
+					out, <code>.mjs</code> fought <code>"type": "module"</code>, and unflagged ESM didn't
+					really land until Node 12–13 around 2019.
 				</p>
 
 				<p>
 					Because the spec said nothing about resolution, Node had to invent the bridge itself — and
-					that's where <code>exports</code> and conditions came from. Because Node invented it rather
-					than a standards body, everyone else got to interpret it: webpack, esbuild, Vite, Jest and
-					the rest each shipped their <em>own</em> resolver, so the same package could resolve one way
-					in Node, another in Vite, and a third in your test runner. TypeScript then had to model all
-					of them at once, which is the entire reason <code>moduleResolution</code> is a menu of modes
-					instead of a single correct value.
+					that's where <code>exports</code> and conditions came from. Because Node invented it
+					rather than a standards body, everyone else got to interpret it: webpack, esbuild, Vite,
+					Jest and the rest each shipped their <em>own</em> resolver, so the same package could
+					resolve one way in Node, another in Vite, and a third in your test runner. TypeScript then
+					had to model all of them at once, which is the entire reason <code>moduleResolution</code>{' '}
+					is a menu of modes instead of a single correct value.
 				</p>
 
 				<p>
 					Bun had the one advantage nobody in 2015 had: hindsight. It arrived after the dust settled
-					and implemented Node's resolution and <code>exports</code> semantics from day one, treating
-					CJS/ESM interop as a built-in feature rather than something bolted on a major version at a
-					time. That's not Bun being smarter; it's Bun being <em>late</em>, which here was a gift.
+					and implemented Node's resolution and <code>exports</code> semantics from day one,
+					treating CJS/ESM interop as a built-in feature rather than something bolted on a major
+					version at a time. That's not Bun being smarter; it's Bun being <em>late</em>, which here
+					was a gift.
 				</p>
 
 				<h3>Back to me being wrong</h3>
@@ -409,11 +413,11 @@ export class ESM extends Post {
 				</p>
 
 				<p>
-					You'd hope TypeScript would do this step for you, and, politely, it won't. <code>tsc</code>{' '}
-					emits one declaration per source file, matching that file's format — there's no "also emit
-					a CommonJS copy" flag. So the copy-and-rename ends up in a build script, or you hand the
-					whole job to a bundler that special-cases it. For the thing TypeScript is otherwise
-					extremely good at, it's a surprising gap.
+					You'd hope TypeScript would do this step for you, and, politely, it won't.{' '}
+					<code>tsc</code> emits one declaration per source file, matching that file's format —
+					there's no "also emit a CommonJS copy" flag. So the copy-and-rename ends up in a build
+					script, or you hand the whole job to a bundler that special-cases it. For the thing
+					TypeScript is otherwise extremely good at, it's a surprising gap.
 				</p>
 
 				<p>

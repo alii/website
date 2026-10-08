@@ -18,17 +18,33 @@ jobs:
         with:
           bun-version: latest
 
+      # bun lint, bun format and bun check come from oven-sh/bun#44805, which isn't released yet
+      - name: Download bun from PR 44805
+        run: |
+          mkdir -p "$RUNNER_TEMP/bun-pr"
+          bunx bun-pr@1.0.42 cda7bedbb5f677a621e11d76432b9b05f22bc00f
+          ln -s "$RUNNER_TEMP/bun-pr/bun-latest" "$RUNNER_TEMP/bun-pr/bun-44805"
+          echo "$RUNNER_TEMP/bun-pr" >> "$GITHUB_PATH"
+        env:
+          BUN_OUT_DIR: ${{ runner.temp }}/bun-pr
+          GITHUB_TOKEN: ${{ github.token }}
+
       - name: Install dependencies
         run: bun install --frozen-lockfile
         env:
           CI: true
 
       - name: Lint
-        run: bun run lint
+        run: bun-44805 lint
+        env:
+          CI: true
+
+      - name: Format
+        run: bun-44805 format --check
         env:
           CI: true
 
       - name: Typecheck
-        run: bun run typecheck
+        run: node scripts/ensure-gleam.mjs && gleam build && bun-44805 check
         env:
           CI: true

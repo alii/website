@@ -1,4 +1,4 @@
-import { config as dotenv } from 'dotenv';
+import {config as dotenv} from 'dotenv';
 
 // @ts-check
 
@@ -88,7 +88,7 @@ const config = {
 				destination: 'https://hyperfollow.com/alistair6/letter100-3',
 				permanent: true,
 			},
-{
+			{
 				source: '/live-25-01-2024',
 				destination: 'https://www.youtube.com/watch?v=OvTy9xYH7LA',
 				permanent: true,

@@ -5,3 +5,4 @@ out
 node_modules
 .yarn
 .git
+next-env.d.ts
