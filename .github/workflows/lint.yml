@@ -45,6 +45,6 @@ jobs:
           CI: true
 
       - name: Typecheck
-        run: node scripts/ensure-gleam.mjs && gleam build && bun-44805 check
+        run: node scripts/ensure-gleam.mjs && PATH="$PWD/node_modules/.bin:$PATH" gleam build && bun-44805 check
         env:
           CI: true
