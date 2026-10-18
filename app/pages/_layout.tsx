@@ -9,7 +9,9 @@ import iosevka from '../../public/fonts/iosevka-latin-400.woff2';
 import karla from '../../public/fonts/karla-latin.woff2';
 import lora from '../../public/fonts/lora-latin.woff2';
 
-const tag = process.env.NEXT_PUBLIC_GTM_ID;
+// Bun inlines NEXT_PUBLIC_* in the browser (bunfig.toml) only when it is set; when it is not, the
+// browser has no `process` to read it from.
+const tag = typeof process === 'undefined' ? undefined : process.env.NEXT_PUBLIC_GTM_ID;
 
 export default function RootLayout({children}: {children: ReactNode}) {
 	return (
