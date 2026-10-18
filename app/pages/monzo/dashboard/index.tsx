@@ -1,9 +1,9 @@
 import {MonzoAPI, type Id, type Models} from '@otters/monzo';
 import {HTTPClientError} from 'alistair/http';
 import {bwitch} from 'bwitch';
-import type {GetServerSideProps, Redirect} from 'next';
-import Link from 'next/link';
-import {parseSessionJWT} from '../../../server/sessions';
+import type {GetServerSideProps, Redirect} from 'bun:bake';
+import {Link} from '../../../../src/components/link';
+import {parseSessionJWT} from '../../../../src/server/sessions';
 
 type Props =
 	| {
@@ -197,8 +197,8 @@ const redirect: {redirect: Redirect} = {
 	},
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async ({req}) => {
-	const {token} = req.cookies;
+export const getServerSideProps: GetServerSideProps<Props> = async ({request}) => {
+	const token = new Bun.CookieMap(request.headers.get('cookie') ?? '').get('token');
 
 	if (typeof token !== 'string') {
 		return redirect;

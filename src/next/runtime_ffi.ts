@@ -1,4 +1,4 @@
-import type {NextApiResponse} from 'next';
+import type {ApiResponse as NextApiResponse} from '../server/api';
 
 export const setStatus = (response: NextApiResponse, status: number) =>
 	void response.status(status);

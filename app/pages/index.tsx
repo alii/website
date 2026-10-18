@@ -1,12 +1,12 @@
-import type {GetStaticProps} from 'next';
-import Link from 'next/link';
+import type {GetStaticProps} from 'bun:bake';
+import {Link} from '../../src/components/link';
 import {get, useLanyard, type Types} from 'use-lanyard';
-import {posts, sortPosts} from '../blog/posts';
-import {Layout} from '../components/layout';
-import {PostListing} from '../components/post-listing';
-import {env} from '../server/env';
-import {boxHd, muted} from '../ui';
-import {backupDiscordId, discordId} from '../utils/constants';
+import {posts, sortPosts} from '../../src/blog/posts';
+import {Layout} from '../../src/components/layout';
+import {PostListing} from '../../src/components/post-listing';
+import {env} from '../../src/server/env';
+import {boxHd, muted} from '../../src/ui';
+import {backupDiscordId, discordId} from '../../src/utils/constants';
 
 export interface Props {
 	lanyard: Types.Presence | null;

@@ -1,11 +1,11 @@
 import clsx from 'clsx';
-import type {GetStaticPaths, GetStaticProps} from 'next';
-import Head from 'next/head';
-import Link from 'next/link';
-import {posts} from '../blog/posts';
-import {Layout} from '../components/layout';
-import {Note} from '../components/note';
-import {muted, pageTitle} from '../ui';
+import type {GetStaticPaths, GetStaticProps} from 'bun:bake';
+import {Head} from '../../src/components/head';
+import {Link} from '../../src/components/link';
+import {posts} from '../../src/blog/posts';
+import {Layout} from '../../src/components/layout';
+import {Note} from '../../src/components/note';
+import {muted, pageTitle} from '../../src/ui';
 
 interface Props {
 	readonly slug: string;
