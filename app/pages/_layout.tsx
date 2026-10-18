@@ -4,6 +4,10 @@ import '../../src/globals.css';
 
 import type {ReactNode} from 'react';
 import {Toaster} from 'react-hot-toast';
+// The bundled URLs of the fonts of globals.css, which imports the same files.
+import iosevka from '../../public/fonts/iosevka-latin-400.woff2';
+import karla from '../../public/fonts/karla-latin.woff2';
+import lora from '../../public/fonts/lora-latin.woff2';
 
 const tag = process.env.NEXT_PUBLIC_GTM_ID;
 
@@ -16,21 +20,21 @@ export default function RootLayout({children}: {children: ReactNode}) {
 			<link rel="alternate" type="application/rss+xml" title="Alistair Smith" href="/feed.xml" />
 			<link
 				rel="preload"
-				href="/fonts/karla-latin.woff2"
+				href={karla}
 				as="font"
 				type="font/woff2"
 				crossOrigin="anonymous"
 			/>
 			<link
 				rel="preload"
-				href="/fonts/lora-latin.woff2"
+				href={lora}
 				as="font"
 				type="font/woff2"
 				crossOrigin="anonymous"
 			/>
 			<link
 				rel="preload"
-				href="/fonts/iosevka-latin-400.woff2"
+				href={iosevka}
 				as="font"
 				type="font/woff2"
 				crossOrigin="anonymous"

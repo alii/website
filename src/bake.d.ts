@@ -21,3 +21,9 @@ declare module 'bun:bake' {
 
 	export type Redirect = {destination: string; permanent: boolean};
 }
+
+// A font file imported from code is the URL of its bundled copy.
+declare module '*.woff2' {
+	const url: string;
+	export default url;
+}

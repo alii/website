@@ -7,7 +7,7 @@
  * :root-level theme variables and Preflight defaults. Files in public/fonts. */
 @font-face {
 	font-family: 'Karla';
-	src: url('/fonts/karla-latin.woff2') format('woff2');
+	src: url('../public/fonts/karla-latin.woff2') format('woff2');
 	font-weight: 200 800;
 	font-style: normal;
 	font-display: swap;
@@ -15,7 +15,7 @@
 
 @font-face {
 	font-family: 'Lora';
-	src: url('/fonts/lora-latin.woff2') format('woff2');
+	src: url('../public/fonts/lora-latin.woff2') format('woff2');
 	font-weight: 400 700;
 	font-style: normal;
 	font-display: swap;
@@ -23,7 +23,7 @@
 
 @font-face {
 	font-family: 'Iosevka';
-	src: url('/fonts/iosevka-latin-400.woff2') format('woff2');
+	src: url('../public/fonts/iosevka-latin-400.woff2') format('woff2');
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -31,7 +31,7 @@
 
 @font-face {
 	font-family: 'Iosevka';
-	src: url('/fonts/iosevka-latin-700.woff2') format('woff2');
+	src: url('../public/fonts/iosevka-latin-700.woff2') format('woff2');
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
