@@ -5,7 +5,7 @@
 	"author": "Alistair Smith <hi@alistair.sh>",
 	"license": "Apache-2.0",
 	"private": true,
-	"packageManager": "bun@1.0.0",
+	"packageManager": "bun@1.4.4",
 	"scripts": {
 		"dev": "gleam build && next dev",
 		"build": "node scripts/ensure-gleam.mjs && gleam build && next build",
