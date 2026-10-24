@@ -13,12 +13,7 @@
 		"resolveJsonModule": true,
 		"jsx": "react-jsx",
 		"verbatimModuleSyntax": true,
-		"plugins": [
-			{
-				"name": "next"
-			}
-		],
-		"types": [],
+		"types": ["bun"],
 		"target": "ESNext",
 		"useUnknownInCatchVariables": true,
 		"noImplicitOverride": true,
@@ -35,12 +30,6 @@
 			"@gleam/*": ["./build/dev/javascript/*"]
 		}
 	},
-	"include": [
-		"next-env.d.ts",
-		".next/types/**/*.ts",
-		"**/*.ts",
-		"**/*.tsx",
-		".next/dev/types/**/*.ts"
-	],
+	"include": ["**/*.ts", "**/*.tsx"],
 	"exclude": ["node_modules", ".next", "build", "tmp"]
 }

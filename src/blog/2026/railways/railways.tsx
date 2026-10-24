@@ -1,5 +1,5 @@
 import {stripIndent} from 'common-tags';
-import Link from 'next/link';
+import {Link} from '../../../components/link';
 import {Carried} from '../../../components/diagrams/carried';
 import {JobOrder} from '../../../components/diagrams/job-order';
 import {Railway} from '../../../components/diagrams/railway';

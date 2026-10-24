@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import {Layout} from '../components/layout';
-import {pageTitle} from '../ui';
+import {Link} from '../../src/components/link';
+import {Layout} from '../../src/components/layout';
+import {pageTitle} from '../../src/ui';
 
 export default function Page404() {
 	return (

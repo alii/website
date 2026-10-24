@@ -1,0 +1,3 @@
+# Inline these environment variables into the code that runs in the browser, as Next.js did.
+[serve.static]
+env = "NEXT_PUBLIC_*"

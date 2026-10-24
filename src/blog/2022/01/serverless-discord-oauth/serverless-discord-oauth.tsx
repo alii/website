@@ -1,5 +1,5 @@
 import {stripIndent} from 'common-tags';
-import Link from 'next/link';
+import {Link} from '../../../../components/link';
 import {Highlighter, Shell} from '../../../../components/syntax-highligher';
 import {Post} from '../../../Post';
 import discordOAuthDashboardImage from './discord-oauth-dashboard.png';

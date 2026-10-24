@@ -1,4 +1,4 @@
-import type {NextApiRequest} from 'next';
+import type {ApiRequest as NextApiRequest} from './server/api';
 
 export const method = (request: NextApiRequest) => request.method ?? 'n/a';
 export const query = (request: NextApiRequest, name: string) => {
