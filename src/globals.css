@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-@plugin "@tailwindcss/typography";
+@plugin '@tailwindcss/typography';
 
 /* Self-hosted fonts (latin subsets, variable weight) — plain @font-face
  * instead of next/font so the families are usable from anywhere, including

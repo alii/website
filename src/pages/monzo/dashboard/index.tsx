@@ -118,7 +118,7 @@ export default function MonzoDashboard(props: Props) {
 									<>
 										<hr className="dark:border-zinc-800" />
 
-										<div className="space-y-1.5 pb-2.5 pt-1.5">
+										<div className="space-y-1.5 pt-1.5 pb-2.5">
 											<div>
 												<p className="px-2.5 font-bold text-zinc-700 dark:text-zinc-200">Pots</p>
 											</div>
