@@ -54,6 +54,11 @@ const config = {
 				permanent: false,
 			},
 			{
+				source: '/webkit-promise-railway',
+				destination: '/thenables',
+				permanent: true,
+			},
+			{
 				source: '/stats',
 				destination: '/',
 				permanent: false,
