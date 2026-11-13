@@ -20,7 +20,7 @@ export class OpenSource extends Post {
 				<p>
 					I really do love open source. I love being able to build software that I know people will
 					be able to make great use of. I love that we can extend already existing open source
-					software &amp; I love that we're able to put licenses on our code and explain where and
+					software &amp; I love that we're able to put licences on our code and explain where and
 					how you can use it.
 				</p>
 				<p>
@@ -62,7 +62,7 @@ export class OpenSource extends Post {
 				<p>
 					Alternatively, a recent JavaScript library popped up called <code>motion</code> (
 					<a href="https://motion.dev/">motion.dev</a>) which caused a bit of a stir in the
-					community for shaking things up a little bit with regards to their monetization strategy.
+					community for shaking things up a little bit with regards to their monetisation strategy.
 					The library itself exists on npm and can be installed as you would any other node module,
 					except there is no GitHub URL for the package..? Taking a look at the README on npm says
 					the following:

@@ -22,8 +22,8 @@ console.log("done");`;
 export class Thenables extends Post {
 	public name = 'Fixing a WebKit bug to see if promises are made of train tracks';
 	public slug = 'thenables';
-	public date = new Date('2026-10-03');
-	public hidden = true;
+	public date = new Date('2026-11-12');
+	public hidden = false;
 	public keywords = [
 		'javascript',
 		'promises',
@@ -42,10 +42,10 @@ export class Thenables extends Post {
 					{demo}
 				</Highlighter>
 				<p>
-					Don't worry if this looks confusing. The spec says that because the getter throws an
-					error, then <code>await p</code> should also throw, and so the program should crash.
-					Node.js does, but Safari 26 and Bun 1.3.14 print <code>'before'</code>, report the error,
-					and then hang.
+					Don't worry if this looks confusing. The JavaScript spec says that because the getter
+					throws an error, then <code>await p</code> should also throw, and so the program should
+					crash. Node.js does, but Safari 26 and Bun 1.3.14 print <code>'before'</code>, report the
+					error, and then hang.
 				</p>
 				<figure className="not-prose my-8 grid gap-5 md:grid-cols-2">
 					<Terminal
@@ -110,14 +110,18 @@ export class Thenables extends Post {
 				<p>
 					The builtin helper function <code>Promise.resolve(value)</code> does the same thing by
 					constructing a promise and immediately calling <code>resolve</code> with the value you
-					passed (with the exception that if <code>value</code> is already a promise whose{' '}
-					<code>constructor</code> is <code>Promise</code>, it is returned as is). A simple userland
-					implementation would look like this:
+					passed (with the exception that if <code>value</code> is a promise, and has a{' '}
+					<code>.constructor</code> property equal to <code>Promise</code>, it is returned as is). A
+					simple userland implementation would look like this:
 				</p>
 				<Highlighter filename="promise-resolve.js" language="javascript">
 					{stripIndent`
 						function PromiseDotResolve(value) {
-							return new Promise(resolve => resolve(value))
+							if (value instanceof Promise && value.constructor === Promise) {
+								return value;
+							}
+
+							return new Promise(resolve => resolve(value));
 						}
 					`}
 				</Highlighter>
@@ -302,9 +306,10 @@ export class Thenables extends Post {
 				/>
 				<p>
 					You can think of each piece of the railway as a function returning a <code>Result</code>.
-					In strongly typed languages, most implementations of a <code>Result</code> type will
-					accept <b>two type parameters</b>, the success type and the failure type, one per track.
-					For example in Rust you could imagine a <code>validate</code> function's signature being:
+					In statically typed programming languages, implementations of a <code>Result</code> type
+					will usually accept <b>two type parameters</b>, the success type and the failure type, one
+					per track. For example in Rust you could imagine a <code>validate</code> function's
+					signature being:
 				</p>
 				<Highlighter language="rust">
 					fn validate(request: Request) -&gt; Result&lt;Request, ValidationError&gt;
@@ -401,11 +406,11 @@ export class Thenables extends Post {
 				</p>
 				<p>
 					Remember the exception from earlier? When you <code>await</code> a real promise whose{' '}
-					<code>constructor</code> is <code>Promise</code> (which, by default, all promises do), the
-					engine takes a shortcut and waits on that promise directly. We just replaced{' '}
-					<code>p.constructor</code>, meaning we cannot take the shortcut. Instead, the engine
-					treats <code>p</code> in <code>await p</code> like any other value: it makes a fresh
-					promise and calls <code>resolve(p)</code> on it.
+					<code>constructor</code> is <code>Promise</code> (which, by default, is true for all
+					promises), the engine takes a shortcut and waits on that promise directly. We just
+					replaced <code>p.constructor</code>, meaning we cannot take the shortcut. Instead, the
+					engine treats <code>p</code> in <code>await p</code> like any other value: it makes a
+					fresh promise and calls <code>resolve(p)</code> on it.
 				</p>
 				<p>
 					<code>p</code> has a <code>.then()</code>, so it is a thenable, so <code>resolve(p)</code>{' '}
