@@ -404,11 +404,8 @@ export class Railways extends Post {
 					We only changed <code>p</code> here, so the global <code>Promise</code> is untouched.
 				</p>
 				<p>
-					Remember the exception from earlier? When you <code>await</code> a real promise whose{' '}
-					<code>constructor</code> is <code>Promise</code>, the engine takes a shortcut and waits on
-					that promise directly. We just replaced <code>p.constructor</code>, so the shortcut is
-					off. Instead, <code>await p</code> treats <code>p</code> like any other value: it makes a
-					fresh promise and calls <code>resolve(p)</code> on it.
+					<code>await p</code> only reuses <code>p</code> when <code>p.constructor</code> is{' '}
+					<code>Promise</code>, so it makes a new promise and calls <code>resolve(p)</code> instead.
 				</p>
 				<p>
 					<code>p</code> has a <code>.then()</code>, so it is a thenable, so <code>resolve</code>{' '}
@@ -543,12 +540,6 @@ export class Railways extends Post {
 					run on JavaScript's promises?
 				</p>
 				<p>
-					That's the question for the rest of the post. We want promises with errors we can name in
-					the types. Promises get in the way twice. First, the reject track can't be labelled, as we
-					just saw. Second, promises flatten, which we saw back in the resolve procedure. Let's take
-					them one at a time.
-				</p>
-				<p>
 					Gleam is one of those languages. You might have seen me talk about{' '}
 					<ExternalLink href="https://gleam.run">Gleam</ExternalLink> before. It's really good, and
 					I write lots of it. Don't worry if you've never read any; I'll put TypeScript next to the
@@ -654,15 +645,7 @@ export class Railways extends Post {
 					<ExternalLink href="https://github.com/supermacro/neverthrow">neverthrow</ExternalLink>
 					's <code>ResultAsync</code>.
 				</p>
-				<p>
-					So that's the first problem solved: typed errors ride on the fulfilled track, and the
-					reject track is left for disasters.
-				</p>
-				<h2>Promises can't hold promises</h2>
-				<p>
-					Now for the second problem. To keep its types honest, a language also needs to know
-					exactly what a promise will hand back. Flattening makes that harder than it sounds.
-				</p>
+				<p>There is one thing in the way, though.</p>
 				<p>
 					Unlike TypeScript, <code>gleam_javascript</code> does not offer a way to call{' '}
 					<code>.then()</code>, and not even an equivalent-but-differently-named method! Instead the
