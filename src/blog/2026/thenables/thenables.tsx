@@ -572,11 +572,12 @@ export class Thenables extends Post {
 					am. Thank you very much for reading!
 				</p>
 				<br />
-				<div className="text-xs">
+				<div className="text-xs leading-5.5">
 					<p>
 						Thank you to <ExternalLink href="https://x.com/landon_xyz">Landon Boles</ExternalLink>,{' '}
-						<ExternalLink href="https://x.com/fat">Jacob Thornton</ExternalLink> and{' '}
-						<ExternalLink href="https://x.com/amadeus">Amadeus Demarzi</ExternalLink>, who all
+						<ExternalLink href="https://x.com/fat">Jacob Thornton</ExternalLink>,{' '}
+						<ExternalLink href="https://x.com/amadeus">Amadeus Demarzi</ExternalLink>, and{' '}
+						<ExternalLink href="https://x.com/notcnrad">Conrad Crawford</ExternalLink>, who all
 						helped me review a draft of this post.
 					</p>
 				</div>
