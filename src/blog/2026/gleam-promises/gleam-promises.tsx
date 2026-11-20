@@ -1,5 +1,5 @@
 import {stripIndent} from 'common-tags';
-import Link from 'next/link';
+import {Link} from '../../../components/link';
 import {Carried} from '../../../components/diagrams/carried';
 import {ExternalLink} from '../../../components/external-link';
 import {Highlighter} from '../../../components/syntax-highligher';

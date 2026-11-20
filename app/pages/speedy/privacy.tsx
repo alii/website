@@ -1,6 +1,6 @@
-import Head from 'next/head';
-import {Layout} from '../../components/layout';
-import {pageTitle} from '../../ui';
+import {Head} from '../../../src/components/head';
+import {Layout} from '../../../src/components/layout';
+import {pageTitle} from '../../../src/ui';
 
 export default function SpeedyPrivacy() {
 	return (

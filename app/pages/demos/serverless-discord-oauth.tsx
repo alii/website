@@ -1,8 +1,8 @@
 import type {APIUser} from 'discord-api-types/v10';
 import {verify} from 'jsonwebtoken';
-import type {GetServerSideProps} from 'next';
-import Link from 'next/link';
-import {env} from '../../server/env';
+import type {GetServerSideProps} from 'bun:bake';
+import {Link} from '../../../src/components/link';
+import {env} from '../../../src/server/env';
 
 interface Props {
 	readonly user: APIUser | null;
@@ -38,8 +38,8 @@ export default function ServerlessDiscordOAuthDemoPage({user}: Props) {
 	);
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async ctx => {
-	const {token = null} = ctx.req.cookies;
+export const getServerSideProps: GetServerSideProps<Props> = async ({request}) => {
+	const token = new Bun.CookieMap(request.headers.get('cookie') ?? '').get('token');
 
 	if (!token) {
 		return {

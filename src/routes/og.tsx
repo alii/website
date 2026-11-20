@@ -1,10 +1,7 @@
 import {findLargestUsableFontSize, type Font} from '@altano/satori-fit-text';
-import type {NextApiRequest, NextApiResponse, ServerRuntime} from 'next';
 import satori from 'satori';
 import sharp from 'sharp';
-import {posts} from '../../blog/posts';
-
-export const runtime: ServerRuntime = 'nodejs';
+import {posts} from '../blog/posts';
 
 /** Site palette, from globals.css. Warm paper rather than the cold slate we used before. */
 const PAPER = '#faf8f4';
@@ -40,19 +37,18 @@ async function loadGoogleFont(family: string, weight: number) {
 	throw new Error(`failed to load font data for ${family} ${weight}`);
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-	const {slug} = req.query;
+/** `GET /api/og?slug=...`: the Open Graph image of a post. */
+export async function og(request: Request): Promise<Response> {
+	const slug = new URL(request.url).searchParams.get('slug');
 
-	if (typeof slug !== 'string') {
-		res.status(400).send('Missing slug');
-		return;
+	if (slug === null) {
+		return new Response('Missing slug', {status: 400});
 	}
 
 	const post = posts.find(p => p.slug === slug);
 
 	if (!post) {
-		res.status(404).send('Not found');
-		return;
+		return new Response('Not found', {status: 404});
 	}
 
 	const [loraBold, karlaRegular, karlaSemibold] = await Promise.all([
@@ -147,10 +143,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 	const png = await sharp(Buffer.from(svg)).png().toBuffer();
 
-	res.setHeader('Content-Type', 'image/png');
-	res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-	res.statusCode = 200;
-	res.statusMessage = 'OK';
-
-	res.end(png);
+	return new Response(png, {
+		headers: {
+			'Content-Type': 'image/png',
+			'Cache-Control': 'public, max-age=31536000, immutable',
+		},
+	});
 }

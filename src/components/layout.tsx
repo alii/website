@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import Link from 'next/link';
+import {Link} from './link';
 import type {ReactNode} from 'react';
 import {wrap} from '../ui';
 

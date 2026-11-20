@@ -1,5 +1,5 @@
 import {stripIndent} from 'common-tags';
-import Link from 'next/link';
+import {Link} from '../../../../components/link';
 import {Highlighter, Shell} from '../../../../components/syntax-highligher';
 import {Post} from '../../../Post';
 import discordOAuthDashboardImage from './discord-oauth-dashboard.png';
@@ -178,10 +178,7 @@ export class ServerlessDiscordOAuth extends Post {
 					</a>{' '}
 					and registering a new application.
 				</p>
-				<img
-					src={discordOAuthDashboardImage.src}
-					alt="Screenshot of Discord's Developer OAuth page"
-				/>
+				<img src={discordOAuthDashboardImage} alt="Screenshot of Discord's Developer OAuth page" />
 				<ol>
 					<li>
 						Copy and paste your client ID into your <code>oauth.ts</code> file
