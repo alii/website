@@ -20,27 +20,9 @@ export default function RootLayout({children}: {children: ReactNode}) {
 			<meta content="width=device-width, initial-scale=1" name="viewport" />
 			<link rel="icon" href="/favicon.ico" />
 			<link rel="alternate" type="application/rss+xml" title="Alistair Smith" href="/feed.xml" />
-			<link
-				rel="preload"
-				href={karla}
-				as="font"
-				type="font/woff2"
-				crossOrigin="anonymous"
-			/>
-			<link
-				rel="preload"
-				href={lora}
-				as="font"
-				type="font/woff2"
-				crossOrigin="anonymous"
-			/>
-			<link
-				rel="preload"
-				href={iosevka}
-				as="font"
-				type="font/woff2"
-				crossOrigin="anonymous"
-			/>
+			<link rel="preload" href={karla} as="font" type="font/woff2" crossOrigin="anonymous" />
+			<link rel="preload" href={lora} as="font" type="font/woff2" crossOrigin="anonymous" />
+			<link rel="preload" href={iosevka} as="font" type="font/woff2" crossOrigin="anonymous" />
 			<script async src="https://lab.alistair.cloud/latest.js" />
 			{tag && <script async src={`https://www.googletagmanager.com/gtag/js?id=${tag}`} />}
 

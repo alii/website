@@ -42,7 +42,7 @@ export class ZeroKbBlog extends Post {
 					building user interfaces. It handles the view layer of an app and is used to render the
 					UI. Next.js takes this a step further and allows you to write your own view layer to have
 					the first render performed on a server, which allows for a lot of performance and UI
-					optimizations because we can ship back a lot less to the client (foreshadowing).
+					optimisations because we can ship back a lot less to the client (foreshadowing).
 				</p>
 
 				<h2>Runtime JS</h2>

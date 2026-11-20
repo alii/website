@@ -38,7 +38,7 @@ export class ServerlessDiscordOAuth extends Post {
 					which provides up-to-date type definitions for Discord's API (who could've guessed). We'll
 					also need <code>axios</code> (or whatever your favourite http lib is) to make requests to
 					Discord. Additionally, we'll be encoding our user info into a JWT token & using the cookie
-					package to serialize and send cookies down to the client. Finally, we'll use{' '}
+					package to serialise and send cookies down to the client. Finally, we'll use{' '}
 					<code>dayjs</code> for basic date manipulation and <code>pathcat</code> to easily build
 					urls with query params.
 				</p>
@@ -82,7 +82,7 @@ export class ServerlessDiscordOAuth extends Post {
 						// Scopes we want to be able to access as a user
 						const scope = ['identify'].join(' ');
 
-						// URL to redirect to outbound (to request authorization)
+						// URL to redirect to outbound (to request authorisation)
 						const OAUTH_URL = pathcat('https://discord.com/api/oauth2/authorize', {
 							client_id: CLIENT_ID,
 							redirect_uri: REDIRECT_URI,
@@ -151,7 +151,7 @@ export class ServerlessDiscordOAuth extends Post {
 							// encoded into it
 							const token = sign(user, JWT_SECRET, {expiresIn: '24h'});
 
-							// Serialize a cookie and set it
+							// Serialise a cookie and set it
 							const cookie = getSetCookieHeader(token);
 							res.setHeader('Set-Cookie', cookie);
 
@@ -178,10 +178,7 @@ export class ServerlessDiscordOAuth extends Post {
 					</a>{' '}
 					and registering a new application.
 				</p>
-				<img
-					src={discordOAuthDashboardImage.src}
-					alt="Screenshot of Discord's Developer OAuth page"
-				/>
+				<img src={discordOAuthDashboardImage} alt="Screenshot of Discord's Developer OAuth page" />
 				<ol>
 					<li>
 						Copy and paste your client ID into your <code>oauth.ts</code> file

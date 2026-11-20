@@ -1,6 +1,9 @@
-// The page data functions of `bun bake`'s default framework. Bun has no published types for
-// `bun:bake` yet; these follow the Bake RFC (https://github.com/alii/bake-rfc).
+// `bun:bake` and the page data functions of `bun bake`'s default framework. Bun has no published
+// types for either yet; these follow the Bake RFC (https://github.com/alii/bake-rfc).
 declare module 'bun:bake' {
+	/** Returns `config` as it is. `bun bake` reads only `plugins` from bake.config.ts. */
+	export function defineConfig<T extends {plugins?: import('bun').BunPlugin[]}>(config: T): T;
+
 	type Params = Record<string, string | string[]>;
 
 	export type GetStaticPaths = () => Promise<{
@@ -22,8 +25,18 @@ declare module 'bun:bake' {
 	export type Redirect = {destination: string; permanent: boolean};
 }
 
-// A font file imported from code is the URL of its bundled copy.
+// A font or image file imported from code is the URL of its bundled copy.
 declare module '*.woff2' {
+	const url: string;
+	export default url;
+}
+
+declare module '*.png' {
+	const url: string;
+	export default url;
+}
+
+declare module '*.jpeg' {
 	const url: string;
 	export default url;
 }

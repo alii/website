@@ -13,8 +13,19 @@ import {handle as posts} from '../build/dev/javascript/website/routes/api/posts.
 import * as runtime from '../build/dev/javascript/website/next/runtime.mjs';
 import {og} from '../src/routes/og';
 import {apiRoute} from '../src/server/api';
+import {readdirSync} from 'node:fs';
 
-const gleam = (handle: unknown) =>
+const publicDir = `${import.meta.dir}/../public`;
+
+// The files at the top of public/, such as /favicon.ico, as routes: app/pages/[slug].tsx matches
+// every one-segment path before `fetch` sees it.
+const publicFiles = Object.fromEntries(
+	readdirSync(publicDir, {withFileTypes: true})
+		.filter(entry => entry.isFile())
+		.map(entry => [`/${entry.name}`, () => new Response(Bun.file(`${publicDir}/${entry.name}`))]),
+);
+
+const gleam = (handle: Parameters<typeof runtime.api>[0]) =>
 	apiRoute((request, response) => runtime.api(handle, request, response));
 
 const redirect = (destination: string, permanent: boolean) => () =>
@@ -22,6 +33,8 @@ const redirect = (destination: string, permanent: boolean) => () =>
 
 export default {
 	routes: {
+		...publicFiles,
+
 		'/api/contact': gleam(contact),
 		'/api/map': gleam(map),
 		'/api/oauth': gleam(oauth),
@@ -35,6 +48,7 @@ export default {
 		// Were the redirects of next.config.mjs.
 		'/blog': redirect('/', false),
 		'/experiments/*': redirect('/', false),
+		'/webkit-promise-railway': redirect('/thenables', true),
 		'/stats': redirect('/', false),
 		'/outro': redirect('https://www.youtube.com/watch?v=HeF11Av9WuU', true),
 		'/desu': redirect('https://www.youtube.com/watch?v=HotGxCSas6A', true),
@@ -47,11 +61,11 @@ export default {
 		'/live-04-07-2024': redirect('https://youtube.com/watch?v=-XsKN44b7ho', true),
 	},
 
-	// The files of public/, as Next served them. Bake has no folder of static files yet.
+	// The other files of public/, as Next served them. Bake has no folder of static files yet.
 	async fetch(request: Request) {
 		const {pathname} = new URL(request.url);
 		if (!pathname.includes('..')) {
-			const file = Bun.file(`${import.meta.dir}/../public${decodeURIComponent(pathname)}`);
+			const file = Bun.file(`${publicDir}${decodeURIComponent(pathname)}`);
 			if (await file.exists()) return new Response(file);
 		}
 		// The 404 page, with status 404, at the URL that was asked for.

@@ -2,6 +2,7 @@ import type {GetStaticProps} from 'bun:bake';
 import {Link} from '../../src/components/link';
 import {get, useLanyard, type Types} from 'use-lanyard';
 import {posts, sortPosts} from '../../src/blog/posts';
+import {Glyph} from '../../src/components/glyph';
 import {Layout} from '../../src/components/layout';
 import {PostListing} from '../../src/components/post-listing';
 import {env} from '../../src/server/env';
@@ -47,6 +48,8 @@ export default function Home(props: Props) {
 
 	return (
 		<Layout>
+			<Glyph />
+
 			<h1 className="mb-6 text-[15px] font-bold text-stone-950 dark:text-stone-50">
 				Alistair Smith
 			</h1>
@@ -69,8 +72,10 @@ export default function Home(props: Props) {
 				</p>
 
 				<p>
-					I&apos;m interested in language specifications and type systems. I&apos;ve been called a
-					TypeScript wizard at least a few times. It&apos;s nice to meet you.
+					Before that, I built a cloud platform and an AI research app on early language models.
+					I&apos;ve worked on software with 100M+ monthly downloads and lots of open source.
+					I&apos;m interested in interpreters, language design, and excellent products. It&apos;s
+					nice to meet you.
 				</p>
 
 				<p className={muted}>

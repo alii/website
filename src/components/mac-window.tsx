@@ -16,13 +16,13 @@ export function TrafficLights() {
 	return (
 		<>
 			<img
-				src={lightsLight.src}
+				src={lightsLight}
 				alt=""
 				draggable={false}
 				className="h-4 w-auto shrink-0 select-none dark:hidden"
 			/>
 			<img
-				src={lightsDark.src}
+				src={lightsDark}
 				alt=""
 				draggable={false}
 				className="hidden h-4 w-auto shrink-0 select-none dark:block"

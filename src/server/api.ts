@@ -22,7 +22,10 @@ type Handler = (request: ApiRequest, response: ApiResponse) => Promise<unknown>;
 
 /** A `Bun.serve()` route for the default export of a compiled Gleam API route. */
 export function apiRoute(handler: Handler) {
-	return async (request: Request & {params?: Record<string, string>}, server: Bun.Server<unknown>) => {
+	return async (
+		request: Request & {params?: Record<string, string>},
+		server: Bun.Server<unknown>,
+	) => {
 		const url = new URL(request.url);
 		const text = await request.text();
 		let body: unknown = text;

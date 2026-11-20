@@ -5,7 +5,7 @@
 	"author": "Alistair Smith <hi@alistair.sh>",
 	"license": "Apache-2.0",
 	"private": true,
-	"packageManager": "bun@1.0.0",
+	"packageManager": "bun@1.4.4",
 	"scripts": {
 		"dev": "gleam build && bun bake"
 	},
@@ -23,12 +23,13 @@
 		"bun-plugin-tailwind": "^0.1.2",
 		"discord-api-types": "^0.38.53",
 		"eslint": "^9.39.5",
-		"eslint-config-next": "^16.3.2",
+		"eslint-plugin-react-hooks": "^7.1.1",
 		"gifenc": "^1.0.3",
 		"prettier": "^3.9.6",
 		"prettier-plugin-tailwindcss": "^0.8.1",
 		"tailwindcss": "^4.3.3",
-		"typescript": "npm:@typescript/typescript6@6.0.2"
+		"typescript": "npm:@typescript/typescript6@6.0.2",
+		"typescript-eslint": "^8.73.0"
 	},
 	"dependencies": {
 		"@altano/satori-fit-text": "^3.0.0",

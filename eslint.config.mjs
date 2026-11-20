@@ -1,20 +1,18 @@
-import nextCoreWebVitals from 'eslint-config-next/core-web-vitals';
-import nextTypescript from 'eslint-config-next/typescript';
+import reactHooks from 'eslint-plugin-react-hooks';
 import {defineConfig, globalIgnores} from 'eslint/config';
+import tseslint from 'typescript-eslint';
 
 export default defineConfig([
-	globalIgnores(['.next/**', 'out/**', 'build/**', 'tmp/**', 'public/**', 'next-env.d.ts']),
-	nextCoreWebVitals,
-	nextTypescript,
+	globalIgnores(['build/**', 'tmp/**', 'public/**']),
+	tseslint.configs.recommended,
+	reactHooks.configs.flat.recommended,
 	{
 		rules: {
-			'react/no-unescaped-entities': 'off',
-			'@next/next/no-img-element': 'off',
 			'@typescript-eslint/no-namespace': 'off',
 		},
 	},
 	{
-		files: ['*.config.js', 'scripts/**/*.cjs'],
+		files: ['*.config.js'],
 		rules: {
 			'@typescript-eslint/no-require-imports': 'off',
 		},
